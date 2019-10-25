@@ -33,7 +33,7 @@ You should now see the app running on either the ios or android simulator!
 
 This repo uses `jest` for testing. For more information on writing tests, checkout [this article](https://medium.com/react-native-training/learning-to-test-react-native-with-jest-part-1-f782c4e30101).
 
-Every time you commit or push, `husky` will run the jest tests to ensure the app is still functioning as intended.
+Every time you commit or push, `husky` will run the `jest` tests to ensure every aspect of the app is still functioning as intended.
 
 ## Troubleshooting
 
