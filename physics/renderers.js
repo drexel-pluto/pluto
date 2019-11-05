@@ -8,8 +8,8 @@ class Box extends Component {
 
   render() {
     var radius = this.props.size;
-    const x = this.props.body.position.x - radius / 2;
-    const y = this.props.body.position.y - radius / 2;
+    var x = this.props.body.position.x - radius / 2;
+    var y = this.props.body.position.y - radius / 2;
     const angle = this.props.body.angle;
     const id = this.props.id;
     var color = this.props.color;
@@ -17,6 +17,8 @@ class Box extends Component {
 
     if (selected) {
       radius = radius * 1.5;
+      x -= radius * 0.15;
+      y -= radius * 0.15;
       color = "#FF4466";
     }
 
