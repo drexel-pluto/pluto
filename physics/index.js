@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { StatusBar, Dimensions } from "react-native";
+import { StatusBar, Dimensions, Animated } from "react-native";
 import { GameEngine } from "react-native-game-engine";
-import { Physics, CreateBox, MoveBox, CleanBoxes } from "./systems";
+import { Physics, CreateBox, MoveBox, CleanBoxes, HighlightBox } from "./systems";
 import { Box } from "./renderers";
 import Matter from "matter-js";
 import matterAttractors from "matter-attractors";
@@ -71,7 +71,7 @@ export default class RigidBodies extends Component {
       }
 
       for (let i = 0; i<50; i++) {
-        let radius = Matter.Common.random(30,50);;
+        let radius = Matter.Common.random(30,70);
         let item = Matter.Bodies.circle(
           Matter.Common.random(radius / 2,width - radius / 2),
           Matter.Common.random(radius / 2,height - radius / 2),
@@ -100,20 +100,21 @@ export default class RigidBodies extends Component {
           }
         );
         Matter.World.add(world, [item]);
-
+        
         ent[i] = {
           body: item,
-          size: [radius, radius],
+          size: radius,
           color: pickHex("#664391", "#15DAD6"),
           renderer: Box,
-          id: i
+          id: i,
+          selected: false
         };
         
       }
 
       return (
         <GameEngine
-          systems={[Physics, MoveBox, CleanBoxes]}
+          systems={[Physics, MoveBox, CleanBoxes, HighlightBox]}
           entities={ent}
         >
         </GameEngine>

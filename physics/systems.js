@@ -1,4 +1,5 @@
 import { Box } from "./renderers";
+import {Animated} from "react-native";
 import Matter from "matter-js";
 import MatterAttractors from "matter-attractors";
 
@@ -8,6 +9,7 @@ const distance = ([x1, y1], [x2, y2]) =>
 	Math.sqrt(Math.abs(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
 
 const Physics = (state, { touches, time }) => {
+
 	let engine = state["physics"].engine;
 
 	Matter.Engine.update(engine, time.delta);
@@ -19,9 +21,9 @@ const CreateBox = (state, { touches, screen }) => {
 	return state;
 };
 
-const highlightBox = (state,  { touches }) => {
-	touches.filter(t => t.type === "press").forEach(t => {
-		console.log("TEST123");
+const HighlightBox = (state,  { touches }) => {
+	touches.filter(t => t.type == "press").forEach(t => {
+
 		let startPos = [t.event.pageX, t.event.pageY];
 		let boxId = Object.keys(state).find(key => {
 			let body = state[key].body;
@@ -31,7 +33,13 @@ const highlightBox = (state,  { touches }) => {
 		});
 
 		if (boxId) {
-			state[boxId].color = "#FFAAFF"
+			state[boxId].selected = !state[boxId].selected;
+
+			if (state[boxId].selected) {
+				Matter.Body.scale(state[boxId].body, 1.5, 1.5);
+			} else {
+				Matter.Body.scale(state[boxId].body, 2/3, 2/3);
+			}
 		}
 	});
 
@@ -40,7 +48,6 @@ const highlightBox = (state,  { touches }) => {
 
 const MoveBox = (state, { touches }) => {
 	let constraint = state["physics"].constraint;
-
 	//-- Handle start touch
 	let start = touches.find(x => x.type === "start");
 
@@ -54,6 +61,7 @@ const MoveBox = (state, { touches }) => {
 		});
 
 		if (boxId) {
+			let radius = state[boxId].radius;
 			constraint.pointA = { x: startPos[0], y: startPos[1] };
 			constraint.bodyB = state[boxId].body;
 			constraint.pointB = { x: 0, y: 0 };
@@ -93,4 +101,4 @@ const CleanBoxes = (state, { touches, screen }) => {
 	return state;
 };
 
-export { Physics, CreateBox, MoveBox, CleanBoxes };
+export { Physics, CreateBox, MoveBox, CleanBoxes, HighlightBox };
