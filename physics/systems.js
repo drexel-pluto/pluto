@@ -19,6 +19,25 @@ const CreateBox = (state, { touches, screen }) => {
 	return state;
 };
 
+const highlightBox = (state,  { touches }) => {
+	touches.filter(t => t.type === "press").forEach(t => {
+		console.log("TEST123");
+		let startPos = [t.event.pageX, t.event.pageY];
+		let boxId = Object.keys(state).find(key => {
+			let body = state[key].body;
+			return (
+				body && Matter.Bounds.contains(body.bounds, {x: startPos[0], y: startPos[1]})
+			);
+		});
+
+		if (boxId) {
+			state[boxId].color = "#FFAAFF"
+		}
+	});
+
+	return state;
+};
+
 const MoveBox = (state, { touches }) => {
 	let constraint = state["physics"].constraint;
 
@@ -26,7 +45,7 @@ const MoveBox = (state, { touches }) => {
 	let start = touches.find(x => x.type === "start");
 
 	if (start) {
-		let startPos = [start.event.pageX, start.event.pageY - 40];
+		let startPos = [start.event.pageX, start.event.pageY];
 		let boxId = Object.keys(state).find(key => {
 			let body = state[key].body;
 			return (
@@ -46,7 +65,7 @@ const MoveBox = (state, { touches }) => {
 	let move = touches.find(x => x.type === "move");
 
 	if (move) {
-		constraint.pointA = { x: move.event.pageX, y: move.event.pageY - 40 };
+		constraint.pointA = { x: move.event.pageX, y: move.event.pageY };
 	}
 
 	//-- Handle end touch
