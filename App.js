@@ -8,7 +8,6 @@ import Physics from "./physics";
 
 class App extends React.Component {
   render() {
-
     return (
           <Physics />
     );

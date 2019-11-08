@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 
 class Box extends Component {
   constructor(props) {
@@ -10,8 +10,7 @@ class Box extends Component {
     var radius = this.props.size;
     var x = this.props.body.position.x - radius / 2;
     var y = this.props.body.position.y - radius / 2;
-    const angle = this.props.body.angle;
-    const id = this.props.id;
+    const group = this.props.group;
     var color = this.props.color;
     const selected = this.props.selected;
 
@@ -32,7 +31,10 @@ class Box extends Component {
             width: radius,
             height: radius,
             backgroundColor: color,
-            borderRadius: radius
+            borderRadius: radius,
+            shadowColor: color,
+            shadowOpacity: 0.5,
+            shadowRadius: 10,
           }
         }
       >

@@ -45,16 +45,16 @@ export default class RigidBodies extends Component {
         0,
         { frictionAir: 0.021,
           isStatic: true,
-          plugin: {
-            attractors: [
-              function(bodyA, bodyB) {
-                return {
-                  x: (bodyA.position.x - bodyB.position.x) * 1e-6,
-                  y: (bodyA.position.y - bodyB.position.y) * 1e-6,
-                };
-              }
-            ]
-          }
+          // plugin: {
+          //   attractors: [
+          //     function(bodyA, bodyB) {
+          //       return {
+          //         x: (bodyA.position.x - bodyB.position.x) * 1e-6,
+          //         y: (bodyA.position.y - bodyB.position.y) * 1e-6,
+          //       };
+          //     }
+          //   ]
+          // }
         },
       );
       Matter.World.add(world, attractor);
@@ -64,41 +64,65 @@ export default class RigidBodies extends Component {
       let wallB = Matter.Bodies.rectangle(width / 2, height + 20, width, 40, {isStatic: true});
       let wallL = Matter.Bodies.rectangle(-20, height / 2, 40, height, {isStatic: true});
       let wallR = Matter.Bodies.rectangle(width + 20, height / 2, 40, height, {isStatic: true});
-      Matter.World.add(world, [wallT, wallB, wallL, wallR]);
+      let wallNotch = Matter.Bodies.rectangle(width / 2, 0, 190, 70, {isStatic: true});
+      Matter.World.add(world, [wallT, wallB, wallL, wallR, wallNotch]);
   
       ent = {
         physics: { engine: engine, world: world, constraint: constraint }
       }
 
+      let dots = {};
+      let groupPosY = {
+        1: {min: 30, max: height/3 - 30},
+        2: {min: height/3 + 30, max: 2 * height / 3 - 30},
+        3: {min: 2 * height / 3 + 30, max: height - 30}
+      }
+
       for (let i = 0; i<50; i++) {
         let radius = Matter.Common.random(30,70);
+        let group = Math.round(Matter.Common.random(1,3));
         let item = Matter.Bodies.circle(
           Matter.Common.random(radius / 2,width - radius / 2),
-          Matter.Common.random(radius / 2,height - radius / 2),
+          Matter.Common.random(groupPosY[group].min,groupPosY[group].max),
           radius / 2,
           { frictionAir: 0.1,
-            // plugin: {
-            //   attractors: [
-            //     function(bodyA, bodyB) {
-            //       distX = bodyA.position.x - bodyB.position.x;
-            //       distY = bodyA.position.y - bodyB.position.y;
-            //       if (Math.sqrt(distX*distX + distY*distY) > 80) {
-            //         return;
-            //       };
+            plugin: {
+              attractors: [
+                function(bodyA, bodyB) {
+                  
+                  var force;
 
-            //       var force = {
-            //         x: (bodyA.position.x - bodyB.position.x) * 1e-5,
-            //         y: (bodyA.position.y - bodyB.position.y) * 1e-5,
-            //       };
-          
-            //       // apply force to both bodies
-            //       Matter.Body.applyForce(bodyA, bodyA.position, Matter.Vector.neg(force));
-            //       Matter.Body.applyForce(bodyB, bodyB.position, force);
-            //     }
-            //   ]
-            // }
+                  if (dots[bodyA.id].group != dots[bodyB.id].group) {
+                    let distX = bodyA.position.x - bodyB.position.x;
+                    let distY = bodyA.position.y - bodyB.position.y;
+                    let dist = 40 + dots[bodyA.id].radius + dots[bodyB.id].radius;
+                    if (Math.sqrt(distX*distX + distY*distY) > dist) {
+                      return;
+                    }
+                    force = {
+                      x: (bodyA.position.x - bodyB.position.x) * -1e-6,
+                      y: (bodyA.position.y - bodyB.position.y) * -1e-6,
+                    };
+
+                    // apply force to both bodies
+                    Matter.Body.applyForce(bodyB, bodyB.position, force);
+                    
+                  } else {
+                    force = {
+                      x: (bodyA.position.x - bodyB.position.x) * 1e-6,
+                      y: (bodyA.position.y - bodyB.position.y) * 1e-6,
+                    };
+
+                    // apply force to both bodies
+                    Matter.Body.applyForce(bodyA, bodyA.position, Matter.Vector.neg(force));
+                    Matter.Body.applyForce(bodyB, bodyB.position, force);
+                  }
+                }
+              ]
+            }
           }
         );
+        dots[item.id] = {group: group, radius: radius};
         Matter.World.add(world, [item]);
         
         ent[i] = {
@@ -107,7 +131,8 @@ export default class RigidBodies extends Component {
           color: pickHex("#664391", "#15DAD6"),
           renderer: Box,
           id: i,
-          selected: false
+          selected: false,
+          group: group
         };
         
       }
