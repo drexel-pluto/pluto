@@ -4,12 +4,14 @@ import {
 } from 'react-native';
 import { registerRootComponent } from 'expo';
 
-import Physics from "./physics";
+//import Physics from "./physics";
+import SvgSwipe from './SvgSwipe';
 
 class App extends React.Component {
   render() {
     return (
-          <Physics />
+          //<Physics />
+          <SvgSwipe />
     );
   };
 }
