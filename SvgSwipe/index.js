@@ -1,17 +1,30 @@
 import React, { Component } from "react";
 import {Svg, Path} from "react-native-svg";
-import { StatusBar, Dimensions, Animated, PanResponder, View } from "react-native";
+import { StatusBar, Dimensions, Animated, PanResponder, View, Easing } from "react-native";
+
+const AnimatedPath = Animated.createAnimatedComponent(Path);
 
 export default class SvgSwipe extends Component {
-
-    state = {
-        left: 0,
-        top: 0,
-        pressed: false
-    }
-
     constructor(props) {
         super(props);
+        this.state = {
+            left: 0,
+            top: 0,
+            pressed: false,
+            followX: Dimensions.get("window").width / 2
+        }
+    
+        this.animatedValue = new Animated.Value(0);
+        this.animatedFollowX = new Animated.Value(Dimensions.get("window").width / 2);
+    
+        this.animatedValue.addListener((progress) => {
+            this.setState({ left: progress.value });
+        });
+
+        this.animatedFollowX.addListener((progress) => {
+            this.setState({ followX: progress.value });
+        });
+
         this._panResponder = PanResponder.create({
             // Ask to be the responder:
             onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -34,11 +47,30 @@ export default class SvgSwipe extends Component {
                     top: gestureState.moveY,
                     pressed: true
                 })
+
+                Animated.timing(this.animatedFollowX, {
+                    toValue: gestureState.moveX,
+                    easing: Easing.in,
+                    duration: 100,
+                }).start();
+                
             },
             onPanResponderTerminationRequest: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
                 // The user has released all touches while this view is the
                 // responder. This typically means a gesture has succeeded
+                this.animatedValue.setValue(this.state.left)
+                Animated.timing(this.animatedValue, {
+                    toValue: Dimensions.get("window").width / 2,
+                    easing: Easing.elastic(2),
+                    duration: 400,
+                }).start();
+
+                Animated.timing(this.animatedFollowX, {
+                    toValue: Dimensions.get("window").width / 2,
+                    easing: Easing.elastic(2),
+                    duration: 480,
+                }).start();
             },
             onPanResponderTerminate: (evt, gestureState) => {
                 // Another component has become the responder, so this gesture
@@ -69,20 +101,20 @@ export default class SvgSwipe extends Component {
         }
         
         var path = `
-            M${width / 2} -100
-            C${width / 2} ${targetPoint.y - edgeControlDist} ${targetPoint.x} ${targetPoint.y - pointControlDist} ${targetPoint.x} ${targetPoint.y}
-            C${targetPoint.x} ${targetPoint.y + pointControlDist} ${width / 2} ${targetPoint.y + edgeControlDist} ${width / 2} ${height + 100}`
+            M${this.state.followX} -100
+            C${this.state.followX} ${targetPoint.y - edgeControlDist} ${targetPoint.x} ${targetPoint.y - pointControlDist} ${targetPoint.x} ${targetPoint.y}
+            C${targetPoint.x} ${targetPoint.y + pointControlDist} ${this.state.followX} ${targetPoint.y + edgeControlDist} ${this.state.followX} ${height + 100}`
         return(
-            <View height={height} width={width} {...this._panResponder.panHandlers}>
+            <Animated.View height={height} width={width} {...this._panResponder.panHandlers}>
                 <Svg height={height} width={width}>
-                    <Path
+                    <AnimatedPath
                     d={path}
                     fill="none"
                     stroke="red"
                     strokeWidth="4"
                     />
                 </Svg>
-            </View>
+            </Animated.View>
         )
     }
 }
