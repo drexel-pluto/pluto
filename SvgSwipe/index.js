@@ -11,13 +11,13 @@ export default class SvgSwipe extends Component {
             left: 0,
             top: 0,
             pressed: false,
-            followX: Dimensions.get("window").width / 2
+            followX: Dimensions.get("window").width
         }
     
-        this.animatedValue = new Animated.Value(0);
-        this.animatedFollowX = new Animated.Value(Dimensions.get("window").width / 2);
+        this.animatedTouchX = new Animated.Value(Dimensions.get("window").width);
+        this.animatedFollowX = new Animated.Value(Dimensions.get("window").width);
     
-        this.animatedValue.addListener((progress) => {
+        this.animatedTouchX.addListener((progress) => {
             this.setState({ left: progress.value });
         });
 
@@ -36,22 +36,26 @@ export default class SvgSwipe extends Component {
                 // The gesture has started. Show visual feedback so the user knows
                 // what is happening!
                 // gestureState.d{x,y} will be set to zero now
-                console.log(evt);
             },
             onPanResponderMove: (evt, gestureState) => {
                 // The most recent move distance is gestureState.move{X,Y}
                 // The accumulated gesture distance since becoming responder is
                 // gestureState.d{x,y}
                 this.setState({
-                    left: gestureState.moveX,
                     top: gestureState.moveY,
                     pressed: true
                 })
 
+                Animated.timing(this.animatedTouchX, {
+                    toValue: gestureState.moveX,
+                    easing: Easing.in,
+                    duration: 40,
+                }).start();
+
                 Animated.timing(this.animatedFollowX, {
                     toValue: gestureState.moveX,
                     easing: Easing.in,
-                    duration: 100,
+                    duration: 160,
                 }).start();
                 
             },
@@ -59,18 +63,12 @@ export default class SvgSwipe extends Component {
             onPanResponderRelease: (evt, gestureState) => {
                 // The user has released all touches while this view is the
                 // responder. This typically means a gesture has succeeded
-                this.animatedValue.setValue(this.state.left)
-                Animated.timing(this.animatedValue, {
-                    toValue: Dimensions.get("window").width / 2,
-                    easing: Easing.elastic(2),
-                    duration: 400,
-                }).start();
-
-                Animated.timing(this.animatedFollowX, {
-                    toValue: Dimensions.get("window").width / 2,
-                    easing: Easing.elastic(2),
-                    duration: 480,
-                }).start();
+                console.log(gestureState.moveX)
+                if (gestureState.moveX < Dimensions.get("window").width / 2) {
+                    this.animateToLeft();
+                } else {
+                    this.animateToRight();
+                }
             },
             onPanResponderTerminate: (evt, gestureState) => {
                 // Another component has become the responder, so this gesture
@@ -83,6 +81,31 @@ export default class SvgSwipe extends Component {
             },
         });
     }
+
+    animateToLeft() {
+        this.animatedTouchX.setValue(this.state.left)
+        Animated.spring(this.animatedTouchX, {
+            toValue: -5,
+            friction: 5
+        }).start();
+        Animated.spring(this.animatedFollowX, {
+            toValue: -5,
+            friction: 8
+        }).start();
+    }
+
+    animateToRight() {
+        this.animatedTouchX.setValue(this.state.left)
+        Animated.spring(this.animatedTouchX, {
+            toValue: Dimensions.get("window").width + 5,
+            friction: 5
+        }).start();
+        Animated.spring(this.animatedFollowX, {
+            toValue: Dimensions.get("window").width + 5,
+            friction: 8
+        }).start();
+    }
+
     render() {
         const { width, height } = Dimensions.get("window");
         const edgeControlDist = 100;
@@ -95,7 +118,7 @@ export default class SvgSwipe extends Component {
             }
         } else {
             var targetPoint = {
-                x: width / 2,
+                x: width,
                 y: height/ 2
             }
         }
