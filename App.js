@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { StatusBar, Dimensions, Animated, PanResponder, View, Easing } from "react-native";
 import { registerRootComponent } from 'expo';
+import { Svg, Path, Circle } from "react-native-svg";
 
 //import Physics from "./physics";
 import SvgSwipe from './SvgSwipe';
@@ -11,6 +12,13 @@ import SvgSwipe from './SvgSwipe';
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      swipeIndex: 0
+    }
+
+    this.swipes = [];
+    
     this._panResponder = PanResponder.create({
       // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -28,21 +36,55 @@ class App extends React.Component {
         // The accumulated gesture distance since becoming responder is
         // gestureState.d{x,y}
 
-        this.refs.swipe.setTargetPos({
-          x: gestureState.moveX,
+        let leftEdge = this.swipes[this.state.swipeIndex];
+        let rightEdge = this.swipes[this.state.swipeIndex + 1];
+        
+        leftEdge && leftEdge.setTargetPos({
+          x: gestureState.moveX - gestureState.x0,
           y: gestureState.moveY
         })
+
+        rightEdge && rightEdge.setTargetPos({
+          x: gestureState.moveX + (Dimensions.get("window").width - gestureState.x0),
+          y: gestureState.moveY
+        })
+
 
       },
       onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: (evt, gestureState) => {
         // The user has released all touches while this view is the
         // responder. This typically means a gesture has succeeded
-        if (gestureState.moveX < Dimensions.get("window").width / 2) {
-          this.refs.swipe.animateToEdge(true);
-        } else {
-          this.refs.swipe.animateToEdge(false);
+
+        let leftEdge = this.swipes[this.state.swipeIndex];
+        let rightEdge = this.swipes[this.state.swipeIndex + 1];
+        
+        let dist = gestureState.moveX - gestureState.x0;
+        const distMin = 90;
+
+
+        if (Math.abs(dist) < distMin) {
+          // return edges to where they started
+          leftEdge && leftEdge.animateToEdge(true);
+          rightEdge && rightEdge.animateToEdge(false);
+
+        } else if (dist < 0) {
+          //swipe right to left
+          //both edges go left
+          leftEdge && leftEdge.animateToEdge(true);
+          rightEdge && rightEdge.animateToEdge(true);
+          rightEdge && this.setState({swipeIndex: this.state.swipeIndex + 1})
+
+        }else {
+          //swipe left to right
+          //both edges go right
+          leftEdge && leftEdge.animateToEdge(false);
+          rightEdge && rightEdge.animateToEdge(false);
+          leftEdge && this.setState({swipeIndex: this.state.swipeIndex - 1})
+
         }
+
+
       },
       onPanResponderTerminate: (evt, gestureState) => {
         // Another component has become the responder, so this gesture
@@ -56,13 +98,23 @@ class App extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.swipes[0].animateToEdge(true);
+  }
+
 
   render() {
     const { width, height } = Dimensions.get("window");
+
+    svgStyle = {position: "absolute", top: 0, left: 0}
+
     return (
       //<Physics />
-      <View height={height} width={width} {...this._panResponder.panHandlers}>
-        <SvgSwipe ref='swipe'/>
+      <View height={height} width={width} {...this._panResponder.panHandlers}
+        style={{backgroundColor: "blue"}}
+      >
+        <SvgSwipe ref={(input) => {this.swipes[0] = input }} style={svgStyle}/>
+        <SvgSwipe ref={(input) => {this.swipes[1] = input }} style={svgStyle} color="orange"/>
       </View>
     );
   };

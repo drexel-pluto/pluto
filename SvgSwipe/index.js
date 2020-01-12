@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Svg, Path } from "react-native-svg";
 import { StatusBar, Dimensions, Animated, PanResponder, View, Easing } from "react-native";
+import { throwStatement } from "@babel/types";
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 
@@ -8,7 +9,7 @@ export default class SvgSwipe extends Component {
   constructor(props) {
     super(props);
 
-    let width = Dimensions.get("window").width + 5;
+    let width = Dimensions.get("window").width + 12;
 
     this.state = {
       left: width,
@@ -50,23 +51,23 @@ export default class SvgSwipe extends Component {
   }
 
   animateToEdge(toLeft) {
-    edgeX = toLeft ? -5 : Dimensions.get("window").width + 5;
+    edgeX = toLeft ? -12 : Dimensions.get("window").width + 12;
 
     this.animatedTouchX.setValue(this.state.left)
     Animated.spring(this.animatedTouchX, {
       toValue: edgeX,
-      friction: 5
+      friction: 6
     }).start();
     Animated.spring(this.animatedFollowX, {
       toValue: edgeX,
-      friction: 8
+      friction: 9
     }).start();
   }
 
   render() {
     const { width, height } = Dimensions.get("window");
-    const edgeControlDist = 100;
-    const pointControlDist = 140;
+    const edgeControlDist = 160;
+    const pointControlDist = 190;
 
     var targetPoint = {
       x: this.state.left,
@@ -75,7 +76,9 @@ export default class SvgSwipe extends Component {
 
     // move to top edge of screen,
     // draw curve to touch point,
-    // draw curve to end point
+    // draw curve to bottom edge,
+    // draw line to bottom right corner
+    // draw line to top right corner
     var path = `
             M${this.state.followX} -100
             C${this.state.followX} ${targetPoint.y - edgeControlDist}
@@ -84,16 +87,16 @@ export default class SvgSwipe extends Component {
             C${targetPoint.x} ${targetPoint.y + pointControlDist}
               ${this.state.followX} ${targetPoint.y + edgeControlDist}
               ${this.state.followX} ${height + 100}
-            L${width + 5} ${height}
-            L${width + 5} 0
-            `
+            L${width + 12} ${height}
+            L${width + 12} 0
+          `
             
 
     return (
-      <Svg height={height} width={width}>
+      <Svg height={height} width={width} style={this.props.style}>
         <AnimatedPath
           d={path}
-          fill="red"
+          fill={this.props.color || "red"}
           stroke="red"
           strokeWidth="4"
         />
