@@ -31,6 +31,10 @@ export default class SvgSwipe extends Component {
     });
   }
 
+  componentDidMount() {
+    this.animateToEdge(true);
+  }
+
   setTargetPos(pos) {
     this.setState({
       top: pos.y
@@ -63,6 +67,7 @@ export default class SvgSwipe extends Component {
       friction: 9
     }).start();
   }
+
 
   render() {
     const { width, height } = Dimensions.get("window");

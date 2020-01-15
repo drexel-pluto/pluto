@@ -9,7 +9,6 @@ const distance = ([x1, y1], [x2, y2]) =>
 	Math.sqrt(Math.abs(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
 
 const Physics = (state, { touches, time }) => {
-
 	let engine = state["physics"].engine;
 
 	Matter.Engine.update(engine, time.delta);
@@ -17,55 +16,55 @@ const Physics = (state, { touches, time }) => {
 	return state;
 };
 
-const CreateBox = (state, { touches, screen }) => {
-	return state;
-};
+// const CreateBox = (state, { touches, screen }) => {
+// 	return state;
+// };
 
-const HighlightBox = (state,  { touches }) => {
-	touches.filter(t => t.type == "press").forEach(t => {
+// const HighlightBox = (state,  { touches }) => {
+// 	touches.filter(t => t.type == "press").forEach(t => {
 
-		let startPos = [t.event.pageX, t.event.pageY];
-		let boxId = Object.keys(state).find(key => {
-			let body = state[key].body;
-			return (
-				body && Matter.Bounds.contains(body.bounds, {x: startPos[0], y: startPos[1]})
-			);
-		});
+// 		let startPos = [t.event.pageX, t.event.pageY];
+// 		let boxId = Object.keys(state).find(key => {
+// 			let body = state[key].body;
+// 			return (
+// 				body && Matter.Bounds.contains(body.bounds, {x: startPos[0], y: startPos[1]})
+// 			);
+// 		});
 
-		if (boxId) {
-			state[boxId].selected = !state[boxId].selected;
+// 		if (boxId) {
+// 			state[boxId].selected = !state[boxId].selected;
 
-			if (state[boxId].selected) {
-				Matter.Body.scale(state[boxId].body, 1.5, 1.5);
-			} else {
-				Matter.Body.scale(state[boxId].body, 2/3, 2/3);
-			}
-		}
-	});
+// 			if (state[boxId].selected) {
+// 				Matter.Body.scale(state[boxId].body, 1.5, 1.5);
+// 			} else {
+// 				Matter.Body.scale(state[boxId].body, 2/3, 2/3);
+// 			}
+// 		}
+// 	});
 
-	return state;
-};
+// 	return state;
+// };
 
 const MoveBox = (state, { touches }) => {
-	let constraint = state["physics"].constraint;
+	let constraint = state.physics.constraint;
 	//-- Handle start touch
 	let start = touches.find(x => x.type === "start");
 
 	if (start) {
 		let startPos = [start.event.pageX, start.event.pageY];
-		let boxId = Object.keys(state).find(key => {
-			let body = state[key].body;
+		let boxId = Object.keys(state.entities).find(key => {
+			let body = state.entities[key].body;
 			return (
 				body && Matter.Bounds.contains(body.bounds, {x: startPos[0], y: startPos[1]})
 			);
 		});
 
 		if (boxId) {
-			let radius = state[boxId].radius;
+			let radius = state.entities[boxId].radius;
 			constraint.pointA = { x: startPos[0], y: startPos[1] };
-			constraint.bodyB = state[boxId].body;
+			constraint.bodyB = state.entities[boxId].body;
 			constraint.pointB = { x: 0, y: 0 };
-			constraint.angleB = state[boxId].body.angle;
+			constraint.angleB = state.entities[boxId].body.angle;
 		}
 	}
 
@@ -84,6 +83,21 @@ const MoveBox = (state, { touches }) => {
 		constraint.bodyB = null;
 		constraint.pointB = null;
 	}
+};
+
+const SwipeScreen = (state, { touches }) => {
+	let constraint = state["physics"].constraint;
+
+	//-- Handle move touch
+	let move = touches.find(x => x.type === "move");
+
+	if (move) {
+		
+	}
+
+	//-- Handle end touch
+	let end = touches.find(x => x.type === "end");
+
 
 	return state;
 };
@@ -101,4 +115,4 @@ const CleanBoxes = (state, { touches, screen }) => {
 	return state;
 };
 
-export { Physics, CreateBox, MoveBox, CleanBoxes, HighlightBox };
+export { Physics, MoveBox, CleanBoxes, SwipeScreen };

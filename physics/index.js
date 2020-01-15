@@ -1,150 +1,122 @@
 import React, { Component } from "react";
-import { StatusBar, Dimensions, Animated } from "react-native";
-import { GameEngine } from "react-native-game-engine";
-import { Physics, CreateBox, MoveBox, CleanBoxes, HighlightBox } from "./systems";
+import { StatusBar, Dimensions, Animated, Text } from "react-native";
+import { GameLoop } from "react-native-game-engine";
+import { Physics, MoveBox, CleanBoxes, SwipeScreen } from "./systems";
 import { Box } from "./renderers";
 import Matter from "matter-js";
-import matterAttractors from "matter-attractors";
+import SvgSwipe from "../SvgSwipe";
 import Color from 'color';
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
 
 export default class RigidBodies extends Component {
-    constructor() {
-      super();
+  constructor() {
+    super();
+    this.swipes = [];
+
+    this.state = {
+      entities: []
+    }
+  }
+
+  componentDidMount() {
+    const { width, height } = Dimensions.get("window");
+
+    const engine = Matter.Engine.create({ enableSleeping: false });
+    const world = engine.world;
+    world.gravity.y = 0;
+
+    const constraint = Matter.Constraint.create({
+      label: "Drag Constraint",
+      pointA: { x: 0, y: 0 },
+      pointB: { x: 0, y: 0 },
+      length: 0.01,
+      stiffness: 0.1,
+      angularStiffness: 0.1
+    });
+
+    Matter.World.addConstraint(world, constraint);
+
+
+    //add walls
+    let wallT = Matter.Bodies.rectangle(width / 2, -20, width, 40, { isStatic: true });
+    let wallB = Matter.Bodies.rectangle(width / 2, height + 20, width, 40, { isStatic: true });
+    let wallL = Matter.Bodies.rectangle(-20, height / 2, 40, height, { isStatic: true });
+    let wallR = Matter.Bodies.rectangle(width + 20, height / 2, 40, height, { isStatic: true });
+    let wallNotch = Matter.Bodies.rectangle(width / 2, 0, 190, 70, { isStatic: true });
+    Matter.World.add(world, [wallT, wallB, wallL, wallR, wallNotch]);
+
+    this.setState({
+      physics: { 
+        engine: engine, 
+        world: world, 
+        constraint: constraint 
+      }
+    })
+
+    entities = [];
+
+    let dots = {};
+
+    for (let i = 0; i < 50; i++) {
+      let radius = Matter.Common.random(30, 70);
+      let group = Math.round(Matter.Common.random(1, 3));
+      let item = Matter.Bodies.circle(
+        Matter.Common.random(radius / 2, width - radius / 2),
+        Matter.Common.random(radius / 2, height - radius / 2),
+        radius / 2,
+      );
+      dots[item.id] = { group: group, radius: radius };
+      Matter.World.add(world, [item]);
+
+      entities[i] = {
+        body: item,
+        size: radius,
+        color: pickHex("#664391", "#15DAD6"),
+        id: i,
+        group: Math.round(Matter.Common.random(0, 2))
+      };
+
+      this.setState({ entities: entities });
+
     }
 
-    componentDidMount() {
-      Matter.use(matterAttractors);
-    }
-  
-    render() {
-      const { width, height } = Dimensions.get("window");
-      const boxSize = Math.trunc(Math.max(width, height) * 0.075);
-  
-      const engine = Matter.Engine.create({ enableSleeping: false });
-      const world = engine.world;
-      world.gravity.y = 0;
-      //const body = Matter.Bodies.rectangle(width / 2, -1000, boxSize, boxSize, { frictionAir: 0.021 });
-      //const floor = Matter.Bodies.rectangle(width / 2, height - boxSize / 2, width, boxSize, { isStatic: true });
-      const constraint = Matter.Constraint.create({
-        label: "Drag Constraint",
-        pointA: { x: 0, y: 0 },
-        pointB: { x: 0, y: 0 },
-        length: 0.01,
-        stiffness: 0.1,
-        angularStiffness: 0.1
+  }
+
+  render() {
+    return (
+      <GameLoop onUpdate={this.updateHandler}>
+        {this.state.entities.map( (item,i) => 
+          <Box key={i} body={item.body} size={item.size} color={item.color} style={{zIndex: item.group}}/>
+        )}
+        <SvgSwipe ref={(input) => {this.swipes[0] = input }} style={{position: 'absolute', zIndex: 1}}/>
+      </GameLoop>
+    );
+  }
+
+  updateHandler = ({ touches, screen, layout, time }) => {
+    //update physics
+    Matter.Engine.update(this.state.physics.engine, time.delta);
+    
+    MoveBox(this.state, { touches, screen, layout, time });
+
+    this.backgroundDrag(touches);
+    
+    // entity values are getting updated, but this line
+    // is necessary to rerender to show updates
+    this.setState({entities: this.state.entities}); 
+  };
+
+  backgroundDrag = (touches) => {
+    let move = touches.find(x => x.type === "move");
+
+	  if (move) {
+      this.swipes[0].setTargetPos({ 
+        x: move.event.pageX, 
+        y: move.event.pageY 
       });
-  
-      Matter.World.addConstraint(world, constraint);
-
-      // add attractor
-      let attractor = Matter.Bodies.circle(
-        width /2,
-        height / 2,
-        0,
-        { frictionAir: 0.021,
-          isStatic: true,
-          // plugin: {
-          //   attractors: [
-          //     function(bodyA, bodyB) {
-          //       return {
-          //         x: (bodyA.position.x - bodyB.position.x) * 1e-6,
-          //         y: (bodyA.position.y - bodyB.position.y) * 1e-6,
-          //       };
-          //     }
-          //   ]
-          // }
-        },
-      );
-      Matter.World.add(world, attractor);
-      
-      //add walls
-      let wallT = Matter.Bodies.rectangle(width / 2, -20, width, 40, {isStatic: true});
-      let wallB = Matter.Bodies.rectangle(width / 2, height + 20, width, 40, {isStatic: true});
-      let wallL = Matter.Bodies.rectangle(-20, height / 2, 40, height, {isStatic: true});
-      let wallR = Matter.Bodies.rectangle(width + 20, height / 2, 40, height, {isStatic: true});
-      let wallNotch = Matter.Bodies.rectangle(width / 2, 0, 190, 70, {isStatic: true});
-      Matter.World.add(world, [wallT, wallB, wallL, wallR, wallNotch]);
-  
-      ent = {
-        physics: { engine: engine, world: world, constraint: constraint }
-      }
-
-      let dots = {};
-      let groupPosY = {
-        1: {min: 30, max: height/3 - 30},
-        2: {min: height/3 + 30, max: 2 * height / 3 - 30},
-        3: {min: 2 * height / 3 + 30, max: height - 30}
-      }
-
-      for (let i = 0; i<50; i++) {
-        let radius = Matter.Common.random(30,70);
-        let group = Math.round(Matter.Common.random(1,3));
-        let item = Matter.Bodies.circle(
-          Matter.Common.random(radius / 2,width - radius / 2),
-          Matter.Common.random(groupPosY[group].min,groupPosY[group].max),
-          radius / 2,
-          { frictionAir: 0.1,
-            plugin: {
-              attractors: [
-                function(bodyA, bodyB) {
-                  
-                  var force;
-
-                  if (dots[bodyA.id].group != dots[bodyB.id].group) {
-                    let distX = bodyA.position.x - bodyB.position.x;
-                    let distY = bodyA.position.y - bodyB.position.y;
-                    let dist = 40 + dots[bodyA.id].radius + dots[bodyB.id].radius;
-                    if (Math.sqrt(distX*distX + distY*distY) > dist) {
-                      return;
-                    }
-                    force = {
-                      x: (bodyA.position.x - bodyB.position.x) * -1e-6,
-                      y: (bodyA.position.y - bodyB.position.y) * -1e-6,
-                    };
-
-                    // apply force to both bodies
-                    Matter.Body.applyForce(bodyB, bodyB.position, force);
-                    
-                  } else {
-                    force = {
-                      x: (bodyA.position.x - bodyB.position.x) * 1e-6,
-                      y: (bodyA.position.y - bodyB.position.y) * 1e-6,
-                    };
-
-                    // apply force to both bodies
-                    Matter.Body.applyForce(bodyA, bodyA.position, Matter.Vector.neg(force));
-                    Matter.Body.applyForce(bodyB, bodyB.position, force);
-                  }
-                }
-              ]
-            }
-          }
-        );
-        dots[item.id] = {group: group, radius: radius};
-        Matter.World.add(world, [item]);
-        
-        ent[i] = {
-          body: item,
-          size: radius,
-          color: pickHex("#664391", "#15DAD6"),
-          renderer: Box,
-          id: i,
-          selected: false,
-          group: group
-        };
-        
-      }
-
-      return (
-        <GameEngine
-          systems={[Physics, MoveBox, CleanBoxes, HighlightBox]}
-          entities={ent}
-        >
-        </GameEngine>
-      );
-    }
+	  }
+  }
 }
 
 function pickHex(color1, color2) {
