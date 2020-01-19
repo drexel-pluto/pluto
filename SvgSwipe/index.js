@@ -32,7 +32,7 @@ export default class SvgSwipe extends Component {
   }
 
   componentDidMount() {
-    this.animateToEdge(true);
+    // this.animateToEdge(true);
   }
 
   setTargetPos(pos) {

@@ -2,13 +2,12 @@
   "expo": {
     "name": "pluto",
     "slug": "pluto",
-    "privacy": "public",
+    "privacy": "unlisted",
     "sdkVersion": "35.0.0",
     "platforms": [
-      "ios",
-      "android"
+      "ios"
     ],
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -23,11 +22,8 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.pluto.pluto",
+      "bundleIdentifier": "io.plutosocial.pluto",
       "supportsTablet": false
-    },
-    "android": {
-      "package": "com.pluto.pluto"
     }
   }
 }

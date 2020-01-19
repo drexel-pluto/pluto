@@ -39,19 +39,24 @@ export default class RigidBodies extends Component {
 
 
     //add walls
-    let wallT = Matter.Bodies.rectangle(width / 2, -20, width, 40, { isStatic: true });
-    let wallB = Matter.Bodies.rectangle(width / 2, height + 20, width, 40, { isStatic: true });
-    let wallL = Matter.Bodies.rectangle(-20, height / 2, 40, height, { isStatic: true });
-    let wallR = Matter.Bodies.rectangle(width + 20, height / 2, 40, height, { isStatic: true });
-    let wallNotch = Matter.Bodies.rectangle(width / 2, 0, 190, 70, { isStatic: true });
-    Matter.World.add(world, [wallT, wallB, wallL, wallR, wallNotch]);
+    // let wallT = Matter.Bodies.rectangle(width / 2, -20, width, 40, { isStatic: true });
+    // let wallB = Matter.Bodies.rectangle(width / 2, height + 20, width, 40, { isStatic: true });
+    // let wallL = Matter.Bodies.rectangle(-20, height / 2, 40, height, { isStatic: true });
+    // let wallR = Matter.Bodies.rectangle(width + 20, height / 2, 40, height, { isStatic: true });
+    // let wallNotch = Matter.Bodies.rectangle(width / 2, 0, 190, 70, { isStatic: true });
+    // Matter.World.add(world, [wallT, wallB, wallL, wallR, wallNotch]);
 
     this.setState({
       physics: { 
         engine: engine, 
         world: world, 
         constraint: constraint 
-      }
+      },
+      swipeTouch: {
+        active: false,
+        x: 0
+      },
+      swipeIndex: 0
     })
 
     entities = [];
@@ -90,6 +95,8 @@ export default class RigidBodies extends Component {
           <Box key={i} body={item.body} size={item.size} color={item.color} style={{zIndex: item.group}}/>
         )}
         <SvgSwipe ref={(input) => {this.swipes[0] = input }} style={{position: 'absolute', zIndex: 1}}/>
+        <SvgSwipe ref={(input) => {this.swipes[1] = input }} style={{position: 'absolute', zIndex: 2}} color="yellow"/>
+        <SvgSwipe ref={(input) => {this.swipes[2] = input }} style={{position: 'absolute', zIndex: 3}}/>
       </GameLoop>
     );
   }
@@ -108,13 +115,63 @@ export default class RigidBodies extends Component {
   };
 
   backgroundDrag = (touches) => {
+    const { width, height } = Dimensions.get("window");
+
+    let start = touches.find(x => x.type === "start");
+
+    if (start && start.backgroundTarget) {
+      this.setState({
+        swipeTouch: {
+          active: true,
+          x: start.event.pageX
+        }
+      })
+	  }
+    
     let move = touches.find(x => x.type === "move");
 
-	  if (move) {
-      this.swipes[0].setTargetPos({ 
-        x: move.event.pageX, 
-        y: move.event.pageY 
+    let left = this.swipes[this.state.swipeIndex];
+    let right = this.swipes[this.state.swipeIndex + 1];
+
+
+	  if (move && this.state.swipeTouch.active) {
+      left && left.setTargetPos({ 
+        x: move.event.pageX - this.state.swipeTouch.x - 12, 
+        y: move.event.pageY
       });
+      right && right.setTargetPos({ 
+        x: move.event.pageX - this.state.swipeTouch.x + width + 12, 
+        y: move.event.pageY
+      });
+    }
+    
+    let end = touches.find(x => x.type === "end");
+
+	  if (end && this.state.swipeTouch.active) {
+      let dist = end.event.pageX - this.state.swipeTouch.x;
+      let threshold = width / 2
+
+      if (Math.abs(dist) < threshold) {
+        left && left.animateToEdge(true);
+        right && right.animateToEdge(false);
+      } else if (dist > 0) {
+        left && left.animateToEdge(false);
+        right && right.animateToEdge(false);
+        if (this.state.swipeIndex >= 0)
+          this.setState({swipeIndex: this.state.swipeIndex - 1});
+      } else {
+        left && left.animateToEdge(true);
+        right && right.animateToEdge(true);
+        if (this.state.swipeIndex < this.swipes.length - 2);
+        this.setState({swipeIndex: this.state.swipeIndex + 1});
+      }
+
+      this.setState({
+        swipeTouch: {
+          active: false,
+          x: 0,
+        }
+      })
 	  }
   }
 }

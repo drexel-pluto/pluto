@@ -16,35 +16,6 @@ const Physics = (state, { touches, time }) => {
 	return state;
 };
 
-// const CreateBox = (state, { touches, screen }) => {
-// 	return state;
-// };
-
-// const HighlightBox = (state,  { touches }) => {
-// 	touches.filter(t => t.type == "press").forEach(t => {
-
-// 		let startPos = [t.event.pageX, t.event.pageY];
-// 		let boxId = Object.keys(state).find(key => {
-// 			let body = state[key].body;
-// 			return (
-// 				body && Matter.Bounds.contains(body.bounds, {x: startPos[0], y: startPos[1]})
-// 			);
-// 		});
-
-// 		if (boxId) {
-// 			state[boxId].selected = !state[boxId].selected;
-
-// 			if (state[boxId].selected) {
-// 				Matter.Body.scale(state[boxId].body, 1.5, 1.5);
-// 			} else {
-// 				Matter.Body.scale(state[boxId].body, 2/3, 2/3);
-// 			}
-// 		}
-// 	});
-
-// 	return state;
-// };
-
 const MoveBox = (state, { touches }) => {
 	let constraint = state.physics.constraint;
 	//-- Handle start touch
@@ -57,7 +28,7 @@ const MoveBox = (state, { touches }) => {
 			return (
 				body && Matter.Bounds.contains(body.bounds, {x: startPos[0], y: startPos[1]})
 			);
-		});
+		}); 
 
 		if (boxId) {
 			let radius = state.entities[boxId].radius;
@@ -65,6 +36,9 @@ const MoveBox = (state, { touches }) => {
 			constraint.bodyB = state.entities[boxId].body;
 			constraint.pointB = { x: 0, y: 0 };
 			constraint.angleB = state.entities[boxId].body.angle;
+			start.backgroundTarget = false;
+		} else {
+			start.backgroundTarget = true;
 		}
 	}
 

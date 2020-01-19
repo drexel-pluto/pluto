@@ -6,7 +6,7 @@ import { StatusBar, Dimensions, Animated, PanResponder, View, Easing } from "rea
 import { registerRootComponent } from 'expo';
 import { Svg, Path, Circle } from "react-native-svg";
 
-import Physics from "./physics/index_old";
+import Physics from "./physics/index";
 import SvgSwipe from './SvgSwipe';
 
 class App extends React.Component {
@@ -110,12 +110,6 @@ class App extends React.Component {
 
     return (
       <Physics />
-      // <View height={height} width={width} {...this._panResponder.panHandlers}
-      //   style={{backgroundColor: "blue"}}
-      // >
-      //   <SvgSwipe ref={(input) => {this.swipes[0] = input }} style={svgStyle}/>
-      //   <SvgSwipe ref={(input) => {this.swipes[1] = input }} style={svgStyle} color="orange"/>
-      // </View>
     );
   };
 }
