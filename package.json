@@ -1,17 +1,23 @@
 {
-  "name": "circles",
-  "version": "0.0.1",
-  "private": true,
+  "main": "index.js",
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
-    "test": "jest",
-    "lint": "eslint ."
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
   },
   "dependencies": {
-    "react": "16.9.0",
-    "react-native": "0.61.2"
+    "color": "^3.1.2",
+    "expo": "^35.0.0",
+    "matter-attractors": "^0.1.6",
+    "matter-js": "^0.14.2",
+    "react": "16.8.3",
+    "react-dom": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-game-engine": "^0.12.3",
+    "react-native-svg": "9.9.5",
+    "react-native-web": "^0.11.7"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -25,7 +31,6 @@
     "jest-serializer-enzyme": "^1.0.0",
     "metro-react-native-babel-preset": "^0.56.3",
     "react-addons-test-utils": "^15.6.2",
-    "react-dom": "^16.11.0",
     "react-test-renderer": "16.9.0"
   },
   "engines": {
@@ -34,11 +39,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm test"
-    }
   }
 }

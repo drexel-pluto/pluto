@@ -37,7 +37,5 @@ Every time you commit or push, `husky` will run the `jest` tests to ensure every
 
 ## Troubleshooting
 
-If you are getting an error about incompatible versions of your node and yarn, try `brew upgrade node` and `brew upgrade yarn`. If that doesn't help try install nvm and `nvm install node`
-
-https://github.com/nvm-sh/nvm
+`#TODO`
 

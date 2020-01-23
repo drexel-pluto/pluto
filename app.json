@@ -1,4 +1,29 @@
 {
-  "name": "circles",
-  "displayName": "circles"
+  "expo": {
+    "name": "pluto",
+    "slug": "pluto",
+    "privacy": "unlisted",
+    "sdkVersion": "35.0.0",
+    "platforms": [
+      "ios"
+    ],
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "io.plutosocial.pluto",
+      "supportsTablet": false
+    }
+  }
 }
