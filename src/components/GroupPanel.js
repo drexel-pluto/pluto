@@ -16,7 +16,7 @@ export default GroupPanel = props => {
 const styles = StyleSheet.create({
   groupPanel: {
     width: "100%",
-    height: Mixins.scaleSize(150),
+    height: 150,
     backgroundColor: Colors.GRAY_LIGHT
   },
   groupPanel__title: {},
