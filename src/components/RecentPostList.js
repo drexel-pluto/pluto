@@ -7,9 +7,7 @@ export default RecentPostList = props => {
   return (
     <FlatList
       data={props.data}
-      renderItem={({ item }) => (
-        <PostTeaser image={item.image} content={item.content} />
-      )}
+      renderItem={({ item }) => <PostTeaser content={item.content} />}
       keyExtractor={item => item.id}
       horizontal={true}
     />

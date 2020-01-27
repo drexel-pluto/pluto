@@ -13,7 +13,8 @@ export default Tag = props => {
 
 const styles = StyleSheet.create({
   tag: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     marginRight: 20,
     backgroundColor: Colors.GRAY_LIGHT
   }

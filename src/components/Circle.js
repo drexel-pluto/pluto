@@ -1,23 +1,23 @@
 import React from "react";
-import { TouchableHighlight, Image, StyleSheet } from "react-native";
+import { TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Colors, Typography, Layouts, Mixins } from "../styles/index";
 
 export default Circle = props => {
-  const { id, image } = props;
+  const { user } = props;
   return (
-    <TouchableHighlight style={styles.circle}>
+    <TouchableOpacity style={styles.circle}>
       <Image
         style={styles.circle__image}
         source={
-          image
-            ? { uri: image }
+          user.image
+            ? { uri: user.image }
             : { uri: "https://picsum.photos/id/237/300/300" }
         }
       />
       {
         // possibly add a name or id that is not visible
       }
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 

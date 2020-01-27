@@ -9,7 +9,7 @@ export default PostFeed = props => {
       style={styles.postFeed}
       data={props.data}
       renderItem={({ item }) => (
-        <PostTeaser image={item.image} content={item.content} isFull={true} />
+        <PostTeaser content={item.content} isFull={true} />
       )}
       keyExtractor={item => item.id}
     />

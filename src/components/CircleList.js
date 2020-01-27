@@ -7,7 +7,7 @@ export default CircleList = props => {
   return (
     <FlatList
       data={props.data}
-      renderItem={({ item }) => <Circle image={item.image} />}
+      renderItem={({ item }) => <Circle user={item.user_data} />}
       keyExtractor={item => item.id}
       horizontal={true}
     />
