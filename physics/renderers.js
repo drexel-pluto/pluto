@@ -24,6 +24,7 @@ class Box extends Component {
             height: radius,
             backgroundColor: color,
             borderRadius: radius,
+            opacity: this.props.isVisible ? 1: 0
           }, this.props.style]
         }
       >

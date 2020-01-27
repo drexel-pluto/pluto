@@ -9,18 +9,18 @@ export default class SvgSwipe extends Component {
   constructor(props) {
     super(props);
 
-    let width = Dimensions.get("window").width + 12;
-
+    let width = Dimensions.get("window").width;
+    let x = this.props.isLeft ? 0 : width;
     this.state = {
-      left: width,
+      left: x,
       top: 0,
       pressed: false,
-      followX: width
+      followX: x
     }
 
     // setup animated variables
-    this.animatedTouchX = new Animated.Value(width);
-    this.animatedFollowX = new Animated.Value(width);
+    this.animatedTouchX = new Animated.Value(x);
+    this.animatedFollowX = new Animated.Value(x);
 
     // link animated variables to state variables
     this.animatedTouchX.addListener((x) => {
@@ -54,18 +54,32 @@ export default class SvgSwipe extends Component {
 
   }
 
-  animateToEdge(toLeft) {
+  animateToEdge(toLeft, callback = ()=>{}) {
     edgeX = toLeft ? -12 : Dimensions.get("window").width + 12;
 
     this.animatedTouchX.setValue(this.state.left)
-    Animated.spring(this.animatedTouchX, {
+    Animated.timing(this.animatedTouchX, {
       toValue: edgeX,
-      friction: 6
+      easing: Easing.in,
+      duration: 40,
     }).start();
-    Animated.spring(this.animatedFollowX, {
+    Animated.timing(this.animatedFollowX, {
       toValue: edgeX,
-      friction: 9
-    }).start();
+      easing: Easing.in,
+      duration: 160,
+    }).start(callback);
+  }
+
+  reset() {
+    let width = Dimensions.get("window").width;
+    let x = this.props.isLeft ? 0 : width;
+    this.setState({
+      left: x,
+      followX: x
+    })
+
+    this.animatedTouchX.setValue(x);
+    this.animatedFollowX.setValue(x);
   }
 
 
@@ -84,6 +98,8 @@ export default class SvgSwipe extends Component {
     // draw curve to bottom edge,
     // draw line to bottom right corner
     // draw line to top right corner
+    const OriginX = this.props.isLeft ? 0 : width;
+
     var path = `
             M${this.state.followX} -100
             C${this.state.followX} ${targetPoint.y - edgeControlDist}
@@ -92,18 +108,14 @@ export default class SvgSwipe extends Component {
             C${targetPoint.x} ${targetPoint.y + pointControlDist}
               ${this.state.followX} ${targetPoint.y + edgeControlDist}
               ${this.state.followX} ${height + 100}
-            L${width + 12} ${height}
-            L${width + 12} 0
+            L${OriginX} ${height}
+            L${OriginX} 0
           `
-            
-
     return (
       <Svg height={height} width={width} style={this.props.style}>
         <AnimatedPath
           d={path}
           fill={this.props.color || "red"}
-          stroke="red"
-          strokeWidth="4"
         />
       </Svg>
     )

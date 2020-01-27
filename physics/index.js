@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { StatusBar, Dimensions, Animated, Text } from "react-native";
+import { Dimensions } from "react-native";
 import { GameLoop } from "react-native-game-engine";
-import { Physics, MoveBox, CleanBoxes, SwipeScreen } from "./systems";
+import { MoveBox } from "./systems";
 import { Box } from "./renderers";
 import Matter from "matter-js";
-import SvgSwipe from "../SvgSwipe";
+import SvgSwipe from "./SvgSwipe";
+import MatterAttractors from "matter-attractors";
 import Color from 'color';
 
 Matter.Common.isElement = () => false; //-- Overriding this function because the original references HTMLElement
@@ -12,19 +13,26 @@ Matter.Common.isElement = () => false; //-- Overriding this function because the
 export default class RigidBodies extends Component {
   constructor() {
     super();
-    this.swipes = [];
+    this.swipes = {};
 
     this.state = {
-      entities: []
+      entities: [],
+      colors: {
+        bg: "white",
+        swipes: "salmon"
+      }
     }
   }
 
   componentDidMount() {
+    Matter.use(MatterAttractors);
     const { width, height } = Dimensions.get("window");
 
     const engine = Matter.Engine.create({ enableSleeping: false });
     const world = engine.world;
     world.gravity.y = 0;
+
+
 
     const constraint = Matter.Constraint.create({
       label: "Drag Constraint",
@@ -36,15 +44,26 @@ export default class RigidBodies extends Component {
     });
 
     Matter.World.addConstraint(world, constraint);
-
-
-    //add walls
-    // let wallT = Matter.Bodies.rectangle(width / 2, -20, width, 40, { isStatic: true });
-    // let wallB = Matter.Bodies.rectangle(width / 2, height + 20, width, 40, { isStatic: true });
-    // let wallL = Matter.Bodies.rectangle(-20, height / 2, 40, height, { isStatic: true });
-    // let wallR = Matter.Bodies.rectangle(width + 20, height / 2, 40, height, { isStatic: true });
-    // let wallNotch = Matter.Bodies.rectangle(width / 2, 0, 190, 70, { isStatic: true });
-    // Matter.World.add(world, [wallT, wallB, wallL, wallR, wallNotch]);
+    
+    let attractor = Matter.Bodies.circle(
+      width /2,
+      height / 2,
+      0,
+      { frictionAir: 0,
+        isStatic: true,
+        plugin: {
+          attractors: [
+            function(bodyA, bodyB) {
+              return {
+                x: (bodyA.position.x - bodyB.position.x) * 6e-7,
+                y: (bodyA.position.y - bodyB.position.y) * 6e-7,
+              };
+            }
+          ]
+        }
+      },
+    );
+    Matter.World.add(world, attractor);
 
     this.setState({
       physics: { 
@@ -56,7 +75,8 @@ export default class RigidBodies extends Component {
         active: false,
         x: 0
       },
-      swipeIndex: 0
+      swipeIndex: 0,
+      numGroups: 3,
     })
 
     entities = [];
@@ -65,13 +85,13 @@ export default class RigidBodies extends Component {
 
     for (let i = 0; i < 50; i++) {
       let radius = Matter.Common.random(30, 70);
-      let group = Math.round(Matter.Common.random(1, 3));
+      let groups = [Math.round(Matter.Common.random(1, 3)),Math.round(Matter.Common.random(1, 3)), 0];
       let item = Matter.Bodies.circle(
         Matter.Common.random(radius / 2, width - radius / 2),
         Matter.Common.random(radius / 2, height - radius / 2),
         radius / 2,
       );
-      dots[item.id] = { group: group, radius: radius };
+      dots[item.id] = { groups: groups, radius: radius };
       Matter.World.add(world, [item]);
 
       entities[i] = {
@@ -79,24 +99,25 @@ export default class RigidBodies extends Component {
         size: radius,
         color: pickHex("#664391", "#15DAD6"),
         id: i,
-        group: Math.round(Matter.Common.random(0, 2))
+        groups: groups,
+        isVisible: true,
+        zIndex: 0,
       };
 
-      this.setState({ entities: entities });
-
+      
     }
-
+    this.setState({ entities: entities });
+    
   }
 
   render() {
     return (
-      <GameLoop onUpdate={this.updateHandler}>
+      <GameLoop onUpdate={this.updateHandler} style={{backgroundColor: this.state.colors.bg}}>
         {this.state.entities.map( (item,i) => 
-          <Box key={i} body={item.body} size={item.size} color={item.color} style={{zIndex: item.group}}/>
+          <Box key={i} body={item.body} size={item.size} color={item.color} style={{zIndex: item.zIndex}} isVisible={item.isVisible}/>
         )}
-        <SvgSwipe ref={(input) => {this.swipes[0] = input }} style={{position: 'absolute', zIndex: 1}}/>
-        <SvgSwipe ref={(input) => {this.swipes[1] = input }} style={{position: 'absolute', zIndex: 2}} color="yellow"/>
-        <SvgSwipe ref={(input) => {this.swipes[2] = input }} style={{position: 'absolute', zIndex: 3}}/>
+        <SvgSwipe ref={(input) => {this.swipes.left = input }} style={{position: 'absolute', zIndex: 1}} isLeft={true} color={this.state.colors.swipes}/>
+        <SvgSwipe ref={(input) => {this.swipes.right = input }} style={{position: 'absolute', zIndex: 3}} isLeft={false} color={this.state.colors.swipes}/>
       </GameLoop>
     );
   }
@@ -130,41 +151,70 @@ export default class RigidBodies extends Component {
     
     let move = touches.find(x => x.type === "move");
 
-    let left = this.swipes[this.state.swipeIndex];
-    let right = this.swipes[this.state.swipeIndex + 1];
-
-
 	  if (move && this.state.swipeTouch.active) {
-      left && left.setTargetPos({ 
-        x: move.event.pageX - this.state.swipeTouch.x - 12, 
-        y: move.event.pageY
-      });
-      right && right.setTargetPos({ 
-        x: move.event.pageX - this.state.swipeTouch.x + width + 12, 
-        y: move.event.pageY
-      });
+      let leftActive = this.state.swipeIndex > 0;
+      let rightActive = this.state.swipeIndex < this.state.numGroups - 1;
+
+      if (leftActive) {
+        this.swipes.left.setTargetPos({ 
+          x: move.event.pageX - this.state.swipeTouch.x, 
+          y: move.event.pageY
+        });
+      }
+      if (rightActive) {
+        this.swipes.right.setTargetPos({ 
+          x: move.event.pageX - this.state.swipeTouch.x + width, 
+          y: move.event.pageY
+        });
+      }
+
+      if (move.event.pageX - this.state.swipeTouch.x > 0) {
+        this.state.entities.forEach(element => {
+          if (element.isVisible && element.groups.includes(this.state.swipeIndex - 1)) {
+            element.zIndex = 2;
+          } else {
+            element.zIndex = 0;
+          }
+        }); 
+      } else {
+        this.state.entities.forEach(element => {
+          if (element.isVisible && element.groups.includes(this.state.swipeIndex + 1)) {
+            element.zIndex = 4;
+          } else {
+            element.zIndex = 0;
+          }
+        });
+      }
     }
     
     let end = touches.find(x => x.type === "end");
 
 	  if (end && this.state.swipeTouch.active) {
       let dist = end.event.pageX - this.state.swipeTouch.x;
-      let threshold = width / 2
+      let threshold = width / 2;
 
       if (Math.abs(dist) < threshold) {
-        left && left.animateToEdge(true);
-        right && right.animateToEdge(false);
+        this.swipes.left.animateToEdge(true);
+        this.swipes.right.animateToEdge(false);
       } else if (dist > 0) {
-        left && left.animateToEdge(false);
-        right && right.animateToEdge(false);
-        if (this.state.swipeIndex >= 0)
-          this.setState({swipeIndex: this.state.swipeIndex - 1});
+        if (this.state.swipeIndex > 0) {
+          this.swipes.left.animateToEdge(false, () => this.doneAnim(this.state.swipeIndex - 1));
+          this.swipes.right.animateToEdge(false)
+        } else {
+          this.swipes.left.animateToEdge(true);
+          this.swipes.right.animateToEdge(false);
+        }
+
       } else {
-        left && left.animateToEdge(true);
-        right && right.animateToEdge(true);
-        if (this.state.swipeIndex < this.swipes.length - 2);
-        this.setState({swipeIndex: this.state.swipeIndex + 1});
+        if (this.state.swipeIndex < this.state.numGroups - 1) {
+          this.swipes.left.animateToEdge(true)
+          this.swipes.right.animateToEdge(true, () => this.doneAnim(this.state.swipeIndex + 1));
+        } else {
+          this.swipes.left.animateToEdge(true);
+          this.swipes.right.animateToEdge(false);
+        }
       }
+
 
       this.setState({
         swipeTouch: {
@@ -173,6 +223,38 @@ export default class RigidBodies extends Component {
         }
       })
 	  }
+  }
+
+  doneAnim(swipeIndex) {
+    this.swipes.left.reset();
+    this.swipes.right.reset();
+    this.setState({
+      colors: {
+        bg: this.state.colors.swipes,
+        swipes: this.state.colors.bg
+      }
+    })
+    this.setSwipeIndex(swipeIndex);
+  }
+
+  setSwipeIndex(index) {
+    let world = this.state.physics.world;
+    const { width, height } = Dimensions.get("window");
+    const xPos = index > this.state.swipeIndex ? width + 200 : -200;
+
+    this.state.entities.forEach(element => {
+      element.zIndex = 4;
+      if(!element.isVisible && element.groups.includes(index)) {
+        Matter.World.add(world, [element.body]);
+        Matter.Body.setPosition(element.body, {x: xPos, y: height / 2});
+        element.isVisible = true;
+      } else if (element.isVisible && !element.groups.includes(index)) {
+        Matter.World.remove(world, [element.body]);
+        element.isVisible = false;
+      }
+    });
+
+    this.setState({swipeIndex: index, entities: this.state.entities});
   }
 }
 
