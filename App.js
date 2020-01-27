@@ -1,6 +1,8 @@
 import React from "react";
 import { registerRootComponent } from "expo";
 import { SafeAreaView, StyleSheet } from "react-native";
+import {Provider} from 'react-redux';
+import store from './src/redux/store';
 import { Colors, Typography, Layouts, Mixins } from "./src/styles/index";
 import Home from "./src/screens/Home";
 import GroupFeed from "./src/screens/GroupFeed";
@@ -15,6 +17,7 @@ import AddPostPermission from "./src/screens/AddPostPermission";
 class App extends React.Component {
   render() {
     return (
+      <Provider store={store}>
       <SafeAreaView style={Layouts.FLEX_CONTAINER}>
         <Home />
         {/* <GroupFeed /> */}
@@ -26,6 +29,7 @@ class App extends React.Component {
         {/* <AddPost /> */}
         {/* <AddPostPermission /> */}
       </SafeAreaView>
+      </Provider>
     );
   }
 }

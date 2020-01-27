@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "justifyContent": "space-between",
+        },
+        Object {
+          "flex": 1,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#dbdbdb",
+          "height": 60,
+          "width": "100%",
+        }
+      }
+    >
+      <Text>
+        Screen Header: navigation, icons
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#adadad",
+          "flexGrow": 1,
+        }
+      }
+    >
+      <Text>
+        Circle container
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#dbdbdb",
+          "height": 150,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {},
+            Object {
+              "fontSize": 48,
+              "fontWeight": "700",
+            },
+          ]
+        }
+      >
+        Group Title
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {},
+          ]
+        }
+      >
+        Updates from group
+      </Text>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
