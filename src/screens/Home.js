@@ -10,7 +10,6 @@ class Home extends React.Component {
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
         <ScreenHeader />
-        <Circle />
         <GroupPanel />
       </View>
     );

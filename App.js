@@ -5,6 +5,8 @@ import { Colors, Typography, Layouts, Mixins } from "./src/styles/index";
 import Home from "./src/screens/Home";
 import GroupFeed from "./src/screens/GroupFeed";
 import Post from "./src/screens/Post";
+import Profile from "./src/screens/Profile";
+import AddFriend from "./src/screens/AddFriend";
 
 class App extends React.Component {
   render() {
@@ -12,7 +14,9 @@ class App extends React.Component {
       <SafeAreaView style={Layouts.FLEX_CONTAINER}>
         {/* <Home /> */}
         {/* <GroupFeed /> */}
-        <Post />
+        {/* <Post /> */}
+        {/* <Profile /> */}
+        <AddFriend />
       </SafeAreaView>
     );
   }

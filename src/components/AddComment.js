@@ -1,10 +1,20 @@
 import React from "react";
-import { View, Input, TouchableHighlight, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Input,
+  TouchableHighlight,
+  StyleSheet
+} from "react-native";
 import { Colors, Typography, Layouts, Mixins } from "../styles/index";
 
 class AddComment extends React.Component {
   render() {
-    return <View style={styles.addComment}></View>;
+    return (
+      <View style={styles.addComment}>
+        <Text>add comment</Text>
+      </View>
+    );
   }
 }
 
