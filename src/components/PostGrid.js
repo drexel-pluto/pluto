@@ -1,12 +1,13 @@
 import React from "react";
 import { View, FlatList, Text, StyleSheet } from "react-native";
 import { Colors, Typography, Layouts, Mixins } from "../styles/index";
+import PostGridItem from "./PostGridItem";
 
 class PostGrid extends React.Component {
   render() {
     return (
       <View style={styles.postGrid}>
-        <Text>Post Gried - Flatlist</Text>
+        <Text>Post Grid - Flatlist</Text>
       </View>
     );
   }

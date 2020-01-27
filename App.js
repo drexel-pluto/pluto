@@ -7,16 +7,24 @@ import GroupFeed from "./src/screens/GroupFeed";
 import Post from "./src/screens/Post";
 import Profile from "./src/screens/Profile";
 import AddFriend from "./src/screens/AddFriend";
+import EditGroup from "./src/screens/EditGroup";
+import Search from "./src/screens/Search";
+import AddPost from "./src/screens/AddPost";
+import AddPostPermission from "./src/screens/AddPostPermission";
 
 class App extends React.Component {
   render() {
     return (
       <SafeAreaView style={Layouts.FLEX_CONTAINER}>
-        {/* <Home /> */}
+        <Home />
         {/* <GroupFeed /> */}
         {/* <Post /> */}
         {/* <Profile /> */}
-        <AddFriend />
+        {/* <AddFriend /> */}
+        {/* <EditGroup /> */}
+        {/* <Search /> */}
+        {/* <AddPost /> */}
+        {/* <AddPostPermission /> */}
       </SafeAreaView>
     );
   }

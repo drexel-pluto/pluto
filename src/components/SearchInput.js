@@ -2,21 +2,21 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors, Typography, Layouts, Mixins } from "../styles/index";
 
-class QRLink extends React.Component {
+class SearchInput extends React.Component {
   render() {
     return (
-      <View style={styles.link}>
-        <Text>QR Link</Text>
+      <View style={styles.searchInput}>
+        <Text>Search Input</Text>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  link: {
-    backgroundColor: Colors.GRAY_DARK,
-    height: 300
+  searchInput: {
+    height: 70,
+    backgroundColor: Colors.GRAY_LIGHT
   }
 });
 
-export default QRLink;
+export default SearchInput;

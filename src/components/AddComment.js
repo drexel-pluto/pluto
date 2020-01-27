@@ -12,7 +12,7 @@ class AddComment extends React.Component {
   render() {
     return (
       <View style={styles.addComment}>
-        <Text>add comment</Text>
+        <Text>Add Comment</Text>
       </View>
     );
   }
