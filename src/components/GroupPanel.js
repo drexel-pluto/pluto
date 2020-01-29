@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Colors, Typography, Layouts, Mixins } from "../styles/index";
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 
 export default GroupPanel = props => {
   return (
@@ -10,15 +10,15 @@ export default GroupPanel = props => {
       </Text>
       <Text style={[styles.groupPanel__detail]}>Updates from group</Text>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   groupPanel: {
-    width: "100%",
+    width: '100%',
     height: 150,
-    backgroundColor: Colors.GRAY_LIGHT
+    backgroundColor: Colors.GRAY_LIGHT,
   },
   groupPanel__title: {},
-  groupPanel__detail: {}
-});
+  groupPanel__detail: {},
+})

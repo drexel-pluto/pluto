@@ -1,10 +1,9 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { Colors, Typography, Layouts, Mixins } from "../styles/index";
-import ScreenHeader from "../components/ScreenHeader";
-import CircleContainer from "../components/CircleContainer";
-import GroupPanel from "./../components/GroupPanel";
-import { Circle } from "react-native-svg";
+import React from 'react'
+import { View, TouchableHighlight, StyleSheet } from 'react-native'
+import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import ScreenHeader from '../components/ScreenHeader'
+import CircleContainer from '../components/CircleContainer'
+import GroupPanel from './../components/GroupPanel'
 
 class Home extends React.Component {
   render() {
@@ -12,16 +11,20 @@ class Home extends React.Component {
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
         <ScreenHeader />
         <CircleContainer />
-        <GroupPanel />
+        <TouchableHighlight
+          onPress={() => this.props.navigation.navigate('GroupFeed')}
+        >
+          <GroupPanel />
+        </TouchableHighlight>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   homeScreen: {
-    justifyContent: "space-between"
-  }
-});
+    justifyContent: 'space-between',
+  },
+})
 
-export default Home;
+export default Home
