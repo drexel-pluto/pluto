@@ -8,7 +8,11 @@ export default CircleList = props => {
     <FlatList
       data={props.data}
       renderItem={({ item }) => (
-        <Circle user={item.user_data} navigation={props.navigation} />
+        <Circle
+          user={item.user_data}
+          navigation={props.navigation}
+          size={props.size}
+        />
       )}
       keyExtractor={item => item.id}
       horizontal={true}
