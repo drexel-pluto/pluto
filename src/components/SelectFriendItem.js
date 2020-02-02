@@ -1,14 +1,39 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Colors, Typography, Layouts, Mixins } from "../styles/index";
+import React from 'react'
+import { View, Text, Image, StyleSheet } from 'react-native'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import CheckBox from 'react-native-check-box'
 
 class SelectFriendItem extends React.Component {
+  state = {
+    checked: false,
+  }
+
+  toggleChecked() {
+    this.setState({ checked: !this.state.checked })
+  }
+
   render() {
     return (
-      <View style={styles.selectFriendItem}>
-        <Text>Friend Select Item</Text>
-      </View>
-    );
+      <TouchableWithoutFeedback
+        style={styles.selectFriendItem}
+        onPress={() => {
+          this.toggleChecked()
+        }}
+      >
+        <Image
+          style={styles.selectFriendItem__image}
+          source={{ uri: 'https://picsum.photos/id/237/300/300' }}
+        />
+        <Text>Friend Name</Text>
+        <CheckBox
+          isChecked={this.state.checked}
+          onClick={() => {
+            this.toggleChecked()
+          }}
+        />
+      </TouchableWithoutFeedback>
+    )
   }
 }
 
@@ -16,8 +41,16 @@ const styles = StyleSheet.create({
   selectFriendItem: {
     margin: 15,
     height: 50,
-    backgroundColor: Colors.GRAY_LIGHT
-  }
-});
+    // backgroundColor: Colors.GRAY_LIGHT,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  selectFriendItem__image: {
+    width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
+  },
+})
 
-export default SelectFriendItem;
+export default SelectFriendItem
