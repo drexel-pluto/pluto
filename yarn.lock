@@ -6977,6 +6977,11 @@ react-native-safe-area-view@^0.14.1:
   dependencies:
     debounce "^1.2.0"
 
+react-native-snap-slider@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-snap-slider/-/react-native-snap-slider-0.3.0.tgz#c61bc764e64dfad1f227cfbbdb7f7f68af33b065"
+  integrity sha512-tfUL3RG8u76qSFE5+C0QySD/7zyv88NbyPAkEGFYk3qkHkcYaXlej4oKSNF9rq0hneIMZVb6owdAiGp7AJODIA==
+
 react-native-svg@9.9.5:
   version "9.9.5"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.9.5.tgz#5f9fa196ac78ac10c0ce85152e429dba98353904"
