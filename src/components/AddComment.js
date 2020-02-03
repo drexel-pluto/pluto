@@ -3,11 +3,10 @@ import {
   View,
   Text,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
-import Color from 'color'
 
 class AddComment extends React.Component {
   state = {
@@ -27,27 +26,31 @@ class AddComment extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.addComment}>
         <TextInput
-          multiline
+          multiline={true}
           placeholder="Add a comment..."
-          keyboardType="twitter" // keyboard with no return button
           style={styles.input}
           value={this.state.text}
           onChangeText={this.onChangeText} // handle input changes
         />
-        <TouchableHighlight style={styles.button} onPress={this.submit}>
-          <Text style={[styles.text, !this.state.text ? styles.inactive : []]}>
+        <TouchableOpacity style={styles.button} onPress={this.submit}>
+          <Text
+            style={[
+              styles.button__text,
+              !this.state.text ? styles.inactive : [],
+            ]}
+          >
             reply
           </Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  addComment: {
     backgroundColor: '#FFF',
     flexDirection: 'row',
     borderTopWidth: 1,
@@ -59,6 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: Mixins.scaleSize(40),
     fontSize: Mixins.scaleFont(15),
+    paddingTop: Mixins.scaleSize(10),
   },
   button: {
     height: Mixins.scaleSize(40),
@@ -69,10 +73,9 @@ const styles = StyleSheet.create({
   inactive: {
     color: '#CCC',
   },
-  text: {
+  button__text: {
     color: '#3F51B5',
     fontWeight: 'bold',
-    fontFamily: 'Avenir',
     textAlign: 'center',
     fontSize: Mixins.scaleFont(15),
   },
