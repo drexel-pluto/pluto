@@ -1,12 +1,16 @@
-import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
-import { Colors, Typography, Layouts, Mixins } from "../styles/index";
-import ScreenHeader from "./../components/ScreenHeader";
-import QRLink from "./../components/QRLink";
-import ShareLink from "./../components/ShareLink";
-import InvitationCenter from "./../components/InvitationCenter";
+import React from 'react'
+import { View, StyleSheet, ScrollView } from 'react-native'
+import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import ScreenHeader from './../components/ScreenHeader'
+import QRLink from './../components/QRLink'
+import ShareLink from './../components/ShareLink'
+import InvitationCenter from './../components/InvitationCenter'
 
 class AddFriend extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <ScrollView>
@@ -15,10 +19,10 @@ class AddFriend extends React.Component {
         <ShareLink />
         <InvitationCenter />
       </ScrollView>
-    );
+    )
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})
 
-export default AddFriend;
+export default AddFriend

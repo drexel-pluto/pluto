@@ -1,37 +1,49 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import {
+  View,
+  Text,
+  Image,
+  TouchableWithoutFeedback,
+  StyleSheet,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import CheckBox from 'react-native-check-box'
 
 class SelectFriendItem extends React.Component {
-  state = {
-    checked: false,
+  constructor(props) {
+    super(props)
+    this.state = {
+      isChecked: false,
+    }
   }
 
   toggleChecked() {
-    this.setState({ checked: !this.state.checked })
+    this.setState({ isChecked: !this.state.isChecked })
   }
 
   render() {
     return (
       <TouchableWithoutFeedback
-        style={styles.selectFriendItem}
         onPress={() => {
           this.toggleChecked()
         }}
       >
-        <Image
-          style={styles.image}
-          source={{ uri: 'https://picsum.photos/id/237/300/300' }}
-        />
-        <Text>Friend Name</Text>
-        <CheckBox
-          isChecked={this.state.checked}
-          onClick={() => {
-            this.toggleChecked()
-          }}
-        />
+        <View style={styles.selectFriendItem}>
+          <View style={styles.friend_wrapper}>
+            <Image
+              style={styles.image}
+              source={{ uri: 'https://picsum.photos/id/237/300/300' }}
+            />
+            <Text>Friend Name</Text>
+          </View>
+          <CheckBox
+            style={styles.friendCheck}
+            isChecked={this.state.isChecked}
+            onClick={() => {
+              this.toggleChecked()
+            }}
+          />
+        </View>
       </TouchableWithoutFeedback>
     )
   }
@@ -39,18 +51,25 @@ class SelectFriendItem extends React.Component {
 
 const styles = StyleSheet.create({
   selectFriendItem: {
-    margin: 15,
-    height: 50,
+    margin: Mixins.scaleSize(15),
+    height: Mixins.scaleSize(50),
     // backgroundColor: Colors.GRAY_LIGHT,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  friend_wrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 50 / 2,
+    width: Mixins.scaleSize(50),
+    height: Mixins.scaleSize(50),
+    borderRadius: Mixins.scaleSize(50 / 2),
+    marginRight: Mixins.scaleSize(15),
   },
+  friendCheck: {},
 })
 
 export default SelectFriendItem

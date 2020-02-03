@@ -9,8 +9,11 @@ import {
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 
 class SearchInput extends React.Component {
-  state = {
-    text: undefined, // user's input
+  constructor(props) {
+    super(props)
+    this.state = {
+      text: undefined, // user's input
+    }
   }
 
   onChangeText = text => this.setState({ text })
@@ -18,6 +21,9 @@ class SearchInput extends React.Component {
   submit = () => {
     const { text } = this.state
     if (text) {
+      // pass the search keywoard and reset input
+      // onSubmit should be coming from screen js
+      // might change depending on how we use redux
       this.setState({ text: undefined }, () => this.props.onSubmit(text))
     } else {
       alert('Please enter your comment first')

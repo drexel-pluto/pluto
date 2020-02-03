@@ -1,13 +1,17 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { Colors, Typography, Layouts, Mixins } from "../styles/index";
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 
 class Settings extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
-    return <View></View>;
+    return <View></View>
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})
 
-export default Settings;
+export default Settings

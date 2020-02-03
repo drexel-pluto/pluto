@@ -6,6 +6,10 @@ import CircleContainer from '../components/CircleContainer'
 import GroupPanel from './../components/GroupPanel'
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>

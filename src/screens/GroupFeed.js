@@ -9,6 +9,10 @@ import PostFeed from './../components/PostFeed'
 import { TAG_DATA, POST_DATA, CIRCLE_DATA } from './../assets/data'
 
 class GroupFeed extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <ScrollView style={[styles.groupFeedScreen, Layouts.FLEX_CONTAINER]}>

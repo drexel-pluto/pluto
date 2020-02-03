@@ -1,22 +1,30 @@
 import React from 'react'
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableWithoutFeedback,
+  StyleSheet,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import CheckBox from 'react-native-check-box'
 import SelectFriendItem from './SelectFriendItem'
 
 class SelectGroupItem extends React.Component {
-  state = {
-    expanded: false,
-    groupChecked: false,
+  constructor(props) {
+    super(props)
+    this.state = {
+      isExpanded: false,
+      isGroupChecked: false,
+    }
   }
 
   toggleExpand() {
-    this.setState({ expanded: !this.state.expanded })
+    this.setState({ isExpanded: !this.state.isExpanded })
   }
 
   toggleGroupChecked() {
-    this.setState({ groupChecked: !this.state.groupChecked })
+    this.setState({ isGroupChecked: !this.state.isGroupChecked })
   }
 
   render() {
@@ -24,27 +32,39 @@ class SelectGroupItem extends React.Component {
       <View style={styles.selectGroupItem}>
         <View style={styles.title_wrapper}>
           <TouchableWithoutFeedback
-            style={styles.title}
             onPress={() => {
               this.toggleExpand()
             }}
           >
-            <Text>Group Name</Text>
-            <Text>ICON</Text>
-            <Text>1/10</Text>
+            <View style={styles.title}>
+              {
+                // limit the width for group title
+                // or set char limit on it
+              }
+              <Text>Group Name</Text>
+              <Text>ICON</Text>
+              <Text>1/10</Text>
+            </View>
           </TouchableWithoutFeedback>
-          <CheckBox
-            style={styles.groupCheck}
-            isChecked={this.state.groupChecked}
-            onClick={() => {
+          <TouchableWithoutFeedback
+            onPress={() => {
               this.toggleGroupChecked()
             }}
-          />
+          >
+            <View style={styles.groupCheck}>
+              <CheckBox
+                isChecked={this.state.isGroupChecked}
+                onClick={() => {
+                  this.toggleGroupChecked()
+                }}
+              />
+            </View>
+          </TouchableWithoutFeedback>
         </View>
         <ScrollView
           style={[
             styles.friend_wrapper,
-            this.state.expanded ? styles.expanded : '',
+            this.state.isExpanded ? styles.isExpanded : '',
           ]}
         >
           <SelectFriendItem />
@@ -74,7 +94,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   groupCheck: {
-    paddingHorizontal: Mixins.scaleSize(20),
+    width: Mixins.scaleSize(40),
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'red',
   },
   friend_wrapper: {
@@ -82,7 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.GRAY_LIGHT,
     display: 'none',
   },
-  expanded: {
+  isExpanded: {
     display: 'flex',
   },
 })

@@ -5,15 +5,21 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
+  TouchableHighlight,
   StyleSheet,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import TagList from '../components/TagList'
 import CommentList from '../components/CommentList'
+import AuthorHeader from '../components/AuthorHeader'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
 
 class Post extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <KeyboardAvoidingView
@@ -37,6 +43,9 @@ class Post extends React.Component {
             <View style={styles.tag_wrapper}>
               <TagList data={TAG_DATA} />
             </View>
+            <View style={styles.author_wrapper}>
+              <AuthorHeader />
+            </View>
           </View>
           <CommentList data={COMMENT_DATA} />
         </ScrollView>
@@ -49,10 +58,18 @@ const styles = StyleSheet.create({
   post: {},
   content: {
     width: '100%',
+    position: 'relative',
   },
   image: {
     width: '100%',
     height: 500,
+  },
+  author_wrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    paddingLeft: Mixins.scaleSize(10),
+    paddingVertical: Mixins.scaleSize(10),
   },
 })
 

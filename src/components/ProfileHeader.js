@@ -4,6 +4,10 @@ import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import UserProfile from './UserProfile'
 
 class ProfileHeader extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <View style={styles.ProfileHeader}>

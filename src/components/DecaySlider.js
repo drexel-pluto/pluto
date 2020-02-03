@@ -4,9 +4,12 @@ import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import SnapSlider from 'react-native-snap-slider'
 
 class DecaySlider extends React.Component {
-  state = {
-    defaultOption: 0,
-    selectedOption: 0,
+  constructor(props) {
+    super(props)
+    this.state = {
+      defaultOption: 0,
+      selectedOption: 0,
+    }
   }
 
   sliderOptions = [

@@ -6,6 +6,10 @@ import ProfileHeader from '../components/ProfileHeader'
 import PostGrid from '../components/PostGrid'
 
 class Profile extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <ScrollView>

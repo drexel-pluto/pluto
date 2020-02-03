@@ -5,6 +5,10 @@ import DecaySlider from '../components/DecaySlider'
 import SelectGroupList from '../components/SelectGroupList'
 
 class AddPostPermission extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     return (
       <ScrollView style={Layouts.FLEX_CONTAINER}>
