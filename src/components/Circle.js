@@ -17,7 +17,7 @@ export default Circle = props => {
       }}
     >
       <Image
-        style={styles.circle__image}
+        style={styles.image}
         source={
           user.image
             ? { uri: user.image }
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 110 / 2,
     overflow: 'hidden',
   },
-  circle__image: {
+  image: {
     width: '100%',
     height: '100%',
   },

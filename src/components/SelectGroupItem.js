@@ -22,9 +22,9 @@ class SelectGroupItem extends React.Component {
   render() {
     return (
       <View style={styles.selectGroupItem}>
-        <View style={styles.selectGroupItem__title_wrapper}>
+        <View style={styles.title_wrapper}>
           <TouchableWithoutFeedback
-            style={styles.selectGroupItem__title}
+            style={styles.title}
             onPress={() => {
               this.toggleExpand()
             }}
@@ -34,7 +34,7 @@ class SelectGroupItem extends React.Component {
             <Text>1/10</Text>
           </TouchableWithoutFeedback>
           <CheckBox
-            style={styles.selectGroupItem__groupCheck}
+            style={styles.groupCheck}
             isChecked={this.state.groupChecked}
             onClick={() => {
               this.toggleGroupChecked()
@@ -43,7 +43,7 @@ class SelectGroupItem extends React.Component {
         </View>
         <ScrollView
           style={[
-            styles.selectGroupItem__friend_wrapper,
+            styles.friend_wrapper,
             this.state.expanded ? styles.expanded : '',
           ]}
         >
@@ -61,23 +61,23 @@ const styles = StyleSheet.create({
   selectGroupItem: {
     margin: Mixins.scaleSize(15),
   },
-  selectGroupItem__title_wrapper: {
+  title_wrapper: {
     height: Mixins.scaleSize(50),
     backgroundColor: Colors.GRAY_MEDIUM,
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,
   },
-  selectGroupItem__title: {
+  title: {
     backgroundColor: 'blue',
     flexDirection: 'row',
     flexGrow: 1,
   },
-  selectGroupItem__groupCheck: {
+  groupCheck: {
     paddingHorizontal: Mixins.scaleSize(20),
     backgroundColor: 'red',
   },
-  selectGroupItem__friend_wrapper: {
+  friend_wrapper: {
     maxHeight: Mixins.scaleSize(200),
     backgroundColor: Colors.GRAY_LIGHT,
     display: 'none',

@@ -22,7 +22,7 @@ class SelectFriendItem extends React.Component {
         }}
       >
         <Image
-          style={styles.selectFriendItem__image}
+          style={styles.image}
           source={{ uri: 'https://picsum.photos/id/237/300/300' }}
         />
         <Text>Friend Name</Text>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  selectFriendItem__image: {
+  image: {
     width: 50,
     height: 50,
     borderRadius: 50 / 2,

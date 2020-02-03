@@ -6,15 +6,10 @@ export default UserProfile = props => {
   return (
     <View style={[styles.userProfile, Layouts.FLEX_CONTAINER_CENTER]}>
       <Image
-        style={styles.userProfile__image}
+        style={styles.image}
         source={{ uri: 'https://picsum.photos/id/237/300/300' }}
       />
-      <View
-        style={[
-          styles.userProfile__text_wrapper,
-          Layouts.FLEX_CONTAINER_CENTER,
-        ]}
-      >
+      <View style={[styles.text_wrapper, Layouts.FLEX_CONTAINER_CENTER]}>
         <Text style={Typography.F_H2}>User Profile</Text>
         <Text style={Typography.F_BODY}>
           some bio information...lorem ipsum stuff...
@@ -26,8 +21,8 @@ export default UserProfile = props => {
 
 const styles = StyleSheet.create({
   userProfile: {},
-  userProfile__text_wrapper: {},
-  userProfile__image: {
+  text_wrapper: {},
+  image: {
     width: 200,
     height: 200,
     borderRadius: 100,
