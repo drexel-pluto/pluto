@@ -36,6 +36,10 @@ export default class LoginScreen extends Component {
           }}
           placeholder="Insert username"
           onChangeText={username => this.setState({ username })}
+          autoCompleteType="username"
+          autoCapitalize="none"
+          autoCorrect={false}
+          textContentType="username"
         />
         <TextInput
           style={{
@@ -46,12 +50,21 @@ export default class LoginScreen extends Component {
           }}
           placeholder="Insert password"
           onChangeText={password => this.setState({ password })}
+          autoCompleteType="password"
+          autoCapitalize="none"
+          autoCorrect={false}
+          textContentType="password"
+          secureTextEntry={true}
         />
         <Button
           onPress={() =>
             this.props.login(this.state.username, this.state.password)
           }
           title="Click here to login"
+        />
+        <Button
+          onPress={() => this.props.setIsCreate(true)}
+          title="create account"
         />
       </View>
     )

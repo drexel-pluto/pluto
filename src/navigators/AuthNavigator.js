@@ -1,9 +1,9 @@
 import { createSwitchNavigator } from 'react-navigation'
-import LoginContainer from '../containers/login.container'
+import AuthContainer from '../containers/auth.container'
 
 const AuthNavigator = createSwitchNavigator(
   {
-    Login: LoginContainer,
+    Login: AuthContainer,
   },
   {
     headerMode: 'none',
