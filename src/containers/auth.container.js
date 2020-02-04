@@ -6,6 +6,7 @@ import {
   login,
   createProfile,
   setIsCreate,
+  saveUserToken,
 } from '../redux/reducers/user.reducer'
 
 class AuthContainer extends React.Component {
@@ -18,6 +19,7 @@ class AuthContainer extends React.Component {
   login(username, password) {
     this.props.login({ username, password }).then(action => {
       if (action.type.endsWith('SUCCESS')) {
+        this.props.saveUserToken(action.payload.data.authToken)
         this.props.navigation.navigate('App')
       }
     })
@@ -59,6 +61,7 @@ const mapDispatchToProps = {
   login,
   createProfile,
   setIsCreate,
+  saveUserToken,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer)
