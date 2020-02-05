@@ -9,6 +9,7 @@ import AddPostPermission from './src/screens/AddPostPermission'
 import Post from './src/screens/Post'
 import Search from './src/screens/Search'
 import GroupFeed from './src/screens/GroupFeed'
+import AddPost from './src/screens/AddPost'
 
 class App extends React.Component {
   render() {
@@ -18,11 +19,12 @@ class App extends React.Component {
       </Provider>
 
       // Testing screens
-      // <EditGroup />
       // <AddPostPermission />
+      // <GroupFeed />
       // <Post />
       // <Search />
-      // <GroupFeed />
+      // <EditGroup />
+      // <AddPost />
     )
   }
 }
