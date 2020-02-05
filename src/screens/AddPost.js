@@ -15,12 +15,16 @@ class AddPost extends React.Component {
       <View style={Layouts.FLEX_CONTAINER}>
         <ScreenHeader />
         <AddPostInput />
-        <AddPostOptionBar />
+        <View style={styles.option_wrapper}>
+          <AddPostOptionBar />
+        </View>
       </View>
     )
   }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  option_wrapper: {},
+})
 
 export default AddPost

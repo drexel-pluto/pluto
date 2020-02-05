@@ -24,8 +24,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   option: {
-    width: 50,
-    height: 50,
+    width: Mixins.scaleSize(50),
+    height: Mixins.scaleSize(50),
+    borderRadius: Mixins.scaleSize(25),
     backgroundColor: Colors.GRAY_DARK,
   },
 })

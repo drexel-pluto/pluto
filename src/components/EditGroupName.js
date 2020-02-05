@@ -9,7 +9,7 @@ import {
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import InputHeader from './InputHeader'
 
-class AddComment extends React.Component {
+class EditGroupName extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,7 +22,7 @@ class AddComment extends React.Component {
   onSubmit = () => {
     const { text } = this.state
     if (text) {
-      // pass the comment and reset input
+      // pass the search keywoard and reset input
       // onSubmit should be coming from screen js
       // might change depending on how we use redux
       this.setState({ text: undefined }, () => this.props.onSubmit(text))
@@ -34,11 +34,10 @@ class AddComment extends React.Component {
   render() {
     return (
       <InputHeader
-        multiline={true}
-        placeholder={'enter a reply...'}
+        placeholder={'enter a group name...'}
         text={this.state.text}
         onChangeText={this.onChangeText}
-        buttonText={'reply'}
+        buttonText={'create'}
         onSubmit={this.onSubmit}
       />
     )
@@ -46,29 +45,29 @@ class AddComment extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  // addComment: {
-  //   backgroundColor: '#FFF',
-  //   flexDirection: 'row',
-  //   borderTopWidth: 1,
-  //   borderColor: '#EEE',
-  //   alignItems: 'center',
-  //   paddingLeft: Mixins.scaleSize(15),
+  // searchInput: {
+  //     flexDirection: 'row',
+  //     borderWidth: 1,
+  //     borderColor: Colors.GRAY_DARK,
+  //     alignItems: 'center',
+  //     borderRadius: 50,
+  //     paddingLeft: Mixins.scaleSize(15),
   // },
   // button: {
-  //   height: Mixins.scaleSize(40),
-  //   paddingHorizontal: Mixins.scaleSize(20),
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
+  //     height: Mixins.scaleSize(40),
+  //     paddingHorizontal: Mixins.scaleSize(20),
+  //     alignItems: 'center',
+  //     justifyContent: 'center',
   // },
   // inactive: {
-  //   color: '#CCC',
+  //     color: '#CCC',
   // },
   // button__text: {
-  //   color: '#3F51B5',
-  //   fontWeight: 'bold',
-  //   textAlign: 'center',
-  //   fontSize: Mixins.scaleFont(15),
+  //     color: '#3F51B5',
+  //     fontWeight: 'bold',
+  //     textAlign: 'center',
+  //     fontSize: Mixins.scaleFont(15),
   // },
 })
 
-export default AddComment
+export default EditGroupName
