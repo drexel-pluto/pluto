@@ -14,9 +14,9 @@ import AddPost from './src/screens/AddPost'
 class App extends React.Component {
   render() {
     return (
-      <Provider store={store}>
-        <Navigation />
-      </Provider>
+      // <Provider store={store}>
+      //   <Navigation />
+      // </Provider>
 
       // Testing screens
       // <AddPostPermission />
@@ -24,7 +24,7 @@ class App extends React.Component {
       // <Post />
       // <Search />
       // <EditGroup />
-      // <AddPost />
+      <AddPost />
     )
   }
 }
