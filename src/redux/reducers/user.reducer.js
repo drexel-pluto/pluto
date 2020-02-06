@@ -6,6 +6,10 @@ export const CREATE_USER = 'user/CREATE_USER'
 export const CREATE_USER_SUCCESS = 'user/CREATE_USER_SUCCESS'
 export const CREATE_USER_FAIL = 'user/CREATE_USER_FAIL'
 
+export const GET_ME = 'user/GET_ME'
+export const GET_ME_SUCCESS = 'user/GET_ME_SUCCESS'
+export const GET_ME_FAIL = 'user/GET_ME_FAIL'
+
 export const LOGIN = 'user/LOGIN'
 export const LOGIN_SUCCESS = 'user/LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'user/LOGIN_FAIL'
@@ -39,22 +43,29 @@ export default function reducer(state = defaultStateUser, action) {
       }
     case CREATE_USER_FAIL:
     case LOGIN_FAIL:
-      console.log(action.error.message)
-      return { ...state, isLoggedIn: false, error: action.error.message }
+      return {
+        ...state,
+        isLoggedIn: false,
+        error: action.error.response.data
+          ? action.error.response.data.errMessage
+          : 'error',
+      }
     case GET_TOKEN:
       return { ...state, authToken: action.token }
     case SAVE_TOKEN:
       return { ...state, authToken: action.token }
-    case REMOVE_TOKEN:
-      return { ...state, authToken: '', isLoggedIn: false }
-    case TOKEN_ERROR:
-      return { ...state, error: action.error, isLoggedIn: false }
     case LOGOUT:
+    case REMOVE_TOKEN:
       return {
         ...state,
+        authToken: '',
         isLoggedIn: false,
         userData: defaultStateUser.userData,
       }
+    case TOKEN_ERROR:
+      return { ...state, error: action.error, isLoggedIn: false }
+    case GET_ME_SUCCESS:
+      return { ...state, userData: action.payload.data }
     case SET_IS_CREATE:
       return {
         ...state,
@@ -147,3 +158,32 @@ export const removeUserToken = () => dispatch =>
     .catch(err => {
       dispatch(tokenError(err.message || 'ERROR'))
     })
+
+export function getMe(authToken) {
+  return {
+    type: GET_ME,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/user`,
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      },
+    },
+  }
+}
+
+export function logout() {
+  return function(dispatch) {
+    dispatch(removeUserToken())
+  }
+}
+
+export function init() {
+  return function(dispatch, getState) {
+    return dispatch(getUserToken()).then(() =>
+      dispatch(getMe(getState().user.authToken))
+    )
+  }
+}

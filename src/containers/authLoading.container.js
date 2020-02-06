@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import AuthLoadingScreen from '../screens/auth/AuthLoading'
-import { getUserToken } from '../redux/reducers/user.reducer'
+import { init } from '../redux/reducers/user.reducer'
 
 class AuthLoadingContainer extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class AuthLoadingContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getUserToken().then(() => {
+    this.props.init().then(() => {
       this.props.navigation.navigate(
         this.props.token !== null ? 'App' : 'Login'
       )
@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  getUserToken,
+  init,
 }
 
 export default connect(
