@@ -8,15 +8,14 @@ export const GET_GROUP_POSTS_FAIL = 'user/GET_GROUP_POSTS_FAIL'
 // reducer
 
 let defaultStateGroup = {
-  group: {},
+  posts: [],
   loading: true,
 }
 
 export default function reducer(state = defaultStateGroup, action) {
   switch (action.type) {
     case GET_GROUP_POSTS_SUCCESS:
-      console.log(action)
-      return { ...state, loading: false }
+      return { ...state, loading: false, posts: action.payload.data }
     default:
       return state
   }

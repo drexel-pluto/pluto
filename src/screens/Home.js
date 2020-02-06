@@ -16,7 +16,9 @@ class Home extends React.Component {
         <ScreenHeader />
         <CircleContainer />
         <TouchableHighlight
-          onPress={() => this.props.navigation.navigate('GroupFeed')}
+          onPress={() => {
+            this.props.openGroup(this.props.groups[0]._id)
+          }}
         >
           <GroupPanel />
         </TouchableHighlight>
