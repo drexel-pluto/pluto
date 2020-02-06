@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-
+import { Linking } from 'expo'
 // types
 
 export const CREATE_USER = 'user/CREATE_USER'
@@ -27,6 +27,8 @@ export const SET_IS_CREATE = 'user/SET_IS_CREATE'
 
 let defaultStateUser = {
   userData: {},
+  friends: [],
+  groups: [],
   isLoggedIn: false,
   error: '',
   authToken: '',
@@ -65,7 +67,20 @@ export default function reducer(state = defaultStateUser, action) {
     case TOKEN_ERROR:
       return { ...state, error: action.error, isLoggedIn: false }
     case GET_ME_SUCCESS:
-      return { ...state, userData: action.payload.data }
+      const data = action.payload.data
+      const url = Linking.makeUrl('addFriend', { id: data._id })
+      console.log(url)
+      return {
+        ...state,
+        userData: {
+          username: data.username,
+          email: data.email,
+          id: data._id,
+          gender: data.gender,
+        },
+        friends: data.friends,
+        groups: data.groups,
+      }
     case SET_IS_CREATE:
       return {
         ...state,
@@ -164,7 +179,7 @@ export function getMe(authToken) {
     type: GET_ME,
     payload: {
       request: {
-        method: 'POST',
+        method: 'GET',
         url: `/user`,
         headers: {
           Authorization: `Bearer ${authToken}`,
