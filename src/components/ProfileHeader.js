@@ -11,7 +11,7 @@ class ProfileHeader extends React.Component {
   render() {
     return (
       <View style={styles.ProfileHeader}>
-        <UserProfile />
+        <UserProfile profile={this.props.profile} />
       </View>
     )
   }

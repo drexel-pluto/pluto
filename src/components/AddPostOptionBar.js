@@ -9,7 +9,10 @@ export default AddPostOptionBar = props => {
       <View style={styles.option_wrapper}>
         <TouchableOpacity style={styles.option}></TouchableOpacity>
         <TouchableOpacity style={styles.option}></TouchableOpacity>
-        <TouchableOpacity style={styles.option}></TouchableOpacity>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => props.navigation.navigate('AddPostPermissions')}
+        ></TouchableOpacity>
       </View>
     </View>
   )

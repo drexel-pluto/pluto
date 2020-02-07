@@ -18,13 +18,13 @@ class GroupFeed extends React.Component {
       <ScrollView style={[styles.groupFeedScreen, Layouts.FLEX_CONTAINER]}>
         <ScreenHeader />
         <CircleList
-          data={CIRCLE_DATA}
+          data={this.props.group.members}
           navigation={this.props.navigation}
           size={80}
         />
-        <RecentPostList data={POST_DATA} />
+        <RecentPostList data={this.props.group.posts} />
         <TagList data={TAG_DATA} />
-        <PostFeed data={POST_DATA} />
+        <PostFeed data={this.props.group.posts} />
       </ScrollView>
     )
   }

@@ -16,9 +16,18 @@ class Home extends React.Component {
         <ScreenHeader />
         <CircleContainer />
         <TouchableHighlight
-          onPress={() => this.props.navigation.navigate('GroupFeed')}
+          onPress={() => {
+            this.props.openGroup(this.props.groups[0]._id)
+          }}
         >
           <GroupPanel />
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            this.props.navigation.navigate('AddPost')
+          }}
+        >
+          <View style={styles.createButton} />
         </TouchableHighlight>
       </View>
     )
@@ -28,6 +37,15 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
   homeScreen: {
     justifyContent: 'space-between',
+  },
+  createButton: {
+    backgroundColor: '#888888',
+    width: 80,
+    height: 80,
+    position: 'absolute',
+    bottom: 100,
+    right: 20,
+    borderRadius: 80,
   },
 })
 

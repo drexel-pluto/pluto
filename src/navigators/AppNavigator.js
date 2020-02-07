@@ -1,12 +1,14 @@
 import { createStackNavigator } from 'react-navigation-stack'
-import HomeScreen from '../screens/Home'
-import GroupFeed from '../screens/GroupFeed'
-import Profile from '../screens/Profile'
+import HomeContainer from '../containers/home.container'
+import GroupFeedContainer from '../containers/groupFeed.container'
+import profileContainer from '../containers/profile.container'
+import AddPostNavigator from './AddPostNavigator'
 
 const AppNavigator = createStackNavigator({
-  Home: HomeScreen,
-  GroupFeed: GroupFeed,
-  Profile: Profile,
+  Home: HomeContainer,
+  GroupFeed: GroupFeedContainer,
+  Profile: profileContainer,
+  AddPost: AddPostNavigator,
 })
 
 export default AppNavigator

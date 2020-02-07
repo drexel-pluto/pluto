@@ -14,7 +14,7 @@ class Profile extends React.Component {
     return (
       <ScrollView>
         <ScreenHeader />
-        <ProfileHeader />
+        <ProfileHeader profile={this.props.profile} />
         <PostGrid />
       </ScrollView>
     )
