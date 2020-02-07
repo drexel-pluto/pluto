@@ -20,7 +20,9 @@ class AuthContainer extends React.Component {
     this.props.login({ username, password }).then(action => {
       if (action.type.endsWith('SUCCESS')) {
         this.props.saveUserToken(action.payload.data.authToken)
-        this.props.navigation.navigate('App')
+        this.props.getMe(action.payload.data.authToken).then(() => {
+          this.props.navigation.navigate('App')
+        })
       }
     })
   }

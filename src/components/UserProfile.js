@@ -7,10 +7,14 @@ export default UserProfile = props => {
     <View style={[styles.userProfile, Layouts.FLEX_CONTAINER_CENTER]}>
       <Image
         style={styles.image}
-        source={{ uri: 'https://picsum.photos/id/237/300/300' }}
+        source={{
+          uri: props.profile.image
+            ? props.profile.image
+            : 'https://picsum.photos/id/237/300/300',
+        }}
       />
       <View style={[styles.text_wrapper, Layouts.FLEX_CONTAINER_CENTER]}>
-        <Text style={Typography.F_H2}>User Profile</Text>
+        <Text style={Typography.F_H2}>{props.profile.name}</Text>
         <Text style={Typography.F_BODY}>
           some bio information...lorem ipsum stuff...
         </Text>

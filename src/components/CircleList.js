@@ -9,11 +9,7 @@ export default CircleList = props => {
       data={props.data}
       renderItem={({ item }) => (
         <View style={{ marginRight: Mixins.scaleSize(10) }}>
-          <Circle
-            user={item.user_data}
-            navigation={props.navigation}
-            size={props.size}
-          />
+          <Circle user={item} navigation={props.navigation} size={props.size} />
         </View>
       )}
       keyExtractor={item => item.id}
