@@ -4,11 +4,15 @@ import GroupFeed from '../screens/GroupFeed.js'
 
 class AuthLoadingContainer extends React.Component {
   render() {
-    return React.createElement(GroupFeed)
+    return (
+      <GroupFeed group={this.props.group} navigation={this.props.navigation} />
+    )
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  group: state.group,
+})
 
 const mapDispatchToProps = {}
 

@@ -22,6 +22,13 @@ class Home extends React.Component {
         >
           <GroupPanel />
         </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            this.props.navigation.navigate('AddPost')
+          }}
+        >
+          <View style={styles.createButton} />
+        </TouchableHighlight>
       </View>
     )
   }
@@ -30,6 +37,15 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
   homeScreen: {
     justifyContent: 'space-between',
+  },
+  createButton: {
+    backgroundColor: '#888888',
+    width: 80,
+    height: 80,
+    position: 'absolute',
+    bottom: 100,
+    right: 20,
+    borderRadius: 80,
   },
 })
 
