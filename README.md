@@ -11,7 +11,7 @@
 
 ## Quick start
 
-Get up and running with our Movies sample app:
+Get up and running with our app:
 
 1. Once you have the repo cloned and met all the requirements above, start the
 packager that will transform your JS code on-the-fly:
