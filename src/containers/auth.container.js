@@ -7,6 +7,7 @@ import {
   createProfile,
   setIsCreate,
   saveUserToken,
+  getMe,
 } from '../redux/reducers/user.reducer'
 
 class AuthContainer extends React.Component {
@@ -64,6 +65,7 @@ const mapDispatchToProps = {
   createProfile,
   setIsCreate,
   saveUserToken,
+  getMe,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer)
