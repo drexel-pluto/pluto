@@ -148,7 +148,7 @@ export const tokenError = error => ({
 const storageKey = 'userToken'
 
 export const getUserToken = () => dispatch =>
-  AsyncStorage.getItem(storageKey)
+  AsyncStorage.getItem('WRONG TOKEN')
     .then(data => {
       dispatch(getToken(data))
     })
