@@ -1,17 +1,36 @@
 import React from 'react'
-import {
-  Button,
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native'
+import { View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
+import ScreenHeader from '../../components/ScreenHeader'
+import AddPostOptionBar from '../../components/AddPostOptionBar'
 import { RichEditor, RichToolbar } from 'react-native-pell-rich-editor'
-import ScreenHeader from './../components/ScreenHeader'
-// import AddPostInput from './../components/AddPostInput'
-// import AddPostOptionBar from './../components/AddPostOptionBar'
+import { Header } from 'react-navigation-stack'
+import { NavigationEvents } from 'react-navigation'
 
 class AddPost extends React.Component {
+  constructor(props) {
+    super(props)
+    this.textInputRef = null
+  }
+
+  onFocusFunction = () => {
+    setTimeout(() => {
+      this.textInputRef.focus()
+    }, 100)
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove()
+  }
+
+  componentDidMount() {
+    this.onFocusFunction()
+    this.focusListener = this.props.navigation.addListener('didFocus', () => {
+      this.onFocusFunction()
+      console.log('DID FOCUS')
+    })
+  }
+
   save = async () => {
     // Get the data here and call the interface to save the data
     let html = await this.richText.getContentHtml()
@@ -33,7 +52,6 @@ class AddPost extends React.Component {
   }
 
   render() {
-    let that = this
     return (
       <View style={styles.container}>
         <ScreenHeader />

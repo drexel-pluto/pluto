@@ -2,10 +2,11 @@
   "expo": {
     "name": "pluto",
     "slug": "pluto",
+    "scheme": "pluto",
     "privacy": "unlisted",
     "sdkVersion": "35.0.0",
     "platforms": ["ios"],
-    "version": "0.0.1",
+    "version": "0.0.3",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "splash": {

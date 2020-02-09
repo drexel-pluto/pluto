@@ -13,7 +13,7 @@ export default Circle = props => {
         size ? { width: size, height: size, borderRadius: size / 2 } : '',
       ]}
       onPress={() => {
-        navigation.navigate('Profile')
+        navigation.navigate('Profile', { userId: user._id })
       }}
     >
       <Image
