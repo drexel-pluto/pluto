@@ -1,9 +1,14 @@
 import React from 'react'
-import { View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  KeyboardAvoidingView,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
 import AddPostOptionBar from '../../components/AddPostOptionBar'
-import { RichEditor, RichToolbar } from 'react-native-pell-rich-editor'
+import { RichEditor } from 'react-native-pell-rich-editor'
 import { Header } from 'react-navigation-stack'
 import { NavigationEvents } from 'react-navigation'
 
@@ -15,61 +20,51 @@ class AddPost extends React.Component {
 
   onFocusFunction = () => {
     setTimeout(() => {
-      this.textInputRef.focus()
+      this.textInputRef.focusContentEditor()
     }, 100)
   }
 
   componentWillUnmount() {
-    this.focusListener.remove()
+    // this.focusListener.remove()
   }
 
   componentDidMount() {
     this.onFocusFunction()
-    this.focusListener = this.props.navigation.addListener('didFocus', () => {
-      this.onFocusFunction()
-      console.log('DID FOCUS')
-    })
+    // this.focusListener = this.props.navigation.addListener('didFocus', () => {
+    //   this.onFocusFunction()
+    //   console.log('DID FOCUS')
+    // })
   }
 
   save = async () => {
-    // Get the data here and call the interface to save the data
-    let html = await this.richText.getContentHtml()
-    // console.log(html);
+    let html = await this.textInputRef.getContentHtml()
+    console.log(html)
     alert(html)
   }
 
-  onPressAddImage = () => {
-    // for multiple images,
-    // might need to format it into grid
-
+  addMedia = () => {
     // insert URL
-    this.richText.insertImage(
+    this.textInputRef.insertImage(
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png'
     )
     // insert base64
-    // this.richText.insertImage(`data:${image.mime};base64,${image.data}`);
-    this.richText.blurContentEditor()
+    // this.textInputRef.insertImage(`data:${image.mime};base64,${image.data}`);
+    this.textInputRef.blurContentEditor()
   }
 
   render() {
     return (
       <View style={styles.container}>
         <ScreenHeader />
-        <ScrollView style={styles.scroll}>
-          <RichEditor
-            ref={rf => (that.richText = rf)}
-            initialContentHTML={'what are you up to?'}
-            style={styles.rich}
-          />
-        </ScrollView>
-        <KeyboardAvoidingView behavior={'padding'}>
-          <RichToolbar
-            style={styles.richBar}
-            getEditor={() => that.richText}
-            iconTint={'#000033'}
-            selectedIconTint={'#2095F2'}
-            selectedButtonStyle={{ backgroundColor: 'transparent' }}
-            onPressAddImage={that.onPressAddImage}
+        <RichEditor
+          ref={rf => (this.textInputRef = rf)}
+          initialContentHTML={'what are you up to?'}
+          style={styles.rich}
+        />
+        <KeyboardAvoidingView behavior="position">
+          <AddPostOptionBar
+            navigation={this.props.navigation}
+            addMedia={this.addMedia}
           />
         </KeyboardAvoidingView>
       </View>

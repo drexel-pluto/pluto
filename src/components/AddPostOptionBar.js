@@ -7,7 +7,10 @@ export default AddPostOptionBar = props => {
     <View style={styles.addPostOptionBar}>
       <Text>Add Post Option Bar</Text>
       <View style={styles.option_wrapper}>
-        <TouchableOpacity style={styles.option}></TouchableOpacity>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => props.addMedia()}
+        ></TouchableOpacity>
         <TouchableOpacity style={styles.option}></TouchableOpacity>
         <TouchableOpacity
           style={styles.option}
