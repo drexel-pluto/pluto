@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  KeyboardAvoidingView,
-} from 'react-native'
+import { View, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
 import AddPostOptionBar from '../../components/AddPostOptionBar'
@@ -39,7 +34,6 @@ class AddPost extends React.Component {
   save = async () => {
     let html = await this.textInputRef.getContentHtml()
     console.log(html)
-    alert(html)
   }
 
   addMedia = () => {
