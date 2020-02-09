@@ -13,12 +13,19 @@ class SelectFriendItem extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isChecked: false,
+      isChecked: props.isChecked,
     }
   }
 
-  toggleChecked() {
+  toggleChecked = () => {
     this.setState({ isChecked: !this.state.isChecked })
+  }
+
+  componentDidUpdate = prevProps => {
+    // Typical usage (don't forget to compare props):
+    if (this.props.isChecked !== prevProps.isChecked) {
+      this.setState({ isChecked: this.props.isChecked })
+    }
   }
 
   render() {
@@ -47,6 +54,10 @@ class SelectFriendItem extends React.Component {
       </TouchableWithoutFeedback>
     )
   }
+}
+
+SelectFriendItem.defaultProps = {
+  isChecked: false,
 }
 
 const styles = StyleSheet.create({

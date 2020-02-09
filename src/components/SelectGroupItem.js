@@ -19,11 +19,11 @@ class SelectGroupItem extends React.Component {
     }
   }
 
-  toggleExpand() {
+  toggleExpand = () => {
     this.setState({ isExpanded: !this.state.isExpanded })
   }
 
-  toggleGroupChecked() {
+  toggleGroupChecked = () => {
     this.setState({ isGroupChecked: !this.state.isGroupChecked })
   }
 
@@ -67,10 +67,10 @@ class SelectGroupItem extends React.Component {
             this.state.isExpanded ? styles.isExpanded : '',
           ]}
         >
-          <SelectFriendItem />
-          <SelectFriendItem />
-          <SelectFriendItem />
-          <SelectFriendItem />
+          <SelectFriendItem isChecked={this.state.isGroupChecked} />
+          <SelectFriendItem isChecked={this.state.isGroupChecked} />
+          <SelectFriendItem isChecked={this.state.isGroupChecked} />
+          <SelectFriendItem isChecked={this.state.isGroupChecked} />
         </ScrollView>
       </View>
     )
@@ -89,15 +89,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    backgroundColor: 'blue',
     flexDirection: 'row',
     flexGrow: 1,
+    // backgroundColor: 'blue',
   },
   groupCheck: {
     width: Mixins.scaleSize(40),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   friend_wrapper: {
     maxHeight: Mixins.scaleSize(200),
