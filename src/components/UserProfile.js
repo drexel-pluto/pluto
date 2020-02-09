@@ -8,9 +8,7 @@ export default UserProfile = props => {
       <Image
         style={styles.image}
         source={{
-          uri: props.profile.image
-            ? props.profile.image
-            : 'https://picsum.photos/id/237/300/300',
+          uri: props.profile.image,
         }}
       />
       <View style={[styles.text_wrapper, Layouts.FLEX_CONTAINER_CENTER]}>
@@ -21,6 +19,12 @@ export default UserProfile = props => {
       </View>
     </View>
   )
+}
+
+UserProfile.defaultProps = {
+  profile: {
+    image: 'https://picsum.photos/id/237/300/300',
+  },
 }
 
 const styles = StyleSheet.create({
