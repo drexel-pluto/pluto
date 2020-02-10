@@ -6925,6 +6925,13 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
   integrity sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
 
+react-native-auto-height-image@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-auto-height-image/-/react-native-auto-height-image-3.0.0.tgz#2df6dbbcad5d873acf4f63e5187a8a0fd546b134"
+  integrity sha512-Tt1VU7bFm3qxzwl/jwfVlo1R4dUuVDKvWYFqOROrXRAhjkuKIACC4UdfVhUv6RJJJbWhBrxHP0SPVe458MIbZg==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-branch@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-3.0.1.tgz#5b07b61cbd290168cd3c3662e017ebe0f356d2ca"
@@ -6958,10 +6965,20 @@ react-native-iphone-x-helper@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
 
+react-native-masonry-scrollview@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-masonry-scrollview/-/react-native-masonry-scrollview-0.0.2.tgz#c5b16dcadb976725bdd42ff0a67eab7874e462d0"
+  integrity sha512-mAW8mOwnZlVCOEGjHkFhk3pGT10aALEk8MHJfuppXqpQLYMhDYuHGMRDKG8tTWcq7stiHR8wpQJJY0PN7SHLKg==
+
 react-native-reanimated@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.2.0.tgz#9219227a52a5dfa4d34c324596d6726ccd874293"
   integrity sha512-vkWRHrPK5qfHP/ZawlRoo38oeYe9NZaaOH/lmFxRcsKzaSK6x3H5ZPXI8lK6MfTLveqwo1QhJje3zIKXO4nQQw==
+
+react-native-responsive-dimensions@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-dimensions/-/react-native-responsive-dimensions-3.0.0.tgz#da1691ca47cec4ec1ddc846c06fefcaac011352b"
+  integrity sha512-hXjChQGFhqxW21Y9vT5yCrxqJj36APurTk2K6AZX08KK3cPyXEwIWmvEIOfoVZs54lMY2b9LSX5UOG9ft/kpxA==
 
 react-native-safe-area-context@~0.3.6:
   version "0.3.6"

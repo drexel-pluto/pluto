@@ -51,7 +51,7 @@ export const POST_DATA = [
   {
     id: '2',
     content: {
-      image: 'https://picsum.photos/id/238/300/300',
+      image: 'https://picsum.photos/id/238/300/500',
       text: null,
     },
     author: {
@@ -68,6 +68,72 @@ export const POST_DATA = [
     author: {
       image: 'https://picsum.photos/id/237/300/300',
       name: 'author1',
+    },
+  },
+  {
+    id: '4',
+    content: {
+      image: 'https://picsum.photos/id/237/300/600',
+      text: 'Just wanted to show this amazing view...',
+    },
+    author: {
+      image: 'https://picsum.photos/id/237/300/300',
+      name: 'author4',
+    },
+  },
+  {
+    id: '5',
+    content: {
+      image: 'https://picsum.photos/id/237/300/300',
+      text: 'Just wanted to show this amazing view...',
+    },
+    author: {
+      image: 'https://picsum.photos/id/237/300/300',
+      name: 'author5',
+    },
+  },
+  {
+    id: '6',
+    content: {
+      image: 'https://picsum.photos/id/237/300/300',
+      text: 'Just wanted to show this amazing view...',
+    },
+    author: {
+      image: 'https://picsum.photos/id/237/300/300',
+      name: 'author5',
+    },
+  },
+  {
+    id: '7',
+    content: {
+      image: 'https://i.picsum.photos/id/866/200/300.jpg',
+      text: 'Just wanted to show this amazing view...',
+    },
+    author: {
+      image: 'https://picsum.photos/id/237/300/300',
+      name: 'author5',
+    },
+  },
+  {
+    id: '8',
+    content: {
+      image: 'https://picsum.photos/id/237/300/300',
+      text: 'Just wanted to show this amazing view...',
+    },
+    author: {
+      image: 'https://picsum.photos/id/237/300/300',
+      name: 'author5',
+    },
+  },
+  {
+    id: '9',
+    content: {
+      image: null,
+      text: 'Just wanted to show this amazing view...',
+    },
+    author: {
+      image: 'https://picsum.photos/id/237/300/300',
+      name: 'author5',
     },
   },
 ]

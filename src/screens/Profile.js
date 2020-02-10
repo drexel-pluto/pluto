@@ -4,6 +4,7 @@ import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import ScreenHeader from './../components/ScreenHeader'
 import ProfileHeader from '../components/ProfileHeader'
 import PostGrid from '../components/PostGrid'
+import { POST_DATA } from './../assets/data'
 
 class Profile extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Profile extends React.Component {
       <ScrollView>
         <ScreenHeader />
         <ProfileHeader profile={this.props.profile} />
-        <PostGrid />
+        <PostGrid data={POST_DATA} />
       </ScrollView>
     )
   }
