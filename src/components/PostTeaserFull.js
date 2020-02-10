@@ -3,19 +3,19 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 
-class PostTeaser extends React.Component {
+class PostTeaserFull extends React.Component {
   constructor(props) {
     super(props)
   }
 
   render() {
     return (
-      <View style={styles.postTeaser}>
+      <View style={styles.postTeaserFull}>
         {// render img if exists
         this.props.content.image ? (
           <View style={styles.image_wrapper}>
             <Image
-              style={[{ width: '100%', height: '100%' }]}
+              style={styles.image}
               source={{ uri: this.props.content.image }}
             />
           </View>
@@ -26,28 +26,22 @@ class PostTeaser extends React.Component {
             style={[
               styles.text_wrapper,
               !this.props.content.image
-                ? { paddingTop: Mixins.scaleSize(55), height: '100%' }
-                : { height: '40%' },
+                ? { paddingTop: Mixins.scaleSize(75) }
+                : null,
             ]}
           >
-            <Text
-              style={styles.text}
-              ellipsizeMode="tail"
-              numberOfLines={!this.props.content.image ? 4 : 999}
-            >
-              {this.props.content.text}
-            </Text>
+            <Text style={styles.text}>{this.props.content.text}</Text>
           </View>
         ) : null}
         <View style={styles.author_wrapper}>
-          <AuthorHeader isCompact={true} />
+          <AuthorHeader isCompact={false} />
         </View>
       </View>
     )
   }
 }
 
-PostTeaser.defaultProps = {
+PostTeaserFull.defaultProps = {
   id: -1,
   content: {
     image: null,
@@ -60,19 +54,22 @@ PostTeaser.defaultProps = {
 }
 
 const styles = StyleSheet.create({
-  postTeaser: {
+  postTeaserFull: {
     marginRight: Mixins.scaleSize(15),
-    borderRadius: Mixins.scaleSize(10),
-    width: Mixins.scaleSize(150),
-    height: Mixins.scaleSize(200),
+    marginBottom: Mixins.scaleSize(20),
+    borderRadius: Mixins.scaleSize(15),
+    width: '100%',
     overflow: 'hidden',
+  },
+  image: {
+    width: '100%',
+    aspectRatio: 1,
   },
   text_wrapper: {
     padding: Mixins.scaleSize(10),
     backgroundColor: Colors.GRAY_LIGHT,
     bottom: 0,
     width: '100%',
-    position: 'absolute',
   },
   author_wrapper: {
     position: 'absolute',
@@ -83,4 +80,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default PostTeaser
+export default PostTeaserFull

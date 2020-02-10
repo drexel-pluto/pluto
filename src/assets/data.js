@@ -41,7 +41,8 @@ export const POST_DATA = [
     id: '1',
     content: {
       image: 'https://picsum.photos/id/237/300/300',
-      text: 'Just wanted to show this amazing view...',
+      text:
+        'Just wanted to show this amazing view...and this may get suuuuuper longg how long can you contain',
     },
     author: {
       image: 'https://picsum.photos/id/237/300/300',

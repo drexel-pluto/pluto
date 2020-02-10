@@ -1,16 +1,14 @@
 import React from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
-import PostTeaser from './PostTeaser'
+import PostTeaserFull from './PostTeaserFull'
 
 export default PostFeed = props => {
   return (
     <FlatList
       style={styles.postFeed}
       data={props.data}
-      renderItem={({ item }) => (
-        <PostTeaser content={item.post} isFull={true} />
-      )}
+      renderItem={({ item }) => <PostTeaserFull content={item.post} />}
       keyExtractor={item => item._id}
     />
   )
