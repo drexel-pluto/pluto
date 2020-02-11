@@ -18,7 +18,10 @@ class SelectFriendItem extends React.Component {
   }
 
   toggleChecked() {
-    this.setState({ isChecked: !this.state.isChecked })
+    this.props.setRecipient(
+      this.props.friend._id,
+      !this.props.recipients[this.props.friend._id]
+    )
   }
 
   render() {
@@ -34,11 +37,11 @@ class SelectFriendItem extends React.Component {
               style={styles.image}
               source={{ uri: 'https://picsum.photos/id/237/300/300' }}
             />
-            <Text>Friend Name</Text>
+            <Text>{this.props.friend.name}</Text>
           </View>
           <CheckBox
             style={styles.friendCheck}
-            isChecked={this.state.isChecked}
+            isChecked={this.props.recipients[this.props.friend._id]}
             onClick={() => {
               this.toggleChecked()
             }}
