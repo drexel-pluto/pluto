@@ -1,14 +1,43 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import * as ImagePicker from 'expo-image-picker'
+import * as Permissions from 'expo-permissions'
 
 export default AddPostOptionBar = props => {
+  openImagePickerAsync = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    if (status == 'denied') {
+      alert('Sorry, we need camera roll permissions to make this work!')
+      return
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync()
+    console.log(pickerResult)
+  }
+
+  openCameraAsync = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA)
+    if (status == 'denied') {
+      alert('Sorry, we need camera permissions to make this work!')
+      return
+    }
+    let pickerResult = await ImagePicker.launchCameraAsync()
+    console.log(pickerResult)
+  }
+
   return (
     <View style={styles.addPostOptionBar}>
       <Text>Add Post Option Bar</Text>
       <View style={styles.option_wrapper}>
-        <TouchableOpacity style={styles.option}></TouchableOpacity>
-        <TouchableOpacity style={styles.option}></TouchableOpacity>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => this.openCameraAsync()}
+        ></TouchableOpacity>
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => this.openImagePickerAsync()}
+        ></TouchableOpacity>
         <TouchableOpacity
           style={styles.option}
           onPress={() => props.navigation.navigate('AddPostPermissions')}

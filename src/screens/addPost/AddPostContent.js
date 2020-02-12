@@ -58,7 +58,10 @@ class AddPost extends React.Component {
           style={{ flex: 1 }}
           onChangeText={text => this.setState({ text })}
         />
-        <AddPostOptionBar navigation={this.props.navigation} />
+        <AddPostOptionBar
+          navigation={this.props.navigation}
+          addImage={this.props.addImage}
+        />
       </KeyboardAvoidingView>
     )
   }

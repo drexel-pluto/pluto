@@ -1,7 +1,11 @@
 import React from 'react'
 import { connect, Button } from 'react-redux'
 import AddPostContent from '../screens/addPost/AddPostContent'
-import { submitPost } from '../redux/reducers/create.reducer'
+import {
+  submitPost,
+  addImage,
+  removeImage,
+} from '../redux/reducers/create.reducer'
 
 class AddPostContentContainer extends React.Component {
   submitPost(text) {
@@ -24,6 +28,8 @@ class AddPostContentContainer extends React.Component {
           this.submitPost(text)
         }}
         pendingSubmission={this.props.pendingSubmission}
+        openPhotoLibrary={this.props.openPhotoLibrary}
+        openCamera={this.props.openCamera}
       />
     )
   }
@@ -35,6 +41,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   submitPost,
+  addImage,
+  removeImage,
 }
 
 export default connect(

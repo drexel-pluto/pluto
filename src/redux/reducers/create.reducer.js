@@ -8,6 +8,9 @@ export const SEND_POST = 'create/SEND_POST'
 export const SEND_POST_SUCCESS = 'create/SEND_POST_SUCCESS'
 export const SEND_POST_FAIL = 'create/SEND_POST_FAIL'
 
+export const ADD_IMAGE = 'create/ADD_IMAGE'
+export const REMOVE_IMAGE = 'create/REMOVE_IMAGE'
+
 // reducer
 
 let defaultStateCreate = {
@@ -88,5 +91,19 @@ export function submitPost(postText) {
     }
 
     return dispatch(sendPost(params, getState().user.authToken))
+  }
+}
+
+export function addImage(uri) {
+  return {
+    type: ADD_IMAGE,
+    uri,
+  }
+}
+
+export function removeImage(index) {
+  return {
+    type: ADD_IMAGE,
+    index,
   }
 }
