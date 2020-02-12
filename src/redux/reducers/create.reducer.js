@@ -29,6 +29,9 @@ export default function reducer(state = defaultStateCreate, action) {
       return { ...state, pendingSubmission: true }
     case SEND_POST_FAIL:
       console.log(action)
+      return { ...state, pendingSubmission: false }
+    case SEND_POST_SUCCESS:
+      return { ...defaultStateCreate }
     default:
       return state
   }
@@ -84,6 +87,6 @@ export function submitPost(postText) {
       tag: '',
     }
 
-    dispatch(sendPost(params, getState().user.authToken))
+    return dispatch(sendPost(params, getState().user.authToken))
   }
 }
