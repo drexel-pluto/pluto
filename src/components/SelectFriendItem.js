@@ -12,9 +12,6 @@ import CheckBox from 'react-native-check-box'
 class SelectFriendItem extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      isChecked: false,
-    }
   }
 
   toggleChecked() {
@@ -50,6 +47,10 @@ class SelectFriendItem extends React.Component {
       </TouchableWithoutFeedback>
     )
   }
+}
+
+SelectFriendItem.defaultProps = {
+  isChecked: false,
 }
 
 const styles = StyleSheet.create({

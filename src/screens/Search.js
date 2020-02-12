@@ -8,7 +8,6 @@ class Search extends React.Component {
   constructor(props) {
     super(props)
   }
-
   render() {
     return (
       <View style={[Layouts.FLEX_CONTAINER]}>

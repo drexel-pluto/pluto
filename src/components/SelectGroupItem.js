@@ -20,7 +20,7 @@ class SelectGroupItem extends React.Component {
     }
   }
 
-  toggleExpand() {
+  toggleExpand = () => {
     this.setState({ isExpanded: !this.state.isExpanded })
   }
 
@@ -107,15 +107,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    backgroundColor: 'blue',
     flexDirection: 'row',
     flexGrow: 1,
+    // backgroundColor: 'blue',
   },
   groupCheck: {
     width: Mixins.scaleSize(40),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
   },
   friend_wrapper: {
     maxHeight: Mixins.scaleSize(200),

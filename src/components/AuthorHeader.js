@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
   },
   author__image: {
     width: Mixins.scaleSize(50),
