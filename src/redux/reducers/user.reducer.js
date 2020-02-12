@@ -67,6 +67,7 @@ export default function reducer(state = defaultStateUser, action) {
     case TOKEN_ERROR:
       return { ...state, error: action.error, isLoggedIn: false }
     case GET_ME_SUCCESS:
+      const data = action.payload.data
       return {
         ...state,
         userData: {

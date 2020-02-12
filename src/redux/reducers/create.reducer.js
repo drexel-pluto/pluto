@@ -12,6 +12,7 @@ export const SEND_POST_FAIL = 'create/SEND_POST_FAIL'
 
 let defaultStateCreate = {
   recipients: {},
+  pendingSubmission: false,
 }
 
 export default function reducer(state = defaultStateCreate, action) {
@@ -24,6 +25,8 @@ export default function reducer(state = defaultStateCreate, action) {
           },
         },
       })
+    case SEND_POST:
+      return { ...state, pendingSubmission: true }
     case SEND_POST_FAIL:
       console.log(action)
     default:
@@ -63,13 +66,24 @@ export function sendPost(postParams, token) {
 }
 
 export function submitPost(postText) {
-  var params = {
-    text: postText,
-    daysUntilArchive: 10,
-    audienceIds: ['5e0d6a06e2765d1ab2e7b521'],
-    tag: 'wedding',
-  }
   return function(dispatch, getState) {
+    var audienceIds = []
+
+    var ids = Object.keys(getState().create.recipients)
+
+    for (let id of ids) {
+      if (getState().create.recipients[id]) {
+        audienceIds.push(id)
+      }
+    }
+
+    var params = {
+      text: postText,
+      daysUntilArchive: 10,
+      audienceIds,
+      tag: '',
+    }
+
     dispatch(sendPost(params, getState().user.authToken))
   }
 }
