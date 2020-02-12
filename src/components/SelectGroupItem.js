@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   StyleSheet,
+  FlatList,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import CheckBox from 'react-native-check-box'
@@ -23,11 +24,19 @@ class SelectGroupItem extends React.Component {
     this.setState({ isExpanded: !this.state.isExpanded })
   }
 
-  toggleGroupChecked = () => {
-    this.setState({ isGroupChecked: !this.state.isGroupChecked })
+  toggleGroupChecked() {
+    let isChecked = this.props.group.members.every(
+      member => this.props.recipients[member._id]
+    )
+    for (let member of this.props.group.members) {
+      this.props.setRecipient(member._id, !isChecked)
+    }
   }
 
   render() {
+    let isChecked = this.props.group.members.every(
+      member => this.props.recipients[member._id]
+    )
     return (
       <View style={styles.selectGroupItem}>
         <View style={styles.title_wrapper}>
@@ -41,7 +50,7 @@ class SelectGroupItem extends React.Component {
                 // limit the width for group title
                 // or set char limit on it
               }
-              <Text>Group Name</Text>
+              <Text>{this.props.group.title}</Text>
               <Text>ICON</Text>
               <Text>1/10</Text>
             </View>
@@ -53,7 +62,7 @@ class SelectGroupItem extends React.Component {
           >
             <View style={styles.groupCheck}>
               <CheckBox
-                isChecked={this.state.isGroupChecked}
+                isChecked={isChecked}
                 onClick={() => {
                   this.toggleGroupChecked()
                 }}
@@ -67,10 +76,19 @@ class SelectGroupItem extends React.Component {
             this.state.isExpanded ? styles.isExpanded : '',
           ]}
         >
-          <SelectFriendItem isChecked={this.state.isGroupChecked} />
-          <SelectFriendItem isChecked={this.state.isGroupChecked} />
-          <SelectFriendItem isChecked={this.state.isGroupChecked} />
-          <SelectFriendItem isChecked={this.state.isGroupChecked} />
+          <FlatList
+            style={styles.postFeed}
+            data={this.props.group.members}
+            extraData={this.props.recipients}
+            renderItem={({ item }) => (
+              <SelectFriendItem
+                friend={item}
+                setRecipient={this.props.setRecipient}
+                recipients={this.props.recipients}
+              />
+            )}
+            keyExtractor={item => item._id}
+          />
         </ScrollView>
       </View>
     )

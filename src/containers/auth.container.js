@@ -31,7 +31,6 @@ class AuthContainer extends React.Component {
   create(userData) {
     this.props.createProfile(userData).then(action => {
       if (action.type.endsWith('SUCCESS')) {
-        console.log('account successfully created')
         this.login(userData.username, userData.password)
       }
     })

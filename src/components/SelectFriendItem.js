@@ -12,20 +12,13 @@ import CheckBox from 'react-native-check-box'
 class SelectFriendItem extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      isChecked: props.isChecked,
-    }
   }
 
-  toggleChecked = () => {
-    this.setState({ isChecked: !this.state.isChecked })
-  }
-
-  componentDidUpdate = prevProps => {
-    // Typical usage (don't forget to compare props):
-    if (this.props.isChecked !== prevProps.isChecked) {
-      this.setState({ isChecked: this.props.isChecked })
-    }
+  toggleChecked() {
+    this.props.setRecipient(
+      this.props.friend._id,
+      !this.props.recipients[this.props.friend._id]
+    )
   }
 
   render() {
@@ -41,11 +34,11 @@ class SelectFriendItem extends React.Component {
               style={styles.image}
               source={{ uri: 'https://picsum.photos/id/237/300/300' }}
             />
-            <Text>Friend Name</Text>
+            <Text>{this.props.friend.name}</Text>
           </View>
           <CheckBox
             style={styles.friendCheck}
-            isChecked={this.state.isChecked}
+            isChecked={this.props.recipients[this.props.friend._id]}
             onClick={() => {
               this.toggleChecked()
             }}
