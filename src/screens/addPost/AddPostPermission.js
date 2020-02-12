@@ -21,7 +21,11 @@ class AddPostPermission extends React.Component {
         <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
           <Text style={{ padding: 10, fontSize: 30 }}>Back</Text>
         </TouchableOpacity>
-        <SelectGroupList />
+        <SelectGroupList
+          groups={this.props.groups}
+          recipients={this.props.recipients}
+          setRecipient={this.props.setRecipient}
+        />
         <DecaySlider />
       </ScrollView>
     )

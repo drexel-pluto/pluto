@@ -8,3 +8,5 @@ export const FLEX_CONTAINER_CENTER = {
   justifyContent: 'center',
   alignItems: 'center',
 }
+
+export const PAD = 10

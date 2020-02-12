@@ -68,8 +68,6 @@ export default function reducer(state = defaultStateUser, action) {
       return { ...state, error: action.error, isLoggedIn: false }
     case GET_ME_SUCCESS:
       const data = action.payload.data
-      const url = Linking.makeUrl('addFriend', { id: data._id })
-      console.log(url)
       return {
         ...state,
         userData: {
@@ -148,7 +146,7 @@ export const tokenError = error => ({
 const storageKey = 'userToken'
 
 export const getUserToken = () => dispatch =>
-  AsyncStorage.getItem('WRONG TOKEN')
+  AsyncStorage.getItem(storageKey)
     .then(data => {
       dispatch(getToken(data))
     })
