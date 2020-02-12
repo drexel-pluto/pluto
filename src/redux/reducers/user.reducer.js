@@ -67,9 +67,6 @@ export default function reducer(state = defaultStateUser, action) {
     case TOKEN_ERROR:
       return { ...state, error: action.error, isLoggedIn: false }
     case GET_ME_SUCCESS:
-      const data = action.payload.data
-      const url = Linking.makeUrl('addFriend', { id: data._id })
-      console.log(url)
       return {
         ...state,
         userData: {

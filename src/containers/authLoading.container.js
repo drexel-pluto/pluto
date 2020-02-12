@@ -9,9 +9,9 @@ class AuthLoadingContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.init().then(() => {
+    this.props.init().then(action => {
       this.props.navigation.navigate(
-        this.props.token !== null && this.props.loggedIn ? 'App' : 'Login'
+        action.type.endsWith('SUCCESS') ? 'App' : 'Login'
       )
     })
   }

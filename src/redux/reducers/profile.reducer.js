@@ -31,7 +31,6 @@ export default function reducer(state = defaultStateProfile, action) {
         loading: false,
       }
     case FETCH_USER_FAIL:
-      console.log(action)
       return { ...state, loading: false }
     default:
       return state
