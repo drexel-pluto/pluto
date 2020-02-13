@@ -12,8 +12,17 @@ export default AddPostOptionBar = props => {
       return
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync()
-    console.log(pickerResult)
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+    })
+
+    if (pickerResult.uri) {
+      let data = {
+        uri: pickerResult.uri,
+        type: pickerResult.type,
+      }
+      props.addImage(data)
+    }
   }
 
   openCameraAsync = async () => {
@@ -22,8 +31,18 @@ export default AddPostOptionBar = props => {
       alert('Sorry, we need camera permissions to make this work!')
       return
     }
-    let pickerResult = await ImagePicker.launchCameraAsync()
-    console.log(pickerResult)
+
+    let pickerResult = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+    })
+
+    if (pickerResult.uri) {
+      let data = {
+        uri: pickerResult.uri,
+        type: pickerResult.type,
+      }
+      props.addImage(data)
+    }
   }
 
   return (

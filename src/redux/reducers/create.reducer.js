@@ -15,11 +15,17 @@ export const REMOVE_IMAGE = 'create/REMOVE_IMAGE'
 
 let defaultStateCreate = {
   recipients: {},
+  media: [],
   pendingSubmission: false,
 }
 
 export default function reducer(state = defaultStateCreate, action) {
   switch (action.type) {
+    case ADD_IMAGE:
+      if (state.media.some(item => item.uri === action.data.uri)) {
+        return state
+      }
+      return { ...state, media: [...state.media, action.data] }
     case SET_RECIPIENT:
       return update(state, {
         recipients: {
@@ -34,6 +40,7 @@ export default function reducer(state = defaultStateCreate, action) {
       console.log(action)
       return { ...state, pendingSubmission: false }
     case SEND_POST_SUCCESS:
+      console.log(action)
       return { ...defaultStateCreate }
     default:
       return state
@@ -50,10 +57,18 @@ export function setRecipient(recipientId, value) {
   }
 }
 
-export function sendPost(postParams, token) {
+export function sendPost(postParams, media, token) {
   const json = JSON.stringify(postParams)
   let form = new FormData()
   form.append('postParams', json)
+
+  for (let i in media) {
+    form.append(`media[${i}]`, {
+      uri: media[i].uri,
+      name: 'image.jpg',
+      type: media[i].type == 'image' ? 'image/jpeg' : 'video/*',
+    })
+  }
 
   return {
     type: SEND_POST,
@@ -90,14 +105,16 @@ export function submitPost(postText) {
       tag: '',
     }
 
-    return dispatch(sendPost(params, getState().user.authToken))
+    var media = getState().create.media
+
+    return dispatch(sendPost(params, media, getState().user.authToken))
   }
 }
 
-export function addImage(uri) {
+export function addImage(data) {
   return {
     type: ADD_IMAGE,
-    uri,
+    data,
   }
 }
 

@@ -28,8 +28,9 @@ class AddPostContentContainer extends React.Component {
           this.submitPost(text)
         }}
         pendingSubmission={this.props.pendingSubmission}
-        openPhotoLibrary={this.props.openPhotoLibrary}
-        openCamera={this.props.openCamera}
+        addImage={this.props.addImage}
+        removeImage={this.props.removeImage}
+        media={this.props.media}
       />
     )
   }
@@ -37,6 +38,7 @@ class AddPostContentContainer extends React.Component {
 
 const mapStateToProps = state => ({
   pendingSubmission: state.create.pendingSubmission,
+  media: state.create.media,
 })
 
 const mapDispatchToProps = {
