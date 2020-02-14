@@ -63,9 +63,10 @@ export function sendPost(postParams, media, token) {
   form.append('postParams', json)
 
   for (let i in media) {
-    form.append(`media[${i}]`, {
+    console.log(media[i].type, media[i].type == 'image')
+    form.append(`media[]`, {
       uri: media[i].uri,
-      name: 'image.jpg',
+      name: media[i].type == 'image' ? `img_${i}.jpg` : `img_${i}.mov`,
       type: media[i].type == 'image' ? 'image/jpeg' : 'video/*',
     })
   }
