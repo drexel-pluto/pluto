@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableHighlight, StyleSheet } from 'react-native'
+import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import CircleContainer from '../components/CircleContainer'
@@ -17,17 +17,17 @@ class Home extends React.Component {
         <CircleContainer />
         <TouchableHighlight
           onPress={() => {
+            this.props.navigation.navigate('AddPost')
+          }}
+        >
+          <Text style={styles.createButton}>Create Post</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
             this.props.openGroup(this.props.groups[0]._id)
           }}
         >
           <GroupPanel />
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={() => {
-            this.props.navigation.navigate('AddPost')
-          }}
-        >
-          <View style={styles.createButton} />
         </TouchableHighlight>
       </View>
     )
@@ -40,12 +40,7 @@ const styles = StyleSheet.create({
   },
   createButton: {
     backgroundColor: '#888888',
-    width: 80,
-    height: 80,
-    position: 'absolute',
-    bottom: 100,
-    right: 20,
-    borderRadius: 80,
+    height: 50,
   },
 })
 

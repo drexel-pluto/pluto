@@ -19,6 +19,8 @@ class SelectFriendItem extends React.Component {
       this.props.friend._id,
       !this.props.recipients[this.props.friend._id]
     )
+
+    this.props.updateSelectedMember()
   }
 
   render() {
