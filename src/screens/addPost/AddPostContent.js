@@ -9,7 +9,7 @@ import {
 import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
 import AddPostOptionBar from '../../components/AddPostOptionBar'
-import PostMedia from '../../components/PostMedia'
+import PostMediaUpload from '../../components/PostMediaUpload'
 import { Header } from 'react-navigation-stack'
 
 class AddPost extends React.Component {
@@ -52,7 +52,12 @@ class AddPost extends React.Component {
         <ScreenHeader
           rightItem={<Button title="post" onPress={() => this.submitPost()} />}
         />
-        {this.props.media.length > 0 && <PostMedia media={this.props.media} />}
+        {this.props.media.length > 0 && (
+          <PostMedia
+            media={this.props.media}
+            removeImage={index => this.props.removeImage(index)}
+          />
+        )}
         <TextInput
           ref={ref => (this.textInputRef = ref)}
           placeholder="Quiz Deck Title"
@@ -63,7 +68,6 @@ class AddPost extends React.Component {
         <AddPostOptionBar
           navigation={this.props.navigation}
           addImage={uri => {
-            console.log('hello world')
             this.props.addImage(uri)
           }}
         />

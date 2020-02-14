@@ -1,34 +1,32 @@
 import React from 'react'
 import { View, StyleSheet, Image } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { FLEX_CONTAINER } from '../styles/layouts'
 
 export default PostMedia = props => {
   return (
     <View style={styles.postMediaWrapper}>
-      {props.media[0] && (
-        <Image
-          style={{ width: 50, height: 50 }}
-          source={{ uri: props.media[0].uri }}
-        />
-      )}
-      {props.media[1] && (
-        <Image
-          style={{ width: 50, height: 50 }}
-          source={{ uri: props.media[1].uri }}
-        />
-      )}
-      {props.media[2] && (
-        <Image
-          style={{ width: 50, height: 50 }}
-          source={{ uri: props.media[2].uri }}
-        />
-      )}
+      {props.media.map((img, key) => {
+        return (
+          <Image source={{ uri: img.uri }} key={key} style={styles.mediaItem} />
+        )
+      })}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   postMediaWrapper: {
-    backgroundColor: 'red',
+    height: 250,
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    alignContent: 'stretch',
+    padding: Layouts.PAD / 2,
+  },
+  mediaItem: {
+    margin: Layouts.PAD / 2,
+    width: '40%',
+    flexGrow: 1,
+    borderRadius: 14,
   },
 })

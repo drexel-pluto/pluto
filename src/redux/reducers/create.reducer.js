@@ -26,6 +26,10 @@ export default function reducer(state = defaultStateCreate, action) {
         return state
       }
       return { ...state, media: [...state.media, action.data] }
+    case REMOVE_IMAGE:
+      console.log(action.index)
+      console.log(state.media.splice(action.index, 1))
+      return { ...state, media: state.media.splice(action.index, 1) }
     case SET_RECIPIENT:
       return update(state, {
         recipients: {
@@ -64,11 +68,15 @@ export function sendPost(postParams, media, token) {
 
   for (let i in media) {
     console.log(media[i].type, media[i].type == 'image')
-    form.append(`media[]`, {
-      uri: media[i].uri,
-      name: media[i].type == 'image' ? `img_${i}.jpg` : `img_${i}.mov`,
-      type: media[i].type == 'image' ? 'image/jpeg' : 'video/*',
-    })
+    form.append(
+      `media[]`,
+      {
+        uri: media[i].uri,
+        name: media[i].type == 'image' ? `img_${i}.jpg` : `img_${i}.mov`,
+        type: media[i].type == 'image' ? 'image/jpeg' : 'video/*',
+      },
+      media[i].type == 'image' ? `img_${i}.jpg` : `img_${i}.mov`
+    )
   }
 
   return {
@@ -121,7 +129,7 @@ export function addImage(data) {
 
 export function removeImage(index) {
   return {
-    type: ADD_IMAGE,
+    type: REMOVE_IMAGE,
     index,
   }
 }
