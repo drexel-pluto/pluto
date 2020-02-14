@@ -13,6 +13,7 @@ import ScreenHeader from '../components/ScreenHeader'
 import TagList from '../components/TagList'
 import CommentList from '../components/CommentList'
 import AuthorHeader from '../components/AuthorHeader'
+import IconButton from '../components/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
 
 class Post extends React.Component {
@@ -27,7 +28,11 @@ class Post extends React.Component {
         style={[styles.post, Layouts.FLEX_CONTAINER]}
       >
         <ScrollView>
-          <ScreenHeader />
+          <ScreenHeader
+            leftItems={
+              <IconButton type="back" _onPress={this.props.navigation.goBack} />
+            }
+          />
           <View style={styles.content}>
             <View style={styles.image_wrapper}>
               <Image

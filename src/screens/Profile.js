@@ -14,7 +14,11 @@ class Profile extends React.Component {
   render() {
     return (
       <ScrollView>
-        <ScreenHeader />
+        <ScreenHeader
+          leftItems={
+            <IconButton type="back" _onPress={this.props.navigation.goBack} />
+          }
+        />
         <ProfileHeader profile={this.props.profile} />
         <PostGrid data={POST_DATA} />
       </ScrollView>

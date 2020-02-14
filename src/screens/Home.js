@@ -4,6 +4,7 @@ import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import CircleContainer from '../components/CircleContainer'
 import GroupPanel from './../components/GroupPanel'
+import IconButton from './../components/IconButton'
 
 class Home extends React.Component {
   constructor(props) {
@@ -11,9 +12,15 @@ class Home extends React.Component {
   }
 
   render() {
+    const rightHeaderItems = [
+      <IconButton type="search" />,
+      <IconButton type="noti" />,
+      <IconButton type="profile" />,
+    ]
+
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
-        <ScreenHeader />
+        <ScreenHeader rightItems={rightHeaderItems} />
         <CircleContainer />
         <TouchableHighlight
           onPress={() => {

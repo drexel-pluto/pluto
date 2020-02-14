@@ -4,11 +4,16 @@ import GroupFeedContainer from '../containers/groupFeed.container'
 import profileContainer from '../containers/profile.container'
 import AddPostNavigator from './AddPostNavigator'
 
-const AppNavigator = createStackNavigator({
-  Home: HomeContainer,
-  GroupFeed: GroupFeedContainer,
-  Profile: profileContainer,
-  AddPost: AddPostNavigator,
-})
+const AppNavigator = createStackNavigator(
+  {
+    Home: HomeContainer,
+    GroupFeed: GroupFeedContainer,
+    Profile: profileContainer,
+    AddPost: AddPostNavigator,
+  },
+  {
+    headerMode: 'none',
+  }
+)
 
 export default AppNavigator

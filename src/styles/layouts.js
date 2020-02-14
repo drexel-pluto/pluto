@@ -1,4 +1,6 @@
-// FLEX
+import { scaleSize } from './mixins'
+
+// Flex
 export const FLEX_CONTAINER = {
   flex: 1,
 }
@@ -9,4 +11,5 @@ export const FLEX_CONTAINER_CENTER = {
   alignItems: 'center',
 }
 
-export const PAD = 10
+// Spacing
+export const PAD = scaleSize(10)

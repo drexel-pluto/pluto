@@ -9,6 +9,7 @@ import {
 import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
 import DecaySlider from '../../components/DecaySlider'
 import SelectGroupList from '../../components/SelectGroupList'
+import ScreenHeader from '../../components/ScreenHeader'
 
 class AddPostPermission extends React.Component {
   constructor(props) {
@@ -18,9 +19,12 @@ class AddPostPermission extends React.Component {
   render() {
     return (
       <ScrollView style={Layouts.FLEX_CONTAINER}>
-        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-          <Text style={{ padding: 10, fontSize: 30 }}>Back</Text>
-        </TouchableOpacity>
+        <ScreenHeader
+          title={'Permission'}
+          leftItems={
+            <IconButton type="back" _onPress={this.props.navigation.goBack} />
+          }
+        />
         <SelectGroupList
           groups={this.props.groups}
           recipients={this.props.recipients}
