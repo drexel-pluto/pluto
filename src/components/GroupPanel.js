@@ -5,7 +5,7 @@ import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 export default GroupPanel = props => {
   return (
     <View style={styles.groupPanel}>
-      <Text style={[styles.title, Typography.F_H2]}>Group Title</Text>
+      <Text style={[styles.title, Typography.F_H2]}>Group Titleeeeee</Text>
       <Text style={[styles.detail]}>Updates from group</Text>
     </View>
   )
