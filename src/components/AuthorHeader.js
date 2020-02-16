@@ -3,7 +3,7 @@ import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 
 export default AuthorHeader = props => {
-  const { author, isCompact } = props
+  const { author, timeStamp, isCompact } = props
 
   return (
     <TouchableOpacity>
@@ -12,7 +12,14 @@ export default AuthorHeader = props => {
           style={[styles.author__image, isCompact ? styles.isCompact : '']}
           source={{ uri: author.image }}
         />
-        {isCompact ? null : <Text>{author.name}</Text>}
+        {isCompact ? null : (
+          <View>
+            <Text style={[Typography.F_BODY, { fontWeight: '600' }]}>
+              {author.name}
+            </Text>
+            <Text style={Typography.F_SUBTITLE}>{timeStamp}</Text>
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   )
@@ -32,9 +39,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   author__image: {
-    width: Mixins.scaleSize(50),
-    height: Mixins.scaleSize(50),
-    borderRadius: Mixins.scaleSize(25),
+    width: Mixins.scaleSize(45),
+    height: Mixins.scaleSize(45),
+    borderRadius: Mixins.scaleSize(45) / 2,
     marginRight: Mixins.scaleSize(15),
   },
   isCompact: {

@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import CircleContainer from '../components/CircleContainer'
 import GroupPanel from './../components/GroupPanel'
-import IconButton from './../components/IconButton'
+import IconButton from './../components/IconButton/IconButton'
 
 class Home extends React.Component {
   constructor(props) {
@@ -22,20 +22,20 @@ class Home extends React.Component {
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
         <ScreenHeader rightItems={rightHeaderItems} />
         <CircleContainer />
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             this.props.navigation.navigate('AddPost')
           }}
         >
           <Text style={styles.createButton}>Create Post</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
             this.props.openGroup(this.props.groups[0]._id)
           }}
         >
           <GroupPanel />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     )
   }

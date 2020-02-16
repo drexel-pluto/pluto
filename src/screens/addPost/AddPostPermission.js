@@ -10,6 +10,7 @@ import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
 import DecaySlider from '../../components/DecaySlider'
 import SelectGroupList from '../../components/SelectGroupList'
 import ScreenHeader from '../../components/ScreenHeader'
+import IconButton from './../../components/IconButton/IconButton'
 
 class AddPostPermission extends React.Component {
   constructor(props) {
@@ -18,8 +19,9 @@ class AddPostPermission extends React.Component {
 
   render() {
     return (
-      <ScrollView style={Layouts.FLEX_CONTAINER}>
+      <ScrollView stickyHeaderIndices={[0]} style={Layouts.FLEX_CONTAINER}>
         <ScreenHeader
+          isFixed={true}
           title={'Permission'}
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />

@@ -11,13 +11,21 @@ class Search extends React.Component {
   render() {
     return (
       <View style={[Layouts.FLEX_CONTAINER]}>
-        <SearchInput />
+        <View style={styles.screenHeader}>
+          <SearchInput />
+        </View>
         <SearchResult />
       </View>
     )
   }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  screenHeader: {
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingTop: Layouts.HEAD_PAD_VERT,
+    paddingBottom: Layouts.PAD_VERT,
+  },
+})
 
 export default Search

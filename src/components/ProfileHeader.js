@@ -20,7 +20,7 @@ class ProfileHeader extends React.Component {
 const styles = StyleSheet.create({
   ProfileHeader: {
     width: '100%',
-    backgroundColor: Colors.GRAY_MEDIUM,
+    paddingVertical: Layouts.PAD_VERT,
   },
 })
 

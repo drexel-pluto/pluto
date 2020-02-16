@@ -6,7 +6,7 @@ import CircleList from './../components/CircleList'
 import RecentPostList from '../components/RecentPostList'
 import TagList from './../components/TagList'
 import PostFeed from './../components/PostFeed'
-import IconButton from './../components/IconButton'
+import IconButton from './../components/IconButton/IconButton'
 import { TAG_DATA, POST_DATA, CIRCLE_DATA } from './../assets/data'
 
 class GroupFeed extends React.Component {
@@ -25,8 +25,12 @@ class GroupFeed extends React.Component {
     ]
 
     return (
-      <ScrollView style={[styles.groupFeedScreen, Layouts.FLEX_CONTAINER]}>
+      <ScrollView
+        stickyHeaderIndices={[0]}
+        style={[styles.groupFeedScreen, Layouts.FLEX_CONTAINER]}
+      >
         <ScreenHeader
+          isFixed={true}
           title={'Group Feed'}
           leftItems={leftHeaderItems}
           rightItems={rightHeaderItems}
@@ -34,7 +38,7 @@ class GroupFeed extends React.Component {
         <CircleList
           data={this.props.group.members}
           navigation={this.props.navigation}
-          size={80}
+          size={50}
         />
         <RecentPostList data={this.props.group.posts} />
         <TagList data={TAG_DATA} />

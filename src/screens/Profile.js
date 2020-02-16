@@ -5,6 +5,7 @@ import ScreenHeader from './../components/ScreenHeader'
 import ProfileHeader from '../components/ProfileHeader'
 import PostGrid from '../components/PostGrid'
 import { POST_DATA } from './../assets/data'
+import IconButton from './../components/IconButton/IconButton'
 
 class Profile extends React.Component {
   constructor(props) {
@@ -13,11 +14,13 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView stickyHeaderIndices={[0]}>
         <ScreenHeader
+          isFixed={true}
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
+          rightItems={<IconButton type="search" />}
         />
         <ProfileHeader profile={this.props.profile} />
         <PostGrid data={POST_DATA} />

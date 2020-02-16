@@ -1,4 +1,4 @@
-import { scaleSize } from './mixins'
+import { scaleSize, getStatusBarHeight } from './mixins'
 
 // Flex
 export const FLEX_CONTAINER = {
@@ -12,4 +12,9 @@ export const FLEX_CONTAINER_CENTER = {
 }
 
 // Spacing
-export const PAD = scaleSize(10)
+// -- General
+export const PAD_HORZ = scaleSize(20)
+export const PAD_VERT = scaleSize(10)
+
+// -- Header
+export const HEAD_PAD_VERT = scaleSize(10) + getStatusBarHeight

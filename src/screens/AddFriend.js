@@ -13,8 +13,8 @@ class AddFriend extends React.Component {
 
   render() {
     return (
-      <ScrollView>
-        <ScreenHeader />
+      <ScrollView stickyHeaderIndices={[0]}>
+        <ScreenHeader isFixed={true} />
         <QRLink />
         <ShareLink />
         <InvitationCenter />

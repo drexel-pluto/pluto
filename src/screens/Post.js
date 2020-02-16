@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
@@ -13,7 +13,7 @@ import ScreenHeader from '../components/ScreenHeader'
 import TagList from '../components/TagList'
 import CommentList from '../components/CommentList'
 import AuthorHeader from '../components/AuthorHeader'
-import IconButton from '../components/IconButton'
+import IconButton from '../components/IconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
 
 class Post extends React.Component {
@@ -27,8 +27,9 @@ class Post extends React.Component {
         behavior="position"
         style={[styles.post, Layouts.FLEX_CONTAINER]}
       >
-        <ScrollView>
+        <ScrollView stickyHeaderIndices={[0]}>
           <ScreenHeader
+            isFixed={true}
             leftItems={
               <IconButton type="back" _onPress={this.props.navigation.goBack} />
             }

@@ -3,10 +3,15 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 
 export default ScreenHeader = props => {
-  const { title, rightItems, leftItems } = props
+  const { isFixed, title, rightItems, leftItems } = props
 
   return (
-    <View style={styles.screenHeader}>
+    <View
+      style={[
+        styles.screenHeader,
+        isFixed ? { backgroundColor: 'white' } : null,
+      ]}
+    >
       <View style={styles.leftItems}>
         {leftItems}
         {title ? (
@@ -27,16 +32,16 @@ ScreenHeader.defaultProps = {
 const styles = StyleSheet.create({
   screenHeader: {
     width: '100%',
-    height: Mixins.scaleSize(60),
-    backgroundColor: Colors.GRAY_LIGHT,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: Layouts.PAD,
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingTop: Layouts.HEAD_PAD_VERT,
+    paddingBottom: Layouts.PAD_VERT,
   },
   title: {
     marginLeft: Mixins.scaleSize(10),
   },
-  leftItems: { flexDirection: 'row' },
-  rightItems: { flexDirection: 'row' },
+  leftItems: { flexDirection: 'row', alignItems: 'center' },
+  rightItems: { flexDirection: 'row', alignItems: 'center' },
 })

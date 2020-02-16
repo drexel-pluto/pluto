@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 
@@ -9,40 +9,52 @@ class PostTeaser extends React.Component {
   }
 
   render() {
+    const prevBgIndex =
+      this.props.bgIndex === Colors.POST_BG.length - 1
+        ? 0
+        : this.props.bgIndex + 1
+
     return (
-      <View style={styles.postTeaser}>
-        {// render img if exists
-        this.props.content.image ? (
-          <View style={styles.image_wrapper}>
-            <Image
-              style={[{ width: '100%', height: '100%' }]}
-              source={{ uri: this.props.content.image }}
-            />
-          </View>
-        ) : null}
-        {// render text if exists
-        this.props.content.text ? (
-          <View
-            style={[
-              styles.text_wrapper,
-              !this.props.content.image
-                ? { paddingTop: Mixins.scaleSize(55), height: '100%' }
-                : { height: '40%' },
-            ]}
-          >
-            <Text
-              style={styles.text}
-              ellipsizeMode="tail"
-              numberOfLines={!this.props.content.image ? 4 : 999}
+      <TouchableOpacity onPress={() => {}}>
+        <View
+          style={[
+            styles.postTeaser,
+            { backgroundColor: Colors.POST_BG[prevBgIndex] },
+          ]}
+        >
+          {// render img if exists
+          this.props.content.image ? (
+            <View style={styles.image_wrapper}>
+              <Image
+                style={[{ width: '100%', height: '100%' }]}
+                source={{ uri: this.props.content.image }}
+              />
+            </View>
+          ) : null}
+          {// render text if exists
+          this.props.content.text ? (
+            <View
+              style={[
+                styles.text_wrapper,
+                !this.props.content.image
+                  ? { paddingTop: Mixins.scaleSize(55), height: '100%' }
+                  : { height: '40%' },
+              ]}
             >
-              {this.props.content.text}
-            </Text>
+              <Text
+                style={[styles.text, Typography.F_BODY]}
+                ellipsizeMode="tail"
+                numberOfLines={!this.props.content.image ? 4 : 999}
+              >
+                {this.props.content.text}
+              </Text>
+            </View>
+          ) : null}
+          <View style={styles.author_wrapper}>
+            <AuthorHeader isCompact={true} />
           </View>
-        ) : null}
-        <View style={styles.author_wrapper}>
-          <AuthorHeader isCompact={true} />
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -69,7 +81,6 @@ const styles = StyleSheet.create({
   },
   text_wrapper: {
     padding: Mixins.scaleSize(10),
-    backgroundColor: Colors.GRAY_LIGHT,
     bottom: 0,
     width: '100%',
     position: 'absolute',

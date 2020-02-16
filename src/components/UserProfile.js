@@ -12,9 +12,12 @@ export default UserProfile = props => {
         }}
       />
       <View style={[styles.text_wrapper, Layouts.FLEX_CONTAINER_CENTER]}>
-        <Text style={Typography.F_H2}>{props.profile.name}</Text>
-        <Text style={Typography.F_BODY}>
-          some bio information...lorem ipsum stuff...
+        <Text style={[styles.title, Typography.F_H1]}>
+          {props.profile.name}
+        </Text>
+        <Text style={[styles.bio, Typography.F_SUBTITLE]}>
+          Lali ho! Hosting another event at Redcaps, be there or be- well I
+          don’t need to tell you dweebs!
         </Text>
       </View>
     </View>
@@ -28,11 +31,22 @@ UserProfile.defaultProps = {
 }
 
 const styles = StyleSheet.create({
-  userProfile: {},
+  userProfile: {
+    paddingVertical: Layouts.PAD_VERT,
+  },
   text_wrapper: {},
+  title: {
+    marginVertical: Mixins.scaleSize(10),
+  },
+  bio: {
+    textAlign: 'center',
+    width: '75%',
+    maxWidth: Mixins.scaleSize(300),
+  },
   image: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
+    width: Mixins.scaleSize(100),
+    height: Mixins.scaleSize(100),
+    borderRadius: Mixins.scaleSize(100 / 2),
+    backgroundColor: Colors.GRAY_DARK,
   },
 })
