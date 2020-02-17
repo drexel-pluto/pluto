@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import RNMasonryScroll from 'react-native-masonry-scrollview'
 import AutoHeightImage from 'react-native-auto-height-image'
+import StyledContainer from './StyledContainer'
 
 const PostGridItem = props => {
   const itemWidth =
@@ -11,23 +12,21 @@ const PostGridItem = props => {
 
   return (
     <TouchableOpacity onPress={() => {}}>
-      <View style={styles.outer}>
-        <View style={styles.inner}>
-          <View style={styles.postGridItem}>
-            {content.image ? (
-              <AutoHeightImage
-                width={itemWidth}
-                style={styles.postGridItem__image}
-                source={{ uri: content.image }}
-              />
-            ) : (
-              <Text style={[styles.postGridItem__text, { width: itemWidth }]}>
-                {content.text}
-              </Text>
-            )}
-          </View>
+      <StyledContainer>
+        <View style={styles.postGridItem}>
+          {content.image ? (
+            <AutoHeightImage
+              width={itemWidth}
+              style={styles.postGridItem__image}
+              source={{ uri: content.image }}
+            />
+          ) : (
+            <Text style={[styles.postGridItem__text, { width: itemWidth }]}>
+              {content.text}
+            </Text>
+          )}
         </View>
-      </View>
+      </StyledContainer>
     </TouchableOpacity>
   )
 }
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Layouts.PAD_HORZ,
   },
   postGridItem: {
-    maxHeight: Mixins.scaleSize(200),
+    // maxHeight: Mixins.scaleSize(200),
     backgroundColor: 'white',
     borderRadius: Mixins.scaleSize(15),
     margin: Mixins.scaleSize(7),
@@ -70,19 +69,5 @@ const styles = StyleSheet.create({
   postGridItem__image: {},
   postGridItem__text: {
     padding: Mixins.scaleSize(15),
-  },
-  outer: {
-    borderRadius: Mixins.scaleSize(15),
-    shadowOffset: { width: 4, height: 4 },
-    shadowColor: 'black',
-    shadowOpacity: 0.15,
-    shadowRadius: 3,
-  },
-  inner: {
-    borderRadius: Mixins.scaleSize(15),
-    shadowOffset: { width: -2, height: -2 },
-    shadowColor: Colors.CREAM,
-    shadowOpacity: 1,
-    shadowRadius: 3,
   },
 })

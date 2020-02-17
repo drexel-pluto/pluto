@@ -5,7 +5,7 @@ import ScreenHeader from './../components/ScreenHeader'
 import ProfileHeader from '../components/ProfileHeader'
 import PostGrid from '../components/PostGrid'
 import { POST_DATA } from './../assets/data'
-import IconButton from './../components/IconButton/IconButton'
+import IconButton from './../components/iconButton/IconButton'
 
 class Profile extends React.Component {
   constructor(props) {

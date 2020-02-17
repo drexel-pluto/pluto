@@ -6,7 +6,7 @@ import CircleList from './../components/CircleList'
 import RecentPostList from '../components/RecentPostList'
 import TagList from './../components/TagList'
 import PostFeed from './../components/PostFeed'
-import IconButton from './../components/IconButton/IconButton'
+import IconButton from './../components/iconButton/IconButton'
 import { TAG_DATA, POST_DATA, CIRCLE_DATA } from './../assets/data'
 
 class GroupFeed extends React.Component {

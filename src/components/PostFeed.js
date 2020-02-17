@@ -4,19 +4,12 @@ import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import PostTeaserFull from './PostTeaserFull'
 
 export default PostFeed = props => {
-  const postColorLength = Colors.POST_BG.length
-
   return (
     <View style={styles.postFeed}>
       <FlatList
         data={props.data}
         renderItem={({ item, index }) => {
-          return (
-            <PostTeaserFull
-              content={item.post}
-              bgIndex={index % postColorLength}
-            />
-          )
+          return <PostTeaserFull content={item.post} />
         }}
         keyExtractor={item => item._id}
       />
@@ -35,7 +28,9 @@ export default PostFeed = props => {
 const styles = StyleSheet.create({
   postFeed: {
     width: '100%',
-    marginTop: Layouts.PAD_VERT,
+    paddingTop: Layouts.PAD_VERT,
+    paddingBottom: Mixins.scaleSize(30),
+    paddingHorizontal: Layouts.PAD_HORZ,
     borderTopLeftRadius: Mixins.scaleSize(20),
     overflow: 'hidden',
   },

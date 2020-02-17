@@ -4,7 +4,7 @@ import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import CircleContainer from '../components/CircleContainer'
 import GroupPanel from './../components/GroupPanel'
-import IconButton from './../components/IconButton/IconButton'
+import IconButton from './../components/iconButton/IconButton'
 
 class Home extends React.Component {
   constructor(props) {

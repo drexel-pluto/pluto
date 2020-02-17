@@ -10,7 +10,7 @@ import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
 import DecaySlider from '../../components/DecaySlider'
 import SelectGroupList from '../../components/SelectGroupList'
 import ScreenHeader from '../../components/ScreenHeader'
-import IconButton from './../../components/IconButton/IconButton'
+import IconButton from './../../components/iconButton/IconButton'
 
 class AddPostPermission extends React.Component {
   constructor(props) {

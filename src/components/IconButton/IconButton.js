@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
 
 export default IconButton = props => {
-  const { type, _onPress } = props
+  const { type, activeColor, _onPress } = props
 
   return (
     <TouchableOpacity
@@ -12,7 +12,7 @@ export default IconButton = props => {
         type == 'back' ? _onPress(null) : _onPress()
       }}
     >
-      <Text style={Typography.F_CAPTION}>{type}</Text>
+      <Text style={[Typography.F_CAPTION, { color: activeColor }]}>{type}</Text>
     </TouchableOpacity>
   )
 }

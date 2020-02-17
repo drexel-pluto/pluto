@@ -3,7 +3,7 @@ export const GRAY_MEDIUM = '#adadad'
 export const GRAY_DARK = '#7d7d7d'
 
 export const TEXT_BLACK = '#0C0443'
-export const TEXT_GRAY = '#9EA2AE'
+export const TEXT_SECONDARY = '#9EA2AE'
 
 export const CREAM = '#FFFDFA'
 
@@ -47,6 +47,3 @@ export const gradient = {
     return [color.med, color.light]
   },
 }
-
-// post bg colors
-export const POST_BG = [VIOLET.light, MELON.light, CREAMSICLE.light]

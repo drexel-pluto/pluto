@@ -9,7 +9,7 @@ import {
 import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
 import AddPostOptionBar from '../../components/AddPostOptionBar'
-import IconButton from './../../components/IconButton/IconButton'
+import IconButton from './../../components/iconButton/IconButton'
 import { Header } from 'react-navigation-stack'
 
 class AddPost extends React.Component {

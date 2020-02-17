@@ -13,7 +13,7 @@ import ScreenHeader from '../components/ScreenHeader'
 import TagList from '../components/TagList'
 import CommentList from '../components/CommentList'
 import AuthorHeader from '../components/AuthorHeader'
-import IconButton from '../components/IconButton/IconButton'
+import IconButton from '../components/iconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
 
 class Post extends React.Component {
