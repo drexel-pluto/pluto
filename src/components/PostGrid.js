@@ -6,7 +6,7 @@ import AutoHeightImage from 'react-native-auto-height-image'
 
 const PostGridItem = props => {
   const itemWidth =
-    Mixins.resWidthPercent(50) - Mixins.scaleSize(Layouts.PAD_HORZ + 15)
+    Mixins.resWidthPercent(50) - Mixins.scaleSize(Layouts.PAD_HORZ + 13)
   const { author, content } = props
 
   return (
@@ -60,10 +60,12 @@ const styles = StyleSheet.create({
   },
   postGridItem: {
     maxHeight: Mixins.scaleSize(200),
-    backgroundColor: Colors.GRAY_LIGHT,
+    backgroundColor: 'white',
     borderRadius: Mixins.scaleSize(15),
     margin: Mixins.scaleSize(7),
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: Colors.CREAM,
   },
   postGridItem__image: {},
   postGridItem__text: {
@@ -72,15 +74,15 @@ const styles = StyleSheet.create({
   outer: {
     borderRadius: Mixins.scaleSize(15),
     shadowOffset: { width: 4, height: 4 },
-    shadowColor: '#000000',
-    shadowOpacity: 0.25,
-    shadowRadius: 5,
+    shadowColor: 'black',
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
   },
   inner: {
     borderRadius: Mixins.scaleSize(15),
     shadowOffset: { width: -2, height: -2 },
-    shadowColor: '#ffffff',
+    shadowColor: Colors.CREAM,
     shadowOpacity: 1,
-    shadowRadius: 2,
+    shadowRadius: 3,
   },
 })

@@ -5,6 +5,8 @@ export const GRAY_DARK = '#7d7d7d'
 export const TEXT_BLACK = '#0C0443'
 export const TEXT_GRAY = '#9EA2AE'
 
+export const CREAM = '#FFFDFA'
+
 export const VIOLET = {
   dark: '#603ADE',
   med: '#A893EF',
