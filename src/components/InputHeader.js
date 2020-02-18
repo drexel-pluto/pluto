@@ -30,7 +30,12 @@ class InputHeader extends React.Component {
             !this.props.text ? styles.inactive : null,
           ]}
         >
-          <Button text={this.props.buttonText} _onPress={this.props.onSubmit} />
+          <Button
+            text={this.props.buttonText}
+            type={'small'}
+            isBold={true}
+            _onPress={this.props.onSubmit}
+          />
         </View>
       </View>
     )

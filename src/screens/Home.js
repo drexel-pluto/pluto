@@ -21,33 +21,42 @@ class Home extends React.Component {
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
         <ScreenHeader rightItems={rightHeaderItems} />
-        <CircleContainer />
-        <TouchableOpacity
-          onPress={() => {
-            this.props.navigation.navigate('AddPost')
-          }}
-        >
-          <Text style={styles.createButton}>Create Post</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            this.props.openGroup(this.props.groups[0]._id)
-          }}
-        >
-          <GroupPanel />
-        </TouchableOpacity>
+        <View style={styles.group_wrapper}>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.openGroup(this.props.groups[0]._id)
+            }}
+          >
+            <Text style={[Typography.F_H1, { textAlign: 'center' }]}>
+              group name
+            </Text>
+            <Text style={{ textAlign: 'center' }}>view posts</Text>
+          </TouchableOpacity>
+
+          <CircleContainer />
+        </View>
+        <View style={styles.action_wrapper}>
+          <IconButton
+            type="addPost"
+            _onPress={() => {
+              this.props.navigation.navigate('AddPost')
+            }}
+          />
+        </View>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  homeScreen: {
-    justifyContent: 'space-between',
-  },
-  createButton: {
-    backgroundColor: '#888888',
-    height: 50,
+  group_wrapper: { flex: 1 },
+  action_wrapper: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    bottom: '5%',
   },
 })
 
