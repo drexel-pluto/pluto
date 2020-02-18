@@ -1,3 +1,7 @@
+/**
+ * Mixins or styles for styling functions/features
+ */
+
 // for StyledContainer
 export const STYLED_BORDER = {
   borderWidth: 1,

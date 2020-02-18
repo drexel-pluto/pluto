@@ -5,7 +5,6 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
-  TouchableOpacity,
   StyleSheet,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
@@ -27,31 +26,32 @@ class Post extends React.Component {
         behavior="position"
         style={[styles.post, Layouts.FLEX_CONTAINER]}
       >
-        <ScrollView stickyHeaderIndices={[0]}>
+        <ScrollView stickyHeaderIndices={[0]} style={styles.post}>
           <ScreenHeader
             isFixed={true}
-            leftItems={
-              <IconButton type="back" _onPress={this.props.navigation.goBack} />
-            }
+            // leftItems={
+            //   <IconButton type="back" _onPress={this.props.navigation.goBack} />
+            // }
           />
+          <View style={styles.header_wrapper}>
+            <AuthorHeader timeStamp="1 hour ago" />
+            <IconButton type="like" />
+          </View>
           <View style={styles.content}>
+            <View style={styles.text_wrapper}>
+              <Text style={[styles.text, Typography.F_BODY]}>
+                lorem ipsum blash blash blash blash
+              </Text>
+            </View>
             <View style={styles.image_wrapper}>
               <Image
                 style={styles.image}
                 source={{ uri: 'https://picsum.photos/id/237/300/300' }}
               />
             </View>
-            <View style={styles.text_wrapper}>
-              <Text style={styles.text}>
-                lorem ipsum blash blash blash blash
-              </Text>
-            </View>
-            <View style={styles.tag_wrapper}>
-              <TagList data={TAG_DATA} />
-            </View>
-            <View style={styles.author_wrapper}>
-              <AuthorHeader />
-            </View>
+          </View>
+          <View style={styles.tag_wrapper}>
+            <TagList data={TAG_DATA} />
           </View>
           <CommentList data={COMMENT_DATA} />
         </ScrollView>
@@ -63,19 +63,25 @@ class Post extends React.Component {
 const styles = StyleSheet.create({
   post: {},
   content: {
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
     width: '100%',
     position: 'relative',
   },
+  text_wrapper: { paddingBottom: Layouts.PAD_VERT },
   image: {
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
     width: '100%',
     height: 500,
+    borderRadius: Mixins.scaleSize(25),
   },
-  author_wrapper: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    paddingLeft: Mixins.scaleSize(10),
-    paddingVertical: Mixins.scaleSize(10),
+  header_wrapper: {
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 })
 

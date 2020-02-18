@@ -1,12 +1,7 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native'
+import { View, TextInput, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
+import Button from './Button'
 
 class InputHeader extends React.Component {
   constructor(props) {
@@ -15,30 +10,28 @@ class InputHeader extends React.Component {
 
   render() {
     return (
-      <View style={styles.input_wrapper}>
+      <View style={[styles.inputHeader, Styles.shadow(Colors.VIOLET.dark)]}>
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            this.props.extraPadding
+              ? { paddingTop: Mixins.scaleSize(10) }
+              : null,
+          ]}
           multiline={this.props.multiline}
           placeholder={this.props.placeholder}
           value={this.props.text}
           onChangeText={this.props.onChangeText} // handle input changes
         />
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            this.props.onSubmit()
-          }}
+        <View
+          style={[
+            styles.button_wrapper,
+            !this.props.text ? styles.inactive : null,
+          ]}
         >
-          <Text
-            style={[
-              styles.button__text,
-              !this.props.text ? styles.inactive : [],
-            ]}
-          >
-            {this.props.buttonText}
-          </Text>
-        </TouchableOpacity>
+          <Button text={this.props.buttonText} _onPress={this.props.onSubmit} />
+        </View>
       </View>
     )
   }
@@ -50,33 +43,27 @@ InputHeader.defaultProps = {
 }
 
 const styles = StyleSheet.create({
-  input_wrapper: {
+  inputHeader: {
     flexDirection: 'row',
-    // borderWidth: 1,
-    // borderColor: Colors.GRAY_DARK,
-    // borderRadius: 50,
     alignItems: 'center',
     paddingLeft: Mixins.scaleSize(15),
+    borderWidth: 1,
+    borderColor: Colors.VIOLET.dark,
+    borderRadius: Mixins.scaleSize(30),
   },
   input: {
     flex: 1,
     height: Mixins.scaleSize(40),
     fontSize: Mixins.scaleFont(15),
   },
-  button: {
-    height: Mixins.scaleSize(40),
-    paddingHorizontal: Mixins.scaleSize(20),
+  button_wrapper: {
+    paddingHorizontal: Mixins.scaleSize(10),
     alignItems: 'center',
     justifyContent: 'center',
   },
   inactive: {
-    color: '#CCC',
-  },
-  button__text: {
-    color: '#3F51B5',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontSize: Mixins.scaleFont(15),
+    // color: '#CCC',
+    opacity: 0.5,
   },
 })
 

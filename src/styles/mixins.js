@@ -1,3 +1,7 @@
+/**
+ * Mixins for utility functions
+ */
+
 import { Dimensions, PixelRatio, Platform, StatusBar } from 'react-native'
 import { useResponsiveWidth } from 'react-native-responsive-dimensions'
 

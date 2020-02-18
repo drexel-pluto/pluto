@@ -22,5 +22,7 @@ export default CommentList = props => {
 const styles = StyleSheet.create({
   commentList: {
     width: '100%',
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
   },
 })
