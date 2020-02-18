@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, TouchableHighlight, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import CircleContainer from '../components/CircleContainer'
 import GroupPanel from './../components/GroupPanel'
+import IconButton from './../components/iconButton/IconButton'
 
 class Home extends React.Component {
   constructor(props) {
@@ -11,41 +12,51 @@ class Home extends React.Component {
   }
 
   render() {
+    const rightHeaderItems = [
+      <IconButton type="search" />,
+      <IconButton type="noti" />,
+      <IconButton type="profile" />,
+    ]
+
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
-        <ScreenHeader />
-        <CircleContainer />
-        <TouchableHighlight
-          onPress={() => {
-            this.props.openGroup(this.props.groups[0]._id)
-          }}
-        >
-          <GroupPanel />
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={() => {
-            this.props.navigation.navigate('AddPost')
-          }}
-        >
-          <View style={styles.createButton} />
-        </TouchableHighlight>
+        <ScreenHeader rightItems={rightHeaderItems} />
+        <View style={styles.group_wrapper}>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.openGroup(this.props.groups[0]._id)
+            }}
+          >
+            <Text style={[Typography.F_H1, { textAlign: 'center' }]}>
+              group name
+            </Text>
+            <Text style={{ textAlign: 'center' }}>view posts</Text>
+          </TouchableOpacity>
+
+          <CircleContainer />
+        </View>
+        <View style={styles.action_wrapper}>
+          <IconButton
+            type="addPost"
+            _onPress={() => {
+              this.props.navigation.navigate('AddPost')
+            }}
+          />
+        </View>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  homeScreen: {
-    justifyContent: 'space-between',
-  },
-  createButton: {
-    backgroundColor: '#888888',
-    width: 80,
-    height: 80,
+  group_wrapper: { flex: 1 },
+  action_wrapper: {
     position: 'absolute',
-    bottom: 100,
-    right: 20,
-    borderRadius: 80,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    bottom: '5%',
   },
 })
 

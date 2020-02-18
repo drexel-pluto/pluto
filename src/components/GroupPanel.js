@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 
 export default GroupPanel = props => {
   return (
     <View style={styles.groupPanel}>
-      <Text style={[styles.title, Typography.F_H2]}>Group Title</Text>
+      <Text style={[styles.title, Typography.F_H2]}>Group Titleeeeee</Text>
       <Text style={[styles.detail]}>Updates from group</Text>
     </View>
   )

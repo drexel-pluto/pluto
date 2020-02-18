@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import UserProfile from './UserProfile'
 
 class ProfileHeader extends React.Component {
@@ -20,7 +20,7 @@ class ProfileHeader extends React.Component {
 const styles = StyleSheet.create({
   ProfileHeader: {
     width: '100%',
-    backgroundColor: Colors.GRAY_MEDIUM,
+    paddingVertical: Layouts.PAD_VERT,
   },
 })
 

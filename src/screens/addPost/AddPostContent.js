@@ -6,10 +6,11 @@ import {
   KeyboardAvoidingView,
   Button,
 } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
 import AddPostOptionBar from '../../components/AddPostOptionBar'
 import PostMediaUpload from '../../components/PostMediaUpload'
+import IconButton from './../../components/iconButton/IconButton'
 import { Header } from 'react-navigation-stack'
 
 class AddPost extends React.Component {
@@ -44,13 +45,13 @@ class AddPost extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior="padding"
-        keyboardVerticalOffset={Header.HEIGHT}
-      >
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <ScreenHeader
-          rightItem={<Button title="post" onPress={() => this.submitPost()} />}
+          title={'New Post'}
+          leftItems={
+            <IconButton type="back" _onPress={this.props.navigation.goBack} />
+          }
+          rightItems={<Button title="Post" onPress={() => this.submitPost()} />}
         />
         {this.props.media.length > 0 && (
           <PostMedia

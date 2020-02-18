@@ -15,13 +15,14 @@ exports[`renders correctly 1`] = `
       "backgroundColor": "#dbdbdb",
       "borderRadius": 50,
       "marginRight": 40,
+      "opacity": 1,
       "paddingHorizontal": 40,
       "paddingVertical": 20,
     }
   }
 >
-  <Text
-    style={null}
-  />
+  <Text>
+    #
+  </Text>
 </View>
 `;

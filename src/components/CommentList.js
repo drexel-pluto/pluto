@@ -1,8 +1,8 @@
-import React from "react";
-import { View, FlatList, StyleSheet } from "react-native";
-import { Colors, Typography, Layouts, Mixins } from "../styles/index";
-import Comment from "./Comment";
-import AddComment from "./AddComment";
+import React from 'react'
+import { View, FlatList, StyleSheet } from 'react-native'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
+import Comment from './Comment'
+import AddComment from './AddComment'
 
 export default CommentList = props => {
   return (
@@ -16,11 +16,13 @@ export default CommentList = props => {
       />
       <AddComment />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   commentList: {
-    width: "100%"
-  }
-});
+    width: '100%',
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
+  },
+})

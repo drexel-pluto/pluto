@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import InputHeader from './InputHeader'
 
 class AddComment extends React.Component {
@@ -33,42 +33,26 @@ class AddComment extends React.Component {
 
   render() {
     return (
-      <InputHeader
-        multiline={true}
-        placeholder={'enter a reply...'}
-        text={this.state.text}
-        onChangeText={this.onChangeText}
-        buttonText={'reply'}
-        onSubmit={this.onSubmit}
-      />
+      <View style={styles.addComment}>
+        <InputHeader
+          multiline={true}
+          placeholder={'enter a reply...'}
+          text={this.state.text}
+          onChangeText={this.onChangeText}
+          buttonText={'reply'}
+          onSubmit={this.onSubmit}
+          extraPadding={true}
+        />
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  // addComment: {
-  //   backgroundColor: '#FFF',
-  //   flexDirection: 'row',
-  //   borderTopWidth: 1,
-  //   borderColor: '#EEE',
-  //   alignItems: 'center',
-  //   paddingLeft: Mixins.scaleSize(15),
-  // },
-  // button: {
-  //   height: Mixins.scaleSize(40),
-  //   paddingHorizontal: Mixins.scaleSize(20),
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
-  // inactive: {
-  //   color: '#CCC',
-  // },
-  // button__text: {
-  //   color: '#3F51B5',
-  //   fontWeight: 'bold',
-  //   textAlign: 'center',
-  //   fontSize: Mixins.scaleFont(15),
-  // },
+  addComment: {
+    paddingHorizontal: Mixins.scaleSize(5),
+    paddingVertical: Layouts.PAD_VERT,
+  },
 })
 
 export default AddComment

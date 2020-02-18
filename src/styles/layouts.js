@@ -1,4 +1,6 @@
-// FLEX
+import { scaleSize, getStatusBarHeight } from './mixins'
+
+// Flex
 export const FLEX_CONTAINER = {
   flex: 1,
 }
@@ -9,4 +11,10 @@ export const FLEX_CONTAINER_CENTER = {
   alignItems: 'center',
 }
 
-export const PAD = 10
+// Spacing
+// -- General
+export const PAD_HORZ = scaleSize(20)
+export const PAD_VERT = scaleSize(10)
+
+// -- Header
+export const HEAD_PAD_VERT = scaleSize(10) + getStatusBarHeight
