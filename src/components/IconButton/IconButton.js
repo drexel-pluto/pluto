@@ -1,20 +1,39 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
+import AddPostButton from './AddPostButton'
 
 export default IconButton = props => {
-  const { type, activeColor, _onPress } = props
+  const { type, customColor, _onPress } = props
 
-  return (
-    <TouchableOpacity
-      style={styles.iconButton}
-      onPress={() => {
-        type == 'back' ? _onPress(null) : _onPress()
-      }}
-    >
-      <Text style={[Typography.F_CAPTION, { color: activeColor }]}>{type}</Text>
-    </TouchableOpacity>
-  )
+  switch (type) {
+    case 'addPost':
+      return (
+        <AddPostButton
+          _onPress={() => {
+            _onPress()
+          }}
+        />
+      )
+    default:
+      return (
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            type == 'back' ? _onPress(null) : _onPress()
+          }}
+        >
+          <Text
+            style={[
+              Typography.F_CAPTION,
+              customColor ? { color: customColor } : null,
+            ]}
+          >
+            {type}
+          </Text>
+        </TouchableOpacity>
+      )
+  }
 }
 
 IconButton.defaultProps = {

@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
 } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import CheckBox from 'react-native-check-box'
 
 class SelectFriendItem extends React.Component {

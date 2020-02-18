@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
 
@@ -15,8 +15,16 @@ class PostTeaserFull extends React.Component {
         <View style={styles.postTeaserFull}>
           <View style={styles.header_wrapper}>
             <AuthorHeader isCompact={false} timeStamp={'20 minutes ago'} />
-            <IconButton type="like" activeColor={Colors.VIOLET.dark} />
+            <IconButton type="like" customColor={Colors.ACCENT} />
           </View>
+          {// render text if exists
+          this.props.content.text ? (
+            <View style={styles.text_wrapper}>
+              <Text style={[styles.text, Typography.F_BODY]}>
+                {this.props.content.text}
+              </Text>
+            </View>
+          ) : null}
           {// render img if exists
           this.props.content.image ? (
             <View style={styles.image_wrapper}>
@@ -26,17 +34,9 @@ class PostTeaserFull extends React.Component {
               />
             </View>
           ) : null}
-          {// render text if exists
-          this.props.content.text ? (
-            <View style={styles.text_wrapper}>
-              <Text style={[styles.text, Typography.F_BODY]}>
-                {this.props.content.text}
-              </Text>
-            </View>
-          ) : null}
           <View style={styles.comment_wrapper}>
             <TouchableOpacity>
-              <Text style={{ color: Colors.VIOLET.dark }}>replies</Text>
+              <Text style={{ color: Colors.ACCENT }}>replies</Text>
             </TouchableOpacity>
           </View>
         </View>

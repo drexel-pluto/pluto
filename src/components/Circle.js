@@ -1,6 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, Image, StyleSheet, View } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import { LinearGradient } from 'expo-linear-gradient'
 
 export default Circle = props => {
@@ -22,76 +22,78 @@ export default Circle = props => {
         navigation.navigate('Profile', { userId: user._id })
       }}
     >
-      {
-        // OUTER
-      }
-      <LinearGradient
-        colors={Colors.gradient.dark(Colors.VIOLET)}
-        style={[
-          outerCircleSize
-            ? {
-                width: Mixins.scaleSize(outerCircleSize),
-                height: Mixins.scaleSize(outerCircleSize),
-                borderRadius: Mixins.scaleSize(outerCircleSize) / 2,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }
-            : null,
-        ]}
-      >
-        <View
+      <View style={Styles.shadow(Colors.VIOLET.dark)}>
+        {
+          // OUTER
+        }
+        <LinearGradient
+          colors={Colors.gradient.dark(Colors.VIOLET)}
           style={[
-            isActive
+            outerCircleSize
               ? {
-                  backgroundColor: 'white',
-                  width: Mixins.scaleSize(outerInnerSize),
-                  height: Mixins.scaleSize(outerInnerSize),
-                  borderRadius: Mixins.scaleSize(outerInnerSize) / 2,
+                  width: Mixins.scaleSize(outerCircleSize),
+                  height: Mixins.scaleSize(outerCircleSize),
+                  borderRadius: Mixins.scaleSize(outerCircleSize) / 2,
                   alignItems: 'center',
                   justifyContent: 'center',
                 }
               : null,
           ]}
         >
-          {
-            // INNER
-          }
-          <LinearGradient
-            colors={Colors.gradient.dark(Colors.VIOLET)}
+          <View
             style={[
-              styles.circle,
-              innerCircleSize
+              isActive
                 ? {
-                    width: Mixins.scaleSize(innerCircleSize),
-                    height: Mixins.scaleSize(innerCircleSize),
-                    borderRadius: Mixins.scaleSize(innerCircleSize) / 2,
+                    backgroundColor: Colors.PLUTO_WHITE,
+                    width: Mixins.scaleSize(outerInnerSize),
+                    height: Mixins.scaleSize(outerInnerSize),
+                    borderRadius: Mixins.scaleSize(outerInnerSize) / 2,
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }
                 : null,
             ]}
           >
-            <Image
+            {
+              // INNER
+            }
+            <LinearGradient
+              colors={Colors.gradient.dark(Colors.VIOLET)}
               style={[
-                styles.image,
-                innerImageSize
+                styles.circle,
+                innerCircleSize
                   ? {
-                      width: Mixins.scaleSize(innerImageSize),
-                      height: Mixins.scaleSize(innerImageSize),
-                      borderRadius: Mixins.scaleSize(innerImageSize) / 2,
+                      width: Mixins.scaleSize(innerCircleSize),
+                      height: Mixins.scaleSize(innerCircleSize),
+                      borderRadius: Mixins.scaleSize(innerCircleSize) / 2,
                     }
                   : null,
               ]}
-              source={
-                user.image
-                  ? { uri: user.image }
-                  : { uri: 'https://picsum.photos/id/237/300/300' }
+            >
+              <Image
+                style={[
+                  styles.image,
+                  innerImageSize
+                    ? {
+                        width: Mixins.scaleSize(innerImageSize),
+                        height: Mixins.scaleSize(innerImageSize),
+                        borderRadius: Mixins.scaleSize(innerImageSize) / 2,
+                      }
+                    : null,
+                ]}
+                source={
+                  user.image
+                    ? { uri: user.image }
+                    : { uri: 'https://picsum.photos/id/237/300/300' }
+                }
+              />
+              {
+                // possibly add a name or id that is not visible
               }
-            />
-            {
-              // possibly add a name or id that is not visible
-            }
-          </LinearGradient>
-        </View>
-      </LinearGradient>
+            </LinearGradient>
+          </View>
+        </LinearGradient>
+      </View>
     </TouchableOpacity>
   )
 }

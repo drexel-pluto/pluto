@@ -3,6 +3,7 @@ import HomeContainer from '../containers/home.container'
 import GroupFeedContainer from '../containers/groupFeed.container'
 import profileContainer from '../containers/profile.container'
 import AddPostNavigator from './AddPostNavigator'
+import { Colors } from './../styles/index'
 
 const AppNavigator = createStackNavigator(
   {
@@ -14,7 +15,7 @@ const AppNavigator = createStackNavigator(
   {
     headerMode: 'none',
     defaultNavigationOptions: {
-      cardStyle: { backgroundColor: '#FFFFFF' },
+      cardStyle: { backgroundColor: Colors.PLUTO_WHITE },
     },
   }
 )

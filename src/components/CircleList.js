@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, FlatList, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import Circle from './Circle'
 
 export default CircleList = props => {

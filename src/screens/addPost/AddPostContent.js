@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
   Button,
 } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
 import AddPostOptionBar from '../../components/AddPostOptionBar'
 import IconButton from './../../components/iconButton/IconButton'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, FlatList, Text, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import PostTeaserFull from './PostTeaserFull'
 
 export default PostFeed = props => {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   postFeed: {
     width: '100%',
     paddingTop: Layouts.PAD_VERT,
-    paddingBottom: Mixins.scaleSize(30),
+    paddingBottom: Mixins.scaleSize(100),
     paddingHorizontal: Layouts.PAD_HORZ,
     borderTopLeftRadius: Mixins.scaleSize(20),
     overflow: 'hidden',

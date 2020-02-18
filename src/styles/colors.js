@@ -2,9 +2,10 @@ export const GRAY_LIGHT = '#dbdbdb'
 export const GRAY_MEDIUM = '#adadad'
 export const GRAY_DARK = '#7d7d7d'
 
-export const TEXT_BLACK = '#0C0443'
-export const TEXT_SECONDARY = '#9EA2AE'
+export const PLUTO_WHITE = '#f7f5f5'
 
+export const BLACK_ROCK = '#0C0443'
+export const PEARL = '#F6F6FA'
 export const CREAM = '#FFFDFA'
 
 export const VIOLET = {
@@ -36,6 +37,13 @@ export const CREAMSICLE = {
   med: '#FBD9B2',
   light: '#FFFAEE',
 }
+
+// text
+export const TEXT_PRIMARY = BLACK_ROCK
+export const TEXT_SECONDARY = '#9EA2AE'
+
+// general usage
+export const ACCENT = VIOLET.dark
 
 // functions return array of two colors: [ start color, end color ]
 // example usage: gradient.dark(CREAMSICLE)[0]

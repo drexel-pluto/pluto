@@ -1,5 +1,5 @@
 import { scaleFont } from './mixins'
-import { TEXT_BLACK } from './colors'
+import { TEXT_PRIMARY } from './colors'
 
 // FONT WEIGHT
 export const F_WEIGHT_REGULAR = '400'
@@ -21,42 +21,42 @@ export const F_LH_18 = scaleFont(18)
 
 // HEADING STYLES
 export const F_H1 = {
-  color: TEXT_BLACK,
+  color: TEXT_PRIMARY,
   fontSize: F_SIZE_24,
   fontWeight: F_WEIGHT_BOLD,
   lineHeight: F_LH_40,
 }
 
 export const F_H2 = {
-  color: TEXT_BLACK,
+  color: TEXT_PRIMARY,
   fontSize: F_SIZE_20,
   fontWeight: F_WEIGHT_REGULAR,
   lineHeight: F_LH_32,
 }
 
 export const F_H3 = {
-  color: TEXT_BLACK,
+  color: TEXT_PRIMARY,
   fontSize: F_SIZE_18,
   fontWeight: F_WEIGHT_BOLD,
   lineHeight: F_LH_32,
 }
 
 export const F_BODY = {
-  color: TEXT_BLACK,
+  color: TEXT_PRIMARY,
   fontSize: F_SIZE_18,
   fontWeight: F_WEIGHT_REGULAR,
   lineHeight: F_LH_28,
 }
 
 export const F_SUBTITLE = {
-  color: TEXT_BLACK,
+  color: TEXT_PRIMARY,
   fontSize: F_SIZE_16,
   fontWeight: F_WEIGHT_REGULAR,
   lineHeight: F_LH_24,
 }
 
 export const F_CAPTION = {
-  color: TEXT_BLACK,
+  color: TEXT_PRIMARY,
   fontSize: F_SIZE_14,
   fontWeight: F_WEIGHT_REGULAR,
   lineHeight: F_LH_18,

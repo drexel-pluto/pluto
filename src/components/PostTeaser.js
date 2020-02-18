@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 import StyledContainer from './StyledContainer'
 
@@ -13,7 +13,7 @@ class PostTeaser extends React.Component {
     return (
       <TouchableOpacity onPress={() => {}}>
         <StyledContainer>
-          <View style={styles.postTeaser}>
+          <View style={[styles.postTeaser, Styles.STYLED_BORDER]}>
             {// render img if exists
             this.props.content.image ? (
               <View style={styles.image_wrapper}>
@@ -70,10 +70,8 @@ const styles = StyleSheet.create({
     borderRadius: Mixins.scaleSize(10),
     width: Mixins.scaleSize(150),
     height: Mixins.scaleSize(200),
-    backgroundColor: 'white',
+    backgroundColor: Colors.PLUTO_WHITE,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: Colors.CREAM,
   },
   text_wrapper: {
     padding: Mixins.scaleSize(10),

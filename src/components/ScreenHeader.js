@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 
 export default ScreenHeader = props => {
   const { isFixed, title, rightItems, leftItems } = props
@@ -9,7 +9,7 @@ export default ScreenHeader = props => {
     <View
       style={[
         styles.screenHeader,
-        isFixed ? { backgroundColor: 'white' } : null,
+        isFixed ? { backgroundColor: Colors.PLUTO_WHITE } : null,
       ]}
     >
       <View style={styles.leftItems}>

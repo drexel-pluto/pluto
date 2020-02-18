@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import RNMasonryScroll from 'react-native-masonry-scrollview'
 import AutoHeightImage from 'react-native-auto-height-image'
 import StyledContainer from './StyledContainer'
@@ -13,7 +13,7 @@ const PostGridItem = props => {
   return (
     <TouchableOpacity onPress={() => {}}>
       <StyledContainer>
-        <View style={styles.postGridItem}>
+        <View style={[styles.postGridItem, Styles.STYLED_BORDER]}>
           {content.image ? (
             <AutoHeightImage
               width={itemWidth}
@@ -54,17 +54,16 @@ export default PostGrid = props => {
 const styles = StyleSheet.create({
   postGrid: {
     flex: 1,
-    paddingVertical: Layouts.PAD_VERT,
+    paddingTop: Layouts.PAD_VERT,
+    paddingBottom: Mixins.scaleSize(30),
     paddingHorizontal: Layouts.PAD_HORZ,
   },
   postGridItem: {
     // maxHeight: Mixins.scaleSize(200),
-    backgroundColor: 'white',
+    backgroundColor: Colors.PLUTO_WHITE,
     borderRadius: Mixins.scaleSize(15),
     margin: Mixins.scaleSize(7),
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: Colors.CREAM,
   },
   postGridItem__image: {},
   postGridItem__text: {

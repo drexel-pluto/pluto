@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import TagList from '../components/TagList'
 import CommentList from '../components/CommentList'
