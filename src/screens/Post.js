@@ -14,6 +14,7 @@ import CommentList from '../components/CommentList'
 import AuthorHeader from '../components/AuthorHeader'
 import IconButton from '../components/iconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
+import PostMedia from '../components/PostMedia'
 
 class Post extends React.Component {
   constructor(props) {

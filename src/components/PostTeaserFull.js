@@ -19,7 +19,11 @@ class PostTeaserFull extends React.Component {
       >
         <View style={styles.postTeaserFull}>
           <View style={styles.header_wrapper}>
-            <AuthorHeader isCompact={false} timeStamp={'20 minutes ago'} />
+            <AuthorHeader
+              isCompact={false}
+              author={this.props.poster}
+              time={this.props.content.postedAt}
+            />
             <IconButton type="like" customColor={Colors.ACCENT} />
           </View>
           {// render text if exists

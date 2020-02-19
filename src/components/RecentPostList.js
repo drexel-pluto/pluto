@@ -9,7 +9,11 @@ export default RecentPostList = props => {
       style={styles.recentPostList}
       data={props.data}
       renderItem={({ item, index }) => (
-        <PostTeaser content={item.post} author={item.author} />
+        <PostTeaser
+          content={item.post}
+          poster={item.poster}
+          openPost={props.openPost}
+        />
       )}
       keyExtractor={item => item.id}
       horizontal={true}

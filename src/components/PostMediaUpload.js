@@ -59,22 +59,22 @@ export default PostMedia = props => {
 const styles = StyleSheet.create({
   postMediaWrapper: {
     height: 150,
-    padding: Layouts.PAD / 2,
+    padding: Layouts.PAD_HORZ / 2,
   },
   mediaItem: {
-    margin: Layouts.PAD / 2,
+    margin: Layouts.PAD_HORZ / 2,
     width: 240,
     flexGrow: 1,
     borderRadius: 14,
   },
   singleMediaItem: {
-    margin: Layouts.PAD / 2,
-    height: 150 - Layouts.PAD * 2,
+    margin: Layouts.PAD_HORZ / 2,
+    height: 150 - Layouts.PAD_HORZ * 2,
     borderRadius: 14,
   },
   singleWrapper: {
     height: 150,
-    padding: Layouts.PAD / 2,
+    padding: Layouts.PAD_HORZ / 2,
   },
   iconWrapper: {
     width: 26,
