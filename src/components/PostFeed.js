@@ -9,7 +9,14 @@ export default PostFeed = props => {
       <FlatList
         data={props.data}
         renderItem={({ item, index }) => {
-          return <PostTeaserFull content={item.post} />
+          return (
+            <PostTeaserFull
+              key={item._id}
+              content={item.post}
+              poster={item.poster}
+              openPost={props.openPost}
+            />
+          )
         }}
         keyExtractor={item => item._id}
       />
