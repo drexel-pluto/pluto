@@ -6,7 +6,7 @@ import CircleList from './../components/CircleList'
 import RecentPostList from '../components/RecentPostList'
 import TagList from './../components/TagList'
 import PostFeed from './../components/PostFeed'
-import IconButton from './../components/iconButton/IconButton'
+import IconButton from '../components/iconButton/IconButton'
 import { LinearGradient } from 'expo-linear-gradient'
 import { TAG_DATA, POST_DATA, CIRCLE_DATA } from './../assets/data'
 
@@ -42,9 +42,15 @@ class GroupFeed extends React.Component {
             navigation={this.props.navigation}
             size={50}
           />
-          <RecentPostList data={this.props.group.posts} />
+          <RecentPostList
+            data={this.props.group.posts}
+            openPost={this.props.openPost}
+          />
           <TagList data={TAG_DATA} />
-          <PostFeed data={this.props.group.posts} />
+          <PostFeed
+            data={this.props.group.posts}
+            openPost={this.props.openPost}
+          />
         </ScrollView>
         <LinearGradient
           colors={['rgba(255,255,255,0)', Colors.rgba(Colors.BLACK_ROCK, 0.5)]}

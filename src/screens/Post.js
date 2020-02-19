@@ -14,6 +14,7 @@ import CommentList from '../components/CommentList'
 import AuthorHeader from '../components/AuthorHeader'
 import IconButton from '../components/iconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
+import PostMedia from '../components/PostMedia'
 
 class Post extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class Post extends React.Component {
   }
 
   render() {
+    console.log(this.props.data)
     return (
       <KeyboardAvoidingView
         behavior="position"
@@ -34,21 +36,25 @@ class Post extends React.Component {
             // }
           />
           <View style={styles.header_wrapper}>
-            <AuthorHeader timeStamp="1 hour ago" />
+            <AuthorHeader
+              time={this.props.data.postedAt}
+              author={this.props.data.poster}
+            />
             <IconButton type="like" />
           </View>
           <View style={styles.content}>
-            <View style={styles.text_wrapper}>
-              <Text style={[styles.text, Typography.F_BODY]}>
-                lorem ipsum blash blash blash blash
-              </Text>
-            </View>
-            <View style={styles.image_wrapper}>
-              <Image
-                style={styles.image}
-                source={{ uri: 'https://picsum.photos/id/237/300/300' }}
-              />
-            </View>
+            {// render text if exists
+            this.props.data.text ? (
+              <View style={styles.text_wrapper}>
+                <Text style={[styles.text, Typography.F_BODY]}>
+                  {this.props.data.text}
+                </Text>
+              </View>
+            ) : null}
+            {// render img if exists
+            this.props.data.mediaURLs.length > 0 ? (
+              <PostMedia media={this.props.data.mediaURLs} />
+            ) : null}
           </View>
           <View style={styles.tag_wrapper}>
             <TagList data={TAG_DATA} />
