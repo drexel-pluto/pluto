@@ -18,7 +18,11 @@ export default RecentPostList = props => {
         style={{ paddingVertical: Mixins.scaleSize(10) }}
         data={props.data}
         renderItem={({ item }) => (
-          <PostTeaser content={item.post} author={item.author} />
+          <PostTeaser
+            content={item.post}
+            poster={item.poster}
+            openPost={props.openPost}
+          />
         )}
         keyExtractor={item => item.id}
         horizontal={true}

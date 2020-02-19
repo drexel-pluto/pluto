@@ -11,15 +11,19 @@ class PostTeaser extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity
+        onPress={() => {
+          this.props.openPost(this.props.content._id, this.props.poster)
+        }}
+      >
         <StyledContainer>
           <View style={[styles.postTeaser, Styles.STYLED_BORDER]}>
             {// render img if exists
-            this.props.content.image ? (
+            this.props.content.mediaURLs.length > 0 ? (
               <View style={styles.image_wrapper}>
                 <Image
                   style={[{ width: '100%', height: '100%' }]}
-                  source={{ uri: this.props.content.image }}
+                  source={{ uri: this.props.content.mediaURLs[0] }}
                 />
               </View>
             ) : null}
@@ -43,7 +47,7 @@ class PostTeaser extends React.Component {
               </View>
             ) : null}
             <View style={styles.author_wrapper}>
-              <AuthorHeader isCompact={true} />
+              <AuthorHeader isCompact={true} author={this.props.poster} />
             </View>
           </View>
         </StyledContainer>
