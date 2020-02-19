@@ -13,14 +13,6 @@ export default PostFeed = props => {
         }}
         keyExtractor={item => item._id}
       />
-      <Text
-        style={[
-          { textAlign: 'center', paddingVertical: Mixins.scaleSize(30) },
-          Typography.F_SUBTITLE,
-        ]}
-      >
-        You've reached the end of the feed!
-      </Text>
     </View>
   )
 }

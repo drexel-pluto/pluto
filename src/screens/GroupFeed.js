@@ -47,7 +47,7 @@ class GroupFeed extends React.Component {
           <PostFeed data={this.props.group.posts} />
         </ScrollView>
         <LinearGradient
-          colors={['rgba(255,255,255,0)', Colors.rgba(Colors.BLACK_ROCK, 0.5)]}
+          colors={[Colors.TRANSPARENT, Colors.rgba(Colors.BLACK_ROCK, 0.5)]}
           style={styles.addPost_wrapper}
         >
           <IconButton type="addPost" />
