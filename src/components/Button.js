@@ -3,8 +3,15 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import { LinearGradient } from 'expo-linear-gradient'
 
+/**
+ * Button.js
+ *
+ * default is filled-in style with violet
+ * color prop is hex code from our system
+ */
+
 export default Button = props => {
-  const { _onPress, text, type, isBold } = props
+  const { _onPress, text, type, color, isBold } = props
   switch (type) {
     case 'small':
       return (
@@ -15,7 +22,7 @@ export default Button = props => {
         >
           <LinearGradient
             style={styles.smallButton}
-            colors={Colors.gradient.dark(Colors.VIOLET)}
+            colors={Colors.gradient.dark(color)}
           >
             <Text
               style={[
@@ -40,7 +47,7 @@ export default Button = props => {
             <Text
               style={[
                 Typography.F_CAPTION,
-                styles.noBgText,
+                { color: color.dark },
                 isBold ? { fontWeight: '600' } : null,
               ]}
             >
@@ -56,11 +63,13 @@ export default Button = props => {
             _onPress()
           }}
         >
-          <View style={[styles.button, styles.outlineButton]}>
+          <View
+            style={[styles.button, { borderWidth: 1, borderColor: color.dark }]}
+          >
             <Text
               style={[
                 Typography.F_CAPTION,
-                styles.noBgText,
+                { color: color.dark },
                 isBold ? { fontWeight: '600' } : null,
               ]}
             >
@@ -78,7 +87,7 @@ export default Button = props => {
         >
           <LinearGradient
             style={styles.button}
-            colors={Colors.gradient.dark(Colors.VIOLET)}
+            colors={Colors.gradient.dark(color)}
           >
             <Text
               style={[
@@ -96,7 +105,8 @@ export default Button = props => {
 }
 
 Button.defaultProps = {
-  type: 'button',
+  text: 'button',
+  color: Colors.VIOLET,
   _onPress: () => {},
 }
 
@@ -114,14 +124,7 @@ const styles = StyleSheet.create({
     paddingVertical: Mixins.scaleSize(5),
     borderRadius: Mixins.scaleSize(13),
   },
-  outlineButton: {
-    borderWidth: 1,
-    borderColor: Colors.VIOLET.dark,
-  },
   text: {
     color: 'white',
-  },
-  noBgText: {
-    color: '#4A28B3',
   },
 })
