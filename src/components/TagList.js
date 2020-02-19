@@ -4,13 +4,21 @@ import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import Tag from './Tag'
 
 export default TagList = props => {
+  const tagBgs = [Colors.VIOLET, Colors.CREAMSICLE, Colors.CARBONE, Colors.BLUE]
+
   return (
     <FlatList
       style={styles.TagList}
       data={props.data}
-      renderItem={({ item }) => <Tag tagName={item.tagName} />}
+      renderItem={({ item, index }) => (
+        <Tag
+          tagName={item.tagName}
+          gradientBg={tagBgs[index % tagBgs.length]}
+        />
+      )}
       keyExtractor={item => item.id}
       horizontal={true}
+      showsHorizontalScrollIndicator={false}
     />
   )
 }

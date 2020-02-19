@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(45),
     borderRadius: Mixins.scaleSize(45) / 2,
     marginRight: Mixins.scaleSize(15),
+    borderWidth: 1,
+    borderColor: 'white',
   },
   isCompact: {
     width: Mixins.scaleSize(30),
