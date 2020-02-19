@@ -27,7 +27,7 @@ export default function reducer(state = defaultStateProfile, action) {
         username: data.username,
         gender: data.gender,
         name: data.name,
-        posts: [],
+        posts: data.posts,
         loading: false,
       }
     case FETCH_USER_FAIL:

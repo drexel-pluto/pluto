@@ -23,7 +23,7 @@ class Profile extends React.Component {
           rightItems={<IconButton type="search" />}
         />
         <ProfileHeader profile={this.props.profile} />
-        <PostGrid data={POST_DATA} />
+        <PostGrid data={this.props.profile.posts} />
       </ScrollView>
     )
   }

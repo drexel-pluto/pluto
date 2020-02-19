@@ -15,7 +15,14 @@ class Home extends React.Component {
     const rightHeaderItems = [
       <IconButton type="search" />,
       <IconButton type="noti" />,
-      <IconButton type="profile" />,
+      <IconButton
+        type="profile"
+        _onPress={() => {
+          this.props.navigation.navigate('Profile', {
+            userId: this.props.userId,
+          })
+        }}
+      />,
     ]
 
     return (
