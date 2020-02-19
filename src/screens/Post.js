@@ -24,17 +24,14 @@ class Post extends React.Component {
   render() {
     console.log(this.props.data)
     return (
-      <KeyboardAvoidingView
-        behavior="position"
-        style={[styles.post, Layouts.FLEX_CONTAINER]}
-      >
-        <ScrollView stickyHeaderIndices={[0]} style={styles.post}>
-          <ScreenHeader
-            isFixed={true}
-            // leftItems={
-            //   <IconButton type="back" _onPress={this.props.navigation.goBack} />
-            // }
-          />
+      <ScrollView stickyHeaderIndices={[0]} style={styles.post}>
+        <ScreenHeader
+          isFixed={true}
+          leftItems={
+            <IconButton type="back" _onPress={this.props.navigation.goBack} />
+          }
+        />
+        <KeyboardAvoidingView behavior="position">
           <View style={styles.header_wrapper}>
             <AuthorHeader
               time={this.props.data.postedAt}
@@ -60,8 +57,8 @@ class Post extends React.Component {
             <TagList data={TAG_DATA} />
           </View>
           <CommentList data={COMMENT_DATA} />
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </ScrollView>
     )
   }
 }
