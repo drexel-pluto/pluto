@@ -35,6 +35,7 @@ export default PostMedia = props => {
   return (
     <ScrollView
       horizontal={true}
+      showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.postMediaWrapper}
       snapToInterval={240 + Layouts.PAD}
       snapToAlignment="center"

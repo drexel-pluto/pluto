@@ -25,6 +25,7 @@ export default CircleList = props => {
       )}
       keyExtractor={item => item.id}
       horizontal={true}
+      showsHorizontalScrollIndicator={false}
     />
   )
 }

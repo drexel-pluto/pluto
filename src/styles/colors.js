@@ -1,3 +1,5 @@
+import hexToRgba from 'hex-to-rgba'
+
 export const GRAY_LIGHT = '#dbdbdb'
 export const GRAY_MEDIUM = '#adadad'
 export const GRAY_DARK = '#7d7d7d'
@@ -54,4 +56,9 @@ export const gradient = {
   light: function(color) {
     return [color.med, color.light]
   },
+}
+
+// funcctions to return rgba from our color system
+export const rgba = (color, opacity) => {
+  return hexToRgba(color, opacity)
 }

@@ -17,6 +17,7 @@
     "expo-image-picker": "~7.0.0",
     "expo-linear-gradient": "~7.0.0",
     "expo-permissions": "~7.0.0",
+    "hex-to-rgba": "^2.0.1",
     "matter-attractors": "^0.1.6",
     "matter-js": "^0.14.2",
     "react": "16.8.3",
@@ -80,11 +81,5 @@
       "prettier --write",
       "git add"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && yarn test",
-      "pre-push": "yarn test"
-    }
   }
 }
