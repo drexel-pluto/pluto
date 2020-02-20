@@ -1,19 +1,40 @@
 import React from 'react'
-import { FlatList, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { FlatList, View, Text, StyleSheet } from 'react-native'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import PostTeaser from './PostTeaser'
 
 export default RecentPostList = props => {
   return (
-    <FlatList
-      data={props.data}
-      renderItem={({ item }) => (
-        <PostTeaser content={item.post} author={item.author} />
-      )}
-      keyExtractor={item => item.id}
-      horizontal={true}
-    />
+    <View style={styles.recentPostList}>
+      <Text
+        style={[
+          Typography.F_H2,
+          { marginBottom: Mixins.scaleSize(10), fontWeight: '600' },
+        ]}
+      >
+        top picks
+      </Text>
+      <FlatList
+        style={{ paddingVertical: Mixins.scaleSize(10) }}
+        data={props.data}
+        renderItem={({ item }) => (
+          <PostTeaser
+            content={item.post}
+            poster={item.poster}
+            openPost={props.openPost}
+          />
+        )}
+        keyExtractor={item => item.id}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+      />
+    </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  recentPostList: {
+    paddingLeft: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
+  },
+})

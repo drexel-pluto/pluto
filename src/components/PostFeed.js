@@ -1,23 +1,36 @@
 import React from 'react'
-import { FlatList, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
-import PostTeaser from './PostTeaser'
+import { View, FlatList, Text, StyleSheet } from 'react-native'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
+import PostTeaserFull from './PostTeaserFull'
 
 export default PostFeed = props => {
   return (
-    <FlatList
-      style={styles.postFeed}
-      data={props.data}
-      renderItem={({ item }) => (
-        <PostTeaser content={item.post} isFull={true} />
-      )}
-      keyExtractor={item => item._id}
-    />
+    <View style={styles.postFeed}>
+      <FlatList
+        data={props.data}
+        renderItem={({ item, index }) => {
+          return (
+            <PostTeaserFull
+              key={item._id}
+              content={item.post}
+              poster={item.poster}
+              openPost={props.openPost}
+            />
+          )
+        }}
+        keyExtractor={item => item._id}
+      />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   postFeed: {
     width: '100%',
+    paddingTop: Layouts.PAD_VERT,
+    paddingBottom: Mixins.scaleSize(100),
+    paddingHorizontal: Layouts.PAD_HORZ,
+    borderTopLeftRadius: Mixins.scaleSize(20),
+    overflow: 'hidden',
   },
 })

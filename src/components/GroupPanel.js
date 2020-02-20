@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import Icon from './Icon'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 
 export default GroupPanel = props => {
   return (

@@ -9,6 +9,7 @@ class AuthLoadingContainer extends React.Component {
       <HomeScreen
         openGroup={id => this.openGroup(id)}
         groups={this.props.groups}
+        userId={this.props.userId}
         navigation={this.props.navigation}
       />
     )
@@ -22,6 +23,7 @@ class AuthLoadingContainer extends React.Component {
 
 const mapStateToProps = state => ({
   groups: state.user.groups,
+  userId: state.user.userData.id,
 })
 
 const mapDispatchToProps = {

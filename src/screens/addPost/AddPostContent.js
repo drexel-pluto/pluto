@@ -1,15 +1,25 @@
 import React from 'react'
-import { View, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../../styles/index'
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Button,
+} from 'react-native'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
 import AddPostOptionBar from '../../components/AddPostOptionBar'
+import PostMediaUpload from '../../components/PostMediaUpload'
+import IconButton from './../../components/iconButton/IconButton'
 import { Header } from 'react-navigation-stack'
-import { NavigationEvents } from 'react-navigation'
 
 class AddPost extends React.Component {
   constructor(props) {
     super(props)
     this.textInputRef = null
+    this.state = {
+      text: '',
+    }
   }
 
   onFocusFunction = () => {
@@ -26,25 +36,42 @@ class AddPost extends React.Component {
     this.onFocusFunction()
     this.focusListener = this.props.navigation.addListener('didFocus', () => {
       this.onFocusFunction()
-      console.log('DID FOCUS')
     })
+  }
+
+  submitPost() {
+    this.props.submitPost(this.state.text)
   }
 
   render() {
     return (
-      <KeyboardAvoidingView
-        style={Layouts.FLEX_CONTAINER}
-        behavior="padding"
-        keyboardVerticalOffset={Header.HEIGHT}
-      >
-        <ScreenHeader />
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <ScreenHeader
+          title={'New Post'}
+          leftItems={
+            <IconButton type="back" _onPress={this.props.navigation.goBack} />
+          }
+          rightItems={<Button title="Post" onPress={() => this.submitPost()} />}
+        />
+        {this.props.media.length > 0 && (
+          <PostMedia
+            media={this.props.media}
+            removeImage={index => this.props.removeImage(index)}
+          />
+        )}
         <TextInput
           ref={ref => (this.textInputRef = ref)}
           placeholder="Quiz Deck Title"
           autoFocus={true}
           style={{ flex: 1 }}
+          onChangeText={text => this.setState({ text })}
         />
-        <AddPostOptionBar navigation={this.props.navigation} />
+        <AddPostOptionBar
+          navigation={this.props.navigation}
+          addImage={uri => {
+            this.props.addImage(uri)
+          }}
+        />
       </KeyboardAvoidingView>
     )
   }

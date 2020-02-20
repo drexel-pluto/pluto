@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
+import StyledContainer from './StyledContainer'
 
 class PostTeaser extends React.Component {
   constructor(props) {
@@ -10,32 +11,47 @@ class PostTeaser extends React.Component {
 
   render() {
     return (
-      <View
-        style={[
-          styles.postTeaser,
-          this.props.isFull ? styles.isFull : styles.isSmall,
-        ]}
+      <TouchableOpacity
+        onPress={() => {
+          this.props.openPost(this.props.content._id, this.props.poster)
+        }}
       >
-        {this.props.content.image ? (
-          <View style={styles.image_wrapper}>
-            <Image
-              style={styles.image}
-              source={{ uri: this.props.content.image }}
-            />
+        <StyledContainer>
+          <View style={[styles.postTeaser, Styles.STYLED_BORDER]}>
+            {// render img if exists
+            this.props.content.mediaURLs.length > 0 ? (
+              <View style={styles.image_wrapper}>
+                <Image
+                  style={[{ width: '100%', height: '100%' }]}
+                  source={{ uri: this.props.content.mediaURLs[0] }}
+                />
+              </View>
+            ) : null}
+            {// render text if exists
+            this.props.content.text ? (
+              <View
+                style={[
+                  styles.text_wrapper,
+                  !this.props.content.image
+                    ? { paddingTop: Mixins.scaleSize(55), height: '100%' }
+                    : { height: '40%' },
+                ]}
+              >
+                <Text
+                  style={[styles.text, Typography.F_BODY]}
+                  ellipsizeMode="tail"
+                  numberOfLines={!this.props.content.image ? 4 : 999}
+                >
+                  {this.props.content.text}
+                </Text>
+              </View>
+            ) : null}
+            <View style={styles.author_wrapper}>
+              <AuthorHeader isCompact={true} author={this.props.poster} />
+            </View>
           </View>
-        ) : null}
-        {this.props.content.text ? (
-          <View style={styles.text_wrapper}>
-            <Text style={styles.text}>{this.props.content.text}</Text>
-          </View>
-        ) : null}
-        <View style={styles.author_wrapper}>
-          {
-            // if not full teaser, display compact version
-          }
-          <AuthorHeader isCompact={this.props.isFull ? false : true} />
-        </View>
-      </View>
+        </StyledContainer>
+      </TouchableOpacity>
     )
   }
 }
@@ -56,30 +72,16 @@ const styles = StyleSheet.create({
   postTeaser: {
     marginRight: Mixins.scaleSize(15),
     borderRadius: Mixins.scaleSize(10),
-    overflow: 'hidden',
-  },
-  isSmall: {
     width: Mixins.scaleSize(150),
     height: Mixins.scaleSize(200),
-  },
-  isFull: {
-    width: '100%',
-    height: Mixins.scaleSize(450),
-    marginBottom: Mixins.scaleSize(20),
-    borderRadius: Mixins.scaleSize(15),
-    flex: 1,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
+    backgroundColor: Colors.PLUTO_WHITE,
+    overflow: 'hidden',
   },
   text_wrapper: {
     padding: Mixins.scaleSize(10),
-    backgroundColor: Colors.GRAY_LIGHT,
-    position: 'absolute',
     bottom: 0,
     width: '100%',
-    flexGrow: 1,
+    position: 'absolute',
   },
   author_wrapper: {
     position: 'absolute',

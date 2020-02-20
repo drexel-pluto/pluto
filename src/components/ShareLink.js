@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableHightlight, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 
 class ShareLink extends React.Component {
   constructor(props) {

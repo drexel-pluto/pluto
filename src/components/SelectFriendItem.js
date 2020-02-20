@@ -6,19 +6,21 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
 } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import CheckBox from 'react-native-check-box'
 
 class SelectFriendItem extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      isChecked: false,
-    }
   }
 
   toggleChecked() {
-    this.setState({ isChecked: !this.state.isChecked })
+    this.props.setRecipient(
+      this.props.friend._id,
+      !this.props.recipients[this.props.friend._id]
+    )
+
+    this.props.updateSelectedMember()
   }
 
   render() {
@@ -34,11 +36,11 @@ class SelectFriendItem extends React.Component {
               style={styles.image}
               source={{ uri: 'https://picsum.photos/id/237/300/300' }}
             />
-            <Text>Friend Name</Text>
+            <Text>{this.props.friend.name}</Text>
           </View>
           <CheckBox
             style={styles.friendCheck}
-            isChecked={this.state.isChecked}
+            isChecked={this.props.recipients[this.props.friend._id]}
             onClick={() => {
               this.toggleChecked()
             }}
@@ -47,6 +49,10 @@ class SelectFriendItem extends React.Component {
       </TouchableWithoutFeedback>
     )
   }
+}
+
+SelectFriendItem.defaultProps = {
+  isChecked: false,
 }
 
 const styles = StyleSheet.create({

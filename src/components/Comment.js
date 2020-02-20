@@ -1,13 +1,17 @@
 import React from 'react'
 import { View, Image, Text, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
+import IconButton from './iconButton/IconButton'
 
 export default Comment = props => {
   const { id, author, content } = props
   return (
     <View style={styles.comment}>
-      <AuthorHeader author={author} />
+      <View style={styles.header_wrapper}>
+        <AuthorHeader author={author} timeStamp={'13 hours ago'} />
+        <IconButton type="like" customColor={Colors.ACCENT} />
+      </View>
       <View style={styles.content}>
         <Text>{content.text}</Text>
       </View>
@@ -17,8 +21,17 @@ export default Comment = props => {
 
 const styles = StyleSheet.create({
   comment: {
-    marginBottom: 10,
+    marginBottom: Mixins.scaleSize(10),
     borderWidth: 1,
-    borderColor: Colors.GRAY_MEDIUM,
+    borderColor: Colors.VIOLET.light,
+    borderRadius: Mixins.scaleSize(25),
+    padding: Mixins.scaleSize(15),
+    paddingVertical: Mixins.scaleSize(20),
+  },
+  header_wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Mixins.scaleSize(15),
   },
 })

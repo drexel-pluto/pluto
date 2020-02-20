@@ -11,12 +11,9 @@ export default class LoginScreen extends Component {
     this.props
       .login(username, password)
       .then(action => {
-        console.log('success!')
         this.props.navigation.navigate('App')
       })
-      .catch(response => {
-        console.log(response)
-      })
+      .catch(response => {})
   }
 
   render() {

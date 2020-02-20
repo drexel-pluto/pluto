@@ -5,15 +5,16 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
-  TouchableHighlight,
   StyleSheet,
 } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import TagList from '../components/TagList'
 import CommentList from '../components/CommentList'
 import AuthorHeader from '../components/AuthorHeader'
+import IconButton from '../components/iconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
+import PostMedia from '../components/PostMedia'
 
 class Post extends React.Component {
   constructor(props) {
@@ -21,35 +22,43 @@ class Post extends React.Component {
   }
 
   render() {
+    console.log(this.props.data)
     return (
-      <KeyboardAvoidingView
-        behavior="position"
-        style={[styles.post, Layouts.FLEX_CONTAINER]}
-      >
-        <ScrollView>
-          <ScreenHeader />
+      <ScrollView stickyHeaderIndices={[0]} style={styles.post}>
+        <ScreenHeader
+          isFixed={true}
+          leftItems={
+            <IconButton type="back" _onPress={this.props.navigation.goBack} />
+          }
+        />
+        <KeyboardAvoidingView behavior="position">
+          <View style={styles.header_wrapper}>
+            <AuthorHeader
+              time={this.props.data.postedAt}
+              author={this.props.data.poster}
+            />
+            <IconButton type="like" />
+          </View>
           <View style={styles.content}>
-            <View style={styles.image_wrapper}>
-              <Image
-                style={styles.image}
-                source={{ uri: 'https://picsum.photos/id/237/300/300' }}
-              />
-            </View>
-            <View style={styles.text_wrapper}>
-              <Text style={styles.text}>
-                lorem ipsum blash blash blash blash
-              </Text>
-            </View>
-            <View style={styles.tag_wrapper}>
-              <TagList data={TAG_DATA} />
-            </View>
-            <View style={styles.author_wrapper}>
-              <AuthorHeader />
-            </View>
+            {// render text if exists
+            this.props.data.text ? (
+              <View style={styles.text_wrapper}>
+                <Text style={[styles.text, Typography.F_BODY]}>
+                  {this.props.data.text}
+                </Text>
+              </View>
+            ) : null}
+            {// render img if exists
+            this.props.data.mediaURLs.length > 0 ? (
+              <PostMedia media={this.props.data.mediaURLs} />
+            ) : null}
+          </View>
+          <View style={styles.tag_wrapper}>
+            <TagList data={TAG_DATA} />
           </View>
           <CommentList data={COMMENT_DATA} />
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </ScrollView>
     )
   }
 }
@@ -57,19 +66,25 @@ class Post extends React.Component {
 const styles = StyleSheet.create({
   post: {},
   content: {
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
     width: '100%',
     position: 'relative',
   },
+  text_wrapper: { paddingBottom: Layouts.PAD_VERT },
   image: {
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
     width: '100%',
     height: 500,
+    borderRadius: Mixins.scaleSize(25),
   },
-  author_wrapper: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    paddingLeft: Mixins.scaleSize(10),
-    paddingVertical: Mixins.scaleSize(10),
+  header_wrapper: {
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 })
 
