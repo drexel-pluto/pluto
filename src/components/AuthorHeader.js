@@ -3,7 +3,7 @@ import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 
 export default AuthorHeader = props => {
-  const { author, timeStamp, isCompact } = props
+  const { author, isCompact } = props
 
   return (
     <TouchableOpacity>

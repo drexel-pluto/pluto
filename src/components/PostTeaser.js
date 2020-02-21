@@ -13,22 +13,22 @@ class PostTeaser extends React.Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          this.props.openPost(this.props.content._id, this.props.poster)
+          this.props.openPost(this.props.key, this.props.poster)
         }}
       >
         <StyledContainer>
           <View style={[styles.postTeaser, Styles.STYLED_BORDER]}>
             {// render img if exists
-            this.props.content.mediaURLs.length > 0 ? (
+            this.props.media.length > 0 ? (
               <View style={styles.image_wrapper}>
                 <Image
                   style={[{ width: '100%', height: '100%' }]}
-                  source={{ uri: this.props.content.mediaURLs[0] }}
+                  source={{ uri: this.props.media[0] }}
                 />
               </View>
             ) : null}
             {// render text if exists
-            this.props.content.text ? (
+            this.props.text ? (
               <View
                 style={[
                   styles.text_wrapper,
@@ -42,7 +42,7 @@ class PostTeaser extends React.Component {
                   ellipsizeMode="tail"
                   numberOfLines={!this.props.content.image ? 4 : 999}
                 >
-                  {this.props.content.text}
+                  {this.props.text}
                 </Text>
               </View>
             ) : null}

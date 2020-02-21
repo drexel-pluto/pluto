@@ -13,30 +13,28 @@ class PostTeaserFull extends React.Component {
   render() {
     return (
       <TouchableOpacity
-        onPress={() =>
-          this.props.openPost(this.props.content._id, this.props.poster)
-        }
+        onPress={() => this.props.openPost(this.props.key, this.props.poster)}
       >
         <View style={styles.postTeaserFull}>
           <View style={styles.header_wrapper}>
             <AuthorHeader
               isCompact={false}
               author={this.props.poster}
-              time={this.props.content.postedAt}
+              time={this.props.postedAt}
             />
             <IconButton type="like" customColor={Colors.ACCENT} />
           </View>
           {// render text if exists
-          this.props.content.text ? (
+          this.props.text ? (
             <View style={styles.text_wrapper}>
               <Text style={[styles.text, Typography.F_BODY]}>
-                {this.props.content.text}
+                {this.props.text}
               </Text>
             </View>
           ) : null}
           {// render img if exists
-          this.props.content.mediaURLs.length > 0 ? (
-            <PostMedia media={this.props.content.mediaURLs} />
+          this.props.media.length > 0 ? (
+            <PostMedia media={this.props.media} />
           ) : null}
           <View style={styles.comment_wrapper}>
             <TouchableOpacity>

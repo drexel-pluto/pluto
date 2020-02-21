@@ -12,7 +12,9 @@ export default PostFeed = props => {
           return (
             <PostTeaserFull
               key={item._id}
-              content={item.post}
+              media={item.mediaURLs}
+              text={item.text}
+              postedAt={item.postedAt}
               poster={item.poster}
               openPost={props.openPost}
             />
