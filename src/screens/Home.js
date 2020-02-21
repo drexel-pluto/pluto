@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
-import CircleContainer from '../components/CircleContainer'
+import Physics from '../components/physics'
 import GroupPanel from './../components/GroupPanel'
 import IconButton from './../components/iconButton/IconButton'
 
@@ -20,6 +20,9 @@ class Home extends React.Component {
 
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
+        <Physics
+          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0 }}
+        />
         <ScreenHeader rightItems={rightHeaderItems} />
         <View style={styles.group_wrapper}>
           <TouchableOpacity
@@ -32,8 +35,6 @@ class Home extends React.Component {
             </Text>
             <Text style={{ textAlign: 'center' }}>view posts</Text>
           </TouchableOpacity>
-
-          <CircleContainer />
         </View>
         <View style={styles.action_wrapper}>
           <IconButton
@@ -49,7 +50,7 @@ class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  group_wrapper: { flex: 1 },
+  group_wrapper: {},
   action_wrapper: {
     position: 'absolute',
     left: 0,
