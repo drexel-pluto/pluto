@@ -1,15 +1,10 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  Image,
-  TouchableWithoutFeedback,
-  StyleSheet,
-} from 'react-native'
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
 import PostMedia from './PostMedia'
+import { LinearGradient } from 'expo-linear-gradient'
 
 class PostTeaserFull extends React.Component {
   constructor(props) {
@@ -21,7 +16,13 @@ class PostTeaserFull extends React.Component {
       <TouchableWithoutFeedback
         onPress={() => this.props.openPost(this.props.key, this.props.poster)}
       >
-        <View style={styles.postTeaserFull}>
+        <LinearGradient
+          colors={Colors.UI_BG}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          locations={[0, 0.1]}
+          style={styles.postTeaserFull}
+        >
           <View style={styles.top}>
             <View style={styles.author_wrapper}>
               <AuthorHeader
@@ -53,7 +54,7 @@ class PostTeaserFull extends React.Component {
               <IconButton type="like" customColor={Colors.ACCENT} />
             </View>
           </View>
-        </View>
+        </LinearGradient>
       </TouchableWithoutFeedback>
     )
   }
@@ -85,19 +86,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
   },
-  image_wrapper: {
-    marginBottom: Mixins.scaleSize(15),
-  },
+  image_wrapper: {},
   action_wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
+    padding: Mixins.scaleSize(15),
   },
   top: {
     padding: Mixins.scaleSize(15),
   },
-  bottom: {
-    padding: Mixins.scaleSize(15),
-  },
+  bottom: {},
 })
 
 export default PostTeaserFull
