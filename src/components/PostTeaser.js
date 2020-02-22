@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  Image,
-  TouchableWithoutFeedback,
-  StyleSheet,
-} from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 import StyledContainer from './StyledContainer'
@@ -17,10 +11,8 @@ class PostTeaser extends React.Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          this.props.openPost(this.props._id, this.props.poster)
-        }}
+      <TouchableOpacity
+        onPress={() => this.props.openPost(this.props._id, this.props.poster)}
       >
         <StyledContainer>
           <View style={[styles.postTeaser, Styles.STYLED_BORDER]}>
@@ -33,20 +25,13 @@ class PostTeaser extends React.Component {
                 />
               </View>
             ) : null}
-            {// render text if exists
-            this.props.text ? (
-              <View
-                style={[
-                  styles.text_wrapper,
-                  !this.props.content.image
-                    ? { paddingTop: Mixins.scaleSize(55), height: '100%' }
-                    : { height: '40%' },
-                ]}
-              >
+            {// render text if exists and image doesn't exist
+            this.props.text && !this.props.media.length > 0 ? (
+              <View style={styles.text_wrapper}>
                 <Text
                   style={[styles.text, Typography.F_BODY]}
                   ellipsizeMode="tail"
-                  numberOfLines={!this.props.content.image ? 4 : 999}
+                  numberOfLines={7}
                 >
                   {this.props.text}
                 </Text>
@@ -57,7 +42,7 @@ class PostTeaser extends React.Component {
             </View>
           </View>
         </StyledContainer>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     )
   }
 }
@@ -88,6 +73,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     position: 'absolute',
+    paddingTop: Mixins.scaleSize(55),
+    height: '100%',
   },
   author_wrapper: {
     position: 'absolute',
