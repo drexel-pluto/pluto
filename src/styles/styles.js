@@ -9,11 +9,11 @@ export const STYLED_BORDER = {
 }
 
 // shadows
-export const shadow = color => {
+export const shadow = (color, opacity = 0.2) => {
   return {
     shadowOffset: { width: 2, height: 2 },
     shadowColor: color,
-    shadowOpacity: 0.3,
+    shadowOpacity: opacity,
     shadowRadius: 3,
   }
 }
