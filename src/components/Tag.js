@@ -9,7 +9,7 @@ export default Tag = props => {
     <TouchableOpacity>
       <View
         style={[
-          Styles.shadow(bgColor.dark),
+          // Styles.shadow(bgColor.dark),
           styles.tag,
           {
             backgroundColor:
