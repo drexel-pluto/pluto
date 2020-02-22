@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Image } from 'react-native'
-import { Layouts } from '../styles/index'
+import { Mixins } from '../styles/index'
 
 export default PostMedia = props => {
   return (
@@ -16,7 +16,7 @@ export default PostMedia = props => {
 
 const styles = StyleSheet.create({
   postMediaWrapper: {
-    height: 250,
+    height: Mixins.scaleSize(250),
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignContent: 'stretch',
@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
     margin: 0,
     width: '40%',
     flexGrow: 1,
-    borderRadius: 14,
+    borderRadius: Mixins.scaleSize(20),
   },
 })

@@ -19,7 +19,9 @@ export default RecentPostList = props => {
         data={props.data}
         renderItem={({ item }) => (
           <PostTeaser
-            content={item.post}
+            key={item._id}
+            media={item.mediaURLs}
+            text={item.text}
             poster={item.poster}
             openPost={props.openPost}
           />
