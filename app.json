@@ -21,6 +21,10 @@
     "ios": {
       "bundleIdentifier": "io.plutosocial.pluto",
       "supportsTablet": false
+    },
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["js", "jsx", "ts", "tsx", "svg"]
     }
   }
 }

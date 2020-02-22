@@ -5,6 +5,7 @@ import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
 import PostMedia from './PostMedia'
 import { LinearGradient } from 'expo-linear-gradient'
+import ContainerTail from './../assets/images/containerTail.svg'
 
 class PostTeaserFull extends React.Component {
   constructor(props) {
@@ -16,31 +17,56 @@ class PostTeaserFull extends React.Component {
       <TouchableWithoutFeedback
         onPress={() => this.props.openPost(this.props.key, this.props.poster)}
       >
-        <LinearGradient
-          colors={Colors.UI_BG}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          locations={[0, 0.1]}
-          style={styles.postTeaserFull}
-        >
-          <View style={styles.top}>
-            <View style={styles.author_wrapper}>
-              <AuthorHeader
-                isCompact={false}
-                author={this.props.poster}
-                time={this.props.postedAt}
-              />
+        <View style={styles.postTeaserFull}>
+          {
+            // top section
+          }
+          <View style={[Styles.shadow('black'), { zIndex: 2 }]}>
+            <View
+              style={{
+                borderBottomRightRadius: Mixins.scaleSize(20),
+                overflow: 'hidden',
+              }}
+            >
+              <LinearGradient
+                colors={Colors.UI_BG}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                locations={[0, 0.1]}
+                style={{
+                  padding: Mixins.scaleSize(15),
+                }}
+              >
+                <View style={styles.author_wrapper}>
+                  <AuthorHeader
+                    isCompact={false}
+                    author={this.props.poster}
+                    time={this.props.postedAt}
+                  />
+                </View>
+                {// render text if exists
+                this.props.text ? (
+                  <View style={styles.text_wrapper}>
+                    <Text style={[styles.text, Typography.F_BODY]}>
+                      {this.props.text}
+                    </Text>
+                  </View>
+                ) : null}
+              </LinearGradient>
             </View>
-            {// render text if exists
-            this.props.text ? (
-              <View style={styles.text_wrapper}>
-                <Text style={[styles.text, Typography.F_BODY]}>
-                  {this.props.text}
-                </Text>
-              </View>
-            ) : null}
+            <ContainerTail
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: '99.9%',
+              }}
+            />
           </View>
-          <View style={styles.bottom}>
+
+          {
+            // bottom section
+          }
+          <View>
             {// render img if exists
             this.props.media.length > 0 ? (
               <View style={styles.image_wrapper}>
@@ -54,7 +80,7 @@ class PostTeaserFull extends React.Component {
               <IconButton type="like" customColor={Colors.ACCENT} />
             </View>
           </View>
-        </LinearGradient>
+        </View>
       </TouchableWithoutFeedback>
     )
   }
@@ -78,6 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.VIOLET.light,
     marginBottom: Mixins.scaleSize(20),
     borderRadius: Mixins.scaleSize(20),
+    overflow: 'hidden',
   },
   author_wrapper: {
     marginBottom: Mixins.scaleSize(20),
@@ -86,16 +113,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
   },
-  image_wrapper: {},
+  image_wrapper: {
+    padding: Mixins.scaleSize(5),
+  },
   action_wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: Mixins.scaleSize(15),
   },
-  top: {
-    padding: Mixins.scaleSize(15),
-  },
-  bottom: {},
 })
 
 export default PostTeaserFull

@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
     margin: 0,
     width: '40%',
     flexGrow: 1,
-    borderRadius: 14,
+    borderRadius: Mixins.scaleSize(20),
   },
 })

@@ -8,6 +8,7 @@ import TagList from './../components/TagList'
 import PostFeed from './../components/PostFeed'
 import IconButton from '../components/iconButton/IconButton'
 import { LinearGradient } from 'expo-linear-gradient'
+import ContainerTail from './../assets/images/containerTail--pearl.svg'
 import { TAG_DATA, POST_DATA, CIRCLE_DATA } from './../assets/data'
 
 class GroupFeed extends React.Component {
@@ -33,15 +34,33 @@ class GroupFeed extends React.Component {
         >
           <ScreenHeader
             isFixed={true}
+            headerColor={Colors.PEARL}
             title={'Group Feed'}
             leftItems={leftHeaderItems}
             rightItems={rightHeaderItems}
           />
-          <CircleList
-            data={this.props.group.members}
-            navigation={this.props.navigation}
-            size={50}
-          />
+          <View style={Styles.shadow('black')}>
+            <View
+              style={{
+                backgroundColor: Colors.PLUTO_WHITE,
+                borderBottomRightRadius: Mixins.scaleSize(20),
+              }}
+            >
+              <CircleList
+                data={this.props.group.members}
+                navigation={this.props.navigation}
+                size={50}
+              />
+            </View>
+            <ContainerTail
+              fill={Colors.PEARL}
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: '99.9%',
+              }}
+            />
+          </View>
           <RecentPostList
             data={this.props.group.posts}
             openPost={this.props.openPost}
