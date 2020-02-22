@@ -48,7 +48,8 @@ export const TEXT_SECONDARY = '#9EA2AE'
 
 // general usage
 export const ACCENT = VIOLET.dark
-export const UI_BG = ['white', '#F4F1FF']
+export const UI_BG = '#F4F1FF'
+export const UI_BG_GRADIENT = ['white', UI_BG]
 
 // functions return array of two colors: [ start color, end color ]
 // example usage: gradient.dark(CREAMSICLE)[0]

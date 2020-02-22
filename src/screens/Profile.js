@@ -17,6 +17,7 @@ class Profile extends React.Component {
       <ScrollView stickyHeaderIndices={[0]}>
         <ScreenHeader
           isFixed={true}
+          headerColor={Colors.PEARL}
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }

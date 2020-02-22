@@ -71,8 +71,8 @@ PostTeaser.defaultProps = {
 const styles = StyleSheet.create({
   postTeaser: {
     marginRight: Mixins.scaleSize(15),
-    borderRadius: Mixins.scaleSize(10),
-    width: Mixins.scaleSize(150),
+    borderRadius: Mixins.scaleSize(15),
+    width: Mixins.scaleSize(130),
     height: Mixins.scaleSize(200),
     backgroundColor: Colors.PLUTO_WHITE,
     overflow: 'hidden',

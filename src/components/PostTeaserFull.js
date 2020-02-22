@@ -21,7 +21,7 @@ class PostTeaserFull extends React.Component {
           {
             // top section
           }
-          <View style={[Styles.shadow('black', 0.1), { zIndex: 2 }]}>
+          <View style={[Styles.shadow('black'), { zIndex: 2 }]}>
             <View
               style={{
                 borderBottomRightRadius: Mixins.scaleSize(20),
@@ -29,7 +29,7 @@ class PostTeaserFull extends React.Component {
               }}
             >
               <LinearGradient
-                colors={Colors.UI_BG}
+                colors={Colors.UI_BG_GRADIENT}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 locations={[0, 0.1]}
@@ -66,7 +66,12 @@ class PostTeaserFull extends React.Component {
           {
             // bottom section
           }
-          <View>
+          <LinearGradient
+            colors={Colors.UI_BG_GRADIENT}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            locations={[0, 0.1]}
+          >
             {// render img if exists
             this.props.media.length > 0 ? (
               <View style={styles.image_wrapper}>
@@ -79,7 +84,7 @@ class PostTeaserFull extends React.Component {
               </TouchableWithoutFeedback>
               <IconButton type="like" customColor={Colors.ACCENT} />
             </View>
-          </View>
+          </LinearGradient>
         </View>
       </TouchableWithoutFeedback>
     )
@@ -101,7 +106,7 @@ PostTeaserFull.defaultProps = {
 const styles = StyleSheet.create({
   postTeaserFull: {
     width: '100%',
-    backgroundColor: Colors.VIOLET.light,
+    backgroundColor: Colors.UI_BG,
     marginBottom: Mixins.scaleSize(20),
     borderRadius: Mixins.scaleSize(20),
     overflow: 'hidden',

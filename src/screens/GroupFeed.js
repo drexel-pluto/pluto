@@ -39,10 +39,10 @@ class GroupFeed extends React.Component {
             leftItems={leftHeaderItems}
             rightItems={rightHeaderItems}
           />
-          <View style={Styles.shadow('black', 0.1)}>
+          <View style={Styles.shadow('black')}>
             <View
               style={{
-                backgroundColor: Colors.PLUTO_WHITE,
+                backgroundColor: Colors.PEARL,
                 borderBottomRightRadius: Mixins.scaleSize(20),
               }}
             >
