@@ -21,7 +21,7 @@ class PostTeaserFull extends React.Component {
           {
             // top section
           }
-          <View style={[Styles.shadow('black'), { zIndex: 2 }]}>
+          <View style={[Styles.shadow('black', 0.1), { zIndex: 2 }]}>
             <View
               style={{
                 borderBottomRightRadius: Mixins.scaleSize(20),

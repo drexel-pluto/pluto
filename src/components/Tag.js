@@ -1,19 +1,33 @@
 import React from 'react'
-import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
-import { LinearGradient } from 'expo-linear-gradient'
 
 export default Tag = props => {
-  const { id, gradientBg, tagName } = props
+  const { id, bgColor, tagName } = props
 
   return (
     <TouchableOpacity>
-      <LinearGradient
-        colors={Colors.gradient.dark(gradientBg)}
-        style={styles.tag}
+      <View
+        style={[
+          Styles.shadow(bgColor.dark),
+          styles.tag,
+          {
+            backgroundColor:
+              bgColor === Colors.VIOLET || bgColor === Colors.CARBONE
+                ? bgColor.light
+                : bgColor.med,
+          },
+        ]}
       >
-        <Text style={{ color: 'white', fontWeight: '600' }}>#{tagName}</Text>
-      </LinearGradient>
+        <Text
+          style={{
+            color: bgColor === Colors.BLUE ? '#354B9C' : bgColor.dark,
+            fontWeight: '600',
+          }}
+        >
+          #{tagName}
+        </Text>
+      </View>
     </TouchableOpacity>
   )
 }

@@ -11,10 +11,7 @@ export default TagList = props => {
       style={styles.TagList}
       data={props.data}
       renderItem={({ item, index }) => (
-        <Tag
-          tagName={item.tagName}
-          gradientBg={tagBgs[index % tagBgs.length]}
-        />
+        <Tag tagName={item.tagName} bgColor={tagBgs[index % tagBgs.length]} />
       )}
       keyExtractor={item => item.id}
       horizontal={true}
