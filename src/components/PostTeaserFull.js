@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  Image,
+  TouchableWithoutFeedback,
+  StyleSheet,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
@@ -12,37 +18,43 @@ class PostTeaserFull extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         onPress={() => this.props.openPost(this.props.key, this.props.poster)}
       >
         <View style={styles.postTeaserFull}>
-          <View style={styles.header_wrapper}>
-            <AuthorHeader
-              isCompact={false}
-              author={this.props.poster}
-              time={this.props.postedAt}
-            />
-            <IconButton type="like" customColor={Colors.ACCENT} />
-          </View>
-          {// render text if exists
-          this.props.text ? (
-            <View style={styles.text_wrapper}>
-              <Text style={[styles.text, Typography.F_BODY]}>
-                {this.props.text}
-              </Text>
+          <View style={styles.top}>
+            <View style={styles.author_wrapper}>
+              <AuthorHeader
+                isCompact={false}
+                author={this.props.poster}
+                time={this.props.postedAt}
+              />
             </View>
-          ) : null}
-          {// render img if exists
-          this.props.media.length > 0 ? (
-            <PostMedia media={this.props.media} />
-          ) : null}
-          <View style={styles.comment_wrapper}>
-            <TouchableOpacity>
-              <Text style={{ color: Colors.ACCENT }}>replies</Text>
-            </TouchableOpacity>
+            {// render text if exists
+            this.props.text ? (
+              <View style={styles.text_wrapper}>
+                <Text style={[styles.text, Typography.F_BODY]}>
+                  {this.props.text}
+                </Text>
+              </View>
+            ) : null}
+          </View>
+          <View style={styles.bottom}>
+            {// render img if exists
+            this.props.media.length > 0 ? (
+              <View style={styles.image_wrapper}>
+                <PostMedia media={this.props.media} />
+              </View>
+            ) : null}
+            <View style={styles.action_wrapper}>
+              <TouchableWithoutFeedback>
+                <Text style={{ color: Colors.ACCENT }}>replies</Text>
+              </TouchableWithoutFeedback>
+              <IconButton type="like" customColor={Colors.ACCENT} />
+            </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     )
   }
 }
@@ -62,22 +74,29 @@ PostTeaserFull.defaultProps = {
 const styles = StyleSheet.create({
   postTeaserFull: {
     width: '100%',
-    paddingVertical: Mixins.scaleSize(20),
+    backgroundColor: Colors.VIOLET.light,
+    marginBottom: Mixins.scaleSize(20),
+    borderRadius: Mixins.scaleSize(20),
+  },
+  author_wrapper: {
+    marginBottom: Mixins.scaleSize(20),
   },
   text_wrapper: {
     bottom: 0,
     width: '100%',
-    marginBottom: Mixins.scaleSize(20),
   },
-  header_wrapper: {
-    marginBottom: Mixins.scaleSize(20),
+  image_wrapper: {
+    marginBottom: Mixins.scaleSize(15),
+  },
+  action_wrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
-  comment_wrapper: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+  top: {
+    padding: Mixins.scaleSize(15),
+  },
+  bottom: {
+    padding: Mixins.scaleSize(15),
   },
 })
 
