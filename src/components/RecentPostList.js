@@ -20,6 +20,7 @@ export default RecentPostList = props => {
         renderItem={({ item }) => (
           <PostTeaser
             key={item._id}
+            _id={item._id}
             media={item.mediaURLs}
             text={item.text}
             poster={item.poster}

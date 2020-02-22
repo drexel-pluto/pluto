@@ -12,6 +12,7 @@ export default PostFeed = props => {
           return (
             <PostTeaserFull
               key={item._id}
+              _id={item._id}
               media={item.mediaURLs}
               text={item.text}
               postedAt={item.postedAt}

@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  Image,
+  TouchableWithoutFeedback,
+  StyleSheet,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 import StyledContainer from './StyledContainer'
@@ -11,9 +17,9 @@ class PostTeaser extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         onPress={() => {
-          this.props.openPost(this.props.key, this.props.poster)
+          this.props.openPost(this.props._id, this.props.poster)
         }}
       >
         <StyledContainer>
@@ -51,7 +57,7 @@ class PostTeaser extends React.Component {
             </View>
           </View>
         </StyledContainer>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     )
   }
 }
