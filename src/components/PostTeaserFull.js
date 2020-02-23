@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   image_wrapper: {
-    padding: Mixins.scaleSize(5),
+    paddingHorizontal: Mixins.scaleSize(5),
+    paddingVertical: Mixins.scaleSize(10),
   },
   action_wrapper: {
     flexDirection: 'row',
