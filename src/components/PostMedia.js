@@ -56,6 +56,7 @@ export default PostMedia = props => {
             swipeToDismiss={false}
             backgroundColor={Colors.PEARL}
             underlayColor={Colors.TRANSPARENT}
+            springConfig={{ overshootClamping: true }}
           >
             <Image
               source={{ uri: imgUrl }}
