@@ -282,6 +282,7 @@ export default class RigidBodies extends Component {
       }
     })
 
+    this.props.setIndex && this.props.setIndex(index)
     this.setState({ swipeIndex: index, entities: this.state.entities })
   }
 }

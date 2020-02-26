@@ -8,6 +8,14 @@ import IconButton from './../components/iconButton/IconButton'
 class Home extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      index: -1,
+    }
+  }
+
+  setIndex(index) {
+    this.setState({ index })
   }
 
   render() {
@@ -23,16 +31,24 @@ class Home extends React.Component {
           style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0 }}
           groups={this.props.groups}
           friends={this.props.friends}
+          setIndex={index => this.setIndex(index)}
         />
         <ScreenHeader rightItems={rightHeaderItems} />
         <View style={styles.group_wrapper}>
           <TouchableOpacity
             onPress={() => {
-              this.props.openGroup(this.props.groups[0]._id)
+              if (this.state.index == -1) {
+                //TODO fetch posts from ALL friends instead of group 0
+                this.props.openGroup(this.props.groups[0]._id)
+              } else {
+                this.props.openGroup(this.props.groups[this.state.index]._id)
+              }
             }}
           >
             <Text style={[Typography.F_H1, { textAlign: 'center' }]}>
-              group name
+              {this.state.index == -1
+                ? 'everyone'
+                : this.props.groups[this.state.index].title}
             </Text>
             <Text style={{ textAlign: 'center' }}>view posts</Text>
           </TouchableOpacity>
