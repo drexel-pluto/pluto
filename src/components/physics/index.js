@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Dimensions } from 'react-native'
 import { GameLoop } from 'react-native-game-engine'
 import { MoveBox } from './systems'
-import { Box } from './renderers'
+import { UserCircle } from './renderers'
 import Matter from 'matter-js'
 import SvgSwipe from './SvgSwipe'
 import MatterAttractors from 'matter-attractors'
@@ -69,38 +69,36 @@ export default class RigidBodies extends Component {
         active: false,
         x: 0,
       },
-      swipeIndex: 0,
-      numGroups: 3,
+      swipeIndex: -1,
+      numGroups: this.props.groups.length + 1,
     })
 
     entities = []
-
-    let dots = {}
-
-    for (let i = 0; i < 50; i++) {
+    i = 0
+    for (element of this.props.friends) {
+      let friend = element.friend
       let radius = Matter.Common.random(30, 70)
-      let groups = [
-        Math.round(Matter.Common.random(1, 3)),
-        Math.round(Matter.Common.random(1, 3)),
-        0,
-      ]
+      let groups = friend.groups
+      groups.push(-1)
       let item = Matter.Bodies.circle(
         Matter.Common.random(radius / 2, width - radius / 2),
         Matter.Common.random(radius / 2, height - radius / 2),
         radius / 2
       )
-      dots[item.id] = { groups: groups, radius: radius }
+
       Matter.World.add(world, [item])
 
       entities[i] = {
         body: item,
         size: radius,
         color: pickHex('#664391', '#15DAD6'),
-        id: i,
+        id: friend._id,
         groups: groups,
         isVisible: true,
         zIndex: 0,
+        friendData: friend,
       }
+      i++
     }
     this.setState({ entities: entities })
   }
@@ -111,16 +109,19 @@ export default class RigidBodies extends Component {
         onUpdate={this.updateHandler}
         style={{ ...this.props.style, backgroundColor: this.state.colors.bg }}
       >
-        {this.state.entities.map((item, i) => (
-          <Box
-            key={i}
-            body={item.body}
-            size={item.size}
-            color={item.color}
-            style={{ zIndex: item.zIndex }}
-            isVisible={item.isVisible}
-          />
-        ))}
+        {this.state.entities.map((item, i) => {
+          return (
+            <UserCircle
+              key={item.id}
+              body={item.body}
+              size={item.size}
+              color={item.color}
+              style={{ zIndex: item.zIndex }}
+              isVisible={item.isVisible}
+              friendData={item.friendData}
+            />
+          )
+        })}
         <SvgSwipe
           ref={input => {
             this.swipes.left = input
@@ -171,7 +172,7 @@ export default class RigidBodies extends Component {
     let move = touches.find(x => x.type === 'move')
 
     if (move && this.state.swipeTouch.active) {
-      let leftActive = this.state.swipeIndex > 0
+      let leftActive = this.state.swipeIndex > -1
       let rightActive = this.state.swipeIndex < this.state.numGroups - 1
 
       if (leftActive) {
@@ -222,7 +223,7 @@ export default class RigidBodies extends Component {
         this.swipes.left.animateToEdge(true)
         this.swipes.right.animateToEdge(false)
       } else if (dist > 0) {
-        if (this.state.swipeIndex > 0) {
+        if (this.state.swipeIndex > -1) {
           this.swipes.left.animateToEdge(false, () =>
             this.doneAnim(this.state.swipeIndex - 1)
           )

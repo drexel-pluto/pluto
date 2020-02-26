@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 
-class Box extends Component {
+class UserCircle extends Component {
   constructor(props) {
     super(props)
   }
@@ -28,9 +28,11 @@ class Box extends Component {
           },
           this.props.style,
         ]}
-      ></View>
+      >
+        <Text>{this.props.friendData.name}</Text>
+      </View>
     )
   }
 }
 
-export { Box }
+export { UserCircle }
