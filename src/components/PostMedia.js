@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, StyleSheet, Image, Modal, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native'
 import { Mixins, Colors, Layouts } from '../styles/index'
 import Carousel from 'react-native-looped-carousel'
 import IconButton from './iconButton/IconButton'
+import Modal from 'react-native-modal'
 
 const CarouselView = props => {
   const { images, currentImg, toggle } = props
@@ -17,7 +18,6 @@ const CarouselView = props => {
           paddingVertical: Layouts.PAD_VERT,
           paddingHorizontal: Layouts.PAD_HORZ,
           alignItems: 'flex-end',
-          paddingTop: Layouts.HEAD_PAD_VERT,
           zIndex: 10,
         }}
       >
@@ -41,7 +41,6 @@ const CarouselView = props => {
           flexDirection: 'row',
           justifyContent: 'space-evenly',
           paddingVertical: Layouts.PAD_VERT,
-          paddingBottom: Mixins.scaleSize(30),
         }}
       >
         <IconButton type="like" />
@@ -72,9 +71,14 @@ class PostMedia extends React.Component {
     return (
       <View style={styles.postMediaWrapper}>
         <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.lightBoxVisible}
+          isVisible={this.state.lightBoxVisible}
+          backdropColor={Colors.PEARL}
+          backdropOpacity={1}
+          swipeDirection={['down', 'up']}
+          onSwipeComplete={() => {
+            this.toggleLightBox()
+          }}
+          style={{ marginHorizontal: 0 }}
         >
           <CarouselView
             images={this.props.media}
@@ -84,7 +88,7 @@ class PostMedia extends React.Component {
         </Modal>
         {this.props.media.map((imgUrl, index) => {
           return (
-            <TouchableOpacity
+            <TouchableWithoutFeedback
               onPress={() => {
                 this.toggleLightBox(index)
               }}
@@ -99,7 +103,7 @@ class PostMedia extends React.Component {
                   borderRadius: Mixins.scaleSize(20),
                 }}
               />
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
           )
         })}
       </View>
