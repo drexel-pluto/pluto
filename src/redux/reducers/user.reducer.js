@@ -68,6 +68,26 @@ export default function reducer(state = defaultStateUser, action) {
       return { ...state, error: action.error, isLoggedIn: false }
     case GET_ME_SUCCESS:
       const data = action.payload.data
+
+      friends = []
+
+      data.friends.forEach(element => {
+        let friend = { ...element }
+        let groups = []
+
+        for (let i in data.groups) {
+          if (
+            data.groups[i].members.filter(e => e._id == friend.friend._id)
+              .length > 0
+          ) {
+            groups.push(parseInt(i))
+          }
+        }
+
+        friend.friend.groups = groups
+        friends.push(friend)
+      })
+
       return {
         ...state,
         userData: {
@@ -76,7 +96,7 @@ export default function reducer(state = defaultStateUser, action) {
           id: data._id,
           gender: data.gender,
         },
-        friends: data.friends,
+        friends,
         groups: data.groups,
       }
     case SET_IS_CREATE:
