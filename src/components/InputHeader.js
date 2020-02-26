@@ -15,7 +15,7 @@ class InputHeader extends React.Component {
           style={[
             styles.input,
             this.props.extraPadding
-              ? { paddingTop: Mixins.scaleSize(10) }
+              ? { paddingTop: Mixins.scaleSize(12) }
               : null,
           ]}
           multiline={this.props.multiline}

@@ -7,22 +7,22 @@ import StyledContainer from './StyledContainer'
 
 const PostGridItem = props => {
   const itemWidth =
-    Mixins.resWidthPercent(50) - Mixins.scaleSize(Layouts.PAD_HORZ + 13)
-  const { author, content } = props
+    Mixins.resWidthPercent(50) - Mixins.scaleSize(Layouts.PAD_HORZ + 15)
+  const { author, media, text } = props
 
   return (
     <TouchableOpacity onPress={() => {}}>
       <StyledContainer>
         <View style={[styles.postGridItem, Styles.STYLED_BORDER]}>
-          {content.image ? (
+          {media.length > 0 ? (
             <AutoHeightImage
               width={itemWidth}
               style={styles.postGridItem__image}
-              source={{ uri: content.image }}
+              source={{ uri: media[0] }} // use first image as thumb if multiple images
             />
           ) : (
             <Text style={[styles.postGridItem__text, { width: itemWidth }]}>
-              {content.text}
+              {text}
             </Text>
           )}
         </View>
@@ -36,17 +36,15 @@ export default PostGrid = props => {
     <View style={styles.postGrid}>
       <RNMasonryScroll columns={2}>
         {props.data.map(item => {
-          return <PostGridItem author={item.author} content={item.content} />
+          return (
+            <PostGridItem
+              author={item.poster}
+              media={item.mediaURLs}
+              text={item.text}
+            />
+          )
         })}
       </RNMasonryScroll>
-      <Text
-        style={[
-          { textAlign: 'center', paddingVertical: Mixins.scaleSize(30) },
-          Typography.F_SUBTITLE,
-        ]}
-      >
-        You've reached the end of the feed!
-      </Text>
     </View>
   )
 }
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
   postGrid: {
     flex: 1,
     paddingTop: Layouts.PAD_VERT,
-    paddingBottom: Mixins.scaleSize(30),
+    paddingBottom: Mixins.scaleSize(20),
     paddingHorizontal: Layouts.PAD_HORZ,
   },
   postGridItem: {

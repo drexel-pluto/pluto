@@ -11,39 +11,34 @@ class PostTeaser extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity
+        onPress={() => this.props.openPost(this.props._id, this.props.poster)}
+      >
         <StyledContainer>
           <View style={[styles.postTeaser, Styles.STYLED_BORDER]}>
             {// render img if exists
-            this.props.content.image ? (
+            this.props.media.length > 0 ? (
               <View style={styles.image_wrapper}>
                 <Image
                   style={[{ width: '100%', height: '100%' }]}
-                  source={{ uri: this.props.content.image }}
+                  source={{ uri: this.props.media[0] }}
                 />
               </View>
             ) : null}
-            {// render text if exists
-            this.props.content.text ? (
-              <View
-                style={[
-                  styles.text_wrapper,
-                  !this.props.content.image
-                    ? { paddingTop: Mixins.scaleSize(55), height: '100%' }
-                    : { height: '40%' },
-                ]}
-              >
+            {// render text if exists and image doesn't exist
+            this.props.text && !this.props.media.length > 0 ? (
+              <View style={styles.text_wrapper}>
                 <Text
                   style={[styles.text, Typography.F_BODY]}
                   ellipsizeMode="tail"
-                  numberOfLines={!this.props.content.image ? 4 : 999}
+                  numberOfLines={7}
                 >
-                  {this.props.content.text}
+                  {this.props.text}
                 </Text>
               </View>
             ) : null}
             <View style={styles.author_wrapper}>
-              <AuthorHeader isCompact={true} />
+              <AuthorHeader isCompact={true} author={this.props.poster} />
             </View>
           </View>
         </StyledContainer>
@@ -67,8 +62,8 @@ PostTeaser.defaultProps = {
 const styles = StyleSheet.create({
   postTeaser: {
     marginRight: Mixins.scaleSize(15),
-    borderRadius: Mixins.scaleSize(10),
-    width: Mixins.scaleSize(150),
+    borderRadius: Mixins.scaleSize(15),
+    width: Mixins.scaleSize(130),
     height: Mixins.scaleSize(200),
     backgroundColor: Colors.PLUTO_WHITE,
     overflow: 'hidden',
@@ -78,6 +73,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     position: 'absolute',
+    paddingTop: Mixins.scaleSize(55),
+    height: '100%',
   },
   author_wrapper: {
     position: 'absolute',

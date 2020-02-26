@@ -20,10 +20,10 @@ export default StyledContainer = props => {
 const styles = StyleSheet.create({
   outer: {
     borderRadius: Mixins.scaleSize(15),
-    shadowOffset: { width: 4, height: 4 },
+    shadowOffset: { width: 2, height: 2 },
     shadowColor: 'black',
     shadowOpacity: 0.2,
-    shadowRadius: 4,
+    shadowRadius: 3,
   },
   inner: {
     borderRadius: Mixins.scaleSize(15),

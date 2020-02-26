@@ -1,8 +1,11 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
+import PostMedia from './PostMedia'
+import { LinearGradient } from 'expo-linear-gradient'
+import ContainerTail from './../assets/images/containerTail.svg'
 
 class PostTeaserFull extends React.Component {
   constructor(props) {
@@ -11,36 +14,79 @@ class PostTeaserFull extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableWithoutFeedback
+        onPress={() => this.props.openPost(this.props._id, this.props.poster)}
+      >
         <View style={styles.postTeaserFull}>
-          <View style={styles.header_wrapper}>
-            <AuthorHeader isCompact={false} timeStamp={'20 minutes ago'} />
-            <IconButton type="like" customColor={Colors.ACCENT} />
-          </View>
-          {// render text if exists
-          this.props.content.text ? (
-            <View style={styles.text_wrapper}>
-              <Text style={[styles.text, Typography.F_BODY]}>
-                {this.props.content.text}
-              </Text>
+          {
+            // top section
+          }
+          <View style={[Styles.shadow('black'), { zIndex: 2 }]}>
+            <View
+              style={{
+                borderBottomRightRadius: Mixins.scaleSize(20),
+                overflow: 'hidden',
+              }}
+            >
+              <LinearGradient
+                colors={Colors.UI_BG_GRADIENT}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                locations={[0, 0.1]}
+                style={{
+                  padding: Mixins.scaleSize(15),
+                }}
+              >
+                <View style={styles.author_wrapper}>
+                  <AuthorHeader
+                    isCompact={false}
+                    author={this.props.poster}
+                    time={this.props.postedAt}
+                  />
+                </View>
+                {// render text if exists
+                this.props.text ? (
+                  <View style={styles.text_wrapper}>
+                    <Text style={[styles.text, Typography.F_BODY]}>
+                      {this.props.text}
+                    </Text>
+                  </View>
+                ) : null}
+              </LinearGradient>
             </View>
-          ) : null}
-          {// render img if exists
-          this.props.content.image ? (
-            <View style={styles.image_wrapper}>
-              <Image
-                style={styles.image}
-                source={{ uri: this.props.content.image }}
-              />
-            </View>
-          ) : null}
-          <View style={styles.comment_wrapper}>
-            <TouchableOpacity>
-              <Text style={{ color: Colors.ACCENT }}>replies</Text>
-            </TouchableOpacity>
+            <ContainerTail
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: '99.9%',
+              }}
+            />
           </View>
+
+          {
+            // bottom section
+          }
+          <LinearGradient
+            colors={Colors.UI_BG_GRADIENT}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            locations={[0, 0.1]}
+          >
+            {// render img if exists
+            this.props.media.length > 0 ? (
+              <View style={styles.image_wrapper}>
+                <PostMedia media={this.props.media} />
+              </View>
+            ) : null}
+            <View style={styles.action_wrapper}>
+              <TouchableWithoutFeedback>
+                <Text style={{ color: Colors.ACCENT }}>replies</Text>
+              </TouchableWithoutFeedback>
+              <IconButton type="like" customColor={Colors.ACCENT} />
+            </View>
+          </LinearGradient>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     )
   }
 }
@@ -60,27 +106,26 @@ PostTeaserFull.defaultProps = {
 const styles = StyleSheet.create({
   postTeaserFull: {
     width: '100%',
-    paddingVertical: Mixins.scaleSize(20),
+    backgroundColor: Colors.UI_BG,
+    marginBottom: Mixins.scaleSize(20),
+    borderRadius: Mixins.scaleSize(20),
+    overflow: 'hidden',
   },
-  image: {
-    width: '100%',
-    aspectRatio: 1,
+  author_wrapper: {
     marginBottom: Mixins.scaleSize(20),
   },
   text_wrapper: {
     bottom: 0,
     width: '100%',
-    marginBottom: Mixins.scaleSize(20),
   },
-  header_wrapper: {
-    marginBottom: Mixins.scaleSize(20),
+  image_wrapper: {
+    paddingHorizontal: Mixins.scaleSize(5),
+    paddingVertical: Mixins.scaleSize(10),
+  },
+  action_wrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  comment_wrapper: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    padding: Mixins.scaleSize(15),
   },
 })
 

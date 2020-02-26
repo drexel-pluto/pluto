@@ -17,13 +17,14 @@ class Profile extends React.Component {
       <ScrollView stickyHeaderIndices={[0]}>
         <ScreenHeader
           isFixed={true}
+          headerColor={Colors.PEARL}
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
           rightItems={<IconButton type="search" />}
         />
         <ProfileHeader profile={this.props.profile} />
-        <PostGrid data={POST_DATA} />
+        <PostGrid data={this.props.profile.posts} />
       </ScrollView>
     )
   }

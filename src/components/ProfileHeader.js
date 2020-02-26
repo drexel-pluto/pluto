@@ -10,7 +10,7 @@ class ProfileHeader extends React.Component {
 
   render() {
     return (
-      <View style={styles.ProfileHeader}>
+      <View style={[styles.ProfileHeader, Styles.shadow('black')]}>
         <UserProfile profile={this.props.profile} />
       </View>
     )
@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
   ProfileHeader: {
     width: '100%',
     paddingVertical: Layouts.PAD_VERT,
+    marginBottom: Mixins.scaleSize(20),
+    backgroundColor: Colors.PEARL,
+    borderBottomLeftRadius: Mixins.scaleSize(20),
+    borderBottomRightRadius: Mixins.scaleSize(20),
   },
 })
 

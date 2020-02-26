@@ -9,18 +9,20 @@ export default PostFeed = props => {
       <FlatList
         data={props.data}
         renderItem={({ item, index }) => {
-          return <PostTeaserFull content={item.post} />
+          return (
+            <PostTeaserFull
+              key={item._id}
+              _id={item._id}
+              media={item.mediaURLs}
+              text={item.text}
+              postedAt={item.postedAt}
+              poster={item.poster}
+              openPost={props.openPost}
+            />
+          )
         }}
         keyExtractor={item => item._id}
       />
-      <Text
-        style={[
-          { textAlign: 'center', paddingVertical: Mixins.scaleSize(30) },
-          Typography.F_SUBTITLE,
-        ]}
-      >
-        You've reached the end of the feed!
-      </Text>
     </View>
   )
 }
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: Layouts.PAD_VERT,
     paddingBottom: Mixins.scaleSize(100),
-    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingHorizontal: Layouts.PAD_HORZ_SM,
     borderTopLeftRadius: Mixins.scaleSize(20),
     overflow: 'hidden',
   },

@@ -1,14 +1,73 @@
 import React from 'react'
 import { View, StyleSheet, Image } from 'react-native'
-import { Colors, Typography, Layouts, Mixins } from '../styles/index'
-import { FLEX_CONTAINER } from '../styles/layouts'
+import { Mixins, Colors, Layouts } from '../styles/index'
+import LightBox from 'react-native-lightbox'
+import Carousel from 'react-native-looped-carousel'
+import IconButton from './iconButton/IconButton'
+
+const renderCarousel = (images, currentImg) => (
+  <View style={{ flex: 1 }}>
+    <Carousel style={{ flex: 1 }} currentPage={currentImg} autoplay={false}>
+      {images.map(imgUrl => (
+        <Image
+          style={{ flex: 1 }}
+          resizeMode="contain"
+          source={{ uri: imgUrl }}
+          key={imgUrl}
+        />
+      ))}
+    </Carousel>
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        paddingVertical: Layouts.PAD_VERT,
+        paddingBottom: Mixins.scaleSize(30),
+      }}
+    >
+      <IconButton type="like" />
+      <IconButton type="replies" />
+    </View>
+  </View>
+)
+
+const renderHeader = close => (
+  <View
+    style={{
+      paddingVertical: Layouts.PAD_VERT,
+      paddingHorizontal: Layouts.PAD_HORZ,
+      alignItems: 'flex-end',
+      paddingTop: Layouts.HEAD_PAD_VERT,
+    }}
+  >
+    <IconButton type="close" _onPress={close} />
+  </View>
+)
 
 export default PostMedia = props => {
   return (
     <View style={styles.postMediaWrapper}>
-      {props.media.map((img, key) => {
+      {props.media.map((imgUrl, index) => {
         return (
-          <Image source={{ uri: img.uri }} key={key} style={styles.mediaItem} />
+          <LightBox
+            style={styles.mediaItem}
+            renderContent={() => renderCarousel(props.media, index)}
+            renderHeader={close => renderHeader(close)}
+            swipeToDismiss={false}
+            backgroundColor={Colors.PEARL}
+            underlayColor={Colors.TRANSPARENT}
+            springConfig={{ overshootClamping: true }}
+          >
+            <Image
+              source={{ uri: imgUrl }}
+              key={index}
+              style={{
+                width: '100%',
+                height: '100%',
+                borderRadius: Mixins.scaleSize(20),
+              }}
+            />
+          </LightBox>
         )
       })}
     </View>
@@ -17,16 +76,16 @@ export default PostMedia = props => {
 
 const styles = StyleSheet.create({
   postMediaWrapper: {
-    height: 250,
+    height: Mixins.scaleSize(250),
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignContent: 'stretch',
-    padding: Layouts.PAD / 2,
+    padding: 0,
   },
   mediaItem: {
-    margin: Layouts.PAD / 2,
+    margin: 0,
     width: '40%',
     flexGrow: 1,
-    borderRadius: 14,
+    paddingHorizontal: Mixins.scaleSize(5),
   },
 })
