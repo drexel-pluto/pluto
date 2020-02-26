@@ -1,77 +1,110 @@
 import React from 'react'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image, Modal, TouchableOpacity } from 'react-native'
 import { Mixins, Colors, Layouts } from '../styles/index'
-import LightBox from 'react-native-lightbox'
 import Carousel from 'react-native-looped-carousel'
 import IconButton from './iconButton/IconButton'
 
-const renderCarousel = (images, currentImg) => (
-  <View style={{ flex: 1 }}>
-    <Carousel style={{ flex: 1 }} currentPage={currentImg} autoplay={false}>
-      {images.map(imgUrl => (
-        <Image
-          style={{ flex: 1 }}
-          resizeMode="contain"
-          source={{ uri: imgUrl }}
-          key={imgUrl}
-        />
-      ))}
-    </Carousel>
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        paddingVertical: Layouts.PAD_VERT,
-        paddingBottom: Mixins.scaleSize(30),
-      }}
-    >
-      <IconButton type="like" />
-      <IconButton type="replies" />
-    </View>
-  </View>
-)
+const CarouselView = props => {
+  const { images, currentImg, toggle } = props
 
-const renderHeader = close => (
-  <View
-    style={{
-      paddingVertical: Layouts.PAD_VERT,
-      paddingHorizontal: Layouts.PAD_HORZ,
-      alignItems: 'flex-end',
-      paddingTop: Layouts.HEAD_PAD_VERT,
-    }}
-  >
-    <IconButton type="close" _onPress={close} />
-  </View>
-)
-
-export default PostMedia = props => {
   return (
-    <View style={styles.postMediaWrapper}>
-      {props.media.map((imgUrl, index) => {
-        return (
-          <LightBox
-            style={styles.mediaItem}
-            renderContent={() => renderCarousel(props.media, index)}
-            renderHeader={close => renderHeader(close)}
-            swipeToDismiss={false}
-            backgroundColor={Colors.PEARL}
-            underlayColor={Colors.TRANSPARENT}
-            springConfig={{ overshootClamping: true }}
-          >
-            <Image
-              source={{ uri: imgUrl }}
-              key={index}
-              style={{
-                width: '100%',
-                height: '100%',
-                borderRadius: Mixins.scaleSize(20),
-              }}
-            />
-          </LightBox>
-        )
-      })}
+    <View style={{ flex: 1 }}>
+      <View
+        style={{
+          width: '100%',
+          position: 'absolute',
+          top: 0,
+          paddingVertical: Layouts.PAD_VERT,
+          paddingHorizontal: Layouts.PAD_HORZ,
+          alignItems: 'flex-end',
+          paddingTop: Layouts.HEAD_PAD_VERT,
+          zIndex: 10,
+        }}
+      >
+        <IconButton type="close" _onPress={toggle} />
+      </View>
+      <Carousel style={{ flex: 1 }} currentPage={currentImg} autoplay={false}>
+        {images.map(imgUrl => (
+          <Image
+            style={{ flex: 1 }}
+            resizeMode="contain"
+            source={{ uri: imgUrl }}
+            key={imgUrl}
+          />
+        ))}
+      </Carousel>
+      <View
+        style={{
+          width: '100%',
+          position: 'absolute',
+          bottom: 0,
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          paddingVertical: Layouts.PAD_VERT,
+          paddingBottom: Mixins.scaleSize(30),
+        }}
+      >
+        <IconButton type="like" />
+        <IconButton type="replies" />
+      </View>
     </View>
   )
+}
+
+class PostMedia extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      lightBoxVisible: false,
+      selectedImg: 0,
+    }
+  }
+
+  toggleLightBox = index => {
+    this.setState({
+      lightBoxVisible: !this.state.lightBoxVisible,
+      selectedImg: index,
+    })
+  }
+
+  render() {
+    let currentImg = 0
+    return (
+      <View style={styles.postMediaWrapper}>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.lightBoxVisible}
+        >
+          <CarouselView
+            images={this.props.media}
+            currentImg={this.state.selectedImg}
+            toggle={this.toggleLightBox}
+          />
+        </Modal>
+        {this.props.media.map((imgUrl, index) => {
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                this.toggleLightBox(index)
+              }}
+              style={styles.mediaItem}
+            >
+              <Image
+                source={{ uri: imgUrl }}
+                key={index}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: Mixins.scaleSize(20),
+                }}
+              />
+            </TouchableOpacity>
+          )
+        })}
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -89,3 +122,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: Mixins.scaleSize(5),
   },
 })
+
+export default PostMedia
