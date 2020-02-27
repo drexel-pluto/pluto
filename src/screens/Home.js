@@ -64,7 +64,12 @@ class Home extends React.Component {
           <IconButton
             type="addPost"
             _onPress={() => {
-              this.props.navigation.navigate('AddPost')
+              this.props.navigation.navigate('AddPost', {
+                defaultRecipients:
+                  this.state.index > -1
+                    ? this.props.groups[this.state.index].members
+                    : this.props.friends,
+              })
             }}
           />
         </View>

@@ -8,7 +8,7 @@ import {
   FlatList,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
-import CheckBox from 'react-native-check-box'
+import CircleCheckBox from 'react-native-circle-checkbox'
 import SelectFriendItem from './SelectFriendItem'
 
 class SelectGroupItem extends React.Component {
@@ -16,51 +16,41 @@ class SelectGroupItem extends React.Component {
     super(props)
     this.state = {
       isExpanded: false,
-      isGroupChecked: false,
+      isChecked: false,
     }
   }
 
   componentDidMount = () => {
-    const isGroupChecked = (isChecked = this.props.group.members.every(
+    let isChecked = this.props.group.members.every(
       member => this.props.recipients[member._id]
-    ))
-
-    this.setState({ isGroupChecked })
-  }
-
-  updateSelectedMember = () => {
-    let selectedMember = this.props.group.members.reduce(
-      (total, member) =>
-        this.props.recipients[member._id] ? total + 1 : total,
-      0
     )
 
-    return selectedMember
+    this.setState({ isChecked })
+  }
+
+  toggleGroupChecked() {
+    const isChecked = !this.state.isChecked
+    this.setState({ isChecked })
+
+    for (let member of this.props.group.members) {
+      this.props.setRecipient(member._id, isChecked)
+    }
   }
 
   toggleExpand = () => {
     this.setState({ isExpanded: !this.state.isExpanded })
   }
 
-  toggleGroupChecked() {
-    // let isChecked = this.props.group.members.every(
-    //   member => this.props.recipients[member._id]
-    // )
-    const isGroupChecked = !this.state.isGroupChecked
-    this.setState({ isGroupChecked })
+  updateSelectedMember = () => {
+    let selectedMember = this.props.group.members.reduce((total, member) => {
+      return this.props.recipients[member._id] ? total + 1 : total
+    }, 0)
 
-    for (let member of this.props.group.members) {
-      this.props.setRecipient(member._id, isGroupChecked)
-    }
-
-    this.updateSelectedMember()
+    return selectedMember > 0 ? selectedMember - 1 : selectedMember
   }
 
   render() {
-    // let isChecked = this.props.group.members.every(
-    //   member => this.props.recipients[member._id]
-    // )
-    let selectedMember = this.updateSelectedMember()
+    const selectedMember = this.updateSelectedMember()
 
     return (
       <View style={styles.selectGroupItem}>
@@ -74,11 +64,16 @@ class SelectGroupItem extends React.Component {
               {
                 // limit the width for group title
                 // or set char limit on it
+                // total - 1 for yourself
               }
-              <Text>{this.props.group.title}</Text>
-              <Text>ICON</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={Typography.F_H3}>{this.props.group.title}</Text>
+                <Text style={{ marginLeft: Mixins.scaleSize(10) }}>
+                  {this.state.isExpanded ? 'close' : 'open'}
+                </Text>
+              </View>
               <Text>
-                {selectedMember} / {this.props.group.members.length}
+                {selectedMember} / {this.props.group.members.length - 1}
               </Text>
             </View>
           </TouchableWithoutFeedback>
@@ -89,7 +84,7 @@ class SelectGroupItem extends React.Component {
           >
             <View style={styles.groupCheck}>
               <CheckBox
-                isChecked={this.state.isGroupChecked}
+                isChecked={this.state.isChecked}
                 onClick={() => {
                   this.toggleGroupChecked()
                 }}
@@ -107,14 +102,16 @@ class SelectGroupItem extends React.Component {
             style={styles.postFeed}
             data={this.props.group.members}
             extraData={this.props.recipients}
-            renderItem={({ item }) => (
-              <SelectFriendItem
-                friend={item}
-                setRecipient={this.props.setRecipient}
-                recipients={this.props.recipients}
-                updateSelectedMember={this.updateSelectedMember}
-              />
-            )}
+            renderItem={({ item }) =>
+              this.props.user.id != item._id ? (
+                <SelectFriendItem
+                  friend={item}
+                  setRecipient={this.props.setRecipient}
+                  recipients={this.props.recipients}
+                  updateSelectedMember={this.updateSelectedMember}
+                />
+              ) : null
+            }
             keyExtractor={item => item._id}
           />
         </ScrollView>
@@ -125,11 +122,15 @@ class SelectGroupItem extends React.Component {
 
 const styles = StyleSheet.create({
   selectGroupItem: {
-    margin: Mixins.scaleSize(15),
+    marginVertical: Mixins.scaleSize(10),
+    borderRadius: Mixins.scaleSize(30),
+    paddingVertical: Mixins.scaleSize(5),
+    paddingHorizontal: Mixins.scaleSize(20),
+    borderWidth: 1,
+    borderColor: Colors.BLACK_ROCK,
   },
   title_wrapper: {
     height: Mixins.scaleSize(50),
-    backgroundColor: Colors.GRAY_MEDIUM,
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,
@@ -137,6 +138,8 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
     // backgroundColor: 'blue',
   },
   groupCheck: {
@@ -147,7 +150,6 @@ const styles = StyleSheet.create({
   },
   friend_wrapper: {
     maxHeight: Mixins.scaleSize(200),
-    backgroundColor: Colors.GRAY_LIGHT,
     display: 'none',
   },
   isExpanded: {

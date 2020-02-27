@@ -16,6 +16,7 @@ class AuthLoadingContainer extends React.Component {
         group={this.props.group}
         navigation={this.props.navigation}
         openPost={(id, poster) => this.openPost(id, poster)}
+        user={this.props.user}
       />
     )
   }
@@ -23,6 +24,7 @@ class AuthLoadingContainer extends React.Component {
 
 const mapStateToProps = state => ({
   group: state.group,
+  user: state.user.userData,
 })
 
 const mapDispatchToProps = {

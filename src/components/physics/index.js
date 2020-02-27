@@ -7,6 +7,7 @@ import Matter from 'matter-js'
 import SvgSwipe from './SvgSwipe'
 import MatterAttractors from 'matter-attractors'
 import Color from 'color'
+import { Colors } from './../../styles/index'
 
 Matter.Common.isElement = () => false //-- Overriding this function because the original references HTMLElement
 
@@ -18,9 +19,9 @@ export default class RigidBodies extends Component {
     this.state = {
       entities: [],
       colors: {
-        bg: 'white',
-        swipes: 'salmon',
-      }
+        bg: Colors.PLUTO_WHITE,
+        swipes: Colors.VIOLET.light,
+      },
     }
   }
 

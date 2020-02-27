@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
-import IconButton from './../components/iconButton/IconButton'
 import Button from './../components/Button'
 
 export default AddPostOptionBar = props => {
