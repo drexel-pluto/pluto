@@ -22,7 +22,6 @@ class AddPostPermission extends React.Component {
       <ScrollView stickyHeaderIndices={[0]} style={Layouts.FLEX_CONTAINER}>
         <ScreenHeader
           isFixed={true}
-          title={'Permission'}
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }

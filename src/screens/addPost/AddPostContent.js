@@ -12,7 +12,6 @@ import ScreenHeader from '../../components/ScreenHeader'
 import AddPostOptionBar from '../../components/AddPostOptionBar'
 import IconButton from './../../components/iconButton/IconButton'
 import Button from './../../components/Button'
-import CircleList from './../../components/CircleList'
 
 class AddPost extends React.Component {
   constructor(props) {
@@ -56,7 +55,7 @@ class AddPost extends React.Component {
             <Button text="post" type="outline" onPress={this.submitPost} />
           }
         />
-        <TouchableWithoutFeedback
+        <View
           onPress={() => {
             this.props.navigation.navigate('AddPostPermissions')
           }}
@@ -65,16 +64,35 @@ class AddPost extends React.Component {
             style={{
               marginVertical: Layouts.PAD_VERT,
               marginLeft: Layouts.PAD_HORZ,
+              paddingLeft: Layouts.PAD_HORZ,
+              paddingVertical: Layouts.PAD_VERT,
               backgroundColor: Colors.VIOLET.light,
               borderTopLeftRadius: Mixins.scaleSize(20),
               borderBottomLeftRadius: Mixins.scaleSize(20),
-              height: 85,
+              justifyContent: 'center',
+              // height: 85,
             }}
           >
-            <Text>edit permission</Text>
-            <CircleList />
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+                // marginTop: Mixins.scaleSize(15),
+              }}
+            >
+              <Text style={{ marginRight: Mixins.scaleSize(10) }}>
+                num of recipients
+              </Text>
+              <Button
+                text="edit"
+                type="small"
+                _onPress={() => {
+                  this.props.navigation.navigate('AddPostPermissions')
+                }}
+              />
+            </View>
           </View>
-        </TouchableWithoutFeedback>
+        </View>
         {this.props.media.length > 0 && (
           <PostMedia
             media={this.props.media}
