@@ -8,7 +8,7 @@ export default UserProfile = props => {
       <Image
         style={styles.image}
         source={{
-          uri: props.profile.image,
+          uri: props.profile.profilePicURL,
         }}
       />
       <View style={[styles.text_wrapper, Layouts.FLEX_CONTAINER_CENTER]}>

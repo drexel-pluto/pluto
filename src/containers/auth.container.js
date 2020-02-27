@@ -28,8 +28,8 @@ class AuthContainer extends React.Component {
     })
   }
 
-  create(userData) {
-    this.props.createProfile(userData).then(action => {
+  create(userData, profilePic) {
+    this.props.createProfile(userData, profilePic).then(action => {
       if (action.type.endsWith('SUCCESS')) {
         this.login(userData.username, userData.password)
       }
@@ -39,7 +39,7 @@ class AuthContainer extends React.Component {
   render() {
     return this.props.isCreate ? (
       <CreateScreen
-        create={userData => this.create(userData)}
+        create={(userData, profilePic) => this.create(userData, profilePic)}
         error={this.props.error}
         setIsCreate={bool => this.props.setIsCreate(bool)}
       />

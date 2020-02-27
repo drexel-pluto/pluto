@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Button, TextInput, View, Text } from 'react-native'
+import { Button, TextInput, View, Text, TouchableOpacity, Image } from 'react-native'
+import * as ImagePicker from 'expo-image-picker'
+import * as Permissions from 'expo-permissions'
 
 export default class CreateProfileScreen extends Component {
   constructor(props) {
@@ -10,6 +12,22 @@ export default class CreateProfileScreen extends Component {
       email: '',
       name: '',
       gender: 'male',
+      imageUri: '',
+    }
+  }
+
+
+  openImagePickerAsync = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    if (status == 'denied') {
+      alert('Sorry, we need camera roll permissions to make this work!')
+      return
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if (pickerResult.uri) {
+      this.setState({imageUri: pickerResult.uri})
     }
   }
 
@@ -21,6 +39,9 @@ export default class CreateProfileScreen extends Component {
             <Text>{this.props.error}</Text>
           </View>
         )}
+        <TouchableOpacity onPress={() => this.openImagePickerAsync()}>
+          <Image source={{ uri: this.state.imageUri ? this.state.imageUri : 'https://via.placeholder.com/200' }} style={{width: 200, height: 200}} />
+        </TouchableOpacity>
         <TextInput
           style={{
             height: 40,
@@ -87,7 +108,7 @@ export default class CreateProfileScreen extends Component {
               name: this.state.name,
               password: this.state.password,
               gender: this.state.gender,
-            })
+            }, this.state.imageUri)
           }
           title="Click here to create profile"
         />

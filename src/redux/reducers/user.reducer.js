@@ -133,14 +133,29 @@ export function setIsCreate(bool) {
   }
 }
 
-export function createProfile(user) {
+export function createProfile(user, profilePic) {
+
+  const json = JSON.stringify(user)
+  let form = new FormData()
+  form.append('postParams', json)
+  if (profilePic != '') {
+    form.append('media', {
+      uri: profilePic,
+      name: 'prof.jpg',
+      type: 'image/jpeg',
+    }, 'prof.jpg');
+  }
+
   return {
     type: CREATE_USER,
     payload: {
       request: {
         method: 'POST',
         url: `/user/create`,
-        data: user,
+        data: form,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
       },
     },
   }

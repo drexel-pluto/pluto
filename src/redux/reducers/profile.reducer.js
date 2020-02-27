@@ -10,6 +10,7 @@ let defaultStateProfile = {
   username: '',
   name: '',
   gender: '',
+  profilePicURL: '',
   loading: true,
   posts: [],
 }
@@ -28,6 +29,7 @@ export default function reducer(state = defaultStateProfile, action) {
         gender: data.gender,
         name: data.name,
         posts: data.posts,
+        profilePicURL: data.profilePicURL,
         loading: false,
       }
     case FETCH_USER_FAIL:
