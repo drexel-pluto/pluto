@@ -74,11 +74,11 @@ class PostMedia extends React.Component {
           isVisible={this.state.lightBoxVisible}
           backdropColor={Colors.PEARL}
           backdropOpacity={1}
-          swipeDirection={['down', 'up']}
-          onSwipeComplete={() => {
-            this.toggleLightBox()
-          }}
           style={{ marginHorizontal: 0 }}
+          // swipeDirection={['down', 'up']}
+          // onSwipeComplete={() => {
+          //   this.toggleLightBox()
+          // }}
         >
           <CarouselView
             images={this.props.media}
@@ -94,15 +94,17 @@ class PostMedia extends React.Component {
               }}
               style={styles.mediaItem}
             >
-              <Image
-                source={{ uri: imgUrl }}
-                key={index}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: Mixins.scaleSize(20),
-                }}
-              />
+              <View style={styles.mediaItem}>
+                <Image
+                  source={{ uri: imgUrl }}
+                  key={index}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: Mixins.scaleSize(20),
+                  }}
+                />
+              </View>
             </TouchableWithoutFeedback>
           )
         })}
