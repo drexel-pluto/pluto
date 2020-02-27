@@ -4,6 +4,10 @@ const FETCH_POST = 'profile/FETCH_POST'
 const FETCH_POST_SUCCESS = 'profile/FETCH_POST_SUCCESS'
 const FETCH_POST_FAIL = 'profile/FETCH_POST_FAIL'
 
+const SEND_COMMENT = 'profile/SEND_COMMENT'
+const SEND_COMMENT_SUCCESS = 'profile/SEND_COMMENT_SUCCESS'
+const SEND_COMMENT_FAIL = 'profile/SEND_COMMENT_FAIL'
+
 const SET_POSTER = 'profile/SET_POSTER'
 
 let defaultStatePost = {
@@ -22,6 +26,7 @@ export default function reducer(state = defaultStatePost, action) {
     case FETCH_POST:
       return defaultStatePost
     case FETCH_POST_SUCCESS:
+    case SEND_COMMENT_SUCCESS:
       data = action.payload.data
       return {
         ...state,
@@ -36,9 +41,31 @@ export default function reducer(state = defaultStatePost, action) {
     case SET_POSTER:
       return { ...state, poster: action.poster }
     case FETCH_POST_FAIL:
+      console.log(action);
       return { ...state, loading: false }
     default:
       return state
+  }
+}
+
+export function sendComment(content) {
+  let token = store.getState().user.authToken;
+  let postId = store.getState().post.id;
+  return {
+    type: SEND_COMMENT,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/posts/comment`,
+        data: {
+          postId: postId,
+          text: content
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    },
   }
 }
 

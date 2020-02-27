@@ -57,7 +57,7 @@ class Home extends React.Component {
                 ? 'everyone'
                 : this.props.groups[this.state.index].title}
             </Text>
-            <Text style={{ textAlign: 'center' }}>view posts</Text>
+            <Text style={{ textAlign: 'center' }}>view posts ></Text>
           </TouchableOpacity>
         </View>
         <View style={styles.action_wrapper}>

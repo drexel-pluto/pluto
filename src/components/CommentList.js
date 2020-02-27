@@ -10,11 +10,11 @@ export default CommentList = props => {
       <FlatList
         data={props.data}
         renderItem={({ item }) => (
-          <Comment author={item.author} content={item.content} />
+          <Comment data={item} />
         )}
         keyExtractor={item => item.id}
       />
-      <AddComment />
+      <AddComment sendComment={props.sendComment}/>
     </View>
   )
 }

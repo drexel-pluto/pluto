@@ -25,6 +25,8 @@ export default class RigidBodies extends Component {
     }
   }
 
+
+
   componentDidMount() {
     Matter.use(MatterAttractors)
     const { width, height } = Dimensions.get('window')
@@ -43,6 +45,15 @@ export default class RigidBodies extends Component {
     })
 
     Matter.World.addConstraint(world, constraint)
+    const wallWidth = 50;
+    const wallDist = 150; //px distance outside edge of screen;
+    Matter.World.add(world, [
+      // walls
+      Matter.Bodies.rectangle(width / 2, - wallDist, width + 2 * wallDist, wallWidth, { isStatic: true, continuous: 1 }),
+      Matter.Bodies.rectangle(width / 2, height + wallDist, width + 2 * wallDist, wallWidth, { isStatic: true, continuous: 1 }),
+      Matter.Bodies.rectangle(- wallDist, height / 2, wallWidth, height + 2 * wallDist, { isStatic: true, continuous: 1 }),
+      Matter.Bodies.rectangle(width + wallDist, height / 2, wallWidth, height + 2 * wallDist, { isStatic: true, continuous: 1 })
+    ]);
 
     let attractor = Matter.Bodies.circle(width / 2, height / 2, 0, {
       frictionAir: 0,
@@ -51,8 +62,8 @@ export default class RigidBodies extends Component {
         attractors: [
           function(bodyA, bodyB) {
             return {
-              x: (bodyA.position.x - bodyB.position.x) * 6e-7,
-              y: (bodyA.position.y - bodyB.position.y) * 6e-7,
+              x: (bodyA.position.x - bodyB.position.x) * 6e-6,
+              y: (bodyA.position.y - bodyB.position.y) * 9e-6,
             }
           },
         ],
@@ -71,7 +82,7 @@ export default class RigidBodies extends Component {
         x: 0,
       },
       swipeIndex: -1,
-      numGroups: this.props.groups.length + 1,
+      numGroups: this.props.groups.length,
     })
 
     entities = []
@@ -84,7 +95,8 @@ export default class RigidBodies extends Component {
       let item = Matter.Bodies.circle(
         Matter.Common.random(radius / 2, width - radius / 2),
         Matter.Common.random(radius / 2, height - radius / 2),
-        radius / 2
+        radius / 2,
+        {continuous: 1}
       )
 
       Matter.World.add(world, [item])
@@ -145,6 +157,8 @@ export default class RigidBodies extends Component {
 
   updateHandler = ({ touches, screen, layout, time }) => {
     //update physics
+    time.delta = time.delta > 200 ? 0 : time.delta;
+
     Matter.Engine.update(this.state.physics.engine, time.delta)
 
     MoveBox(this.state, { touches, screen, layout, time })
@@ -153,6 +167,7 @@ export default class RigidBodies extends Component {
 
     // entity values are getting updated, but this line
     // is necessary to rerender to show updates
+    // console.log(this.state.entities[0].body.position, this.state.entities[0].body.positionPrev);
     this.setState({ entities: this.state.entities })
   }
 
@@ -269,7 +284,7 @@ export default class RigidBodies extends Component {
   setSwipeIndex(index) {
     let world = this.state.physics.world
     const { width, height } = Dimensions.get('window')
-    const xPos = index > this.state.swipeIndex ? width + 200 : -200
+    const xPos = index > this.state.swipeIndex ? width + 100 : -100
 
     this.state.entities.forEach(element => {
       element.zIndex = 4
