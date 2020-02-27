@@ -46,7 +46,7 @@ class SelectGroupItem extends React.Component {
       return this.props.recipients[member._id] ? total + 1 : total
     }, 0)
 
-    return selectedMember
+    return selectedMember > 0 ? selectedMember - 1 : selectedMember
   }
 
   render() {
@@ -64,11 +64,12 @@ class SelectGroupItem extends React.Component {
               {
                 // limit the width for group title
                 // or set char limit on it
+                // total - 1 for yourself
               }
               <Text>{this.props.group.title}</Text>
               <Text>ICON</Text>
               <Text>
-                {selectedMember} / {this.props.group.members.length}
+                {selectedMember} / {this.props.group.members.length - 1}
               </Text>
             </View>
           </TouchableWithoutFeedback>
@@ -97,14 +98,16 @@ class SelectGroupItem extends React.Component {
             style={styles.postFeed}
             data={this.props.group.members}
             extraData={this.props.recipients}
-            renderItem={({ item }) => (
-              <SelectFriendItem
-                friend={item}
-                setRecipient={this.props.setRecipient}
-                recipients={this.props.recipients}
-                updateSelectedMember={this.updateSelectedMember}
-              />
-            )}
+            renderItem={({ item }) =>
+              this.props.user.id != item._id ? (
+                <SelectFriendItem
+                  friend={item}
+                  setRecipient={this.props.setRecipient}
+                  recipients={this.props.recipients}
+                  updateSelectedMember={this.updateSelectedMember}
+                />
+              ) : null
+            }
             keyExtractor={item => item._id}
           />
         </ScrollView>

@@ -16,6 +16,7 @@ export default SelectGroupList = props => {
             group={item}
             setRecipient={props.setRecipient}
             recipients={props.recipients}
+            user={props.user}
           />
         )}
         keyExtractor={item => item._id}

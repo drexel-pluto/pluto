@@ -11,6 +11,7 @@ class AddPostPermissionContainer extends React.Component {
         groups={this.props.groups}
         recipients={this.props.recipients}
         setRecipient={this.props.setRecipient}
+        user={this.props.user}
       />
     )
   }
@@ -19,6 +20,7 @@ class AddPostPermissionContainer extends React.Component {
 const mapStateToProps = state => ({
   groups: state.user.groups,
   recipients: state.create.recipients,
+  user: state.user.userData,
 })
 
 const mapDispatchToProps = {

@@ -38,6 +38,19 @@ class AddPost extends React.Component {
     this.focusListener = this.props.navigation.addListener('didFocus', () => {
       this.onFocusFunction()
     })
+
+    // default selected group
+    this.props.resetRecipient()
+    let defaultRecipients = {
+      ...this.props.navigation.getParam('defaultRecipients', {}),
+    }
+    Object.keys(defaultRecipients).map(index => {
+      if (defaultRecipients[index].friend) {
+        this.props.setRecipient(defaultRecipients[index].friend._id, true)
+      } else {
+        this.props.setRecipient(defaultRecipients[index]._id, true)
+      }
+    })
   }
 
   submitPost() {
@@ -62,11 +75,7 @@ class AddPost extends React.Component {
             <Button text="post" type="outline" onPress={this.submitPost} />
           }
         />
-        <View
-          onPress={() => {
-            this.props.navigation.navigate('AddPostPermissions')
-          }}
-        >
+        <View>
           <View
             style={{
               marginVertical: Layouts.PAD_VERT,
@@ -88,7 +97,6 @@ class AddPost extends React.Component {
               data={this.props.friends}
               extraData={this.props.recipients}
               renderItem={item => {
-                // alert(JSON.stringify(item))
                 if (this.props.recipients[item.item.friend._id]) {
                   return (
                     <View
@@ -126,10 +134,7 @@ class AddPost extends React.Component {
                 text="edit"
                 type="small"
                 _onPress={() => {
-                  this.props.navigation.navigate('AddPostPermissions', {
-                    recipients: this.props.recipients,
-                    setRecipient: this.props.setRecipient,
-                  })
+                  this.props.navigation.navigate('AddPostPermissions')
                 }}
               />
             </View>

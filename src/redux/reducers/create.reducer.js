@@ -3,6 +3,7 @@ import update from 'react-addons-update'
 // types
 
 export const SET_RECIPIENT = 'create/SET_RECIPIENT'
+export const RESET_RECIPIENT = 'create/RESET_RECIPIENT'
 
 export const SEND_POST = 'create/SEND_POST'
 export const SEND_POST_SUCCESS = 'create/SEND_POST_SUCCESS'
@@ -38,6 +39,8 @@ export default function reducer(state = defaultStateCreate, action) {
           },
         },
       })
+    case RESET_RECIPIENT:
+      return { ...state, recipients: {} }
     case SEND_POST:
       return { ...state, pendingSubmission: true }
     case SEND_POST_FAIL:
@@ -59,6 +62,10 @@ export function setRecipient(recipientId, value) {
     recipient: recipientId,
     value: value,
   }
+}
+
+export function resetRecipient() {
+  return { type: RESET_RECIPIENT }
 }
 
 export function sendPost(postParams, media, token) {

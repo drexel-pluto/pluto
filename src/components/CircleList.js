@@ -29,21 +29,27 @@ export default CircleList = props => {
     <FlatList
       style={styles.circleList}
       data={props.data}
-      renderItem={({ item, index }) => (
-        <View
-          style={{
-            marginRight: Mixins.scaleSize(20),
-            justifyContent: 'center',
-          }}
-        >
-          <Circle
-            user={item}
-            navigation={props.navigation}
-            size={props.size}
-            isActive={index == 1 ? true : false} // for testing purpose
-          />
-        </View>
-      )}
+      renderItem={({ item, index }) => {
+        if (item._id != props.user.id) {
+          return (
+            <View
+              style={{
+                marginRight: Mixins.scaleSize(20),
+                justifyContent: 'center',
+              }}
+            >
+              <Circle
+                user={item}
+                navigation={props.navigation}
+                size={props.size}
+                isActive={index == 1 ? true : false} // for testing purpose
+              />
+            </View>
+          )
+        } else {
+          return null
+        }
+      }}
       keyExtractor={item => item.id}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
