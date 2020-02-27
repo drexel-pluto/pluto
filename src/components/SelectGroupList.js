@@ -6,7 +6,9 @@ import SelectGroupItem from './SelectGroupItem'
 export default SelectGroupList = props => {
   return (
     <View style={styles.selectGroupList}>
-      <Text style={Typography.F_H1}>Friend Select List</Text>
+      <Text style={[Typography.F_H1, { marginBottom: Mixins.scaleSize(10) }]}>
+        select access
+      </Text>
       <FlatList
         style={styles.postFeed}
         data={props.groups}
@@ -27,6 +29,7 @@ export default SelectGroupList = props => {
 
 const styles = StyleSheet.create({
   selectGroupList: {
-    backgroundColor: Colors.GRAY_DARK,
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
   },
 })

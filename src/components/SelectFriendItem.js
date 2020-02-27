@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
-import CheckBox from 'react-native-check-box'
+import CircleCheckBox from 'react-native-circle-checkbox'
 
 class SelectFriendItem extends React.Component {
   constructor(props) {
@@ -34,12 +34,14 @@ class SelectFriendItem extends React.Component {
               style={styles.image}
               source={{ uri: 'https://picsum.photos/id/237/300/300' }}
             />
-            <Text>{this.props.friend.name}</Text>
+            <Text style={Typography.F_BODY}>{this.props.friend.name}</Text>
           </View>
-          <CheckBox
-            style={styles.friendCheck}
-            isChecked={this.props.recipients[this.props.friend._id]}
-            onClick={() => {
+          <CircleCheckBox
+            checked={this.props.recipients[this.props.friend._id]}
+            outerColor={Colors.VIOLET.dark}
+            innerColor={Colors.VIOLET.dark}
+            filterColor={Colors.PLUTO_WHITE}
+            onToggle={() => {
               this.toggleChecked()
             }}
           />
@@ -55,7 +57,7 @@ SelectFriendItem.defaultProps = {
 
 const styles = StyleSheet.create({
   selectFriendItem: {
-    margin: Mixins.scaleSize(15),
+    margin: Mixins.scaleSize(10),
     height: Mixins.scaleSize(50),
     // backgroundColor: Colors.GRAY_LIGHT,
     flex: 1,
@@ -68,12 +70,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: Mixins.scaleSize(50),
-    height: Mixins.scaleSize(50),
-    borderRadius: Mixins.scaleSize(50 / 2),
+    width: Mixins.scaleSize(45),
+    height: Mixins.scaleSize(45),
+    borderRadius: Mixins.scaleSize(45 / 2),
     marginRight: Mixins.scaleSize(15),
   },
-  friendCheck: {},
+  friendCheck: {
+    borderRadius: 999,
+  },
 })
 
 export default SelectFriendItem

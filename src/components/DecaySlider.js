@@ -13,7 +13,7 @@ class DecaySlider extends React.Component {
   }
 
   sliderOptions = [
-    { value: 0, label: 'archived' },
+    { value: 0, label: 'infinite' },
     { value: 1, label: '30 days' },
     { value: 2, label: '60 days' },
     { value: 3, label: '90 days' },
@@ -26,13 +26,39 @@ class DecaySlider extends React.Component {
   render() {
     return (
       <View style={styles.decaySlider}>
-        <Text style={Typography.F_H1}>Decay Slider</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: Mixins.scaleSize(10),
+          }}
+        >
+          <Text style={Typography.F_H2}>decay control:</Text>
+          <Text
+            style={[
+              Typography.F_H2,
+              {
+                fontWeight: '600',
+                marginLeft: Mixins.scaleSize(10),
+                color: Colors.CARBONE.dark,
+              },
+            ]}
+          >
+            {this.sliderOptions.map(option => {
+              if (option.value === this.state.selectedOption) {
+                return option.label
+              }
+            })}
+          </Text>
+        </View>
         <SnapSlider
           ref="slider"
-          // containerStyle={styles.snapsliderContainer}
-          // style={styles.snapslider}
-          // itemWrapperStyle={styles.snapsliderItemWrapper}
-          // itemStyle={styles.snapsliderItem}
+          thumbTintColor={Colors.CARBONE.dark}
+          minimumTrackTintColor={Colors.CARBONE.med}
+          style={{ paddingVertical: 20 }}
+          // containerStyle={{ height: 100 }}
+          itemWrapperStyle={{ paddingTop: Mixins.scaleSize(10) }}
+          // itemStyle={{}}
           items={this.sliderOptions}
           labelPosition="bottom"
           defaultItem={this.state.defaultOption}
@@ -40,7 +66,6 @@ class DecaySlider extends React.Component {
             this.slidingComplete()
           }}
         />
-        <Text>testing slider value: {this.state.selectedOption}</Text>
       </View>
     )
   }
@@ -48,8 +73,8 @@ class DecaySlider extends React.Component {
 
 const styles = StyleSheet.create({
   decaySlider: {
-    height: 100,
-    backgroundColor: Colors.GRAY_LIGHT,
+    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingVertical: Layouts.PAD_VERT,
   },
 })
 
