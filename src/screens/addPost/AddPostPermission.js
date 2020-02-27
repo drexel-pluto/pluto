@@ -30,6 +30,7 @@ class AddPostPermission extends React.Component {
           groups={this.props.groups}
           recipients={this.props.recipients}
           setRecipient={this.props.setRecipient}
+          user={this.props.user}
         />
         <DecaySlider />
       </ScrollView>
