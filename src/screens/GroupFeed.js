@@ -49,7 +49,6 @@ class GroupFeed extends React.Component {
               <CircleList
                 data={this.props.group.members}
                 navigation={this.props.navigation}
-                size={50}
               />
             </View>
             <ContainerTail

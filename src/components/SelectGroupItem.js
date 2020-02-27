@@ -16,51 +16,41 @@ class SelectGroupItem extends React.Component {
     super(props)
     this.state = {
       isExpanded: false,
-      isGroupChecked: false,
+      isChecked: false,
     }
   }
 
   componentDidMount = () => {
-    const isGroupChecked = (isChecked = this.props.group.members.every(
+    let isChecked = this.props.group.members.every(
       member => this.props.recipients[member._id]
-    ))
-
-    this.setState({ isGroupChecked })
-  }
-
-  updateSelectedMember = () => {
-    let selectedMember = this.props.group.members.reduce(
-      (total, member) =>
-        this.props.recipients[member._id] ? total + 1 : total,
-      0
     )
 
-    return selectedMember
+    this.setState({ isChecked })
+  }
+
+  toggleGroupChecked() {
+    const isChecked = !this.state.isChecked
+    this.setState({ isChecked })
+
+    for (let member of this.props.group.members) {
+      this.props.setRecipient(member._id, isChecked)
+    }
   }
 
   toggleExpand = () => {
     this.setState({ isExpanded: !this.state.isExpanded })
   }
 
-  toggleGroupChecked() {
-    // let isChecked = this.props.group.members.every(
-    //   member => this.props.recipients[member._id]
-    // )
-    const isGroupChecked = !this.state.isGroupChecked
-    this.setState({ isGroupChecked })
+  updateSelectedMember = () => {
+    let selectedMember = this.props.group.members.reduce((total, member) => {
+      return this.props.recipients[member._id] ? total + 1 : total
+    }, 0)
 
-    for (let member of this.props.group.members) {
-      this.props.setRecipient(member._id, isGroupChecked)
-    }
-
-    this.updateSelectedMember()
+    return selectedMember
   }
 
   render() {
-    // let isChecked = this.props.group.members.every(
-    //   member => this.props.recipients[member._id]
-    // )
-    let selectedMember = this.updateSelectedMember()
+    const selectedMember = this.updateSelectedMember()
 
     return (
       <View style={styles.selectGroupItem}>
@@ -89,7 +79,7 @@ class SelectGroupItem extends React.Component {
           >
             <View style={styles.groupCheck}>
               <CheckBox
-                isChecked={this.state.isGroupChecked}
+                isChecked={this.state.isChecked}
                 onClick={() => {
                   this.toggleGroupChecked()
                 }}
