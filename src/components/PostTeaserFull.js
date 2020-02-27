@@ -40,7 +40,7 @@ class PostTeaserFull extends React.Component {
                 <View style={styles.author_wrapper}>
                   <AuthorHeader
                     isCompact={false}
-                    author={this.props.poster}
+                    authorId={this.props.poster._id}
                     time={this.props.postedAt}
                   />
                 </View>

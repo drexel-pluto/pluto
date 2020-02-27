@@ -56,7 +56,7 @@ class Post extends React.Component {
           <View style={styles.tag_wrapper}>
             <TagList data={TAG_DATA} />
           </View>
-          <CommentList data={COMMENT_DATA} />
+          <CommentList data={this.props.data.comments}  sendComment={this.props.sendComment}/>
         </KeyboardAvoidingView>
       </ScrollView>
     )

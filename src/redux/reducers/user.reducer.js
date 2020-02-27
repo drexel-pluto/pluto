@@ -87,7 +87,7 @@ export default function reducer(state = defaultStateUser, action) {
         friend.friend.groups = groups
         friends.push(friend)
       })
-
+      
       return {
         ...state,
         userData: {
@@ -95,6 +95,8 @@ export default function reducer(state = defaultStateUser, action) {
           email: data.email,
           id: data._id,
           gender: data.gender,
+          name: data.name,
+          profilePicURL: data.profilePicURL
         },
         friends,
         groups: data.groups,

@@ -1,25 +1,35 @@
 import React from 'react'
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
+import {getFriendById} from '../redux/store'
+import { withNavigation } from 'react-navigation';
 
-export default AuthorHeader = props => {
-  const { author, isCompact } = props
+const AuthorHeader = props => {
+  const { author, isCompact, authorId } = props
+  var authInfo;
+  if (author) {
+    authInfo = author;
+  } else {
+    authInfo = getFriendById(authorId);
+  }
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => {
+      props.navigation.navigate('Profile', { userId: authInfo._id });
+    }}>
       <View style={styles.author}>
         <Image
           style={[styles.author__image, isCompact ? styles.isCompact : '']}
           source={{
-            uri: author.profilePicURL
-              ? author.profilePicURL
+            uri: authInfo.profilePicURL
+              ? authInfo.profilePicURL
               : 'https://picsum.photos/id/237/300/300',
           }}
         />
         {isCompact ? null : (
           <View>
             <Text style={[Typography.F_BODY, { fontWeight: '600' }]}>
-              {author.name}
+              {authInfo.name}
             </Text>
             <Text style={Typography.F_SUBTITLE}>{calcTimeDif(props.time)}</Text>
           </View>
@@ -29,12 +39,9 @@ export default AuthorHeader = props => {
   )
 }
 
-AuthorHeader.defaultProps = {
-  author: {
-    image: 'https://picsum.photos/id/237/300/300',
-    name: 'author name',
-  },
-}
+export default withNavigation(AuthorHeader);
+
+
 
 const calcTimeDif = time => {
   if (!time) return ''

@@ -23,9 +23,14 @@ class AddComment extends React.Component {
     const { text } = this.state
     if (text) {
       // pass the comment and reset input
-      // onSubmit should be coming from screen js
-      // might change depending on how we use redux
-      this.setState({ text: undefined }, () => this.props.onSubmit(text))
+
+      this.props.sendComment(text).then(action => {
+        if (action.type.endsWith('SUCCESS')) {
+          this.setState({ text: undefined });
+        } else {
+          //ERROR POSTING
+        }
+      });
     } else {
       alert('Please enter your comment first')
     }

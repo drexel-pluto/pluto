@@ -17,3 +17,17 @@ export default store = createStore(
   /* preloadedState, */
   composeEnhancers(applyMiddleware(axiosMiddleware(client), ReduxThunk))
 )
+
+// helper functions
+
+export const getFriendById = (id) => {
+  if (id == store.getState().user.userData.id) {
+    return store.getState().user.userData;
+  }
+  friends = store.getState().user.friends;
+  return friends.find(obj => {
+    return obj.friend._id === id
+  }).friend;
+
+
+}

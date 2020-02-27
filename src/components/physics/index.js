@@ -50,8 +50,8 @@ export default class RigidBodies extends Component {
         attractors: [
           function(bodyA, bodyB) {
             return {
-              x: (bodyA.position.x - bodyB.position.x) * 6e-7,
-              y: (bodyA.position.y - bodyB.position.y) * 6e-7,
+              x: (bodyA.position.x - bodyB.position.x) * 6e-6,
+              y: (bodyA.position.y - bodyB.position.y) * 9e-6,
             }
           },
         ],
