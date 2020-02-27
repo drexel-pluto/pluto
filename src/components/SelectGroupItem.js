@@ -83,9 +83,12 @@ class SelectGroupItem extends React.Component {
             }}
           >
             <View style={styles.groupCheck}>
-              <CheckBox
-                isChecked={this.state.isChecked}
-                onClick={() => {
+              <CircleCheckBox
+                outerColor={Colors.VIOLET.dark}
+                innerColor={Colors.VIOLET.dark}
+                filterColor={Colors.PLUTO_WHITE}
+                checked={this.state.isGroupChecked}
+                onToggle={() => {
                   this.toggleGroupChecked()
                 }}
               />

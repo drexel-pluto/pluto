@@ -13,6 +13,7 @@ import AddPostOptionBar from '../../components/AddPostOptionBar'
 import IconButton from './../../components/iconButton/IconButton'
 import Button from './../../components/Button'
 import Circle from './../../components/Circle'
+import PostMedia from '../../components/PostMediaUpload'
 
 class AddPost extends React.Component {
   constructor(props) {
