@@ -75,7 +75,14 @@ class GroupFeed extends React.Component {
           colors={[Colors.TRANSPARENT, Colors.rgba(Colors.BLACK_ROCK, 0.5)]}
           style={styles.addPost_wrapper}
         >
-          <IconButton type="addPost" />
+          <IconButton
+            type="addPost"
+            _onPress={() => {
+              this.props.navigation.navigate('AddPost', {
+                defaultRecipients: this.props.group.members,
+              })
+            }}
+          />
         </LinearGradient>
       </View>
     )

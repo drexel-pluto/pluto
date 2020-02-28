@@ -20,7 +20,6 @@ class Home extends React.Component {
 
   render() {
     const rightHeaderItems = [
-      <IconButton type="search" />,
       <IconButton type="noti" />,
       <IconButton
         type="profile"
@@ -40,7 +39,10 @@ class Home extends React.Component {
           friends={this.props.friends}
           setIndex={index => this.setIndex(index)}
         />
-        <ScreenHeader rightItems={rightHeaderItems} />
+        <ScreenHeader
+          leftItems={<IconButton type="search" />}
+          rightItems={rightHeaderItems}
+        />
         <View style={styles.group_wrapper}>
           <TouchableOpacity
             onPress={() => {
