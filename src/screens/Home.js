@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     paddingVertical: Mixins.scaleSize(40),
   },
   action_wrapper: {
-    paddingBottom: Mixins.scaleSize(50),
+    paddingBottom: Mixins.scaleSize(40),
     paddingHorizontal: Layouts.PAD_HORZ,
     // alignItems: 'flex-end',
     alignItems: 'center',
