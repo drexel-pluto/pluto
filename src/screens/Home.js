@@ -90,7 +90,7 @@ class Home extends React.Component {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.bottom}>
+        <View style={Layouts.BOTTOM_WRAPPER}>
           <View style={styles.action_wrapper}>
             <IconButton
               type="addPost"

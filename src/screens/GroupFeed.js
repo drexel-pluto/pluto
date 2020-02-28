@@ -73,8 +73,9 @@ class GroupFeed extends React.Component {
         </ScrollView>
         <LinearGradient
           colors={[Colors.TRANSPARENT, Colors.rgba(Colors.BLACK_ROCK, 0.5)]}
-          style={styles.addPost_wrapper}
-        >
+          style={styles.bottom_overlay}
+        ></LinearGradient>
+        <View style={[Layouts.BOTTOM_WRAPPER, styles.addPost_wrapper]}>
           <IconButton
             type="addPost"
             _onPress={() => {
@@ -83,7 +84,7 @@ class GroupFeed extends React.Component {
               })
             }}
           />
-        </LinearGradient>
+        </View>
       </View>
     )
   }
@@ -91,13 +92,16 @@ class GroupFeed extends React.Component {
 
 const styles = StyleSheet.create({
   groupFeedScreen: {},
-  addPost_wrapper: {
+  bottom_overlay: {
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
-    paddingBottom: Mixins.scaleSize(20),
     justifyContent: 'center',
+    alignItems: 'center',
+    height: Mixins.scaleSize(100),
+  },
+  addPost_wrapper: {
     alignItems: 'center',
   },
 })
