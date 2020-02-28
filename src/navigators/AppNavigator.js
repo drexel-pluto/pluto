@@ -4,6 +4,7 @@ import GroupFeedContainer from '../containers/groupFeed.container'
 import profileContainer from '../containers/profile.container'
 import PostContainer from '../containers/post.container'
 import AddPostNavigator from './AddPostNavigator'
+import SettingsContainer from '../containers/settings.container'
 import { Colors } from './../styles/index'
 
 const AppNavigator = createStackNavigator(
@@ -13,6 +14,7 @@ const AppNavigator = createStackNavigator(
     Profile: profileContainer,
     AddPost: AddPostNavigator,
     Post: PostContainer,
+    Settings: SettingsContainer
   },
   {
     headerMode: 'none',

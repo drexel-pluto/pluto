@@ -18,6 +18,7 @@ class ProfileContainer extends React.Component {
       <Profile
         profile={this.props.profile}
         navigation={this.props.navigation}
+        myId={this.props.myId}
       />
     )
   }
@@ -25,6 +26,7 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = state => ({
   profile: state.profile,
+  myId: state.user.userData.id
 })
 
 const mapDispatchToProps = {
