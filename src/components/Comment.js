@@ -9,7 +9,7 @@ export default Comment = props => {
   return (
     <View style={styles.comment}>
       <View style={styles.header_wrapper}>
-        <AuthorHeader authorId={data.poster} time={data.postedAt} />
+        <AuthorHeader authorId={data.poster._id} time={data.postedAt} />
         <IconButton type="like" customColor={Colors.ACCENT} />
       </View>
       <View style={styles.content}>

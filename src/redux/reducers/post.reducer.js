@@ -41,6 +41,7 @@ export default function reducer(state = defaultStatePost, action) {
     case SET_POSTER:
       return { ...state, poster: action.poster }
     case FETCH_POST_FAIL:
+    case SEND_COMMENT_FAIL:
       console.log(action);
       return { ...state, loading: false }
     default:
