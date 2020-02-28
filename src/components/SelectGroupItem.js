@@ -87,7 +87,7 @@ class SelectGroupItem extends React.Component {
                 outerColor={Colors.VIOLET.dark}
                 innerColor={Colors.VIOLET.dark}
                 filterColor={Colors.PLUTO_WHITE}
-                checked={this.state.isGroupChecked}
+                checked={this.state.isChecked}
                 onToggle={() => {
                   this.toggleGroupChecked()
                 }}

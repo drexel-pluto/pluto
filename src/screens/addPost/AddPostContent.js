@@ -73,7 +73,7 @@ class AddPost extends React.Component {
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
           rightItems={
-            <Button text="post" type="outline" onPress={this.submitPost} />
+            <Button text="post" type="outline" _onPress={this.submitPost} />
           }
         />
         <View>
