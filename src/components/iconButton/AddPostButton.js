@@ -17,7 +17,7 @@ export default AddPostButton = props => {
           colors={Colors.gradient.dark(Colors.VIOLET)}
           style={styles.addPost}
         >
-          <Text>add post</Text>
+          <Text style={{ color: 'white' }}>add post</Text>
         </LinearGradient>
       </View>
     </TouchableOpacity>

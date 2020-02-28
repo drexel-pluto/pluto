@@ -15,8 +15,7 @@ const CarouselView = props => {
           width: '100%',
           position: 'absolute',
           top: 0,
-          paddingVertical: Layouts.PAD_VERT,
-          paddingHorizontal: Layouts.PAD_HORZ,
+          padding: Layouts.PAD_HORZ,
           alignItems: 'flex-end',
           zIndex: 10,
         }}
