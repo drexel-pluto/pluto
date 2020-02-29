@@ -34,8 +34,11 @@ class AddPost extends React.Component {
       this.onFocusFunction()
     })
 
-    // default selected group
+    // reset for new draft
+    this.props.resetMedia()
     this.props.resetRecipient()
+
+    // default selected group
     let defaultRecipients = {
       ...this.props.navigation.getParam('defaultRecipients', {}),
     }

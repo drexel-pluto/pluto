@@ -59,34 +59,34 @@ export default PostMedia = props => {
 
 const styles = StyleSheet.create({
   postMediaWrapper: {
-    height: 150,
+    height: Mixins.scaleSize(150),
     padding: Layouts.PAD_HORZ / 2,
   },
   mediaItem: {
     margin: Layouts.PAD_HORZ / 2,
-    width: 240,
+    width: Mixins.scaleSize(240),
     flexGrow: 1,
-    borderRadius: 14,
+    borderRadius: Mixins.scaleSize(14),
   },
   singleMediaItem: {
     margin: Layouts.PAD_HORZ / 2,
-    height: 150 - Layouts.PAD_HORZ * 2,
-    borderRadius: 14,
+    height: Mixins.scaleSize(150 - Layouts.PAD_HORZ * 2),
+    borderRadius: Mixins.scaleSize(14),
   },
   singleWrapper: {
-    height: 150,
+    height: Mixins.scaleSize(150),
     padding: Layouts.PAD_HORZ / 2,
   },
   iconWrapper: {
-    width: 26,
-    height: 26,
+    width: Mixins.scaleSize(26),
+    height: Mixins.scaleSize(26),
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 26,
+    borderRadius: Mixins.scaleSize(26),
     position: 'absolute',
-    right: 10,
-    top: 10,
+    right: Mixins.scaleSize(13),
+    top: Mixins.scaleSize(13),
     opacity: 0.8,
   },
 })
