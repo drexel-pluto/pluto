@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
-import { FLEX_CONTAINER } from '../styles/layouts'
 
 const MediaItem = props => (
   <View>
@@ -32,12 +31,14 @@ export default PostMedia = props => {
     )
   }
 
+  let snapIntervalVal = Mixins.scaleSize(240) + Layouts.PAD_HORZ
+
   return (
     <ScrollView
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.postMediaWrapper}
-      snapToInterval={240 + Layouts.PAD}
+      snapToInterval={snapIntervalVal}
       snapToAlignment="center"
       decelerationRate="fast"
       style={{ flexGrow: 0 }}
@@ -59,7 +60,7 @@ export default PostMedia = props => {
 
 const styles = StyleSheet.create({
   postMediaWrapper: {
-    height: Mixins.scaleSize(150),
+    height: Mixins.scaleSize(220),
     padding: Layouts.PAD_HORZ / 2,
   },
   mediaItem: {
@@ -70,11 +71,11 @@ const styles = StyleSheet.create({
   },
   singleMediaItem: {
     margin: Layouts.PAD_HORZ / 2,
-    height: Mixins.scaleSize(150 - Layouts.PAD_HORZ * 2),
+    height: Mixins.scaleSize(220 - Layouts.PAD_HORZ * 2),
     borderRadius: Mixins.scaleSize(14),
   },
   singleWrapper: {
-    height: Mixins.scaleSize(150),
+    height: Mixins.scaleSize(220),
     padding: Layouts.PAD_HORZ / 2,
   },
   iconWrapper: {
