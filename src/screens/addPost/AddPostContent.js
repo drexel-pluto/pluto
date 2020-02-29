@@ -1,5 +1,12 @@
 import React from 'react'
-import { View, TextInput, Text, StyleSheet, FlatList } from 'react-native'
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
 import AddPostOptionBar from '../../components/AddPostOptionBar'
@@ -78,19 +85,8 @@ class AddPost extends React.Component {
             />
           }
         />
-        <View
-          style={{
-            marginVertical: Layouts.PAD_VERT,
-            marginLeft: Layouts.PAD_HORZ,
-            paddingLeft: Layouts.PAD_HORZ,
-            paddingVertical: Layouts.PAD_VERT,
-            backgroundColor: Colors.VIOLET.light,
-            borderTopLeftRadius: Mixins.scaleSize(20),
-            borderBottomLeftRadius: Mixins.scaleSize(20),
-            justifyContent: 'center',
-            minHeight: Mixins.scaleSize(100),
-          }}
-        >
+
+        <View style={styles.recipients_wrapper}>
           {
             // CircleList for addPost...
             // let's keep this here for now since it works ;p
@@ -111,6 +107,7 @@ class AddPost extends React.Component {
                       user={item.item.friend}
                       navigation={this.props.navigation}
                       size={40}
+                      disabled={true}
                     />
                   </View>
                 )
@@ -122,25 +119,21 @@ class AddPost extends React.Component {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           />
-          <View
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
-              marginTop: Mixins.scaleSize(15),
+
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate('AddPostPermissions')
             }}
           >
-            <Text style={{ marginRight: Mixins.scaleSize(10) }}>
-              {selectedFriends} recipients
-            </Text>
-            <Button
-              text="edit"
-              type="small"
-              _onPress={() => {
-                this.props.navigation.navigate('AddPostPermissions')
-              }}
-            />
-          </View>
+            <View style={{ paddingVertical: Layouts.PAD_VERT }}>
+              <Text>
+                {selectedFriends} recipients{' '}
+                <Text style={{ fontWeight: '600' }}>edit</Text>
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
+
         <View>
           {this.props.media.length > 0 && (
             <PostMedia
@@ -157,6 +150,7 @@ class AddPost extends React.Component {
             multiline
           />
         </View>
+
         <AddPostOptionBar
           navigation={this.props.navigation}
           addImage={uri => {
@@ -178,6 +172,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.VIOLET.dark,
     borderRadius: Mixins.scaleSize(20),
+  },
+  recipients_wrapper: {
+    marginVertical: Layouts.PAD_VERT,
+    marginLeft: Layouts.PAD_HORZ,
+    paddingLeft: Layouts.PAD_HORZ,
+    paddingTop: Layouts.PAD_VERT,
+    backgroundColor: Colors.VIOLET.light,
+    borderTopLeftRadius: Mixins.scaleSize(20),
+    borderBottomLeftRadius: Mixins.scaleSize(20),
+    justifyContent: 'center',
+    minHeight: Mixins.scaleSize(100),
   },
 })
 
