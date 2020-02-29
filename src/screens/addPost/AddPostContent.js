@@ -150,7 +150,7 @@ class AddPost extends React.Component {
           )}
           <TextInput
             ref={ref => (this.textInputRef = ref)}
-            placeholder="Quiz Deck Title"
+            placeholder="what are you up to?"
             autoFocus={true}
             style={styles.input}
             onChangeText={text => this.setState({ text })}
