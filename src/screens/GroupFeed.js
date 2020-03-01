@@ -14,6 +14,21 @@ import { TAG_DATA, POST_DATA, CIRCLE_DATA } from './../assets/data'
 class GroupFeed extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      groupMembers: this.setGroupMembers(),
+    }
+  }
+
+  setGroupMembers() {
+    let groupMembers = [...this.props.group.members]
+    let index = groupMembers
+      .map(function(item) {
+        return item._id
+      })
+      .indexOf(this.props.user.id)
+    groupMembers.splice(index, 1)
+
+    return groupMembers
   }
 
   render() {
@@ -47,9 +62,8 @@ class GroupFeed extends React.Component {
               }}
             >
               <CircleList
-                data={this.props.group.members}
+                data={this.state.groupMembers}
                 navigation={this.props.navigation}
-                user={this.props.user}
               />
             </View>
             <ContainerTail
@@ -80,7 +94,7 @@ class GroupFeed extends React.Component {
             type="addPost"
             _onPress={() => {
               this.props.navigation.navigate('AddPost', {
-                defaultRecipients: this.props.group.members,
+                defaultRecipients: this.state.groupMembers,
               })
             }}
           />

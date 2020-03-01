@@ -16,23 +16,30 @@ class SelectGroupItem extends React.Component {
     super(props)
     this.state = {
       isExpanded: false,
-      isChecked: false,
+      groupMembers: this.setGroupMembers(),
     }
   }
 
-  componentDidMount = () => {
-    let isChecked = this.props.group.members.every(
-      member => this.props.recipients[member._id]
-    )
+  setGroupMembers() {
+    let groupMembers = [...this.props.group.members]
+    let index = groupMembers
+      .map(function(item) {
+        return item._id
+      })
+      .indexOf(this.props.user.id)
+    groupMembers.splice(index, 1)
 
-    this.setState({ isChecked })
+    return groupMembers
+  }
+
+  componentDidMount = () => {
+    this.updateGroupChecked()
   }
 
   toggleGroupChecked() {
-    const isChecked = !this.state.isChecked
-    this.setState({ isChecked })
+    const isChecked = !this.updateGroupChecked()
 
-    for (let member of this.props.group.members) {
+    for (let member of this.state.groupMembers) {
       this.props.setRecipient(member._id, isChecked)
     }
   }
@@ -42,15 +49,24 @@ class SelectGroupItem extends React.Component {
   }
 
   updateSelectedMember = () => {
-    let selectedMember = this.props.group.members.reduce((total, member) => {
+    let selectedMember = this.state.groupMembers.reduce((total, member) => {
       return this.props.recipients[member._id] ? total + 1 : total
     }, 0)
 
-    return selectedMember > 0 ? selectedMember - 1 : selectedMember
+    return selectedMember
+  }
+
+  updateGroupChecked() {
+    let isChecked = this.state.groupMembers.every(
+      member => this.props.recipients[member._id]
+    )
+
+    return isChecked
   }
 
   render() {
     const selectedMember = this.updateSelectedMember()
+    const updatedGroupChecked = this.updateGroupChecked()
 
     return (
       <View style={styles.selectGroupItem}>
@@ -64,7 +80,6 @@ class SelectGroupItem extends React.Component {
               {
                 // limit the width for group title
                 // or set char limit on it
-                // total - 1 for yourself
               }
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={Typography.F_H3}>{this.props.group.title}</Text>
@@ -73,7 +88,7 @@ class SelectGroupItem extends React.Component {
                 </Text>
               </View>
               <Text>
-                {selectedMember} / {this.props.group.members.length - 1}
+                {selectedMember} / {this.state.groupMembers.length}
               </Text>
             </View>
           </TouchableWithoutFeedback>
@@ -87,7 +102,7 @@ class SelectGroupItem extends React.Component {
                 outerColor={Colors.VIOLET.dark}
                 innerColor={Colors.VIOLET.dark}
                 filterColor={Colors.PLUTO_WHITE}
-                checked={this.state.isChecked}
+                checked={updatedGroupChecked}
                 onToggle={() => {
                   this.toggleGroupChecked()
                 }}
@@ -103,7 +118,7 @@ class SelectGroupItem extends React.Component {
         >
           <FlatList
             style={styles.postFeed}
-            data={this.props.group.members}
+            data={this.state.groupMembers}
             extraData={this.props.recipients}
             renderItem={({ item }) =>
               this.props.user.id != item._id ? (
@@ -111,7 +126,6 @@ class SelectGroupItem extends React.Component {
                   friend={item}
                   setRecipient={this.props.setRecipient}
                   recipients={this.props.recipients}
-                  updateSelectedMember={this.updateSelectedMember}
                 />
               ) : null
             }
