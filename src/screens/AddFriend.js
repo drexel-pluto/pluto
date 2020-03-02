@@ -18,7 +18,7 @@ class AddFriend extends React.Component {
         <ScreenHeader
           isFixed={true}
           leftItems={
-            <IconButton type="back"/>
+            <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
         />
         <LinearGradient
@@ -27,13 +27,15 @@ class AddFriend extends React.Component {
           end={{ x: 1, y: 0 }}
           locations={[0, 0.5]}
         >
-        <View >
-          <View style={[styles.topContainer, Styles.shadow(Colors.VIOLET.dark)]}>
-            <QRLink/>
-            <ShareLink/>
+          <View>
+            <View
+              style={[styles.topContainer, Styles.shadow(Colors.VIOLET.dark)]}
+            >
+              <QRLink />
+              <ShareLink />
+            </View>
           </View>
-        </View>
-        <InvitationCenter/>
+          <InvitationCenter />
         </LinearGradient>
       </ScrollView>
     )
