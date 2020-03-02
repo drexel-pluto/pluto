@@ -22,6 +22,7 @@ class AddPost extends React.Component {
     this.textInputRef = null
     this.state = {
       text: '',
+      tags: [],
     }
   }
 
@@ -60,6 +61,15 @@ class AddPost extends React.Component {
 
   submitPost() {
     this.props.submitPost(this.state.text)
+  }
+
+  onChangeText(text) {
+    const hashRegEx = /\B#\w*[a-zA-Z0-9]+\w*/g
+    const tags = text.match(hashRegEx)
+
+    console.log(tags)
+
+    this.setState({ text, tags })
   }
 
   render() {
@@ -146,7 +156,9 @@ class AddPost extends React.Component {
             placeholder="what are you up to?"
             autoFocus={true}
             style={styles.input}
-            onChangeText={text => this.setState({ text })}
+            onChangeText={text => {
+              this.onChangeText(text)
+            }}
             multiline
           />
         </View>
