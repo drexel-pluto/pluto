@@ -7,8 +7,8 @@ export default Circle = props => {
   const { user, navigation, size, isActive } = props
 
   // original circle
-  const innerCircleSize = size
-  const innerImageSize = innerCircleSize ? size - Mixins.scaleSize(5) : null
+  const innerCircleSize = Mixins.scaleSize(size)
+  const innerImageSize = innerCircleSize ? size - Mixins.scaleSize(2) : null
 
   // circle when active
   const outerCircleSize = isActive
@@ -21,6 +21,7 @@ export default Circle = props => {
       onPress={() => {
         navigation.navigate('Profile', { userId: user._id })
       }}
+      disabled={props.disabled}
     >
       <View style={Styles.shadow(Colors.VIOLET.dark)}>
         {
@@ -96,6 +97,11 @@ export default Circle = props => {
       </View>
     </TouchableOpacity>
   )
+}
+
+Circle.defaultProps = {
+  size: 50,
+  disabled: false,
 }
 
 const styles = StyleSheet.create({

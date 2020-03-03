@@ -3,6 +3,7 @@ import update from 'react-addons-update'
 // types
 
 export const SET_RECIPIENT = 'create/SET_RECIPIENT'
+export const RESET_RECIPIENT = 'create/RESET_RECIPIENT'
 
 export const SEND_POST = 'create/SEND_POST'
 export const SEND_POST_SUCCESS = 'create/SEND_POST_SUCCESS'
@@ -10,6 +11,7 @@ export const SEND_POST_FAIL = 'create/SEND_POST_FAIL'
 
 export const ADD_IMAGE = 'create/ADD_IMAGE'
 export const REMOVE_IMAGE = 'create/REMOVE_IMAGE'
+export const RESET_MEDIA = 'create/RESET_MEDIA'
 
 // reducer
 
@@ -27,9 +29,13 @@ export default function reducer(state = defaultStateCreate, action) {
       }
       return { ...state, media: [...state.media, action.data] }
     case REMOVE_IMAGE:
-      console.log(action.index)
-      console.log(state.media.splice(action.index, 1))
-      return { ...state, media: state.media.splice(action.index, 1) }
+      // console.log(action.index)
+      // console.log(state.media.splice(action.index, 1)
+      var updatedMedia = [...state.media]
+      updatedMedia.splice(action.index, 1)
+      return { ...state, media: [...updatedMedia] }
+    case RESET_MEDIA:
+      return { ...state, media: [] }
     case SET_RECIPIENT:
       return update(state, {
         recipients: {
@@ -38,6 +44,8 @@ export default function reducer(state = defaultStateCreate, action) {
           },
         },
       })
+    case RESET_RECIPIENT:
+      return { ...state, recipients: {} }
     case SEND_POST:
       return { ...state, pendingSubmission: true }
     case SEND_POST_FAIL:
@@ -59,6 +67,10 @@ export function setRecipient(recipientId, value) {
     recipient: recipientId,
     value: value,
   }
+}
+
+export function resetRecipient() {
+  return { type: RESET_RECIPIENT }
 }
 
 export function sendPost(postParams, media, token) {
@@ -131,5 +143,11 @@ export function removeImage(index) {
   return {
     type: REMOVE_IMAGE,
     index,
+  }
+}
+
+export function resetMedia() {
+  return {
+    type: RESET_MEDIA,
   }
 }

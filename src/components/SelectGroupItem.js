@@ -8,7 +8,7 @@ import {
   FlatList,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
-import CheckBox from 'react-native-check-box'
+import CircleCheckBox from 'react-native-circle-checkbox'
 import SelectFriendItem from './SelectFriendItem'
 
 class SelectGroupItem extends React.Component {
@@ -16,51 +16,57 @@ class SelectGroupItem extends React.Component {
     super(props)
     this.state = {
       isExpanded: false,
-      isGroupChecked: false,
+      groupMembers: this.setGroupMembers(),
     }
   }
 
-  componentDidMount = () => {
-    const isGroupChecked = (isChecked = this.props.group.members.every(
-      member => this.props.recipients[member._id]
-    ))
+  setGroupMembers() {
+    let groupMembers = [...this.props.group.members]
+    let index = groupMembers
+      .map(function(item) {
+        return item._id
+      })
+      .indexOf(this.props.user.id)
+    groupMembers.splice(index, 1)
 
-    this.setState({ isGroupChecked })
+    return groupMembers
   }
 
-  updateSelectedMember = () => {
-    let selectedMember = this.props.group.members.reduce(
-      (total, member) =>
-        this.props.recipients[member._id] ? total + 1 : total,
-      0
-    )
+  componentDidMount = () => {
+    this.updateGroupChecked()
+  }
 
-    return selectedMember
+  toggleGroupChecked() {
+    const isChecked = !this.updateGroupChecked()
+
+    for (let member of this.state.groupMembers) {
+      this.props.setRecipient(member._id, isChecked)
+    }
   }
 
   toggleExpand = () => {
     this.setState({ isExpanded: !this.state.isExpanded })
   }
 
-  toggleGroupChecked() {
-    // let isChecked = this.props.group.members.every(
-    //   member => this.props.recipients[member._id]
-    // )
-    const isGroupChecked = !this.state.isGroupChecked
-    this.setState({ isGroupChecked })
+  updateSelectedMember = () => {
+    let selectedMember = this.state.groupMembers.reduce((total, member) => {
+      return this.props.recipients[member._id] ? total + 1 : total
+    }, 0)
 
-    for (let member of this.props.group.members) {
-      this.props.setRecipient(member._id, isGroupChecked)
-    }
+    return selectedMember
+  }
 
-    this.updateSelectedMember()
+  updateGroupChecked() {
+    let isChecked = this.state.groupMembers.every(
+      member => this.props.recipients[member._id]
+    )
+
+    return isChecked
   }
 
   render() {
-    // let isChecked = this.props.group.members.every(
-    //   member => this.props.recipients[member._id]
-    // )
-    let selectedMember = this.updateSelectedMember()
+    const selectedMember = this.updateSelectedMember()
+    const updatedGroupChecked = this.updateGroupChecked()
 
     return (
       <View style={styles.selectGroupItem}>
@@ -75,10 +81,14 @@ class SelectGroupItem extends React.Component {
                 // limit the width for group title
                 // or set char limit on it
               }
-              <Text>{this.props.group.title}</Text>
-              <Text>ICON</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={Typography.F_H3}>{this.props.group.title}</Text>
+                <Text style={{ marginLeft: Mixins.scaleSize(10) }}>
+                  {this.state.isExpanded ? 'close' : 'open'}
+                </Text>
+              </View>
               <Text>
-                {selectedMember} / {this.props.group.members.length}
+                {selectedMember} / {this.state.groupMembers.length}
               </Text>
             </View>
           </TouchableWithoutFeedback>
@@ -88,9 +98,12 @@ class SelectGroupItem extends React.Component {
             }}
           >
             <View style={styles.groupCheck}>
-              <CheckBox
-                isChecked={this.state.isGroupChecked}
-                onClick={() => {
+              <CircleCheckBox
+                outerColor={Colors.VIOLET.dark}
+                innerColor={Colors.VIOLET.dark}
+                filterColor={Colors.PLUTO_WHITE}
+                checked={updatedGroupChecked}
+                onToggle={() => {
                   this.toggleGroupChecked()
                 }}
               />
@@ -105,16 +118,17 @@ class SelectGroupItem extends React.Component {
         >
           <FlatList
             style={styles.postFeed}
-            data={this.props.group.members}
+            data={this.state.groupMembers}
             extraData={this.props.recipients}
-            renderItem={({ item }) => (
-              <SelectFriendItem
-                friend={item}
-                setRecipient={this.props.setRecipient}
-                recipients={this.props.recipients}
-                updateSelectedMember={this.updateSelectedMember}
-              />
-            )}
+            renderItem={({ item }) =>
+              this.props.user.id != item._id ? (
+                <SelectFriendItem
+                  friend={item}
+                  setRecipient={this.props.setRecipient}
+                  recipients={this.props.recipients}
+                />
+              ) : null
+            }
             keyExtractor={item => item._id}
           />
         </ScrollView>
@@ -125,11 +139,15 @@ class SelectGroupItem extends React.Component {
 
 const styles = StyleSheet.create({
   selectGroupItem: {
-    margin: Mixins.scaleSize(15),
+    marginVertical: Mixins.scaleSize(10),
+    borderRadius: Mixins.scaleSize(30),
+    paddingVertical: Mixins.scaleSize(5),
+    paddingHorizontal: Mixins.scaleSize(20),
+    borderWidth: 1,
+    borderColor: Colors.BLACK_ROCK,
   },
   title_wrapper: {
     height: Mixins.scaleSize(50),
-    backgroundColor: Colors.GRAY_MEDIUM,
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,
@@ -137,6 +155,8 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: 'row',
     flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
     // backgroundColor: 'blue',
   },
   groupCheck: {
@@ -147,7 +167,6 @@ const styles = StyleSheet.create({
   },
   friend_wrapper: {
     maxHeight: Mixins.scaleSize(200),
-    backgroundColor: Colors.GRAY_LIGHT,
     display: 'none',
   },
   isExpanded: {

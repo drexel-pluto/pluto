@@ -112,7 +112,7 @@ Button.defaultProps = {
 
 const styles = StyleSheet.create({
   button: {
-    width: Mixins.scaleSize(100),
+    // width: Mixins.scaleSize(100),
     height: Mixins.scaleSize(35),
     paddingHorizontal: Mixins.scaleSize(20),
     justifyContent: 'center',

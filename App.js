@@ -7,6 +7,7 @@ import PlutoStatusBar from './src/components/PlutoStatusBar'
 
 class App extends React.Component {
   render() {
+    console.disableYellowBox = true
     return (
       <>
         <PlutoStatusBar />

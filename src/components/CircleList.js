@@ -6,7 +6,10 @@ import Circle from './Circle'
 export default CircleList = props => {
   return (
     <FlatList
-      style={styles.circleList}
+      contentContainerStyle={{
+        paddingHorizontal: Layouts.PAD_HORZ,
+        paddingVertical: Layouts.PAD_VERT,
+      }}
       data={props.data}
       renderItem={({ item, index }) => (
         <View
@@ -30,9 +33,10 @@ export default CircleList = props => {
   )
 }
 
+CircleList.defaultProps = {
+  data: [],
+}
+
 const styles = StyleSheet.create({
-  circleList: {
-    paddingHorizontal: Layouts.PAD_HORZ,
-    paddingVertical: Layouts.PAD_VERT,
-  },
+  circleList: {},
 })

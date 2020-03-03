@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { Colors, Typography, Layouts, Mixins, Styles  } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
+import Button from './../components/Button'
 
 export default AddPostOptionBar = props => {
   openImagePickerAsync = async () => {
@@ -47,20 +48,17 @@ export default AddPostOptionBar = props => {
 
   return (
     <View style={styles.addPostOptionBar}>
-      <Text>Add Post Option Bar</Text>
       <View style={styles.option_wrapper}>
-        <TouchableOpacity
-          style={styles.option}
-          onPress={() => this.openCameraAsync()}
-        ></TouchableOpacity>
-        <TouchableOpacity
-          style={styles.option}
-          onPress={() => this.openImagePickerAsync()}
-        ></TouchableOpacity>
-        <TouchableOpacity
-          style={styles.option}
-          onPress={() => props.navigation.navigate('AddPostPermissions')}
-        ></TouchableOpacity>
+        <View style={styles.option}>
+          <Button text="camera" type="small" _onPress={this.openCameraAsync} />
+        </View>
+        <View style={styles.option}>
+          <Button
+            text="album"
+            type="small"
+            _onPress={this.openImagePickerAsync}
+          />
+        </View>
       </View>
     </View>
   )
@@ -68,16 +66,13 @@ export default AddPostOptionBar = props => {
 
 const styles = StyleSheet.create({
   addPostOptionBar: {
-    backgroundColor: Colors.GRAY_LIGHT,
+    marginHorizontal: Layouts.PAD_HORZ,
+    marginVertical: Layouts.PAD_VERT,
   },
   option_wrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
   },
   option: {
-    width: Mixins.scaleSize(50),
-    height: Mixins.scaleSize(50),
-    borderRadius: Mixins.scaleSize(25),
-    backgroundColor: Colors.GRAY_DARK,
+    marginRight: Mixins.scaleSize(15),
   },
 })

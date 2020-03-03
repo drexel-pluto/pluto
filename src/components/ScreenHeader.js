@@ -3,13 +3,13 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 
 export default ScreenHeader = props => {
-  const { isFixed, title, rightItems, leftItems } = props
+  const { isFixed, headerColor, title, rightItems, leftItems } = props
 
   return (
     <View
       style={[
         styles.screenHeader,
-        isFixed ? { backgroundColor: Colors.PLUTO_WHITE } : null,
+        isFixed ? { backgroundColor: headerColor } : null,
       ]}
     >
       <View style={styles.leftItems}>
@@ -24,6 +24,7 @@ export default ScreenHeader = props => {
 }
 
 ScreenHeader.defaultProps = {
+  headerColor: Colors.PLUTO_WHITE,
   title: null,
   rightItems: null,
   leftItems: null,

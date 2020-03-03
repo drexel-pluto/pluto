@@ -5,6 +5,9 @@ import {
   submitPost,
   addImage,
   removeImage,
+  setRecipient,
+  resetRecipient,
+  resetMedia,
 } from '../redux/reducers/create.reducer'
 
 class AddPostContentContainer extends React.Component {
@@ -31,6 +34,11 @@ class AddPostContentContainer extends React.Component {
         addImage={this.props.addImage}
         removeImage={this.props.removeImage}
         media={this.props.media}
+        recipients={this.props.recipients}
+        setRecipient={this.props.setRecipient}
+        resetRecipient={this.props.resetRecipient}
+        friends={this.props.friends}
+        resetMedia={this.props.resetMedia}
       />
     )
   }
@@ -39,12 +47,17 @@ class AddPostContentContainer extends React.Component {
 const mapStateToProps = state => ({
   pendingSubmission: state.create.pendingSubmission,
   media: state.create.media,
+  recipients: state.create.recipients,
+  friends: state.user.friends,
 })
 
 const mapDispatchToProps = {
   submitPost,
   addImage,
   removeImage,
+  setRecipient,
+  resetRecipient,
+  resetMedia,
 }
 
 export default connect(

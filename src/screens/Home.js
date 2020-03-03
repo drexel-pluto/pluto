@@ -2,18 +2,50 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
-import CircleContainer from '../components/CircleContainer'
-import GroupPanel from './../components/GroupPanel'
+import Physics from '../components/physics'
 import IconButton from './../components/iconButton/IconButton'
+
+const pageDots = (total, current) => {
+  let dot_total = total + 1
+  let dot_current = current + 1
+  let dots = []
+
+  for (let index = 0; index < dot_total; index++) {
+    dots.push(
+      <View
+        style={[
+          Styles.shadow(Colors.VIOLET.dark),
+          {
+            width: Mixins.scaleSize(10),
+            height: Mixins.scaleSize(10),
+            borderRadius: Mixins.scaleSize(10) / 2,
+            backgroundColor: Colors.VIOLET.dark,
+            margin: Mixins.scaleSize(7),
+            opacity: dot_current === index ? 1 : 0.5,
+          },
+        ]}
+      ></View>
+    )
+  }
+
+  return dots
+}
 
 class Home extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      index: -1,
+    }
+  }
+
+  setIndex(index) {
+    this.setState({ index })
   }
 
   render() {
     const rightHeaderItems = [
-      <IconButton type="search" />,
       <IconButton type="noti" />,
       <IconButton
         type="profile"
@@ -27,28 +59,60 @@ class Home extends React.Component {
 
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
-        <ScreenHeader rightItems={rightHeaderItems} />
+        <Physics
+          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0 }}
+          groups={this.props.groups}
+          friends={this.props.friends}
+          setIndex={index => this.setIndex(index)}
+        />
+        <ScreenHeader
+          leftItems={<IconButton type="search" />}
+          rightItems={rightHeaderItems}
+        />
         <View style={styles.group_wrapper}>
           <TouchableOpacity
             onPress={() => {
-              this.props.openGroup(this.props.groups[0]._id)
+              if (this.state.index == -1) {
+                //TODO fetch posts from ALL friends instead of group 0
+                this.props.openGroup(this.props.groups[0]._id)
+              } else {
+                this.props.openGroup(this.props.groups[this.state.index]._id)
+              }
             }}
           >
             <Text style={[Typography.F_H1, { textAlign: 'center' }]}>
-              group name
+              {this.state.index == -1
+                ? 'everyone'
+                : this.props.groups[this.state.index].title}
             </Text>
-            <Text style={{ textAlign: 'center' }}>view posts</Text>
+            <Text style={{ textAlign: 'center', color: Colors.VIOLET.dark }}>
+              view posts >
+            </Text>
           </TouchableOpacity>
-
-          <CircleContainer />
         </View>
-        <View style={styles.action_wrapper}>
-          <IconButton
-            type="addPost"
-            _onPress={() => {
-              this.props.navigation.navigate('AddPost')
-            }}
-          />
+        <View style={Layouts.BOTTOM_WRAPPER}>
+          <View style={styles.action_wrapper}>
+            <IconButton
+              type="addFriend"
+              _onPress={() => {
+                this.props.navigation.navigate('AddFriend')
+              }}
+            />
+            <IconButton
+              type="addPost"
+              _onPress={() => {
+                this.props.navigation.navigate('AddPost', {
+                  defaultRecipients:
+                    this.state.index > -1
+                      ? this.props.groups[this.state.index].members
+                      : this.props.friends,
+                })
+              }}
+            />
+          </View>
+          <View style={styles.dot_wrapper}>
+            {pageDots(this.props.groups.length, this.state.index)}
+          </View>
         </View>
       </View>
     )
@@ -56,14 +120,25 @@ class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  group_wrapper: { flex: 1 },
+  group_wrapper: {
+    paddingVertical: Mixins.scaleSize(40),
+  },
   action_wrapper: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    justifyContent: 'center',
+    paddingBottom: Mixins.scaleSize(40),
+    paddingHorizontal: Layouts.PAD_HORZ,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  dot_wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  bottom: {
+    position: 'absolute',
     bottom: '5%',
+    left: 0,
+    width: '100%',
   },
 })
 

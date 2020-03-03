@@ -12,7 +12,10 @@ export default PostFeed = props => {
           return (
             <PostTeaserFull
               key={item._id}
-              content={item.post}
+              _id={item._id}
+              media={item.mediaURLs}
+              text={item.text}
+              postedAt={item.postedAt}
               poster={item.poster}
               openPost={props.openPost}
             />
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: Layouts.PAD_VERT,
     paddingBottom: Mixins.scaleSize(100),
-    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingHorizontal: Layouts.PAD_HORZ_SM,
     borderTopLeftRadius: Mixins.scaleSize(20),
     overflow: 'hidden',
   },

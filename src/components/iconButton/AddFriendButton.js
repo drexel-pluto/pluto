@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import { LinearGradient } from 'expo-linear-gradient'
 
-export default AddPostButton = props => {
+export default AddFriendButton = props => {
   const { _onPress } = props
 
   return (
@@ -15,9 +15,11 @@ export default AddPostButton = props => {
       <View style={Styles.shadow(Colors.VIOLET.dark)}>
         <LinearGradient
           colors={Colors.gradient.dark(Colors.VIOLET)}
-          style={styles.addPost}
+          style={styles.addFriend}
         >
-          <Text style={{ color: 'white' }}>add post</Text>
+          <View style={styles.inner}>
+            <Text style={{ color: Colors.VIOLET.dark }}>add friend</Text>
+          </View>
         </LinearGradient>
       </View>
     </TouchableOpacity>
@@ -25,7 +27,7 @@ export default AddPostButton = props => {
 }
 
 const styles = StyleSheet.create({
-  addPost: {
+  addFriend: {
     width: Mixins.scaleSize(60),
     height: Mixins.scaleSize(60),
     borderRadius: Mixins.scaleSize(60) / 2,
@@ -33,5 +35,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.PLUTO_WHITE,
+  },
+  inner: {
+    width: Mixins.scaleSize(55),
+    height: Mixins.scaleSize(55),
+    borderRadius: Mixins.scaleSize(55) / 2,
+    backgroundColor: Colors.PLUTO_WHITE,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })

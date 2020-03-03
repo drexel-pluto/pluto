@@ -5,15 +5,15 @@ import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
 
 export default Comment = props => {
-  const { id, author, content } = props
+  const { data } = props
   return (
     <View style={styles.comment}>
       <View style={styles.header_wrapper}>
-        <AuthorHeader author={author} timeStamp={'13 hours ago'} />
+        <AuthorHeader authorId={data.poster._id} time={data.postedAt} />
         <IconButton type="like" customColor={Colors.ACCENT} />
       </View>
       <View style={styles.content}>
-        <Text>{content.text}</Text>
+        <Text>{data.text}</Text>
       </View>
     </View>
   )

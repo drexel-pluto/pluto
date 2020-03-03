@@ -13,7 +13,7 @@ export const shadow = color => {
   return {
     shadowOffset: { width: 2, height: 2 },
     shadowColor: color,
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.2,
     shadowRadius: 3,
   }
 }
