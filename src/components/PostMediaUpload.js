@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
-import { FLEX_CONTAINER } from '../styles/layouts'
 
 const MediaItem = props => (
   <View>
@@ -32,12 +31,14 @@ export default PostMedia = props => {
     )
   }
 
+  let snapIntervalVal = Mixins.scaleSize(240) + Layouts.PAD_HORZ
+
   return (
     <ScrollView
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.postMediaWrapper}
-      snapToInterval={240 + Layouts.PAD}
+      snapToInterval={snapIntervalVal}
       snapToAlignment="center"
       decelerationRate="fast"
       style={{ flexGrow: 0 }}
@@ -59,34 +60,34 @@ export default PostMedia = props => {
 
 const styles = StyleSheet.create({
   postMediaWrapper: {
-    height: 150,
+    height: Mixins.scaleSize(220),
     padding: Layouts.PAD_HORZ / 2,
   },
   mediaItem: {
     margin: Layouts.PAD_HORZ / 2,
-    width: 240,
+    width: Mixins.scaleSize(240),
     flexGrow: 1,
-    borderRadius: 14,
+    borderRadius: Mixins.scaleSize(14),
   },
   singleMediaItem: {
     margin: Layouts.PAD_HORZ / 2,
-    height: 150 - Layouts.PAD_HORZ * 2,
-    borderRadius: 14,
+    height: Mixins.scaleSize(220 - Layouts.PAD_HORZ * 2),
+    borderRadius: Mixins.scaleSize(14),
   },
   singleWrapper: {
-    height: 150,
+    height: Mixins.scaleSize(220),
     padding: Layouts.PAD_HORZ / 2,
   },
   iconWrapper: {
-    width: 26,
-    height: 26,
+    width: Mixins.scaleSize(26),
+    height: Mixins.scaleSize(26),
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 26,
+    borderRadius: Mixins.scaleSize(26),
     position: 'absolute',
-    right: 10,
-    top: 10,
+    right: Mixins.scaleSize(13),
+    top: Mixins.scaleSize(13),
     opacity: 0.8,
   },
 })

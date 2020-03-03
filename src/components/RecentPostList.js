@@ -5,17 +5,26 @@ import PostTeaser from './PostTeaser'
 
 export default RecentPostList = props => {
   return (
-    <View style={styles.recentPostList}>
+    <View>
       <Text
         style={[
           Typography.F_H2,
-          { marginBottom: Mixins.scaleSize(10), fontWeight: '600' },
+          {
+            marginBottom: Mixins.scaleSize(10),
+            fontWeight: '600',
+            paddingHorizontal: Layouts.PAD_HORZ,
+            paddingVertical: Layouts.PAD_VERT,
+          },
         ]}
       >
         top picks
       </Text>
+
       <FlatList
-        style={{ paddingVertical: Mixins.scaleSize(10) }}
+        contentContainerStyle={{
+          paddingHorizontal: Layouts.PAD_HORZ,
+          paddingVertical: Layouts.PAD_VERT,
+        }}
         data={props.data}
         renderItem={({ item }) => (
           <PostTeaser
@@ -36,8 +45,5 @@ export default RecentPostList = props => {
 }
 
 const styles = StyleSheet.create({
-  recentPostList: {
-    paddingLeft: Layouts.PAD_HORZ,
-    paddingVertical: Layouts.PAD_VERT,
-  },
+  recentPostList: {},
 })

@@ -21,6 +21,7 @@ export default Circle = props => {
       onPress={() => {
         navigation.navigate('Profile', { userId: user._id })
       }}
+      disabled={props.disabled}
     >
       <View style={Styles.shadow(Colors.VIOLET.dark)}>
         {
@@ -100,6 +101,7 @@ export default Circle = props => {
 
 Circle.defaultProps = {
   size: 50,
+  disabled: false,
 }
 
 const styles = StyleSheet.create({

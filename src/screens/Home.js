@@ -93,6 +93,12 @@ class Home extends React.Component {
         <View style={Layouts.BOTTOM_WRAPPER}>
           <View style={styles.action_wrapper}>
             <IconButton
+              type="addFriend"
+              _onPress={() => {
+                this.props.navigation.navigate('AddFriend')
+              }}
+            />
+            <IconButton
               type="addPost"
               _onPress={() => {
                 this.props.navigation.navigate('AddPost', {
@@ -120,8 +126,9 @@ const styles = StyleSheet.create({
   action_wrapper: {
     paddingBottom: Mixins.scaleSize(40),
     paddingHorizontal: Layouts.PAD_HORZ,
-    // alignItems: 'flex-end',
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   dot_wrapper: {
     flexDirection: 'row',

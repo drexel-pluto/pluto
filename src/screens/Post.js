@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  View,
-  ScrollView,
-  Text,
-  Image,
-  KeyboardAvoidingView,
-  StyleSheet,
-} from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import TagList from '../components/TagList'
@@ -15,6 +8,7 @@ import AuthorHeader from '../components/AuthorHeader'
 import IconButton from '../components/iconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
 import PostMedia from '../components/PostMedia'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 class Post extends React.Component {
   constructor(props) {
@@ -24,41 +18,42 @@ class Post extends React.Component {
   render() {
     console.log(this.props.data)
     return (
-      <ScrollView stickyHeaderIndices={[0]} style={styles.post}>
+      <KeyboardAwareScrollView stickyHeaderIndices={[0]}>
         <ScreenHeader
           isFixed={true}
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
         />
-        <KeyboardAvoidingView behavior="position">
-          <View style={styles.header_wrapper}>
-            <AuthorHeader
-              time={this.props.data.postedAt}
-              author={this.props.data.poster}
-            />
-            <IconButton type="like" />
-          </View>
-          <View style={styles.content}>
-            {// render text if exists
-            this.props.data.text ? (
-              <View style={styles.text_wrapper}>
-                <Text style={[styles.text, Typography.F_BODY]}>
-                  {this.props.data.text}
-                </Text>
-              </View>
-            ) : null}
-            {// render img if exists
-            this.props.data.mediaURLs.length > 0 ? (
-              <PostMedia media={this.props.data.mediaURLs} />
-            ) : null}
-          </View>
-          <View style={styles.tag_wrapper}>
-            <TagList data={TAG_DATA} />
-          </View>
-          <CommentList data={this.props.data.comments}  sendComment={this.props.sendComment}/>
-        </KeyboardAvoidingView>
-      </ScrollView>
+        <View style={styles.header_wrapper}>
+          <AuthorHeader
+            time={this.props.data.postedAt}
+            author={this.props.data.poster}
+          />
+          <IconButton type="like" />
+        </View>
+        <View style={styles.content}>
+          {// render text if exists
+          this.props.data.text ? (
+            <View style={styles.text_wrapper}>
+              <Text style={[styles.text, Typography.F_BODY]}>
+                {this.props.data.text}
+              </Text>
+            </View>
+          ) : null}
+          {// render img if exists
+          this.props.data.mediaURLs.length > 0 ? (
+            <PostMedia media={this.props.data.mediaURLs} />
+          ) : null}
+        </View>
+        <View style={styles.tag_wrapper}>
+          <TagList data={TAG_DATA} />
+        </View>
+        <CommentList
+          data={this.props.data.comments}
+          sendComment={this.props.sendComment}
+        />
+      </KeyboardAwareScrollView>
     )
   }
 }

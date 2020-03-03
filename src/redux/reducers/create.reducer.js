@@ -11,6 +11,7 @@ export const SEND_POST_FAIL = 'create/SEND_POST_FAIL'
 
 export const ADD_IMAGE = 'create/ADD_IMAGE'
 export const REMOVE_IMAGE = 'create/REMOVE_IMAGE'
+export const RESET_MEDIA = 'create/RESET_MEDIA'
 
 // reducer
 
@@ -28,9 +29,13 @@ export default function reducer(state = defaultStateCreate, action) {
       }
       return { ...state, media: [...state.media, action.data] }
     case REMOVE_IMAGE:
-      console.log(action.index)
-      console.log(state.media.splice(action.index, 1))
-      return { ...state, media: state.media.splice(action.index, 1) }
+      // console.log(action.index)
+      // console.log(state.media.splice(action.index, 1)
+      var updatedMedia = [...state.media]
+      updatedMedia.splice(action.index, 1)
+      return { ...state, media: [...updatedMedia] }
+    case RESET_MEDIA:
+      return { ...state, media: [] }
     case SET_RECIPIENT:
       return update(state, {
         recipients: {
@@ -138,5 +143,11 @@ export function removeImage(index) {
   return {
     type: REMOVE_IMAGE,
     index,
+  }
+}
+
+export function resetMedia() {
+  return {
+    type: RESET_MEDIA,
   }
 }
