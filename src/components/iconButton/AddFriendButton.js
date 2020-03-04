@@ -7,20 +7,31 @@ export default AddFriendButton = props => {
   const { _onPress } = props
 
   return (
+    // gradient ver
+    // <TouchableOpacity
+    //   onPress={() => {
+    //     _onPress()
+    //   }}
+    // >
+    //   <View style={Styles.shadow(Colors.VIOLET.dark)}>
+    //     <LinearGradient
+    //       colors={Colors.gradient.dark(Colors.VIOLET)}
+    //       style={styles.addFriend}
+    //     >
+    //       <View style={styles.inner}>
+    //         <Text style={{ color: Colors.VIOLET.dark }}>add friend</Text>
+    //       </View>
+    //     </LinearGradient>
+    //   </View>
+    // </TouchableOpacity>
+
     <TouchableOpacity
       onPress={() => {
         _onPress()
       }}
     >
-      <View style={Styles.shadow(Colors.VIOLET.dark)}>
-        <LinearGradient
-          colors={Colors.gradient.dark(Colors.VIOLET)}
-          style={styles.addFriend}
-        >
-          <View style={styles.inner}>
-            <Text style={{ color: Colors.VIOLET.dark }}>add friend</Text>
-          </View>
-        </LinearGradient>
+      <View style={[styles.addFriend, Styles.shadow(Colors.VIOLET.dark)]}>
+        <Text style={{ color: Colors.VIOLET.dark }}>add friend</Text>
       </View>
     </TouchableOpacity>
   )
@@ -35,6 +46,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.PLUTO_WHITE,
+    borderWidth: 2,
+    borderColor: Colors.VIOLET.dark,
   },
   inner: {
     width: Mixins.scaleSize(55),
