@@ -6,15 +6,22 @@ import QRLink from './../components/QRLink'
 import ShareLink from './../components/ShareLink'
 import InvitationCenter from './../components/InvitationCenter'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Linking } from 'expo';
 
 class AddFriend extends React.Component {
   constructor(props) {
     super(props)
+
+    var url = Linking.makeUrl('addfriend', {username: this.props.username});
+
+    this.state = {
+      url
+    }
   }
 
   render() {
     return (
-      <ScrollView stickyHeaderIndices={[0]}>
+      <View style={[{backgroundColor: "red", flex: 1}]}>
         <ScreenHeader
           isFixed={true}
           leftItems={
@@ -23,6 +30,7 @@ class AddFriend extends React.Component {
         />
         <LinearGradient
           colors={Colors.UI_BG_GRADIENT}
+          style={{flex: 1}}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           locations={[0, 0.5]}
@@ -31,13 +39,13 @@ class AddFriend extends React.Component {
             <View
               style={[styles.topContainer, Styles.shadow(Colors.VIOLET.dark)]}
             >
-              <QRLink />
-              <ShareLink />
+              <QRLink url={this.state.url}/>
+              <ShareLink url={this.state.url}/>
             </View>
           </View>
           <InvitationCenter />
         </LinearGradient>
-      </ScrollView>
+      </View>
     )
   }
 }

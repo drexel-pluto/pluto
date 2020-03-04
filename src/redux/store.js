@@ -4,6 +4,8 @@ import axios from 'axios'
 import axiosMiddleware from 'redux-axios-middleware'
 import ReduxThunk from 'redux-thunk'
 import rootReducer from './reducers'
+import { Linking } from 'expo'
+import {sendFriendRequest} from './reducers/addFriend.reducer'
 
 const client = axios.create({
   baseURL: 'https://drexel-pluto.herokuapp.com/api',
@@ -18,6 +20,13 @@ export default store = createStore(
   composeEnhancers(applyMiddleware(axiosMiddleware(client), ReduxThunk))
 )
 
+// linking functions
+
+Linking.addEventListener('url', (dat) => {
+  let { path, queryParams } = Linking.parse(dat.url);
+  store.dispatch(sendFriendRequest());
+})
+
 // helper functions
 
 export const getFriendById = (id) => {
@@ -28,6 +37,4 @@ export const getFriendById = (id) => {
   return friends.find(obj => {
     return obj.friend._id === id
   }).friend;
-
-
 }
