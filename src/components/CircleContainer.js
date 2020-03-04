@@ -5,14 +5,14 @@ import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 export default CircleContainer = props => {
   return (
     <View style={styles.circleContainer}>
-      <Text>Circle container</Text>
+      {/* <Text>Circle container</Text> */}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   circleContainer: {
-    backgroundColor: Colors.GRAY_MEDIUM,
-    flexGrow: 1,
+    flex: 1,
+    backgroundColor: Colors.UI_BG,
   },
 })

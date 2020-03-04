@@ -12,6 +12,7 @@ class AuthLoadingContainer extends React.Component {
         friends={this.props.friends}
         userId={this.props.userId}
         navigation={this.props.navigation}
+        route={this.props.route} 
       />
     )
   }

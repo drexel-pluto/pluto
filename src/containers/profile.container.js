@@ -18,6 +18,7 @@ class ProfileContainer extends React.Component {
       <Profile
         profile={this.props.profile}
         navigation={this.props.navigation}
+        route={this.props.route} 
         myId={this.props.myId}
       />
     )
