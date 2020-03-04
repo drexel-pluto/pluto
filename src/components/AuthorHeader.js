@@ -2,9 +2,10 @@ import React from 'react'
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import {getFriendById} from '../redux/store'
-import { withNavigation } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 
 const AuthorHeader = props => {
+  const navigation = useNavigation();
   const { author, isCompact, authorId } = props
   var authInfo;
   if (author) {
@@ -15,7 +16,7 @@ const AuthorHeader = props => {
 
   return (
     <TouchableOpacity onPress={() => {
-      props.navigation.navigate('Profile', { userId: authInfo._id });
+      navigation.navigate('Profile', { userId: authInfo._id });
     }}>
       <View style={styles.author}>
         <Image
@@ -39,7 +40,7 @@ const AuthorHeader = props => {
   )
 }
 
-export default withNavigation(AuthorHeader);
+export default AuthorHeader;
 
 
 

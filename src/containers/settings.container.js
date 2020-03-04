@@ -11,6 +11,7 @@ class SettingsContainer extends React.Component {
     return (
       <Settings
         navigation={this.props.navigation}
+        route={this.props.route} 
         logout={() => this.logout()}
       />
     )

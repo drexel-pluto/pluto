@@ -33,12 +33,12 @@ class AddPost extends React.Component {
   }
 
   componentWillUnmount() {
-    this.focusListener.remove()
+    this._unsubscribe();
   }
 
   componentDidMount() {
     this.onFocusFunction()
-    this.focusListener = this.props.navigation.addListener('didFocus', () => {
+    this._unsubscribe = this.props.navigation.addListener('didFocus', () => {
       this.onFocusFunction()
     })
 
@@ -47,9 +47,8 @@ class AddPost extends React.Component {
     this.props.resetRecipient()
 
     // default selected group
-    let defaultRecipients = {
-      ...this.props.navigation.getParam('defaultRecipients', {}),
-    }
+    let defaultRecipients = this.props.route.params?.defaultRecipients ?? {};
+
     Object.keys(defaultRecipients).map(index => {
       if (defaultRecipients[index].friend) {
         this.props.setRecipient(defaultRecipients[index].friend._id, true)

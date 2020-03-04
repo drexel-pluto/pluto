@@ -5,7 +5,8 @@ import { sendComment } from '../redux/reducers/post.reducer'
 
 class PostContainer extends React.Component {
   render() {
-    return <Post navigation={this.props.navigation} data={this.props.post} sendComment={this.props.sendComment}/>
+    return <Post navigation={this.props.navigation} 
+    route={this.props.route} data={this.props.post} sendComment={this.props.sendComment}/>
   }
 }
 
