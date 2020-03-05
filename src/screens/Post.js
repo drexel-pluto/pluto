@@ -36,6 +36,7 @@ class Post extends React.Component {
         <PostContent
           media={this.props.data.mediaURLs}
           text={this.props.data.text}
+          tags={this.props.data.tags}
         />
 
         <View style={styles.tag_wrapper}>

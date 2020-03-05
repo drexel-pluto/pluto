@@ -11,8 +11,8 @@ import {
 } from '../redux/reducers/create.reducer'
 
 class AddPostContentContainer extends React.Component {
-  submitPost(text) {
-    this.props.submitPost(text).then(action => {
+  submitPost(text, tags) {
+    this.props.submitPost(text, tags).then(action => {
       if (action.type.endsWith('SUCCESS')) {
         this.props.navigation.navigate('Home')
         // TODO:: navigate to new post instead of home
@@ -27,9 +27,9 @@ class AddPostContentContainer extends React.Component {
     return (
       <AddPostContent
         navigation={this.props.navigation}
-        route={this.props.route} 
-        submitPost={text => {
-          this.submitPost(text)
+        route={this.props.route}
+        submitPost={(text, tags) => {
+          this.submitPost(text, tags)
         }}
         pendingSubmission={this.props.pendingSubmission}
         addImage={this.props.addImage}

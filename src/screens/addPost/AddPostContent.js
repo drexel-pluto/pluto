@@ -64,12 +64,12 @@ class AddPost extends React.Component {
 
   onChangeText(text) {
     const hashRegEx = /\B#\w*[a-zA-Z0-9]+\w*/g
-    let tags,
-      match = []
+    let tags = []
+    let match = []
 
     while ((match = hashRegEx.exec(text))) {
       tags.push({
-        name: match[0].substring(0, match[0].length),
+        name: match[0].substring(1, match[0].length),
         indices: [match.index, match.index + match[0].length],
       })
     }
