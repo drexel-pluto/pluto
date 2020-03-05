@@ -46,9 +46,9 @@ class Home extends React.Component {
 
   render() {
     const rightHeaderItems = [
-      <IconButton type="noti" />,
+      <IconButton type="notiCenter" />,
       <IconButton
-        type="profile"
+        type="myProfile"
         _onPress={() => {
           this.props.navigation.navigate('Profile', {
             userId: this.props.userId,
@@ -66,7 +66,7 @@ class Home extends React.Component {
           setIndex={index => this.setIndex(index)}
         />
         <ScreenHeader
-          leftItems={<IconButton type="search" />}
+          leftItems={<IconButton type="searchItem" />}
           rightItems={rightHeaderItems}
         />
         <View style={styles.group_wrapper}>

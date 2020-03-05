@@ -18,7 +18,7 @@ export default AddFriendButton = props => {
           style={styles.addFriend}
         >
           <View style={styles.inner}>
-            <Text style={{ color: Colors.VIOLET.dark }}>add friend</Text>
+           
           </View>
         </LinearGradient>
       </View>
