@@ -59,7 +59,7 @@ class AddPost extends React.Component {
   }
 
   submitPost() {
-    this.props.submitPost(this.state.text)
+    this.props.submitPost(this.state.text, this.state.tags)
   }
 
   onChangeText(text) {
