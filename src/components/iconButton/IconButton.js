@@ -3,6 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import AddPostButton from './AddPostButton'
 import AddFriendButton from './AddFriendButton'
+import HeartButton from './HeartButton'
+import SearchItem from '../../assets/images/iconSearch.svg'
+import NotiCenter from '../../assets/images/iconNotif.svg'
+import MyProfile from '../../assets/images/iconProfile.svg'
+
+
 
 export default IconButton = props => {
   const { type, customColor, _onPress } = props
@@ -23,6 +29,46 @@ export default IconButton = props => {
             _onPress()
           }}
         />
+      )
+    case 'heartPost':
+      return (
+
+        <HeartButton />
+      )
+
+    case 'searchItem':
+      return (
+        <TouchableOpacity
+        onPress={() => {
+          _onPress()
+        }}
+        >
+          <SearchItem />
+        </TouchableOpacity>
+        
+      )
+      case 'notiCenter':
+      return (
+        <TouchableOpacity
+        onPress={() => {
+          _onPress()
+        }}
+        >
+          <NotiCenter />
+        </TouchableOpacity>
+        
+      )
+
+      case 'myProfile':
+      return (
+        <TouchableOpacity
+        onPress={() => {
+          _onPress()
+        }}
+        >
+          <MyProfile />
+        </TouchableOpacity>
+        
       )
     default:
       return (

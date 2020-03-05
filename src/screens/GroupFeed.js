@@ -37,7 +37,7 @@ class GroupFeed extends React.Component {
     ]
 
     const rightHeaderItems = [
-      <IconButton type="search" />,
+      <IconButton type="searchItem" />,
       <IconButton type="filter" />,
     ]
 

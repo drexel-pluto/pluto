@@ -82,7 +82,7 @@ class PostTeaserFull extends React.Component {
               <TouchableWithoutFeedback>
                 <Text style={{ color: Colors.ACCENT }}>replies</Text>
               </TouchableWithoutFeedback>
-              <IconButton type="like" customColor={Colors.ACCENT} />
+              <IconButton type="heartPost" customColor={Colors.ACCENT} />
             </View>
           </LinearGradient>
         </View>

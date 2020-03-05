@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import Icon from './Icon'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 
 export default GroupPanel = props => {
@@ -7,6 +8,7 @@ export default GroupPanel = props => {
     <View style={styles.groupPanel}>
       <Text style={[styles.title, Typography.F_H2]}>Group Titleeeeee</Text>
       <Text style={[styles.detail]}>Updates from group</Text>
+      <Icon name={'heart'} />
     </View>
   )
 }

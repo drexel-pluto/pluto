@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import { LinearGradient } from 'expo-linear-gradient'
+import AddPost from '../../assets/images/iconHeart.svg'
 
 export default AddPostButton = props => {
   const { _onPress } = props
@@ -45,5 +46,16 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: Colors.PLUTO_WHITE,
     backgroundColor: Colors.VIOLET.dark,
+  },
+  inner: {
+
+    width: Mixins.scaleSize(55),
+    height: Mixins.scaleSize(55),
+    borderRadius: Mixins.scaleSize(55) / 2,
+    backgroundColor: Colors.VIOLET_dark,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+
   },
 })
