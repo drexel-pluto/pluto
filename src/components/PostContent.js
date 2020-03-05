@@ -15,7 +15,7 @@ class PostContent extends React.Component {
   linkHash(text) {
     return (
       <Text
-        style={styles.tag}
+        style={[Typography.F_BOLD, styles.tag]}
         onPress={() => {
           this.onPressHash()
         }}
@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   text_wrapper: { paddingBottom: Layouts.PAD_VERT },
   tag: {
     color: Colors.VIOLET.dark,
-    fontWeight: '600',
   },
 })
 

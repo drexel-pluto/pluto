@@ -38,7 +38,7 @@ export default AddFriendButton = props => {
         style={styles.notiCount}
       >
         <Text
-          style={[Typography.F_CAPTION, { color: 'white', fontWeight: '600' }]}
+          style={[Typography.F_CAPTION, Typography.F_BOLD, { color: 'white' }]}
         >
           50
         </Text>

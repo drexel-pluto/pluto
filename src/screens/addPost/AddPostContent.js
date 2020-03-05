@@ -33,7 +33,7 @@ class AddPost extends React.Component {
   }
 
   componentWillUnmount() {
-    this._unsubscribe();
+    this._unsubscribe()
   }
 
   componentDidMount() {
@@ -47,7 +47,7 @@ class AddPost extends React.Component {
     this.props.resetRecipient()
 
     // default selected group
-    let defaultRecipients = this.props.route.params?.defaultRecipients ?? {};
+    let defaultRecipients = this.props.route.params?.defaultRecipients ?? {}
 
     Object.keys(defaultRecipients).map(index => {
       if (defaultRecipients[index].friend) {
@@ -143,9 +143,9 @@ class AddPost extends React.Component {
             }}
           >
             <View style={{ paddingVertical: Layouts.PAD_VERT }}>
-              <Text>
+              <Text style={Typography.F_REGULAR}>
                 {selectedFriends} recipients{' '}
-                <Text style={{ fontWeight: '600' }}>edit</Text>
+                <Text style={Typography.F_BOLD}>edit</Text>
               </Text>
             </View>
           </TouchableOpacity>

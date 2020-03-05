@@ -37,8 +37,8 @@ class DecaySlider extends React.Component {
           <Text
             style={[
               Typography.F_H2,
+              Typography.F_BOLD,
               {
-                fontWeight: '600',
                 marginLeft: Mixins.scaleSize(10),
                 color: Colors.CARBONE.dark,
               },

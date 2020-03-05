@@ -28,7 +28,7 @@ export default Button = props => {
               style={[
                 Typography.F_CAPTION,
                 styles.text,
-                isBold ? { fontWeight: '600' } : null,
+                isBold ? Typography.F_BOLD : null,
               ]}
             >
               {text}
@@ -48,7 +48,7 @@ export default Button = props => {
               style={[
                 Typography.F_CAPTION,
                 { color: color.dark },
-                isBold ? { fontWeight: '600' } : null,
+                isBold ? Typography.F_BOLD : null,
               ]}
             >
               {text}
@@ -70,7 +70,7 @@ export default Button = props => {
               style={[
                 Typography.F_CAPTION,
                 { color: color.dark },
-                isBold ? { fontWeight: '600' } : null,
+                isBold ? Typography.F_BOLD : null,
               ]}
             >
               {text}
@@ -93,7 +93,7 @@ export default Button = props => {
               style={[
                 Typography.F_CAPTION,
                 styles.text,
-                isBold ? { fontWeight: '600' } : null,
+                isBold ? Typography.F_BOLD : null,
               ]}
             >
               {text}

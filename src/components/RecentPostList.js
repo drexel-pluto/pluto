@@ -9,9 +9,9 @@ export default RecentPostList = props => {
       <Text
         style={[
           Typography.F_H2,
+          Typography.F_BOLD,
           {
             marginBottom: Mixins.scaleSize(10),
-            fontWeight: '600',
             paddingHorizontal: Layouts.PAD_HORZ,
             paddingVertical: Layouts.PAD_VERT,
           },
