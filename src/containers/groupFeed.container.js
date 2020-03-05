@@ -15,6 +15,7 @@ class AuthLoadingContainer extends React.Component {
       <GroupFeed
         group={this.props.group}
         navigation={this.props.navigation}
+        route={this.props.route} 
         openPost={(id, poster) => this.openPost(id, poster)}
         user={this.props.user}
       />

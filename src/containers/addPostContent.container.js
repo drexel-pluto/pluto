@@ -27,6 +27,7 @@ class AddPostContentContainer extends React.Component {
     return (
       <AddPostContent
         navigation={this.props.navigation}
+        route={this.props.route} 
         submitPost={text => {
           this.submitPost(text)
         }}

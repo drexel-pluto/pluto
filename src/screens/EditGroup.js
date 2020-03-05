@@ -6,6 +6,7 @@ import CircleContainer from '../components/CircleContainer'
 import SelectFriendList from '../components/SelectFriendList'
 import InputHeader from '../components/InputHeader'
 import EditGroupName from '../components/EditGroupName'
+import Button from '../components/Button'
 
 class EditGroup extends React.Component {
   constructor(props) {
@@ -22,6 +23,10 @@ class EditGroup extends React.Component {
   render() {
     return (
       <View style={[styles.editGroupScreen, Layouts.FLEX_CONTAINER]}>
+        <View style={styles.actions}>
+          <Button type='text' text="cancel" color="Colors.BLACK_ROCK"/>
+          <Button type='outline' text="update" color="Colors.BLACK_ROCK"/>
+        </View>
         <EditGroupName />
         <CircleContainer />
         <SelectFriendList />
@@ -32,7 +37,14 @@ class EditGroup extends React.Component {
 
 const styles = StyleSheet.create({
   editGroupScreen: {
-    backgroundColor: Colors.GRAY_DARK,
+    backgroundColor: Colors.UI_BG,
+  },
+  actions: {
+    flexDirection: 'row',
+    color: 'white',
+    paddingVertical: Mixins.scaleSize(45),
+    paddingHorizontal: Layouts.PAD_HORZ,
+    justifyContent: 'space-between',
   },
 })
 

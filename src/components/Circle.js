@@ -8,13 +8,15 @@ export default Circle = props => {
 
   // original circle
   const innerCircleSize = Mixins.scaleSize(size)
-  const innerImageSize = innerCircleSize ? size - Mixins.scaleSize(2) : null
+  const innerImageSize = isActive
+    ? Mixins.scaleSize(size - 5)
+    : Mixins.scaleSize(size)
 
   // circle when active
-  const outerCircleSize = isActive
-    ? innerCircleSize + Mixins.scaleSize(10)
-    : innerCircleSize
-  const outerInnerSize = isActive ? innerCircleSize + Mixins.scaleSize(5) : 0
+  // const outerCircleSize = isActive
+  //   ? innerCircleSize + Mixins.scaleSize(10)
+  //   : innerCircleSize
+  // const outerInnerSize = isActive ? innerCircleSize + Mixins.scaleSize(5) : 0
 
   return (
     <TouchableOpacity
@@ -27,7 +29,7 @@ export default Circle = props => {
         {
           // OUTER
         }
-        <LinearGradient
+        {/* <LinearGradient
           colors={Colors.gradient.dark(Colors.VIOLET)}
           style={[
             outerCircleSize
@@ -54,46 +56,46 @@ export default Circle = props => {
                   }
                 : null,
             ]}
-          >
-            {
-              // INNER
-            }
-            <LinearGradient
-              colors={Colors.gradient.dark(Colors.VIOLET)}
-              style={[
-                styles.circle,
-                innerCircleSize
-                  ? {
-                      width: Mixins.scaleSize(innerCircleSize),
-                      height: Mixins.scaleSize(innerCircleSize),
-                      borderRadius: Mixins.scaleSize(innerCircleSize) / 2,
-                    }
-                  : null,
-              ]}
-            >
-              <Image
-                style={[
-                  styles.image,
-                  innerImageSize
-                    ? {
-                        width: Mixins.scaleSize(innerImageSize),
-                        height: Mixins.scaleSize(innerImageSize),
-                        borderRadius: Mixins.scaleSize(innerImageSize) / 2,
-                      }
-                    : null,
-                ]}
-                source={
-                  user.image
-                    ? { uri: user.image }
-                    : { uri: 'https://picsum.photos/id/237/300/300' }
+          > */}
+        {
+          // INNER
+        }
+        <LinearGradient
+          colors={Colors.gradient.dark(Colors.VIOLET)}
+          style={[
+            innerCircleSize
+              ? {
+                  width: Mixins.scaleSize(innerCircleSize),
+                  height: Mixins.scaleSize(innerCircleSize),
+                  borderRadius: Mixins.scaleSize(innerCircleSize) / 2,
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }
-              />
-              {
-                // possibly add a name or id that is not visible
-              }
-            </LinearGradient>
-          </View>
+              : null,
+          ]}
+        >
+          <Image
+            style={[
+              innerImageSize
+                ? {
+                    width: Mixins.scaleSize(innerImageSize),
+                    height: Mixins.scaleSize(innerImageSize),
+                    borderRadius: Mixins.scaleSize(innerImageSize) / 2,
+                  }
+                : null,
+            ]}
+            source={
+              user.image
+                ? { uri: user.image }
+                : { uri: 'https://picsum.photos/id/237/300/300' }
+            }
+          />
+          {
+            // possibly add a name or id that is not visible
+          }
         </LinearGradient>
+        {/* </View>
+        </LinearGradient> */}
       </View>
     </TouchableOpacity>
   )
@@ -103,18 +105,3 @@ Circle.defaultProps = {
   size: 50,
   disabled: false,
 }
-
-const styles = StyleSheet.create({
-  circle: {
-    width: Mixins.scaleSize(110),
-    height: Mixins.scaleSize(110),
-    borderRadius: Mixins.scaleSize(110) / 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width: Mixins.scaleSize(105),
-    height: Mixins.scaleSize(105),
-    borderRadius: Mixins.scaleSize(105) / 2,
-  },
-})

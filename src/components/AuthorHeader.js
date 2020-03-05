@@ -1,22 +1,25 @@
 import React from 'react'
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
-import {getFriendById} from '../redux/store'
-import { withNavigation } from 'react-navigation';
+import { getFriendById } from '../redux/store'
+import { useNavigation } from '@react-navigation/native'
 
 const AuthorHeader = props => {
+  const navigation = useNavigation()
   const { author, isCompact, authorId } = props
-  var authInfo;
+  var authInfo
   if (author) {
-    authInfo = author;
+    authInfo = author
   } else {
-    authInfo = getFriendById(authorId);
+    authInfo = getFriendById(authorId)
   }
 
   return (
-    <TouchableOpacity onPress={() => {
-      props.navigation.navigate('Profile', { userId: authInfo._id });
-    }}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('Profile', { userId: authInfo._id })
+      }}
+    >
       <View style={styles.author}>
         <Image
           style={[styles.author__image, isCompact ? styles.isCompact : '']}
@@ -28,7 +31,7 @@ const AuthorHeader = props => {
         />
         {isCompact ? null : (
           <View>
-            <Text style={[Typography.F_BODY, { fontWeight: '600' }]}>
+            <Text style={[Typography.F_BODY, Typography.F_BOLD]}>
               {authInfo.name}
             </Text>
             <Text style={Typography.F_SUBTITLE}>{calcTimeDif(props.time)}</Text>
@@ -39,9 +42,7 @@ const AuthorHeader = props => {
   )
 }
 
-export default withNavigation(AuthorHeader);
-
-
+export default AuthorHeader
 
 const calcTimeDif = time => {
   if (!time) return ''

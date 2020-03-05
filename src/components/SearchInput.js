@@ -34,7 +34,7 @@ class SearchInput extends React.Component {
   render() {
     return (
       <InputHeader
-        placeholder={'enter a keyword...'}
+        placeholder={this.props.placeholder || 'enter a keyword...'}
         text={this.state.text}
         onChangeText={this.onChangeText}
         buttonText={'search'}

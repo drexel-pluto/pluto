@@ -33,12 +33,12 @@ class AddPost extends React.Component {
   }
 
   componentWillUnmount() {
-    this.focusListener.remove()
+    this._unsubscribe()
   }
 
   componentDidMount() {
     this.onFocusFunction()
-    this.focusListener = this.props.navigation.addListener('didFocus', () => {
+    this._unsubscribe = this.props.navigation.addListener('didFocus', () => {
       this.onFocusFunction()
     })
 
@@ -47,9 +47,8 @@ class AddPost extends React.Component {
     this.props.resetRecipient()
 
     // default selected group
-    let defaultRecipients = {
-      ...this.props.navigation.getParam('defaultRecipients', {}),
-    }
+    let defaultRecipients = this.props.route.params?.defaultRecipients ?? {}
+
     Object.keys(defaultRecipients).map(index => {
       if (defaultRecipients[index].friend) {
         this.props.setRecipient(defaultRecipients[index].friend._id, true)
@@ -65,7 +64,15 @@ class AddPost extends React.Component {
 
   onChangeText(text) {
     const hashRegEx = /\B#\w*[a-zA-Z0-9]+\w*/g
-    const tags = text.match(hashRegEx)
+    let tags,
+      match = []
+
+    while ((match = hashRegEx.exec(text))) {
+      tags.push({
+        name: match[0].substring(0, match[0].length),
+        indices: [match.index, match.index + match[0].length],
+      })
+    }
 
     console.log(tags)
 
@@ -136,9 +143,9 @@ class AddPost extends React.Component {
             }}
           >
             <View style={{ paddingVertical: Layouts.PAD_VERT }}>
-              <Text>
+              <Text style={Typography.F_REGULAR}>
                 {selectedFriends} recipients{' '}
-                <Text style={{ fontWeight: '600' }}>edit</Text>
+                <Text style={Typography.F_BOLD}>edit</Text>
               </Text>
             </View>
           </TouchableOpacity>

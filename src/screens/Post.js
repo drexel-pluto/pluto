@@ -7,8 +7,8 @@ import CommentList from '../components/CommentList'
 import AuthorHeader from '../components/AuthorHeader'
 import IconButton from '../components/iconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
-import PostMedia from '../components/PostMedia'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import PostContent from './../components/PostContent'
 
 class Post extends React.Component {
   constructor(props) {
@@ -32,20 +32,12 @@ class Post extends React.Component {
           />
           <IconButton type="like" />
         </View>
-        <View style={styles.content}>
-          {// render text if exists
-          this.props.data.text ? (
-            <View style={styles.text_wrapper}>
-              <Text style={[styles.text, Typography.F_BODY]}>
-                {this.props.data.text}
-              </Text>
-            </View>
-          ) : null}
-          {// render img if exists
-          this.props.data.mediaURLs.length > 0 ? (
-            <PostMedia media={this.props.data.mediaURLs} />
-          ) : null}
-        </View>
+
+        <PostContent
+          media={this.props.data.mediaURLs}
+          text={this.props.data.text}
+        />
+
         <View style={styles.tag_wrapper}>
           <TagList data={TAG_DATA} />
         </View>
@@ -67,13 +59,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   text_wrapper: { paddingBottom: Layouts.PAD_VERT },
-  image: {
-    paddingHorizontal: Layouts.PAD_HORZ,
-    paddingVertical: Layouts.PAD_VERT,
-    width: '100%',
-    height: 500,
-    borderRadius: Mixins.scaleSize(25),
-  },
   header_wrapper: {
     paddingHorizontal: Layouts.PAD_HORZ,
     paddingVertical: Layouts.PAD_VERT,

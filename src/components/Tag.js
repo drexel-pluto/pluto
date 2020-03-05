@@ -20,10 +20,12 @@ export default Tag = props => {
         ]}
       >
         <Text
-          style={{
-            color: bgColor === Colors.BLUE ? '#354B9C' : bgColor.dark,
-            fontWeight: '600',
-          }}
+          style={[
+            Typography.F_BOLD,
+            {
+              color: bgColor === Colors.BLUE ? '#354B9C' : bgColor.dark,
+            },
+          ]}
         >
           #{tagName}
         </Text>
