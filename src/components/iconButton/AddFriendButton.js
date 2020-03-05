@@ -33,6 +33,16 @@ export default AddFriendButton = props => {
       <View style={[styles.addFriend, Styles.shadow(Colors.VIOLET.dark)]}>
         <Text style={{ color: Colors.VIOLET.dark }}>add friend</Text>
       </View>
+      <LinearGradient
+        colors={Colors.gradient.dark(Colors.MELON)}
+        style={styles.notiCount}
+      >
+        <Text
+          style={[Typography.F_CAPTION, { color: 'white', fontWeight: '600' }]}
+        >
+          50
+        </Text>
+      </LinearGradient>
     </TouchableOpacity>
   )
 }
@@ -49,12 +59,21 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.VIOLET.dark,
   },
-  inner: {
-    width: Mixins.scaleSize(55),
-    height: Mixins.scaleSize(55),
-    borderRadius: Mixins.scaleSize(55) / 2,
-    backgroundColor: Colors.PLUTO_WHITE,
+  notiCount: {
+    width: Mixins.scaleSize(20),
+    height: Mixins.scaleSize(20),
+    borderRadius: Mixins.scaleSize(20) / 2,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'absolute',
+    right: 0,
   },
+  // inner: {
+  //   width: Mixins.scaleSize(55),
+  //   height: Mixins.scaleSize(55),
+  //   borderRadius: Mixins.scaleSize(55) / 2,
+  //   backgroundColor: Colors.PLUTO_WHITE,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
 })
