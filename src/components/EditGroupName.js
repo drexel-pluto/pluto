@@ -7,7 +7,9 @@ import {
   StyleSheet,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
-import InputHeader from './InputHeader'
+// import InputHeader from './InputHeader'
+import { PAD_HORZ } from '../styles/layouts'
+import IconButton from './iconButton/IconButton'
 
 class EditGroupName extends React.Component {
   constructor(props) {
@@ -27,24 +29,45 @@ class EditGroupName extends React.Component {
       // might change depending on how we use redux
       this.setState({ text: undefined }, () => this.props.onSubmit(text))
     } else {
-      alert('Please enter your comment first')
+      alert('Please enter the name first')
     }
   }
 
   render() {
     return (
-      <InputHeader
-        placeholder={'enter a group name...'}
-        text={this.state.text}
-        onChangeText={this.onChangeText}
-        buttonText={'create'}
-        onSubmit={this.onSubmit}
+      <View style={styles.inputName}>
+      <TextInput           
+      style={[
+            styles.input,Typography.F_H3,
+            this.props.extraPadding
+              ? { paddingTop: Mixins.scaleSize(12) }
+              : null,
+          ]}
+          multiline={this.props.multiline}
+          placeholder={'enter a group name...'}
+          value={this.props.text}
+          onChangeText={this.props.onChangeText} // handle input changes
       />
+      <IconButton/>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  inputName: {
+    paddingHorizontal: Layouts.PAD_HORZ, 
+    paddingVertical: Layouts.PAD_VERT,
+    flexDirection: 'row',
+    paddingHorizontal: Layouts.PAD_HORZ,
+    
+    justifyContent: 'space-around',
+  },
+  input: {
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.VIOLET.dark,
+    // borderRadius: Mixins.scaleSize(30),
+  },
   // searchInput: {
   //     flexDirection: 'row',
   //     borderWidth: 1,
