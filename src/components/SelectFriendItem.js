@@ -14,18 +14,11 @@ class SelectFriendItem extends React.Component {
     super(props)
   }
 
-  toggleChecked() {
-    this.props.setRecipient(
-      this.props.friend._id,
-      !this.props.recipients[this.props.friend._id]
-    )
-  }
-
   render() {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
-          this.toggleChecked()
+          this.props.onPress()
         }}
       >
         <View style={styles.selectFriendItem}>
@@ -37,12 +30,12 @@ class SelectFriendItem extends React.Component {
             <Text style={Typography.F_BODY}>{this.props.friend.name}</Text>
           </View>
           <CircleCheckBox
-            checked={this.props.recipients[this.props.friend._id]}
+            checked={this.props.checked}
             outerColor={Colors.VIOLET.dark}
             innerColor={Colors.VIOLET.dark}
             filterColor={Colors.PLUTO_WHITE}
             onToggle={() => {
-              this.toggleChecked()
+              this.props.onPress()
             }}
           />
         </View>
@@ -53,6 +46,12 @@ class SelectFriendItem extends React.Component {
 
 SelectFriendItem.defaultProps = {
   isChecked: false,
+  friend: {
+    name: "",
+    id: ""
+  },
+  checked: false,
+  onPress: () => {}
 }
 
 const styles = StyleSheet.create({

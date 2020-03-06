@@ -9,12 +9,13 @@ export default SelectFriendList = props => {
     <ScrollView style={styles.FriendSelectList}>
       {/* <Text>Friend Select List</Text> */}
       <SearchInput placeholder="search for friends..."/>
-      <SelectFriendItem />
-      <SelectFriendItem />
-      <SelectFriendItem />
-      <SelectFriendItem />
-      <SelectFriendItem />
-      <SelectFriendItem />
+      <SelectFriendItem recipients={{"1": false}} friend={{name:"test", id:"1"}}/>
+      <SelectFriendItem recipients={{"1": false}} friend={{name:"test", id:"1"}}/>
+      <SelectFriendItem recipients={{"1": false}} friend={{name:"test", id:"1"}}/>
+      <SelectFriendItem recipients={{"1": false}} friend={{name:"test", id:"1"}}/>
+      <SelectFriendItem recipients={{"1": false}} friend={{name:"test", id:"1"}}/>
+      <SelectFriendItem recipients={{"1": false}} friend={{name:"test", id:"1"}}/>
+      <SelectFriendItem recipients={{"1": false}} friend={{name:"test", id:"1"}}/>
       {
         // use flatlist with actual data?
       }
