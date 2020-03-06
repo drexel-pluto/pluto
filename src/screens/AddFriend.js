@@ -43,7 +43,7 @@ class AddFriend extends React.Component {
               <ShareLink url={this.state.url}/>
             </View>
           </View>
-          <InvitationCenter />
+          <InvitationCenter requests={this.props.requests} accept={this.props.accept} reject={this.props.reject}/>
         </LinearGradient>
       </View>
     )

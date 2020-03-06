@@ -17,87 +17,17 @@ class InvitationCenter extends React.Component {
             friend requests
             </Text>
         </View>
-        <View style={styles.requestContainer}>
-          <View style={styles.requestContent}>
-            <Text style={[styles.requestText, Typography.F_BODY]}>
-              friendly person
-              </Text>
-            <IconButton type="accept" />
-            <IconButton type="decline" />
+        {this.props.requests.map((request) => (
+          <View style={styles.requestContainer}>
+            <View style={styles.requestContent}>
+              <Text style={[styles.requestText, Typography.F_BODY]}>
+                  {request.from.name}
+                </Text>
+              <IconButton type="accept" _onPress={() => this.props.accept(request.from.username)} />
+              <IconButton type="reject" _onPress={() => this.props.reject(request.from.username)} />
+            </View>
           </View>
-        </View>
-        <View style={styles.requestContainer}>
-          <View style={styles.requestContent}>
-            <Text style={[styles.requestText, Typography.F_BODY]}>
-              friendly person
-              </Text>
-            <IconButton />
-            <IconButton />
-          </View>
-        </View>
-        <View style={styles.requestContainer}>
-          <View style={styles.requestContent}>
-            <Text style={[styles.requestText, Typography.F_BODY]}>
-              friendly person
-              </Text>
-            <IconButton />
-            <IconButton />
-          </View>
-        </View>
-        <View style={styles.requestContainer}>
-          <View style={styles.requestContent}>
-            <Text style={[styles.requestText, Typography.F_BODY]}>
-              friendly person
-              </Text>
-            <IconButton />
-            <IconButton />
-          </View>
-        </View>
-        <View style={styles.requestContainer}>
-          <View style={styles.requestContent}>
-            <Text style={[styles.requestText, Typography.F_BODY]}>
-              friendly person
-              </Text>
-            <IconButton />
-            <IconButton />
-          </View>
-        </View>
-        <View style={styles.requestContainer}>
-          <View style={styles.requestContent}>
-            <Text style={[styles.requestText, Typography.F_BODY]}>
-              friendly person
-              </Text>
-            <IconButton />
-            <IconButton />
-          </View>
-        </View>
-        <View style={styles.requestContainer}>
-          <View style={styles.requestContent}>
-            <Text style={[styles.requestText, Typography.F_BODY]}>
-              friendly person
-              </Text>
-            <IconButton />
-            <IconButton />
-          </View>
-        </View>
-        <View style={styles.requestContainer}>
-          <View style={styles.requestContent}>
-            <Text style={[styles.requestText, Typography.F_BODY]}>
-              friendly person
-              </Text>
-            <IconButton />
-            <IconButton />
-          </View>
-        </View>
-        <View style={styles.requestContainer}>
-          <View style={styles.requestContent}>
-            <Text style={[styles.requestText, Typography.F_BODY]}>
-              friendly person
-              </Text>
-            <IconButton />
-            <IconButton />
-          </View>
-        </View>
+        ))}
       </ScrollView>
     )
   }
