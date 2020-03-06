@@ -5,7 +5,7 @@ import { fetchUser } from '../redux/reducers/profile.reducer'
 
 class ProfileContainer extends React.Component {
   componentWillMount() {
-    const { params } = this.props.navigation.state
+    const params = this.props.route.params;
     const userId = params ? params.userId : null
 
     if (userId) {

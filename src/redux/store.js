@@ -5,7 +5,8 @@ import axiosMiddleware from 'redux-axios-middleware'
 import ReduxThunk from 'redux-thunk'
 import rootReducer from './reducers'
 import { Linking } from 'expo'
-import {sendFriendRequest} from './reducers/addFriend.reducer'
+import {sendFriendRequest, setFriend} from './reducers/addFriend.reducer'
+import * as RootNavigation from '../navigation';
 
 const client = axios.create({
   baseURL: 'https://drexel-pluto.herokuapp.com/api',
@@ -24,7 +25,9 @@ export default store = createStore(
 
 Linking.addEventListener('url', (dat) => {
   let { path, queryParams } = Linking.parse(dat.url);
-  store.dispatch(sendFriendRequest());
+  console.log(queryParams);
+  store.dispatch(setFriend(queryParams.username));
+  RootNavigation.navigate("Modal");
 })
 
 // helper functions

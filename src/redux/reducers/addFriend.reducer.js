@@ -9,16 +9,41 @@ export const SEND_FRIEND = 'friend/SEND_FRIEND'
 export const SEND_FRIEND_SUCCESS = 'friend/SEND_FRIEND_SUCCESS'
 export const SEND_FRIEND_FAIL = 'friend/SEND_FRIEND_FAIL'
 
+export const SET_FRIEND = 'friend/SET_FRIEND'
+
 // reducer
 
 let defaultStateAddFriend = {
   friendRequests: [],
+  user: {
+    username: "",
+    image: "",
+    name: ""
+  },
+  loading: false
 }
 
 export default function reducer(state = defaultStateAddFriend, action) {
   switch (action.type) {
+    case SET_FRIEND:
+      return { ...state,
+        user: {
+          username: action.username, 
+          image: "https://picsum.photos/id/239/300/300", 
+          name: "John Smith" 
+        } 
+      }
+    case GET_FRIEND_REQUESTS:
+    case SEND_FRIEND_FAIL:
+      return { ...state, loading: true };
     case GET_FRIEND_REQUESTS_SUCCESS:
-      return { ...state, friendRequests: action.payload.data };
+      return { ...state, loading: false };
+    case SEND_FRIEND_SUCCESS:
+      return { ...state, loading: false };
+    case SEND_FRIEND_FAIL:
+    case GET_FRIEND_REQUESTS_FAIL:
+      console.log(action.payload);
+      return { ...state,  loading: false };
     default:
       return state
   }
@@ -52,7 +77,7 @@ export function sendFriendRequest(username, authToken) {
     payload: {
       request: {
         method: 'POST',
-        url: `/user/friends/request123`,
+        url: `/user/friends/request`,
         data: {
           username
         },
@@ -64,10 +89,18 @@ export function sendFriendRequest(username, authToken) {
   }
 }
 
-export function addFriend(username) {
+export function addFriend() {
   return function (dispatch, getState) {
     let authToken = getState().user.authToken;
+    let username = getState().addFriend.user.username;
+    return dispatch(sendFriendRequest(username, authToken));
+  }
+}
 
-    dispatch(sendFriendRequest(username, authToken));
+// TODO: get user profile info from db
+export function setFriend(username) {
+  return {
+    type: SET_FRIEND,
+    username
   }
 }
