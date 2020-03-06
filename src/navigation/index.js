@@ -14,7 +14,8 @@ import AddFriendContainer from '../containers/addFriend.container'
 import AddPostContentCont from '../containers/addPostContent.container'
 import AddPostPermissionsCont from '../containers/addPostPermission.container'
 import UserPopupContainer from '../containers/userPopup.container'
-import EditGroupContainer from '../containers/editGroup.container';
+import EditGroupContainer from '../containers/editGroup.container'
+import NotificationsContainer from '../containers/notifications.container';
 
 import modal from "./transitions/modal"
 
@@ -81,6 +82,10 @@ function AppStack() {
       <Stack.Screen
         name="EditGroup"
         component={EditGroupContainer}
+      />
+      <Stack.Screen
+        name="Notifications"
+        component={NotificationsContainer}
       />
     </Stack.Navigator>
   );
