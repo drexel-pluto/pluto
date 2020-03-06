@@ -1,4 +1,7 @@
 import { AsyncStorage } from 'react-native'
+import { Linking } from 'expo'
+import * as RootNavigation from '../../navigation';
+import {setFriend} from "./addFriend.reducer";
 // types
 
 export const CREATE_USER = 'user/CREATE_USER'
@@ -21,6 +24,9 @@ export const TOKEN_ERROR = 'user/TOKEN_ERROR'
 export const LOGOUT = 'user/LOGIN'
 
 export const SET_IS_CREATE = 'user/SET_IS_CREATE'
+
+export const INIT_LINKS = 'user/INIT_LINKS_SUCCESS'
+
 
 // reducer
 
@@ -208,7 +214,9 @@ export const removeUserToken = () => dispatch =>
       dispatch(tokenError(err.message || 'ERROR'))
     })
 
-export function getMe(authToken) {
+
+
+function fetchMe(authToken) {
   return {
     type: GET_ME,
     payload: {
@@ -223,6 +231,13 @@ export function getMe(authToken) {
   }
 }
 
+export function getMe() {
+  return function(dispatch, getState) {
+    let authToken = getState().user.authToken;
+    return dispatch(fetchMe(authToken));
+  }
+}
+
 export function logout() {
   return function(dispatch) {
     dispatch(removeUserToken())
@@ -230,9 +245,45 @@ export function logout() {
 }
 
 export function init() {
-  return function(dispatch, getState) {
-    return dispatch(getUserToken()).then(() =>
-      dispatch(getMe(getState().user.authToken))
-    )
+  return function(dispatch) {
+    return dispatch(getUserToken()).then(() => 
+      dispatch(getMe())
+    ).then((action) => (
+      dispatch(initLinkListener())
+    ))
+  }
+}
+
+
+// linking functions
+
+function initLinks() {
+  return {
+    type: INIT_LINKS
+  }
+}
+
+function initLinkListener() {
+  return function (dispatch, getState) {
+    
+    Linking.addEventListener('url', (dat) => {
+      let { path, queryParams } = Linking.parse(dat.url);
+      if (path == "addfriend") {
+        dispatch(setFriend(queryParams.username));
+        RootNavigation.navigate("Modal");
+      }
+    })
+    
+    Linking.getInitialURL().then((url) => {
+      let { path, queryParams } = Linking.parse(url);
+      console.log(queryParams, path);
+      if (path == "addfriend") {
+        dispatch(setFriend(queryParams.username));
+        RootNavigation.navigate("Modal");
+      }
+
+    })
+
+    return dispatch(initLinks());
   }
 }
