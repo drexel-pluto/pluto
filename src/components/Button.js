@@ -19,6 +19,8 @@ export default Button = props => {
           onPress={() => {
             _onPress()
           }}
+
+          style={props.style ?? props.style}
         >
           <LinearGradient
             style={styles.smallButton}
@@ -42,6 +44,7 @@ export default Button = props => {
           onPress={() => {
             _onPress()
           }}
+          style={props.style ?? props.style}
         >
           <View style={styles.button}>
             <Text
@@ -62,6 +65,7 @@ export default Button = props => {
           onPress={() => {
             _onPress()
           }}
+          style={props.style ?? props.style}
         >
           <View
             style={[styles.button, { borderWidth: 1, borderColor: color.dark }]}
@@ -84,6 +88,7 @@ export default Button = props => {
           onPress={() => {
             _onPress()
           }}
+          style={props.style ?? props.style}
         >
           <LinearGradient
             style={styles.button}

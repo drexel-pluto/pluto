@@ -1,5 +1,4 @@
 import { AsyncStorage } from 'react-native'
-import { Linking } from 'expo'
 // types
 
 export const CREATE_USER = 'user/CREATE_USER'
@@ -32,7 +31,7 @@ let defaultStateUser = {
   isLoggedIn: false,
   error: '',
   authToken: '',
-  isCreate: false,
+  isCreate: false
 }
 
 export default function reducer(state = defaultStateUser, action) {
