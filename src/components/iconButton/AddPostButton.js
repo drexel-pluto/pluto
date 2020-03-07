@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import { LinearGradient } from 'expo-linear-gradient'
-import AddPost from '../../assets/images/iconHeart.svg'
+import AddPost from '../../assets/images/iconPost.svg'
 
 export default AddPostButton = props => {
   const { _onPress } = props
@@ -30,7 +30,7 @@ export default AddPostButton = props => {
       }}
     >
       <View style={[styles.addPost, Styles.shadow(Colors.VIOLET.dark)]}>
-        <Text style={{ color: 'white' }}>add post</Text>
+        <AddPost />
       </View>
     </TouchableOpacity>
   )

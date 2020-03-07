@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import { LinearGradient } from 'expo-linear-gradient'
+import AddFriend from '../../assets/images/iconFriend.svg'
 
 export default AddFriendButton = props => {
   const { _onPress } = props
@@ -31,7 +32,7 @@ export default AddFriendButton = props => {
       }}
     >
       <View style={[styles.addFriend, Styles.shadow(Colors.VIOLET.dark)]}>
-        <Text style={{ color: Colors.VIOLET.dark }}>add friend</Text>
+        <AddFriend />
       </View>
       <LinearGradient
         colors={Colors.gradient.dark(Colors.MELON)}

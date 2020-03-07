@@ -20,7 +20,7 @@ const CarouselView = props => {
           zIndex: 10,
         }}
       >
-        <IconButton type="close" _onPress={toggle} />
+        <IconButton type="cancel" _onPress={toggle} />
       </View>
       <Carousel style={{ flex: 1 }} currentPage={currentImg} autoplay={false}>
         {images.map(imgUrl => (
@@ -43,7 +43,7 @@ const CarouselView = props => {
         }}
       >
         <IconButton type="like" />
-        <IconButton type="replies" />
+        <IconButton type="comment" />
       </View>
     </View>
   )

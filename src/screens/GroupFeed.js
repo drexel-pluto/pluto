@@ -38,7 +38,7 @@ class GroupFeed extends React.Component {
 
     const rightHeaderItems = [
       <IconButton type="searchItem" />,
-      <IconButton type="filter" />,
+      <IconButton type="settings" />,
     ]
 
     return (
@@ -116,7 +116,9 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(100),
   },
   addPost_wrapper: {
-    alignItems: 'center',
+    paddingBottom: Mixins.scaleSize(30),
+    paddingHorizontal: Layouts.PAD_HORZ,
+    alignItems: 'flex-end',
   },
 })
 

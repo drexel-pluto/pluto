@@ -7,6 +7,11 @@ import HeartButton from './HeartButton'
 import SearchItem from '../../assets/images/iconSearch.svg'
 import NotiCenter from '../../assets/images/iconNotif.svg'
 import MyProfile from '../../assets/images/iconProfile.svg'
+import Settings from '../../assets/images/iconSettings.svg'
+import Filter from '../../assets/images/iconFilter.svg'
+import Back from '../../assets/images/iconBack.svg'
+import Comment from '../../assets/images/iconComment.svg'
+import Cancel from '../../assets/images/iconCancel.svg'
 
 
 
@@ -35,6 +40,19 @@ export default IconButton = props => {
 
         <HeartButton />
       )
+
+      case 'settings':
+        return (
+  
+          <Settings />
+        )
+
+      case 'filter':
+        return (
+
+          <Filter />
+
+        )
 
     case 'searchItem':
       return (
@@ -70,6 +88,22 @@ export default IconButton = props => {
         </TouchableOpacity>
         
       )
+
+      case 'comment':
+      return (
+    
+          <Comment />
+        
+      )
+
+      case 'cancel':
+      return (
+        <AddPostButton
+          _onPress={() => {
+            _onPress()
+          }}
+        />
+      )
     default:
       return (
         <TouchableOpacity
@@ -78,14 +112,7 @@ export default IconButton = props => {
             type == 'back' ? _onPress(null) : _onPress()
           }}
         >
-          <Text
-            style={[
-              Typography.F_CAPTION,
-              customColor ? { color: customColor } : null,
-            ]}
-          >
-            {type}
-          </Text>
+          <Back />
         </TouchableOpacity>
       )
   }
