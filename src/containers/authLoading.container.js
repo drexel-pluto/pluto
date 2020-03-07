@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import AuthLoadingScreen from '../screens/auth/AuthLoading'
-import { init } from '../redux/reducers/user.reducer'
+import { init, initLinkListener } from '../redux/reducers/user.reducer'
 
 class AuthLoadingContainer extends React.Component {
   render() {
@@ -15,6 +15,10 @@ class AuthLoadingContainer extends React.Component {
         this.props.navigation.navigate(
           action.type.endsWith('SUCCESS') ? 'App' : 'Login'
         )
+
+        if (action.type.endsWith('SUCCESS')) {
+          this.props.initLinkListener();
+        }
       })
       .catch(() => {
         this.props.navigation.navigate('Login')
@@ -29,6 +33,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   init,
+  initLinkListener
 }
 
 export default connect(

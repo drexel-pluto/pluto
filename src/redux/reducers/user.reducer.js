@@ -1,4 +1,7 @@
 import { AsyncStorage } from 'react-native'
+import { Linking } from 'expo'
+import {sendFriendRequest, setFriend} from './addFriend.reducer'
+import * as RootNavigation from '../../navigation';
 // types
 
 export const CREATE_USER = 'user/CREATE_USER'
@@ -21,6 +24,9 @@ export const TOKEN_ERROR = 'user/TOKEN_ERROR'
 export const LOGOUT = 'user/LOGIN'
 
 export const SET_IS_CREATE = 'user/SET_IS_CREATE'
+
+export const INIT_LINKS = 'user/INIT_LINKS_SUCCESS'
+
 
 // reducer
 
@@ -234,5 +240,38 @@ export function init() {
     return dispatch(getUserToken()).then(() =>
       dispatch(getMe(getState().user.authToken))
     )
+  }
+}
+
+
+
+function initLinks() {
+  return {
+    type: INIT_LINKS
+  }
+}
+
+export function initLinkListener() {
+  return function (dispatch, getState) {
+
+    Linking.addEventListener('url', (dat) => {
+      let { path, queryParams } = Linking.parse(dat.url);
+      if (path == "addfriend") {
+        dispatch(setFriend(queryParams.username));
+        RootNavigation.navigate("Modal");
+      }
+    })
+
+    Linking.getInitialURL().then((url) => {
+      let { path, queryParams } = Linking.parse(url);
+      console.log(queryParams, path);
+      if (path == "addfriend") {
+        dispatch(setFriend(queryParams.username));
+        RootNavigation.navigate("Modal");
+      }
+
+    })
+
+    return dispatch(initLinks());
   }
 }
