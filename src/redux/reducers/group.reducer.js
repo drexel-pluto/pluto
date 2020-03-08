@@ -38,20 +38,39 @@ export function setMemebers(members) {
 export function getPosts(group_id) {
   let token = store.getState().user.authToken
 
-  return {
-    type: GET_GROUP_POSTS,
-    payload: {
-      request: {
-        method: 'POST',
-        url: `/posts/from-group`,
-        data: {
-          groupId: group_id,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
+  if (group_id === -1) {
+    // when group_id = -1, get all posts (everyone)
+    return {
+      type: GET_GROUP_POSTS,
+      payload: {
+        request: {
+          method: 'POST',
+          url: `/posts/all`,
+          data: {
+            groupId: group_id,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       },
-    },
+    }
+  } else {
+    return {
+      type: GET_GROUP_POSTS,
+      payload: {
+        request: {
+          method: 'POST',
+          url: `/posts/from-group`,
+          data: {
+            groupId: group_id,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      },
+    }
   }
 }
 
