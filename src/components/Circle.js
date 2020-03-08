@@ -24,6 +24,7 @@ export default Circle = props => {
         navigation.navigate('Profile', { userId: user._id })
       }}
       disabled={props.disabled}
+      style={props.style ?? props.style}
     >
       <View style={Styles.shadow(Colors.VIOLET.dark)}>
         {

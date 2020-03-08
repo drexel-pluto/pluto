@@ -28,6 +28,4 @@ export const getFriendById = (id) => {
   return friends.find(obj => {
     return obj.friend._id === id
   }).friend;
-
-
 }

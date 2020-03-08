@@ -19,6 +19,7 @@ let defaultStatePost = {
   poster: {},
   text: '',
   id: '',
+  tags: [],
 }
 
 export default function reducer(state = defaultStatePost, action) {
@@ -37,12 +38,13 @@ export default function reducer(state = defaultStatePost, action) {
         postedAt: data.postedAt,
         text: data.text,
         id: data._id,
+        tags: data.tags,
       }
     case SET_POSTER:
       return { ...state, poster: action.poster }
     case FETCH_POST_FAIL:
     case SEND_COMMENT_FAIL:
-      console.log(action);
+      console.log(action)
       return { ...state, loading: false }
     default:
       return state
@@ -50,8 +52,8 @@ export default function reducer(state = defaultStatePost, action) {
 }
 
 export function sendComment(content) {
-  let token = store.getState().user.authToken;
-  let postId = store.getState().post.id;
+  let token = store.getState().user.authToken
+  let postId = store.getState().post.id
   return {
     type: SEND_COMMENT,
     payload: {
@@ -60,7 +62,7 @@ export function sendComment(content) {
         url: `/posts/comment`,
         data: {
           postId: postId,
-          text: content
+          text: content,
         },
         headers: {
           Authorization: `Bearer ${token}`,

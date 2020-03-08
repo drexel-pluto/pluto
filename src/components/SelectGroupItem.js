@@ -124,8 +124,14 @@ class SelectGroupItem extends React.Component {
               this.props.user.id != item._id ? (
                 <SelectFriendItem
                   friend={item}
-                  setRecipient={this.props.setRecipient}
-                  recipients={this.props.recipients}
+                  onPress={() => {
+                    this.props.setRecipient(
+                      item._id,
+                      !this.props.recipients[item._id]
+                      )
+                    }
+                  }
+                  checked={this.props.recipients[item._id]}
                 />
               ) : null
             }

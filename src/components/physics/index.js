@@ -11,6 +11,9 @@ import { Colors } from './../../styles/index'
 
 Matter.Common.isElement = () => false //-- Overriding this function because the original references HTMLElement
 
+
+const min = -1;
+
 export default class RigidBodies extends Component {
   constructor() {
     super()
@@ -182,14 +185,18 @@ export default class RigidBodies extends Component {
           active: true,
           x: start.event.pageX,
         },
-      })
+      });
+
+      this.props.startSwipe(start.event.pageX);
     }
 
     let move = touches.find(x => x.type === 'move')
 
     if (move && this.state.swipeTouch.active) {
-      let leftActive = this.state.swipeIndex > -1
+      let leftActive = this.state.swipeIndex > min
       let rightActive = this.state.swipeIndex < this.state.numGroups - 1
+
+      this.props.moveSwipe(move.event.pageX, move.event.pageY);
 
       if (leftActive) {
         this.swipes.left.setTargetPos({
@@ -236,10 +243,14 @@ export default class RigidBodies extends Component {
       let threshold = width / 2
 
       if (Math.abs(dist) < threshold) {
+        this.props.endSwipe(true);
+
         this.swipes.left.animateToEdge(true)
         this.swipes.right.animateToEdge(false)
       } else if (dist > 0) {
-        if (this.state.swipeIndex > -1) {
+        this.props.endSwipe(false);
+
+        if (this.state.swipeIndex > min) {
           this.swipes.left.animateToEdge(false, () =>
             this.doneAnim(this.state.swipeIndex - 1)
           )
@@ -249,6 +260,8 @@ export default class RigidBodies extends Component {
           this.swipes.right.animateToEdge(false)
         }
       } else {
+        this.props.endSwipe(true);
+
         if (this.state.swipeIndex < this.state.numGroups - 1) {
           this.swipes.left.animateToEdge(true)
           this.swipes.right.animateToEdge(true, () =>
@@ -301,6 +314,13 @@ export default class RigidBodies extends Component {
     this.props.setIndex && this.props.setIndex(index)
     this.setState({ swipeIndex: index, entities: this.state.entities })
   }
+
+}
+
+RigidBodies.defaultProps = {
+  moveSwipe: ()=>{},
+  startSwipe: ()=>{},
+  endSwipe: ()=>{},
 }
 
 function pickHex(color1, color2) {
