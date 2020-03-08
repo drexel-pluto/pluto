@@ -24,12 +24,12 @@ class EditGroup extends React.Component {
     return (
       <View style={[styles.editGroupScreen, Layouts.FLEX_CONTAINER]}>
         <View style={styles.actions}>
-          <Button type='text' text="cancel" color="Colors.BLACK_ROCK"/>
-          <Button type='outline' text="update" color="Colors.BLACK_ROCK"/>
+          <Button type="text" text="cancel" color="Colors.BLACK_ROCK" />
+          <Button type="outline" text="update" color="Colors.BLACK_ROCK" />
         </View>
         <EditGroupName />
         <CircleContainer />
-        <SelectFriendList />
+        <SelectFriendList data={this.props.friends} />
       </View>
     )
   }
