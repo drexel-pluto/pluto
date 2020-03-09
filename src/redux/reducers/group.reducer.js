@@ -44,11 +44,8 @@ export function getPosts(group_id) {
       type: GET_GROUP_POSTS,
       payload: {
         request: {
-          method: 'POST',
+          method: 'GET',
           url: `/posts/all`,
-          data: {
-            groupId: group_id,
-          },
           headers: {
             Authorization: `Bearer ${token}`,
           },

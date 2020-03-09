@@ -50,11 +50,7 @@ class AddPost extends React.Component {
     let defaultRecipients = this.props.route.params?.defaultRecipients ?? {}
 
     Object.keys(defaultRecipients).map(index => {
-      if (defaultRecipients[index].friend) {
-        this.props.setRecipient(defaultRecipients[index].friend._id, true)
-      } else {
-        this.props.setRecipient(defaultRecipients[index]._id, true)
-      }
+      this.props.setRecipient(defaultRecipients[index]._id, true)
     })
   }
 

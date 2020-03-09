@@ -76,8 +76,15 @@ export default function reducer(state = defaultStateUser, action) {
       friends = []
       groups = []
 
-      // create group which contains everyone
+      // create group which contains everyone and yourself
       // and prepend to groups var
+      myUserData = {
+        _id: data._id,
+        email: data.email,
+        name: data.name,
+        profilePicURL: data.profilePicURL,
+        username: data.username,
+      }
       everyone_members = []
       everyone_memberIds = []
       data.friends.map(friend => {
@@ -88,13 +95,14 @@ export default function reducer(state = defaultStateUser, action) {
         __v: 0,
         _id: -1,
         createdAt: 'today',
-        memberIds: [...everyone_memberIds],
-        members: [...everyone_members],
+        memberIds: [myUserData._id, ...everyone_memberIds],
+        members: [myUserData, ...everyone_members],
         owner: data._id,
         title: 'everyone',
       }
       groups = [everyone, ...data.groups]
 
+      // process friends data for group info
       data.friends.forEach(element => {
         let friend = { ...element }
         let friend_groups = []
