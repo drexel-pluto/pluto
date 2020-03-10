@@ -184,7 +184,9 @@ export default class RigidBodies extends Component {
 
     Matter.Engine.update(this.state.physics.engine, time.delta)
 
-    MoveBox(this.state, { touches, screen, layout, time })
+    if (!this.state.swipeTouch.active) {
+      MoveBox(this.state, { touches, screen, layout, time })
+    }
 
     this.backgroundDrag(touches)
 
@@ -200,12 +202,17 @@ export default class RigidBodies extends Component {
     let start = touches.find(x => x.type === 'start')
 
     if (start && start.backgroundTarget) {
+      
       this.setState({
         swipeTouch: {
           active: true,
           x: start.event.pageX,
-        },
+        }
       })
+      let constraint = this.state.physics.constraint
+      constraint.pointA = null
+      constraint.bodyB = null
+      constraint.pointB = null
 
       this.props.startSwipe(start.event.pageX)
     }
@@ -322,10 +329,16 @@ export default class RigidBodies extends Component {
     this.state.entities.forEach(element => {
       element.zIndex = 4
       if (!element.isVisible && element.groups.includes(index)) {
+        if (Matter.Composite.get(world, element.body.id, element.body.type)) {
+          console.log("IN HERE ALREADY");
+        }
         Matter.World.add(world, [element.body])
         Matter.Body.setPosition(element.body, { x: xPos, y: height / 2 })
         element.isVisible = true
       } else if (element.isVisible && !element.groups.includes(index)) {
+        if (!Matter.Composite.get(world, element.body.id, element.body.type)) {
+          console.log("NOT HERE ALREADY");
+        }
         Matter.World.remove(world, [element.body])
         element.isVisible = false
       }
