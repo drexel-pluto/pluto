@@ -29,9 +29,20 @@ class SelectFriendList extends React.Component {
     }
 
     return (
-      <View style={styles.FriendSelect}>
-        <SearchInput placeholder="search for friends..." onChangeText={(text)=>this.onChangeText(text)}/>
+      <ScrollView style={styles.FriendSelectList} stickyHeaderIndices={[0]}>
+        <View
+          style={{
+            backgroundColor: 'white',
+            paddingVertical: Mixins.scaleSize(20),
+          }}
+        >
+          <SearchInput placeholder="search for friends..." onChangeText={(text)=>this.onChangeText(text)}/>
+        </View>
         <FlatList
+          contentContainerStyle={{
+            paddingBottom: Mixins.scaleSize(50),
+            flex: 1,
+          }}
           data={friends}
           renderItem={({ item }) => (
             <SelectFriendItem 
@@ -42,17 +53,15 @@ class SelectFriendList extends React.Component {
           extraData={this.props.members}
           keyExtractor={item => item.friend._id}
         />
-      </View>
+      </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  FriendSelect: {
-    // height: 100,
-    paddingTop: Layouts.PAD_VERT,
+  FriendSelectList: {
     backgroundColor: Colors.UI_BG,
-    height: Mixins.scaleSize(35),
+    height: '50%',
     borderTopLeftRadius: Mixins.scaleSize(35),
     borderTopRightRadius: Mixins.scaleSize(35),
     backgroundColor: Colors.CREAM,

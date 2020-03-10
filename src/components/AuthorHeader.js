@@ -34,7 +34,9 @@ const AuthorHeader = props => {
             <Text style={[Typography.F_BODY, Typography.F_BOLD]}>
               {authInfo.name}
             </Text>
-            <Text style={Typography.F_SUBTITLE}>{calcTimeDif(props.time)}</Text>
+            <Text style={[Typography.F_SUBTITLE, { opacity: 0.7 }]}>
+              {calcTimeDif(props.time)}
+            </Text>
           </View>
         )}
       </View>

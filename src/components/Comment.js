@@ -10,7 +10,7 @@ export default Comment = props => {
     <View style={styles.comment}>
       <View style={styles.header_wrapper}>
         <AuthorHeader authorId={data.poster._id} time={data.postedAt} />
-        <IconButton type="like" customColor={Colors.ACCENT} />
+        <IconButton type="heartPost" />
       </View>
       <View style={styles.content}>
         <Text>{data.text}</Text>
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   comment: {
     marginBottom: Mixins.scaleSize(10),
     borderWidth: 1,
-    borderColor: Colors.VIOLET.light,
+    borderColor: Colors.VIOLET.med,
     borderRadius: Mixins.scaleSize(25),
     padding: Mixins.scaleSize(15),
     paddingVertical: Mixins.scaleSize(20),

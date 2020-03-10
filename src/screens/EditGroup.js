@@ -24,8 +24,8 @@ class EditGroup extends React.Component {
     return (
       <KeyboardAvoidingView style={[styles.editGroupScreen, Layouts.FLEX_CONTAINER]} behavior="padding">
         <View style={styles.actions}>
-          <Button type='text' text="cancel" color="Colors.BLACK_ROCK"/>
-          <Button type='outline' text="update" color="Colors.BLACK_ROCK"/>
+          <Button type="text" text="cancel" color="Colors.BLACK_ROCK" />
+          <Button type="outline" text="update" color="Colors.BLACK_ROCK" />
         </View>
         <EditGroupName />
         <CircleContainer />

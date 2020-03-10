@@ -6,6 +6,7 @@ import IconButton from './iconButton/IconButton'
 import PostMedia from './PostMedia'
 import { LinearGradient } from 'expo-linear-gradient'
 import ContainerTail from './../assets/images/containerTail.svg'
+import PostContent from './PostContent'
 
 class PostTeaserFull extends React.Component {
   constructor(props) {
@@ -17,7 +18,18 @@ class PostTeaserFull extends React.Component {
       <TouchableWithoutFeedback
         onPress={() => this.props.openPost(this.props._id, this.props.poster)}
       >
-        <View style={styles.postTeaserFull}>
+        <View>
+          <PostContent
+            media={this.props.media}
+            text={this.props.text}
+            tags={this.props.tags}
+            postedAt={this.props.postedAt}
+            author={this.props.poster}
+            leftItem={<IconButton type="replies" />}
+          />
+        </View>
+
+        {/* <View style={styles.postTeaserFull}>
           {
             // top section
           }
@@ -85,7 +97,7 @@ class PostTeaserFull extends React.Component {
               <IconButton type="heartPost" customColor={Colors.ACCENT} />
             </View>
           </LinearGradient>
-        </View>
+        </View> */}
       </TouchableWithoutFeedback>
     )
   }

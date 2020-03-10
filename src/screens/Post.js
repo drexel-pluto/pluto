@@ -25,19 +25,17 @@ class Post extends React.Component {
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
         />
-        <View style={styles.header_wrapper}>
-          <AuthorHeader
-            time={this.props.data.postedAt}
-            author={this.props.data.poster}
-          />
-          <IconButton type="like" />
-        </View>
 
-        <PostContent
-          media={this.props.data.mediaURLs}
-          text={this.props.data.text}
-          tags={this.props.data.tags}
-        />
+        <View style={{ paddingHorizontal: Layouts.PAD_HORZ_SM }}>
+          <PostContent
+            media={this.props.data.mediaURLs}
+            text={this.props.data.text}
+            tags={this.props.data.tags}
+            postedAt={this.props.data.postedAt}
+            author={this.props.data.poster}
+            rightItem={<IconButton type="recipients" />}
+          />
+        </View>
 
         <View style={styles.tag_wrapper}>
           <TagList data={TAG_DATA} />
@@ -51,22 +49,6 @@ class Post extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  post: {},
-  content: {
-    paddingHorizontal: Layouts.PAD_HORZ,
-    paddingVertical: Layouts.PAD_VERT,
-    width: '100%',
-    position: 'relative',
-  },
-  text_wrapper: { paddingBottom: Layouts.PAD_VERT },
-  header_wrapper: {
-    paddingHorizontal: Layouts.PAD_HORZ,
-    paddingVertical: Layouts.PAD_VERT,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-})
+const styles = StyleSheet.create({})
 
 export default Post

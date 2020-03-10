@@ -4,8 +4,7 @@ import EditGroup from '../screens/EditGroup'
 import { toggleMember } from '../redux/reducers/editGroup.reducer'
 
 class EditGroupContainer extends React.Component {
-  componentWillMount() {
-  }
+  componentWillMount() {}
 
   render() {
     return (

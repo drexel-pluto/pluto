@@ -15,6 +15,7 @@ export default PostFeed = props => {
               _id={item._id}
               media={item.mediaURLs}
               text={item.text}
+              tags={item.tags}
               postedAt={item.postedAt}
               poster={item.poster}
               openPost={props.openPost}

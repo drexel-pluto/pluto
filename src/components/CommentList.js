@@ -9,12 +9,10 @@ export default CommentList = props => {
     <View style={styles.commentList}>
       <FlatList
         data={props.data}
-        renderItem={({ item }) => (
-          <Comment data={item} />
-        )}
+        renderItem={({ item }) => <Comment data={item} />}
         keyExtractor={item => item.id}
       />
-      <AddComment sendComment={props.sendComment}/>
+      <AddComment sendComment={props.sendComment} />
     </View>
   )
 }
@@ -22,7 +20,7 @@ export default CommentList = props => {
 const styles = StyleSheet.create({
   commentList: {
     width: '100%',
-    paddingHorizontal: Layouts.PAD_HORZ,
+    paddingHorizontal: Layouts.PAD_HORZ_SM,
     paddingVertical: Layouts.PAD_VERT,
   },
 })
