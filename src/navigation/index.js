@@ -81,6 +81,10 @@ function AppStack() {
       <Stack.Screen
         name="EditGroup"
         component={EditGroupContainer}
+        options={{
+          gestureDirection: "horizontal-inverted",
+          gestureEnabled: false
+        }}
       />
     </Stack.Navigator>
   );

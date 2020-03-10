@@ -54,7 +54,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log(this.props.groups)
     const rightHeaderItems = [
       <IconButton type="notiCenter" />,
       <IconButton
@@ -149,10 +148,17 @@ class Home extends React.Component {
 
   endSwipe(cancel) {
     if (this.state.index !== min) return
-    this.swipe.animateToEdge(cancel)
-
+    
     if (!cancel) {
-      this.props.navigation.navigate('EditGroup')
+      this.swipe.animateToEdge(cancel, ()=>{
+        this.props.navigation.navigate('EditGroup', {
+          onBack: () => {
+            this.endSwipe(true);
+          }
+        })
+      })
+    } else {
+      this.swipe.animateToEdge(cancel)
     }
 
     this.setState({

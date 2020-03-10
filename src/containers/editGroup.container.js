@@ -5,6 +5,24 @@ import { toggleMember } from '../redux/reducers/editGroup.reducer'
 
 class EditGroupContainer extends React.Component {
   componentWillMount() {}
+  
+  doneEdit() {
+    this.goBack();
+  }
+
+  cancelEdit() {
+    this.goBack();
+  }
+
+  goBack() {
+    let onBack = this.props.route.params?.onBack ?? false;
+    if (onBack) {
+      onBack();
+    }
+    this.props.navigation.goBack({
+      doneEdit: true
+    });
+  }
 
   render() {
     return (
@@ -14,6 +32,8 @@ class EditGroupContainer extends React.Component {
         friends={this.props.friends}
         toggleMember={this.props.toggleMember}
         members={this.props.members}
+        doneEdit={()=>this.doneEdit()}
+        cancelEdit={()=>this.cancelEdit()}
       />
     )
   }

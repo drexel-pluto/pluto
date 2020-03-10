@@ -13,7 +13,6 @@ class SelectFriendList extends React.Component {
     }
   }
   onChangeText(text) {
-    console.log(text);
     this.setState({searchText: text});
   }
 
