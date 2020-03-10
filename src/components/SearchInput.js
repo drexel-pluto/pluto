@@ -17,7 +17,10 @@ class SearchInput extends React.Component {
     }
   }
 
-  onChangeText = text => this.setState({ text })
+  onChangeText = text => {
+    this.setState({ text })
+    this.props.onChangeText(text);
+  }
 
   onSubmit = () => {
     const { text } = this.state
@@ -42,6 +45,10 @@ class SearchInput extends React.Component {
       />
     )
   }
+}
+
+SearchInput.defaultProps = {
+  onChangeText: () => {}
 }
 
 const styles = StyleSheet.create({

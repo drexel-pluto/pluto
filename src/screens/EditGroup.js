@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import CircleContainer from '../components/CircleContainer'
@@ -22,15 +22,15 @@ class EditGroup extends React.Component {
 
   render() {
     return (
-      <View style={[styles.editGroupScreen, Layouts.FLEX_CONTAINER]}>
+      <KeyboardAvoidingView style={[styles.editGroupScreen, Layouts.FLEX_CONTAINER]} behavior="padding">
         <View style={styles.actions}>
-          <Button type="text" text="cancel" color="Colors.BLACK_ROCK" />
-          <Button type="outline" text="update" color="Colors.BLACK_ROCK" />
+          <Button type="text" text="cancel" color="Colors.BLACK_ROCK" _onPress={()=>this.props.doneEdit()}/>
+          <Button type="outline" text="update" color="Colors.BLACK_ROCK" _onPress={()=>this.props.cancelEdit()}/>
         </View>
         <EditGroupName />
         <CircleContainer />
-        <SelectFriendList data={this.props.friends} />
-      </View>
+        <SelectFriendList friends={this.props.friends} toggleMember={this.props.toggleMember} members={this.props.members}/>
+      </KeyboardAvoidingView>
     )
   }
 }
