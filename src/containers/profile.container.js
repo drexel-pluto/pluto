@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Profile from '../screens/Profile.js'
 import { fetchUser } from '../redux/reducers/profile.reducer'
+import { openPost } from '../redux/reducers/post.reducer'
 
 class ProfileContainer extends React.Component {
   componentWillMount() {
@@ -13,6 +14,11 @@ class ProfileContainer extends React.Component {
     }
   }
 
+  _openPost(post_id, poster) {
+    this.props.openPost(post_id, poster)
+    this.props.navigation.navigate('Post')
+  }
+
   render() {
     return (
       <Profile
@@ -20,6 +26,7 @@ class ProfileContainer extends React.Component {
         navigation={this.props.navigation}
         route={this.props.route}
         myId={this.props.myId}
+        openPost={(id, poster) => this._openPost(id, poster)}
       />
     )
   }
@@ -32,6 +39,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchUser,
+  openPost,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)
