@@ -27,7 +27,8 @@ const MoveBox = (state, { touches }) => {
       let body = state.entities[key].body
       return (
         body &&
-        Matter.Bounds.contains(body.bounds, { x: startPos[0], y: startPos[1] })
+        Matter.Bounds.contains(body.bounds, { x: startPos[0], y: startPos[1] }) &&
+        state.entities[key].isVisible == true
       )
     })
 
