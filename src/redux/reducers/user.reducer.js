@@ -187,7 +187,8 @@ export const tokenError = error => ({
 
 const storageKey = 'userToken'
 
-export const getUserToken = () => dispatch =>
+export function getUserToken () { 
+  return (dispatch) =>
   AsyncStorage.getItem(storageKey)
     .then(data => {
       dispatch(getToken(data))
@@ -195,24 +196,30 @@ export const getUserToken = () => dispatch =>
     .catch(err => {
       dispatch(tokenError(err.message || 'ERROR'))
     })
+}
 
-export const saveUserToken = token => dispatch =>
-  AsyncStorage.setItem(storageKey, token)
-    .then(data => {
-      dispatch(saveToken(token))
-    })
-    .catch(err => {
-      dispatch(tokenError(err.message || 'ERROR'))
-    })
-
-export const removeUserToken = () => dispatch =>
-  AsyncStorage.removeItem(storageKey)
-    .then(data => {
-      dispatch(removeToken(data))
-    })
-    .catch(err => {
-      dispatch(tokenError(err.message || 'ERROR'))
-    })
+export function saveUserToken (token) {
+  return (dispatch) =>
+    AsyncStorage.setItem(storageKey, token)
+      .then(data => {
+        console.log("LINE 202")
+        dispatch(saveToken(token))
+      })
+      .catch(err => {
+        console.log("LINE 206")
+        dispatch(tokenError(err.message || 'ERROR'))
+      })
+}
+export function removeUserToken () { 
+  return (dispatch) =>
+    AsyncStorage.removeItem(storageKey)
+      .then(data => {
+        dispatch(removeToken(data))
+      })
+      .catch(err => {
+        dispatch(tokenError(err.message || 'ERROR'))
+      })
+}
 
 export function getMe(authToken) {
   return {
