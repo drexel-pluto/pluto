@@ -14,27 +14,37 @@ class HeartButton extends React.Component {
     super(props)
     this.animatedScaleValue = new Animated.Value(0)
     this.animatedTranslateValue = new Animated.Value(0)
+    this.isLiked = false
   }
 
   heartAnimate() {
-    Animated.spring(this.animatedScaleValue, {
-      toValue: 1,
-    }).start()
+    if (!this.isLiked) {
+      // first like
+      Animated.sequence([
+        Animated.spring(this.animatedScaleValue, {
+          toValue: 1,
+          duration: 300,
+        }).start(),
+        Animated.spring(this.animatedTranslateValue, {
+          toValue: 5,
+          duration: 200,
+          friction: 3,
+          tension: 40,
+          delay: 300,
+        }).start(),
+      ])
 
-    Animated.spring(this.animatedTranslateValue, {
-      toValue: 5,
-      delay: 300,
-      friction: 3,
-      tension: 40,
-    }).start()
-  }
-
-  translate() {
-    Animated.spring(this.animatedTranslateValue, {
-      toValue: 5,
-      // friction: 3,
-      // tension: 40,
-    }).start()
+      this.isLiked = true
+    } else {
+      // after liked
+      this.animatedTranslateValue.setValue(0)
+      Animated.spring(this.animatedTranslateValue, {
+        toValue: 5,
+        duration: 200,
+        friction: 3,
+        tension: 40,
+      }).start()
+    }
   }
 
   render() {
