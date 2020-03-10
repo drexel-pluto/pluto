@@ -33,7 +33,6 @@ class Post extends React.Component {
             tags={this.props.data.tags}
             postedAt={this.props.data.postedAt}
             author={this.props.data.poster}
-            rightItem={<IconButton type="recipients" />}
           />
         </View>
 
