@@ -19,7 +19,6 @@ export default Button = props => {
           onPress={() => {
             _onPress()
           }}
-
           style={props.style ?? props.style}
         >
           <LinearGradient
