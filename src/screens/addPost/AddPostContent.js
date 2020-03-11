@@ -83,7 +83,10 @@ class AddPost extends React.Component {
     )
 
     return (
-      <KeyboardAwareScrollView stickyHeaderIndices={[0]}>
+      <KeyboardAwareScrollView
+        stickyHeaderIndices={[0]}
+        keyboardShouldPersistTaps="always"
+      >
         <ScreenHeader
           isFixed={true}
           title={'New Post'}

@@ -18,7 +18,10 @@ class Post extends React.Component {
   render() {
     console.log(this.props.data)
     return (
-      <KeyboardAwareScrollView stickyHeaderIndices={[0]}>
+      <KeyboardAwareScrollView
+        stickyHeaderIndices={[0]}
+        keyboardShouldPersistTaps="always"
+      >
         <ScreenHeader
           isFixed={true}
           leftItems={
