@@ -20,11 +20,13 @@ class PostTeaserFull extends React.Component {
       >
         <View>
           <PostContent
+            _id={this.props._id}
             media={this.props.media}
             text={this.props.text}
             tags={this.props.tags}
             postedAt={this.props.postedAt}
             author={this.props.poster}
+            likes={this.props.likes}
             leftItem={<IconButton type="replies" />}
           />
         </View>

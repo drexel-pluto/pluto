@@ -18,6 +18,7 @@ export default PostFeed = props => {
               tags={item.tags}
               postedAt={item.postedAt}
               poster={item.poster}
+              likes={item.likes}
               openPost={props.openPost}
             />
           )

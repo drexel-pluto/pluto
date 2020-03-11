@@ -5,6 +5,7 @@ import PostMedia from '../components/PostMedia'
 import ContainerTail from './../assets/images/containerTail.svg'
 import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
+import HeartButtonContainer from './../containers/heartButton.container'
 
 class PostContent extends React.Component {
   constructor(props) {
@@ -103,7 +104,15 @@ class PostContent extends React.Component {
           ) : null}
           <View style={styles.action_wrapper}>
             <View style={styles.actions}>
-              <IconButton type="heartPost" customColor={Colors.ACCENT} />
+              {/* <IconButton
+                type="heartPost"
+                isLiked={this.props.isLiked}
+                customColor={Colors.ACCENT}
+              /> */}
+              <HeartButtonContainer
+                likes={this.props.likes}
+                _id={this.props._id}
+              />
               {this.props.leftItem || null}
             </View>
 
