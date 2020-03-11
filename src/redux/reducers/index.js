@@ -5,6 +5,7 @@ import profile from './profile.reducer'
 import create from './create.reducer'
 import post from './post.reducer'
 import addFriend from './addFriend.reducer'
+import editGroup from './editGroup.reducer'
 
 export default combineReducers({
   user,
@@ -12,5 +13,6 @@ export default combineReducers({
   profile,
   create,
   post,
-  addFriend
+  addFriend,
+  editGroup
 })

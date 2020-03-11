@@ -6,11 +6,11 @@ import Physics from '../components/physics'
 import IconButton from './../components/iconButton/IconButton'
 import SvgSwipe from '../components/physics/SvgSwipe'
 
-const min = -1;
+const min = 0
 
 const pageDots = (total, current) => {
-  let dot_total = total + 1
-  let dot_current = current + 1
+  let dot_total = total
+  let dot_current = current
   let dots = []
 
   for (let index = 0; index < dot_total; index++) {
@@ -42,11 +42,11 @@ class Home extends React.Component {
       index: min,
       swipe: {
         active: false,
-        x: 0
-      }
+        x: 0,
+      },
     }
 
-    this.swipe = React.createRef();
+    this.swipe = React.createRef()
   }
 
   setIndex(index) {
@@ -75,17 +75,17 @@ class Home extends React.Component {
           }}
           style={{ position: 'absolute', zIndex: 1 }}
           isLeft={true}
-          color={"#FFFAAA"}
+          color={'#FFFAAA'}
         />
         <Physics
           style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0 }}
           groups={this.props.groups}
           friends={this.props.friends}
           setIndex={index => this.setIndex(index)}
-          newGroup={() => console.log("new group")}
-          startSwipe={(x) => this.startSwipe(x)}
+          newGroup={() => console.log('new group')}
+          startSwipe={x => this.startSwipe(x)}
           moveSwipe={(x, y) => this.moveSwipe(x, y)}
-          endSwipe={(cancel) => this.endSwipe(cancel)}
+          endSwipe={cancel => this.endSwipe(cancel)}
         />
         <ScreenHeader
           leftItems={<IconButton type="searchItem" />}
@@ -94,18 +94,11 @@ class Home extends React.Component {
         <View style={styles.group_wrapper}>
           <TouchableOpacity
             onPress={() => {
-              if (this.state.index == -1) {
-                //TODO fetch posts from ALL friends instead of group 0
-                this.props.openGroup(this.props.groups[0]._id)
-              } else {
-                this.props.openGroup(this.props.groups[this.state.index]._id)
-              }
+              this.props.openGroup(this.props.groups[this.state.index]._id)
             }}
           >
             <Text style={[Typography.F_H1, { textAlign: 'center' }]}>
-              {this.state.index == -1
-                ? 'everyone'
-                : this.props.groups[this.state.index].title}
+              {this.props.groups[this.state.index].title}
             </Text>
             <Text style={{ textAlign: 'center', color: Colors.VIOLET.dark }}>
               view posts >
@@ -124,10 +117,8 @@ class Home extends React.Component {
               type="addPost"
               _onPress={() => {
                 this.props.navigation.navigate('AddPost', {
-                  defaultRecipients:
-                    this.state.index > -1
-                      ? this.props.groups[this.state.index].members
-                      : this.props.friends,
+                  defaultRecipients: this.props.groups[this.state.index]
+                    .members,
                 })
               }}
             />
@@ -140,29 +131,35 @@ class Home extends React.Component {
     )
   }
 
-
   startSwipe(x) {
-    if (this.state.index !== min) return;
+    if (this.state.index !== min) return
     this.setState({
       swipe: {
         active: true,
-        x
-      }
+        x,
+      },
     })
   }
 
   moveSwipe(x, y) {
-    if (this.state.index !== min) return;
+    if (this.state.index !== min) return
 
-    this.swipe.setTargetPos({x: x - this.state.swipe.x, y})
+    this.swipe.setTargetPos({ x: x - this.state.swipe.x, y })
   }
 
   endSwipe(cancel) {
-    if (this.state.index !== min) return;
-    this.swipe.animateToEdge(cancel);
-
+    if (this.state.index !== min) return
+    
     if (!cancel) {
-      this.props.navigation.navigate('EditGroup');
+      this.swipe.animateToEdge(cancel, ()=>{
+        this.props.navigation.navigate('EditGroup', {
+          onBack: () => {
+            this.endSwipe(true);
+          }
+        })
+      })
+    } else {
+      this.swipe.animateToEdge(cancel)
     }
 
     this.setState({
@@ -170,7 +167,7 @@ class Home extends React.Component {
         active: false,
         x: 0,
       },
-    });
+    })
   }
 }
 

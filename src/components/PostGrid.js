@@ -8,10 +8,14 @@ import StyledContainer from './StyledContainer'
 const PostGridItem = props => {
   const itemWidth =
     Mixins.resWidthPercent(50) - Mixins.scaleSize(Layouts.PAD_HORZ + 15)
-  const { author, media, text } = props
+  const { _id, author, media, text, openPost } = props
 
   return (
-    <TouchableOpacity onPress={() => {}}>
+    <TouchableOpacity
+      onPress={() => {
+        openPost(_id, author)
+      }}
+    >
       <StyledContainer>
         <View style={[styles.postGridItem, Styles.STYLED_BORDER]}>
           {media.length > 0 ? (
@@ -38,9 +42,11 @@ export default PostGrid = props => {
         {props.data.map(item => {
           return (
             <PostGridItem
+              _id={item._id}
               author={item.poster}
               media={item.mediaURLs}
               text={item.text}
+              openPost={props.openPost}
             />
           )
         })}

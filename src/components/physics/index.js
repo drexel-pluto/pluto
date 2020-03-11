@@ -11,8 +11,7 @@ import { Colors } from './../../styles/index'
 
 Matter.Common.isElement = () => false //-- Overriding this function because the original references HTMLElement
 
-
-const min = -1;
+const min = 0
 
 export default class RigidBodies extends Component {
   constructor() {
@@ -27,8 +26,6 @@ export default class RigidBodies extends Component {
       },
     }
   }
-
-
 
   componentDidMount() {
     Matter.use(MatterAttractors)
@@ -48,15 +45,39 @@ export default class RigidBodies extends Component {
     })
 
     Matter.World.addConstraint(world, constraint)
-    const wallWidth = 50;
-    const wallDist = 150; //px distance outside edge of screen;
+    const wallWidth = 50
+    const wallDist = 150 //px distance outside edge of screen;
     Matter.World.add(world, [
       // walls
-      Matter.Bodies.rectangle(width / 2, - wallDist, width + 2 * wallDist, wallWidth, { isStatic: true, continuous: 1 }),
-      Matter.Bodies.rectangle(width / 2, height + wallDist, width + 2 * wallDist, wallWidth, { isStatic: true, continuous: 1 }),
-      Matter.Bodies.rectangle(- wallDist, height / 2, wallWidth, height + 2 * wallDist, { isStatic: true, continuous: 1 }),
-      Matter.Bodies.rectangle(width + wallDist, height / 2, wallWidth, height + 2 * wallDist, { isStatic: true, continuous: 1 })
-    ]);
+      Matter.Bodies.rectangle(
+        width / 2,
+        -wallDist,
+        width + 2 * wallDist,
+        wallWidth,
+        { isStatic: true, continuous: 1 }
+      ),
+      Matter.Bodies.rectangle(
+        width / 2,
+        height + wallDist,
+        width + 2 * wallDist,
+        wallWidth,
+        { isStatic: true, continuous: 1 }
+      ),
+      Matter.Bodies.rectangle(
+        -wallDist,
+        height / 2,
+        wallWidth,
+        height + 2 * wallDist,
+        { isStatic: true, continuous: 1 }
+      ),
+      Matter.Bodies.rectangle(
+        width + wallDist,
+        height / 2,
+        wallWidth,
+        height + 2 * wallDist,
+        { isStatic: true, continuous: 1 }
+      ),
+    ])
 
     let attractor = Matter.Bodies.circle(width / 2, height / 2, 0, {
       frictionAir: 0,
@@ -84,7 +105,7 @@ export default class RigidBodies extends Component {
         active: false,
         x: 0,
       },
-      swipeIndex: -1,
+      swipeIndex: min,
       numGroups: this.props.groups.length,
     })
 
@@ -94,12 +115,11 @@ export default class RigidBodies extends Component {
       let friend = element.friend
       let radius = Matter.Common.random(30, 70)
       let groups = friend.groups
-      groups.push(-1)
       let item = Matter.Bodies.circle(
         Matter.Common.random(radius / 2, width - radius / 2),
         Matter.Common.random(radius / 2, height - radius / 2),
         radius / 2,
-        {continuous: 1}
+        { continuous: 1 }
       )
 
       Matter.World.add(world, [item])
@@ -160,11 +180,13 @@ export default class RigidBodies extends Component {
 
   updateHandler = ({ touches, screen, layout, time }) => {
     //update physics
-    time.delta = time.delta > 200 ? 0 : time.delta;
+    time.delta = time.delta > 200 ? 0 : time.delta
 
     Matter.Engine.update(this.state.physics.engine, time.delta)
 
-    MoveBox(this.state, { touches, screen, layout, time })
+    if (!this.state.swipeTouch.active) {
+      MoveBox(this.state, { touches, screen, layout, time })
+    }
 
     this.backgroundDrag(touches)
 
@@ -180,14 +202,19 @@ export default class RigidBodies extends Component {
     let start = touches.find(x => x.type === 'start')
 
     if (start && start.backgroundTarget) {
+      
       this.setState({
         swipeTouch: {
           active: true,
           x: start.event.pageX,
-        },
-      });
+        }
+      })
+      let constraint = this.state.physics.constraint
+      constraint.pointA = null
+      constraint.bodyB = null
+      constraint.pointB = null
 
-      this.props.startSwipe(start.event.pageX);
+      this.props.startSwipe(start.event.pageX)
     }
 
     let move = touches.find(x => x.type === 'move')
@@ -196,7 +223,7 @@ export default class RigidBodies extends Component {
       let leftActive = this.state.swipeIndex > min
       let rightActive = this.state.swipeIndex < this.state.numGroups - 1
 
-      this.props.moveSwipe(move.event.pageX, move.event.pageY);
+      this.props.moveSwipe(move.event.pageX, move.event.pageY)
 
       if (leftActive) {
         this.swipes.left.setTargetPos({
@@ -243,12 +270,12 @@ export default class RigidBodies extends Component {
       let threshold = width / 2
 
       if (Math.abs(dist) < threshold) {
-        this.props.endSwipe(true);
+        this.props.endSwipe(true)
 
         this.swipes.left.animateToEdge(true)
         this.swipes.right.animateToEdge(false)
       } else if (dist > 0) {
-        this.props.endSwipe(false);
+        this.props.endSwipe(false)
 
         if (this.state.swipeIndex > min) {
           this.swipes.left.animateToEdge(false, () =>
@@ -260,7 +287,7 @@ export default class RigidBodies extends Component {
           this.swipes.right.animateToEdge(false)
         }
       } else {
-        this.props.endSwipe(true);
+        this.props.endSwipe(true)
 
         if (this.state.swipeIndex < this.state.numGroups - 1) {
           this.swipes.left.animateToEdge(true)
@@ -302,10 +329,16 @@ export default class RigidBodies extends Component {
     this.state.entities.forEach(element => {
       element.zIndex = 4
       if (!element.isVisible && element.groups.includes(index)) {
+        if (Matter.Composite.get(world, element.body.id, element.body.type)) {
+          console.log("IN HERE ALREADY");
+        }
         Matter.World.add(world, [element.body])
         Matter.Body.setPosition(element.body, { x: xPos, y: height / 2 })
         element.isVisible = true
       } else if (element.isVisible && !element.groups.includes(index)) {
+        if (!Matter.Composite.get(world, element.body.id, element.body.type)) {
+          console.log("NOT HERE ALREADY");
+        }
         Matter.World.remove(world, [element.body])
         element.isVisible = false
       }
@@ -314,13 +347,12 @@ export default class RigidBodies extends Component {
     this.props.setIndex && this.props.setIndex(index)
     this.setState({ swipeIndex: index, entities: this.state.entities })
   }
-
 }
 
 RigidBodies.defaultProps = {
-  moveSwipe: ()=>{},
-  startSwipe: ()=>{},
-  endSwipe: ()=>{},
+  moveSwipe: () => {},
+  startSwipe: () => {},
+  endSwipe: () => {},
 }
 
 function pickHex(color1, color2) {

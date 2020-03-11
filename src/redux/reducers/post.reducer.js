@@ -97,3 +97,10 @@ export function setPoster(poster) {
     poster,
   }
 }
+
+export function openPost(post_id, poster) {
+  return function(dispatch) {
+    dispatch(fetchPost(post_id))
+    dispatch(setPoster(poster))
+  }
+}
