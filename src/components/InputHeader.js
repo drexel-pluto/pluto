@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: Mixins.scaleSize(15),
     borderWidth: 1,
-    borderColor: Colors.VIOLET.dark,
+    borderColor: Colors.VIOLET.med,
     borderRadius: Mixins.scaleSize(30),
   },
   input: {

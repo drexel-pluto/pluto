@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  setGroup,
+  setGroup
 }
 
 export default connect(

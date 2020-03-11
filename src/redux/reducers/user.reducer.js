@@ -1,5 +1,7 @@
 import { AsyncStorage } from 'react-native'
 import { Linking } from 'expo'
+import { sendFriendRequest, setFriend } from './addFriend.reducer'
+import * as RootNavigation from '../../navigation'
 // types
 
 export const CREATE_USER = 'user/CREATE_USER'
@@ -22,6 +24,8 @@ export const TOKEN_ERROR = 'user/TOKEN_ERROR'
 export const LOGOUT = 'user/LOGIN'
 
 export const SET_IS_CREATE = 'user/SET_IS_CREATE'
+
+export const INIT_LINKS = 'user/INIT_LINKS_SUCCESS'
 
 // reducer
 
@@ -70,24 +74,53 @@ export default function reducer(state = defaultStateUser, action) {
       const data = action.payload.data
 
       friends = []
+      groups = []
 
+      // create group which contains everyone and yourself
+      // and prepend to groups var
+      myUserData = {
+        _id: data._id,
+        email: data.email,
+        name: data.name,
+        profilePicURL: data.profilePicURL,
+        username: data.username,
+      }
+      everyone_members = []
+      everyone_memberIds = []
+      data.friends.map(friend => {
+        everyone_members.push(friend.friend)
+        everyone_memberIds.push(friend.friend._id)
+      })
+      everyone = {
+        __v: 0,
+        _id: -1,
+        createdAt: 'today',
+        memberIds: [myUserData._id, ...everyone_memberIds],
+        members: [myUserData, ...everyone_members],
+        owner: data._id,
+        title: 'everyone',
+      }
+      groups = [everyone, ...data.groups]
+
+      // process friends data for group info
       data.friends.forEach(element => {
         let friend = { ...element }
-        let groups = []
+        let friend_groups = []
 
-        for (let i in data.groups) {
+        for (let i in groups) {
           if (
-            data.groups[i].members.filter(e => e._id == friend.friend._id)
-              .length > 0
+            groups[i].members.filter(e => e._id == friend.friend._id).length > 0
           ) {
-            groups.push(parseInt(i))
+            friend_groups.push(parseInt(i))
           }
         }
 
-        friend.friend.groups = groups
+        friend_groups.push(0) // including everyone group
+
+        friend.friend.groups = friend_groups
         friends.push(friend)
       })
-      
+
       return {
         ...state,
         userData: {
@@ -96,10 +129,10 @@ export default function reducer(state = defaultStateUser, action) {
           id: data._id,
           gender: data.gender,
           name: data.name,
-          profilePicURL: data.profilePicURL
+          profilePicURL: data.profilePicURL,
         },
         friends,
-        groups: data.groups,
+        groups,
       }
     case SET_IS_CREATE:
       return {
@@ -134,16 +167,19 @@ export function setIsCreate(bool) {
 }
 
 export function createProfile(user, profilePic) {
-
   const json = JSON.stringify(user)
   let form = new FormData()
   form.append('postParams', json)
   if (profilePic != '') {
-    form.append('media', {
-      uri: profilePic,
-      name: 'prof.jpg',
-      type: 'image/jpeg',
-    }, 'prof.jpg');
+    form.append(
+      'media',
+      {
+        uri: profilePic,
+        name: 'prof.jpg',
+        type: 'image/jpeg',
+      },
+      'prof.jpg'
+    )
   }
 
   return {
@@ -155,7 +191,7 @@ export function createProfile(user, profilePic) {
         data: form,
         headers: {
           'Content-Type': 'multipart/form-data',
-        }
+        },
       },
     },
   }
@@ -182,7 +218,8 @@ export const tokenError = error => ({
 
 const storageKey = 'userToken'
 
-export const getUserToken = () => dispatch =>
+export function getUserToken () { 
+  return (dispatch) =>
   AsyncStorage.getItem(storageKey)
     .then(data => {
       dispatch(getToken(data))
@@ -190,24 +227,30 @@ export const getUserToken = () => dispatch =>
     .catch(err => {
       dispatch(tokenError(err.message || 'ERROR'))
     })
+}
 
-export const saveUserToken = token => dispatch =>
-  AsyncStorage.setItem(storageKey, token)
-    .then(data => {
-      dispatch(saveToken(token))
-    })
-    .catch(err => {
-      dispatch(tokenError(err.message || 'ERROR'))
-    })
-
-export const removeUserToken = () => dispatch =>
-  AsyncStorage.removeItem(storageKey)
-    .then(data => {
-      dispatch(removeToken(data))
-    })
-    .catch(err => {
-      dispatch(tokenError(err.message || 'ERROR'))
-    })
+export function saveUserToken (token) {
+  return (dispatch) =>
+    AsyncStorage.setItem(storageKey, token)
+      .then(data => {
+        console.log("LINE 202")
+        dispatch(saveToken(token))
+      })
+      .catch(err => {
+        console.log("LINE 206")
+        dispatch(tokenError(err.message || 'ERROR'))
+      })
+}
+export function removeUserToken () { 
+  return (dispatch) =>
+    AsyncStorage.removeItem(storageKey)
+      .then(data => {
+        dispatch(removeToken(data))
+      })
+      .catch(err => {
+        dispatch(tokenError(err.message || 'ERROR'))
+      })
+}
 
 export function getMe(authToken) {
   return {
@@ -235,5 +278,34 @@ export function init() {
     return dispatch(getUserToken()).then(() =>
       dispatch(getMe(getState().user.authToken))
     )
+  }
+}
+
+function initLinks() {
+  return {
+    type: INIT_LINKS,
+  }
+}
+
+export function initLinkListener() {
+  return function(dispatch, getState) {
+    Linking.addEventListener('url', dat => {
+      let { path, queryParams } = Linking.parse(dat.url)
+      if (path == 'addfriend') {
+        dispatch(setFriend(queryParams.username))
+        RootNavigation.navigate('Modal')
+      }
+    })
+
+    Linking.getInitialURL().then(url => {
+      let { path, queryParams } = Linking.parse(url)
+      console.log(queryParams, path)
+      if (path == 'addfriend') {
+        dispatch(setFriend(queryParams.username))
+        RootNavigation.navigate('Modal')
+      }
+    })
+
+    return dispatch(initLinks())
   }
 }

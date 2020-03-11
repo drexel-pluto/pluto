@@ -107,7 +107,7 @@ export function sendPost(postParams, media, token) {
   }
 }
 
-export function submitPost(postText) {
+export function submitPost(postText, postTags) {
   return function(dispatch, getState) {
     var audienceIds = []
 
@@ -123,7 +123,7 @@ export function submitPost(postText) {
       text: postText,
       daysUntilArchive: 10,
       audienceIds,
-      tag: '',
+      tags: postTags,
     }
 
     var media = getState().create.media

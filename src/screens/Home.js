@@ -4,10 +4,13 @@ import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import Physics from '../components/physics'
 import IconButton from './../components/iconButton/IconButton'
+import SvgSwipe from '../components/physics/SvgSwipe'
+
+const min = 0
 
 const pageDots = (total, current) => {
-  let dot_total = total + 1
-  let dot_current = current + 1
+  let dot_total = total
+  let dot_current = current
   let dots = []
 
   for (let index = 0; index < dot_total; index++) {
@@ -36,8 +39,14 @@ class Home extends React.Component {
     super(props)
 
     this.state = {
-      index: -1,
+      index: min,
+      swipe: {
+        active: false,
+        x: 0,
+      },
     }
+
+    this.swipe = React.createRef()
   }
 
   setIndex(index) {
@@ -59,11 +68,23 @@ class Home extends React.Component {
 
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
+        <SvgSwipe
+          ref={input => {
+            this.swipe = input
+          }}
+          style={{ position: 'absolute', zIndex: 1 }}
+          isLeft={true}
+          color={'#FFFAAA'}
+        />
         <Physics
           style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0 }}
           groups={this.props.groups}
           friends={this.props.friends}
           setIndex={index => this.setIndex(index)}
+          newGroup={() => console.log('new group')}
+          startSwipe={x => this.startSwipe(x)}
+          moveSwipe={(x, y) => this.moveSwipe(x, y)}
+          endSwipe={cancel => this.endSwipe(cancel)}
         />
         <ScreenHeader
           leftItems={<IconButton type="searchItem" />}
@@ -72,18 +93,11 @@ class Home extends React.Component {
         <View style={styles.group_wrapper}>
           <TouchableOpacity
             onPress={() => {
-              if (this.state.index == -1) {
-                //TODO fetch posts from ALL friends instead of group 0
-                this.props.openGroup(this.props.groups[0]._id)
-              } else {
-                this.props.openGroup(this.props.groups[this.state.index]._id)
-              }
+              this.props.openGroup(this.props.groups[this.state.index]._id)
             }}
           >
             <Text style={[Typography.F_H1, { textAlign: 'center' }]}>
-              {this.state.index == -1
-                ? 'everyone'
-                : this.props.groups[this.state.index].title}
+              {this.props.groups[this.state.index].title}
             </Text>
             <Text style={{ textAlign: 'center', color: Colors.VIOLET.dark }}>
               view posts >
@@ -102,10 +116,8 @@ class Home extends React.Component {
               type="addPost"
               _onPress={() => {
                 this.props.navigation.navigate('AddPost', {
-                  defaultRecipients:
-                    this.state.index > -1
-                      ? this.props.groups[this.state.index].members
-                      : this.props.friends,
+                  defaultRecipients: this.props.groups[this.state.index]
+                    .members,
                 })
               }}
             />
@@ -116,6 +128,45 @@ class Home extends React.Component {
         </View>
       </View>
     )
+  }
+
+  startSwipe(x) {
+    if (this.state.index !== min) return
+    this.setState({
+      swipe: {
+        active: true,
+        x,
+      },
+    })
+  }
+
+  moveSwipe(x, y) {
+    if (this.state.index !== min) return
+
+    this.swipe.setTargetPos({ x: x - this.state.swipe.x, y })
+  }
+
+  endSwipe(cancel) {
+    if (this.state.index !== min) return
+    
+    if (!cancel) {
+      this.swipe.animateToEdge(cancel, ()=>{
+        this.props.navigation.navigate('EditGroup', {
+          onBack: () => {
+            this.endSwipe(true);
+          }
+        })
+      })
+    } else {
+      this.swipe.animateToEdge(cancel)
+    }
+
+    this.setState({
+      swipeTouch: {
+        active: false,
+        x: 0,
+      },
+    })
   }
 }
 

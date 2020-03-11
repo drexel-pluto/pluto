@@ -1,12 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import GroupFeed from '../screens/GroupFeed.js'
-import { fetchPost, setPoster } from '../redux/reducers/post.reducer'
+import { openPost } from '../redux/reducers/post.reducer'
 
 class AuthLoadingContainer extends React.Component {
-  openPost(post_id, poster) {
-    this.props.fetchPost(post_id)
-    this.props.setPoster(poster)
+  _openPost(post_id, poster) {
+    this.props.openPost(post_id, poster)
     this.props.navigation.navigate('Post')
   }
 
@@ -15,8 +14,8 @@ class AuthLoadingContainer extends React.Component {
       <GroupFeed
         group={this.props.group}
         navigation={this.props.navigation}
-        route={this.props.route} 
-        openPost={(id, poster) => this.openPost(id, poster)}
+        route={this.props.route}
+        openPost={(id, poster) => this._openPost(id, poster)}
         user={this.props.user}
       />
     )
@@ -29,8 +28,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  fetchPost,
-  setPoster,
+  openPost,
 }
 
 export default connect(
