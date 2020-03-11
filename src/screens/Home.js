@@ -55,7 +55,7 @@ class Home extends React.Component {
 
   render() {
     const rightHeaderItems = [
-      <IconButton type="notiCenter" style={styles.notif_center} />,
+      <IconButton type="notiCenter" style={{paddingRight: Mixins.scaleSize(20)}} />,
     
       <IconButton
         type="myProfile"
@@ -184,11 +184,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  notif_wrapper: {
-
-    paddingRight: Mixins.scaleSize(15),
-
   },
   dot_wrapper: {
     flexDirection: 'row',

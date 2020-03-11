@@ -50,7 +50,8 @@ export default AddPostOptionBar = props => {
     <View style={styles.addPostOptionBar}>
       <View style={styles.option_wrapper}>
         <View style={styles.option}>
-          <Button text="camera" type="small" _onPress={this.openCameraAsync} />
+          {/* <Button type="small" _onPress={this.openCameraAsync} /> */}
+          <Camera />
         </View>
         <View style={styles.option}>
           <Button

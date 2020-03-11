@@ -12,6 +12,7 @@ import Filter from '../../assets/images/iconFilter.svg'
 import Back from '../../assets/images/iconBack.svg'
 import Comment from '../../assets/images/iconComment.svg'
 import Cancel from '../../assets/images/iconCancel.svg'
+import Camera from '../../assets/images/iconCamera.svg'
 
 
 
@@ -44,7 +45,11 @@ export default IconButton = props => {
       case 'settings':
         return (
   
-          <Settings />
+        <Settings
+          _onPress={() => {
+            _onPress()
+          }}
+        />
         )
 
       case 'filter':
@@ -94,6 +99,16 @@ export default IconButton = props => {
     
           <Comment />
         
+      )
+
+      case 'camera':
+      return (
+
+
+        <Camera 
+        _onPress={this.openCameraAsync} 
+        />
+
       )
 
       case 'cancel':
