@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   postFeed: {
     width: '100%',
     paddingTop: Layouts.PAD_VERT,
-    paddingBottom: Mixins.scaleSize(100),
     paddingHorizontal: Layouts.PAD_HORZ_SM,
     borderTopLeftRadius: Mixins.scaleSize(20),
     overflow: 'hidden',
