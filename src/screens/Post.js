@@ -18,7 +18,10 @@ class Post extends React.Component {
   render() {
     console.log(this.props.data)
     return (
-      <KeyboardAwareScrollView stickyHeaderIndices={[0]}>
+      <KeyboardAwareScrollView
+        stickyHeaderIndices={[0]}
+        keyboardShouldPersistTaps="always"
+      >
         <ScreenHeader
           isFixed={true}
           leftItems={
@@ -28,11 +31,13 @@ class Post extends React.Component {
 
         <View style={{ paddingHorizontal: Layouts.PAD_HORZ_SM }}>
           <PostContent
+            _id={this.props.data.id}
             media={this.props.data.mediaURLs}
             text={this.props.data.text}
             tags={this.props.data.tags}
             postedAt={this.props.data.postedAt}
             author={this.props.data.poster}
+            likes={this.props.data.likes}
           />
         </View>
 

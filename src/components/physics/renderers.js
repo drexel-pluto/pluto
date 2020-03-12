@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 
 class UserCircle extends Component {
   constructor(props) {
@@ -12,7 +12,6 @@ class UserCircle extends Component {
     var y = this.props.body.position.y - radius / 2
     // const group = this.props.group;
     var color = this.props.color
-
     return (
       <View
         style={[
@@ -25,10 +24,22 @@ class UserCircle extends Component {
             backgroundColor: color,
             borderRadius: radius,
             opacity: this.props.isVisible ? 1 : 0,
+            overflow: 'hidden',
           },
           this.props.style,
         ]}
       >
+        <Image
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          source={
+            this.props.friendData.profilePicURL
+              ? { uri: this.props.friendData.profilePicURL }
+              : { uri: 'https://picsum.photos/id/237/300/300' }
+          }
+        />
         <Text>{this.props.friendData.name}</Text>
       </View>
     )

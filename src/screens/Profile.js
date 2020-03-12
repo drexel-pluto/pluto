@@ -20,10 +20,20 @@ class Profile extends React.Component {
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
-          rightItems={(this.props.profile.id == this.props.myId) && <IconButton type="settings" _onPress={() => this.props.navigation.navigate('Settings')}/>}
+          rightItems={
+            this.props.profile.id == this.props.myId && (
+              <IconButton
+                type="settings"
+                _onPress={() => this.props.navigation.navigate('Settings')}
+              />
+            )
+          }
         />
         <ProfileHeader profile={this.props.profile} />
-        <PostGrid data={this.props.profile.posts} />
+        <PostGrid
+          data={this.props.profile.posts}
+          openPost={this.props.openPost}
+        />
       </ScrollView>
     )
   }

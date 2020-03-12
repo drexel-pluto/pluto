@@ -86,8 +86,8 @@ export default Circle = props => {
                 : null,
             ]}
             source={
-              user.image
-                ? { uri: user.image }
+              user.profilePicURL
+                ? { uri: user.profilePicURL }
                 : { uri: 'https://picsum.photos/id/237/300/300' }
             }
           />

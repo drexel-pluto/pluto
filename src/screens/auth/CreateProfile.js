@@ -1,7 +1,24 @@
 import React, { Component } from 'react'
-import { Button, TextInput, View, Text, TouchableOpacity, Image } from 'react-native'
+import {
+  TextInput,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+} from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
+import PlutoLogo from './../../assets/images/plutoLogo.svg'
+import { LinearGradient } from 'expo-linear-gradient'
+import {
+  Colors,
+  Typography,
+  Mixins,
+  Layouts,
+  Styles,
+} from './../../styles/index'
+import Button from './../../components/Button'
 
 export default class CreateProfileScreen extends Component {
   constructor(props) {
@@ -16,7 +33,6 @@ export default class CreateProfileScreen extends Component {
     }
   }
 
-
   openImagePickerAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
     if (status == 'denied') {
@@ -24,96 +40,152 @@ export default class CreateProfileScreen extends Component {
       return
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    let pickerResult = await ImagePicker.launchImageLibraryAsync()
 
     if (pickerResult.uri) {
-      this.setState({imageUri: pickerResult.uri})
+      this.setState({ imageUri: pickerResult.uri })
     }
   }
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', marginTop: 50 }}>
-        {this.props.error.length > 0 && (
-          <View style={{ backgroundColor: 'red' }}>
-            <Text>{this.props.error}</Text>
+      <LinearGradient
+        colors={Colors.gradient.light(Colors.VIOLET)}
+        style={{ flex: 1 }}
+      >
+        <View style={[styles.create, Styles.shadow(Colors.VIOLET.dark)]}>
+          <TouchableOpacity onPress={() => this.openImagePickerAsync()}>
+            <View style={styles.image_wrapper}>
+              {this.state.imageUri ? (
+                <Image
+                  source={{
+                    uri: this.state.imageUri,
+                  }}
+                  style={{
+                    width: Mixins.scaleSize(180),
+                    height: Mixins.scaleSize(180),
+                  }}
+                />
+              ) : (
+                <View
+                  style={{
+                    width: Mixins.scaleSize(180),
+                    height: Mixins.scaleSize(180),
+                    backgroundColor: Colors.rgba(Colors.BLACK_ROCK, 0.5),
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Text style={[Typography.F_H3, { color: 'white' }]}>
+                    upload photo
+                  </Text>
+                </View>
+              )}
+            </View>
+          </TouchableOpacity>
+
+          {// error
+          this.props.error.length > 0 > 0 && (
+            <View style={{ backgroundColor: Colors.MELON.dark }}>
+              <Text style={{ color: 'white' }}>{this.props.error}</Text>
+            </View>
+          )}
+
+          <View
+            style={{
+              paddingVertical: Layouts.PAD_VERT,
+              width: '100%',
+              alignItems: 'center',
+            }}
+          >
+            <TextInput
+              style={styles.input}
+              placeholder="Insert username"
+              onChangeText={username => this.setState({ username })}
+              autoCompleteType="username"
+              autoCapitalize="none"
+              autoCorrect={false}
+              textContentType="username"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Insert email"
+              onChangeText={email => this.setState({ email })}
+              autoCompleteType="email"
+              autoCapitalize="none"
+              autoCorrect={false}
+              textContentType="email"
+              keyboardType="email-address"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Insert full name"
+              onChangeText={name => this.setState({ name })}
+              autoCompleteType="name"
+              autoCapitalize="words"
+              autoCorrect={false}
+              textContentType="name"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Insert password"
+              onChangeText={password => this.setState({ password })}
+              autoCompleteType="password"
+              autoCapitalize="none"
+              autoCorrect={false}
+              textContentType="newPassword"
+              secureTextEntry={true}
+            />
           </View>
-        )}
-        <TouchableOpacity onPress={() => this.openImagePickerAsync()}>
-          <Image source={{ uri: this.state.imageUri ? this.state.imageUri : 'https://via.placeholder.com/200' }} style={{width: 200, height: 200}} />
-        </TouchableOpacity>
-        <TextInput
-          style={{
-            height: 40,
-            width: '60%',
-            backgroundColor: '#EEE',
-            marginBottom: 6,
-          }}
-          placeholder="Insert username"
-          onChangeText={username => this.setState({ username })}
-          autoCompleteType="username"
-          autoCapitalize="none"
-          autoCorrect={false}
-          textContentType="username"
-        />
-        <TextInput
-          style={{
-            height: 40,
-            width: '60%',
-            backgroundColor: '#EEE',
-            marginBottom: 6,
-          }}
-          placeholder="Insert Email"
-          onChangeText={email => this.setState({ email })}
-          autoCompleteType="email"
-          autoCapitalize="none"
-          autoCorrect={false}
-          textContentType="email"
-          keyboardType="email-address"
-        />
-        <TextInput
-          style={{
-            height: 40,
-            width: '60%',
-            backgroundColor: '#EEE',
-            marginBottom: 6,
-          }}
-          placeholder="Insert Full Name"
-          onChangeText={name => this.setState({ name })}
-          autoCompleteType="name"
-          autoCapitalize="words"
-          autoCorrect={false}
-          textContentType="name"
-        />
-        <TextInput
-          style={{
-            height: 40,
-            width: '60%',
-            backgroundColor: '#EEE',
-            marginBottom: 6,
-          }}
-          placeholder="Insert password"
-          onChangeText={password => this.setState({ password })}
-          autoCompleteType="password"
-          autoCapitalize="none"
-          autoCorrect={false}
-          textContentType="newPassword"
-          secureTextEntry={true}
-        />
-        <Button
-          onPress={() =>
-            this.props.create({
-              username: this.state.username,
-              email: this.state.email,
-              name: this.state.name,
-              password: this.state.password,
-              gender: this.state.gender,
-            }, this.state.imageUri)
-          }
-          title="Click here to create profile"
-        />
-        <Button onPress={() => this.props.setIsCreate(false)} title="login" />
-      </View>
+          <View>
+            <Button
+              style={{ marginBottom: Layouts.PAD_VERT }}
+              _onPress={() =>
+                this.props.create(
+                  {
+                    username: this.state.username,
+                    email: this.state.email,
+                    name: this.state.name,
+                    password: this.state.password,
+                    gender: this.state.gender,
+                  },
+                  this.state.imageUri
+                )
+              }
+              text="create"
+              color={Colors.MELON}
+            />
+            <Button
+              _onPress={() => this.props.setIsCreate(false)}
+              text="login"
+              type="outline"
+            />
+          </View>
+        </View>
+      </LinearGradient>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  create: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  image_wrapper: {
+    borderRadius: 999,
+    overflow: 'hidden',
+    marginBottom: Layouts.PAD_VERT,
+  },
+  input: {
+    height: Mixins.scaleSize(40),
+    width: '70%',
+    marginBottom: 6,
+    borderRadius: Mixins.scaleSize(20),
+    borderWidth: 1,
+    borderColor: 'white',
+    paddingVertical: Mixins.scaleSize(5),
+    paddingHorizontal: Mixins.scaleSize(15),
+  },
+})

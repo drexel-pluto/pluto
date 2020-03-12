@@ -55,15 +55,22 @@ class Home extends React.Component {
     this.setState({ index })
   }
 
+  toProfile(id) {
+    this.props.navigation.navigate('Profile', {
+      userId: id,
+    })
+  }
+
   render() {
     const rightHeaderItems = [
-      <IconButton type="notiCenter" />,
+      <IconButton type="notiCenter" 
+      _onPress={() => {
+        this.props.navigation.navigate('Notifications')
+      }}/>,
       <IconButton
         type="myProfile"
         _onPress={() => {
-          this.props.navigation.navigate('Profile', {
-            userId: this.props.userId,
-          })
+          this.toProfile(this.props.userId)
         }}
       />,
     ]
@@ -88,6 +95,9 @@ class Home extends React.Component {
           moveSwipe={(x, y) => this.moveSwipe(x, y)}
           endSwipe={cancel => this.endSwipe(cancel)}
           key={this.state.key}
+          toProfile={id => {
+            this.toProfile(id)
+          }}
         />
         <ScreenHeader
           leftItems={<IconButton type="searchItem" />}
@@ -111,6 +121,7 @@ class Home extends React.Component {
           <View style={styles.action_wrapper}>
             <IconButton
               type="addFriend"
+              requestNum={this.props.requestNum}
               _onPress={() => {
                 this.props.navigation.navigate('AddFriend')
               }}
@@ -151,9 +162,9 @@ class Home extends React.Component {
 
   endSwipe(cancel) {
     if (this.state.index !== min) return
-    
+
     if (!cancel) {
-      this.swipe.animateToEdge(cancel, ()=>{
+      this.swipe.animateToEdge(cancel, () => {
         this.props.navigation.navigate('EditGroup', {
           onBack: () => {
             this.endSwipe(true); 

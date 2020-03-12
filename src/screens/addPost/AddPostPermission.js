@@ -19,7 +19,11 @@ class AddPostPermission extends React.Component {
 
   render() {
     return (
-      <ScrollView stickyHeaderIndices={[0]} style={Layouts.FLEX_CONTAINER}>
+      <ScrollView
+        stickyHeaderIndices={[0]}
+        style={Layouts.FLEX_CONTAINER}
+        contentContainerStyle={{ paddingBottom: Mixins.scaleSize(50) }}
+      >
         <ScreenHeader
           isFixed={true}
           leftItems={
