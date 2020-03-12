@@ -12,8 +12,8 @@ class PostContent extends React.Component {
     super(props)
   }
 
-  onPressHash() {
-    alert('go to hash album!')
+  onPressHash(tag) {
+    console.log('hashtag clicked:', tag)
   }
 
   linkHash(text) {
@@ -21,7 +21,7 @@ class PostContent extends React.Component {
       <Text
         style={[Typography.F_BOLD, styles.tag]}
         onPress={() => {
-          this.onPressHash()
+          this.onPressHash(text)
         }}
       >
         #{text}
