@@ -19,6 +19,7 @@ class AuthLoadingContainer extends React.Component {
         navigation={this.props.navigation}
         route={this.props.route} 
         reset={() => this.reset()}
+        goToAddFriend={(onAcceptCallback) => this.goToAddFriend(onAcceptCallback)}
         requestNum={this.props.requestNum}
       />
     )
@@ -27,6 +28,14 @@ class AuthLoadingContainer extends React.Component {
   openGroup(groupId) {
     this.props.setGroup(groupId)
     this.props.navigation.navigate('GroupFeed')
+  }
+
+  goToAddFriend(onAcceptCallback) {
+    this.props.navigation.navigate('AddFriend', {
+      onAccept: () => {
+        onAcceptCallback();
+      }
+    })
   }
 }
 

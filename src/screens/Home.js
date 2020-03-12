@@ -123,7 +123,7 @@ class Home extends React.Component {
               type="addFriend"
               requestNum={this.props.requestNum}
               _onPress={() => {
-                this.props.navigation.navigate('AddFriend')
+                this.props.goToAddFriend(() => this.reset());
               }}
             />
             <IconButton
