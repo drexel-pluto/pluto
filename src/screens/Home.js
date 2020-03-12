@@ -44,6 +44,8 @@ class Home extends React.Component {
         active: false,
         x: 0,
       },
+      key: 0,
+      resetting: false
     }
 
     this.swipe = React.createRef()
@@ -77,7 +79,7 @@ class Home extends React.Component {
           color={'#FFFAAA'}
         />
         <Physics
-          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0 }}
+          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, opacity: this.state.resetting ? 0 : 1}}
           groups={this.props.groups}
           friends={this.props.friends}
           setIndex={index => this.setIndex(index)}
@@ -85,6 +87,7 @@ class Home extends React.Component {
           startSwipe={x => this.startSwipe(x)}
           moveSwipe={(x, y) => this.moveSwipe(x, y)}
           endSwipe={cancel => this.endSwipe(cancel)}
+          key={this.state.key}
         />
         <ScreenHeader
           leftItems={<IconButton type="searchItem" />}
@@ -153,7 +156,10 @@ class Home extends React.Component {
       this.swipe.animateToEdge(cancel, ()=>{
         this.props.navigation.navigate('EditGroup', {
           onBack: () => {
-            this.endSwipe(true);
+            this.endSwipe(true); 
+          },
+          reset: () => {
+            this.reset();
           }
         })
       })
@@ -166,6 +172,16 @@ class Home extends React.Component {
         active: false,
         x: 0,
       },
+    })
+  }
+
+  reset() {
+    this.setState({resetting: true});
+    this.props.reset().then(() => {
+      this.setState(state => ({
+        resetting: false,
+        key: ++state.key
+      }));
     })
   }
 }

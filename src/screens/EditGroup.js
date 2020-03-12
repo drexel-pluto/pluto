@@ -18,16 +18,17 @@ class EditGroup extends React.Component {
 
   onChangeText = text => this.setState({ text })
 
+
   onSubmit = () => {}
 
   render() {
     return (
       <KeyboardAvoidingView style={[styles.editGroupScreen, Layouts.FLEX_CONTAINER]} behavior="padding">
         <View style={styles.actions}>
-          <Button type="text" text="cancel" color="Colors.BLACK_ROCK" _onPress={()=>this.props.doneEdit()}/>
-          <Button type="outline" text="update" color="Colors.BLACK_ROCK" _onPress={()=>this.props.cancelEdit()}/>
+          <Button type="text" text="cancel" color="Colors.BLACK_ROCK" _onPress={()=>this.props.cancelEdit()}/>
+          <Button type="outline" text={this.props.isNew ? "create" : "update"} color="Colors.BLACK_ROCK" _onPress={()=>this.props.doneEdit()} disabled={!this.props.canSubmit}/>
         </View>
-        <EditGroupName />
+        <EditGroupName onChange={this.props.setName} value={this.props.name}/>
         <CircleContainer />
         <SelectFriendList friends={this.props.friends} toggleMember={this.props.toggleMember} members={this.props.members}/>
       </KeyboardAvoidingView>
