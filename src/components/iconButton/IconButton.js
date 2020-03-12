@@ -23,6 +23,7 @@ export default IconButton = props => {
     case 'addFriend':
       return (
         <AddFriendButton
+          requestNum={props.requestNum}
           _onPress={() => {
             _onPress()
           }}

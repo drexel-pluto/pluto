@@ -115,6 +115,7 @@ class Home extends React.Component {
           <View style={styles.action_wrapper}>
             <IconButton
               type="addFriend"
+              requestNum={this.props.requestNum}
               _onPress={() => {
                 this.props.navigation.navigate('AddFriend')
               }}

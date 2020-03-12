@@ -12,7 +12,8 @@ class AuthLoadingContainer extends React.Component {
         friends={this.props.friends}
         userId={this.props.userId}
         navigation={this.props.navigation}
-        route={this.props.route} 
+        route={this.props.route}
+        requestNum={this.props.requestNum}
       />
     )
   }
@@ -27,10 +28,11 @@ const mapStateToProps = state => ({
   groups: state.user.groups,
   friends: state.user.friends,
   userId: state.user.userData.id,
+  requestNum: state.addFriend.friendRequests.length,
 })
 
 const mapDispatchToProps = {
-  setGroup
+  setGroup,
 }
 
 export default connect(
