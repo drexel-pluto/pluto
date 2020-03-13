@@ -5,14 +5,15 @@ import PostMedia from '../components/PostMedia'
 import ContainerTail from './../assets/images/containerTail.svg'
 import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
+import HeartButtonContainer from './../containers/heartButton.container'
 
 class PostContent extends React.Component {
   constructor(props) {
     super(props)
   }
 
-  onPressHash() {
-    alert('go to hash album!')
+  onPressHash(tag) {
+    console.log('hashtag clicked:', tag)
   }
 
   linkHash(text) {
@@ -20,7 +21,7 @@ class PostContent extends React.Component {
       <Text
         style={[Typography.F_BOLD, styles.tag]}
         onPress={() => {
-          this.onPressHash()
+          this.onPressHash(text)
         }}
       >
         #{text}
@@ -67,6 +68,7 @@ class PostContent extends React.Component {
               <View style={styles.author_wrapper}>
                 <AuthorHeader
                   isCompact={false}
+                  author={this.props.author}
                   authorId={this.props.author._id}
                   time={this.props.postedAt}
                 />
@@ -103,7 +105,15 @@ class PostContent extends React.Component {
           ) : null}
           <View style={styles.action_wrapper}>
             <View style={styles.actions}>
-              <IconButton type="heartPost" customColor={Colors.ACCENT} />
+              {/* <IconButton
+                type="heartPost"
+                isLiked={this.props.isLiked}
+                customColor={Colors.ACCENT}
+              /> */}
+              <HeartButtonContainer
+                likes={this.props.likes}
+                _id={this.props._id}
+              />
               {this.props.leftItem || null}
             </View>
 

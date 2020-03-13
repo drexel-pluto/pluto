@@ -11,6 +11,12 @@ class AddFriendContainer extends React.Component {
 
   accept(username) {
     this.props.acceptFriendRequest(username);
+
+    let onAccept = this.props.route.params?.onAccept ?? false;
+    if (onAccept) {
+      onAccept();
+    }
+    
   }
 
   reject(username) {

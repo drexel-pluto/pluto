@@ -46,6 +46,7 @@ class GroupFeed extends React.Component {
         <ScrollView
           stickyHeaderIndices={[0]}
           style={[styles.groupFeedScreen, Layouts.FLEX_CONTAINER]}
+          contentContainerStyle={{ paddingBottom: Mixins.scaleSize(100) }}
         >
           <ScreenHeader
             isFixed={true}

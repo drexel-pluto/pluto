@@ -12,9 +12,8 @@ import Filter from '../../assets/images/iconFilter.svg'
 import Back from '../../assets/images/iconBack.svg'
 import Comment from '../../assets/images/iconComment.svg'
 import Cancel from '../../assets/images/iconCancel.svg'
-import Camera from '../../assets/images/iconCamera.svg'
-
-
+import UploadImage from '../../assets/images/iconCamera.svg'
+import ChooseImage from '../../assets/images/iconImage.svg'
 
 export default IconButton = props => {
   const { type, customColor, _onPress } = props
@@ -31,6 +30,7 @@ export default IconButton = props => {
     case 'addFriend':
       return (
         <AddFriendButton
+          requestNum={props.requestNum}
           _onPress={() => {
             _onPress()
           }}
@@ -62,36 +62,33 @@ export default IconButton = props => {
     case 'searchItem':
       return (
         <TouchableOpacity
-        onPress={() => {
-          _onPress()
-        }}
+          onPress={() => {
+            _onPress()
+          }}
         >
           <SearchItem />
         </TouchableOpacity>
-        
       )
-      case 'notiCenter':
+    case 'notiCenter':
       return (
         <TouchableOpacity
-        onPress={() => {
-          _onPress()
-        }}
+          onPress={() => {
+            _onPress()
+          }}
         >
           <NotiCenter />
         </TouchableOpacity>
-        
       )
 
-      case 'myProfile':
+    case 'myProfile':
       return (
         <TouchableOpacity
-        onPress={() => {
-          _onPress()
-        }}
+          onPress={() => {
+            _onPress()
+          }}
         >
           <MyProfile />
         </TouchableOpacity>
-        
       )
 
       case 'comment':
@@ -101,11 +98,18 @@ export default IconButton = props => {
         
       )
 
-      case 'camera':
+      case 'chooseImage':
+      return (
+    
+          <ChooseImage />
+        
+      )
+
+      case 'uploadImage':
       return (
 
 
-        <Camera 
+        <UploadImage 
         _onPress={this.openCameraAsync} 
         />
 
@@ -113,10 +117,7 @@ export default IconButton = props => {
 
       case 'cancel':
       return (
-        <AddPostButton
-          _onPress={() => {
-            _onPress()
-          }}
+        <Cancel
         />
       )
     default:

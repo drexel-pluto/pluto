@@ -22,7 +22,7 @@ export default CircleList = props => {
             user={item}
             navigation={props.navigation}
             size={props.size}
-            isActive={index == 1 ? true : false} // for testing purpose
+            // isActive={index == 1 ? true : false} // for testing purpose
           />
         </View>
       )}

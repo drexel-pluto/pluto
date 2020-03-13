@@ -1,13 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import EditGroup from '../screens/EditGroup'
-import { toggleMember } from '../redux/reducers/editGroup.reducer'
+import { toggleMember, setName, newGroup } from '../redux/reducers/editGroup.reducer'
 
 class EditGroupContainer extends React.Component {
   componentWillMount() {}
   
   doneEdit() {
-    this.goBack();
+    this.props.newGroup(this.props.members, this.props.name).then(action => {
+      if (action.type.endsWith("SUCCESS")) {
+        let resetHome = this.props.route.params?.reset ?? false;
+        if (resetHome) {
+          resetHome();
+        }
+        this.goBack();
+      }
+    });
   }
 
   cancelEdit() {
@@ -34,6 +42,10 @@ class EditGroupContainer extends React.Component {
         members={this.props.members}
         doneEdit={()=>this.doneEdit()}
         cancelEdit={()=>this.cancelEdit()}
+        canSubmit={this.props.canSubmit}
+        name={this.props.name}
+        setName={this.props.setName}
+        isNew={this.props.isNew}
       />
     )
   }
@@ -41,11 +53,16 @@ class EditGroupContainer extends React.Component {
 
 const mapStateToProps = state => ({
   friends: state.user.friends,
-  members: state.editGroup.members
+  members: state.editGroup.members,
+  canSubmit: state.editGroup.canSubmit,
+  name : state.editGroup.name,
+  isNew : state.editGroup.isNew
 })
 
 const mapDispatchToProps = {
-  toggleMember
+  toggleMember,
+  setName,
+  newGroup
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditGroupContainer)

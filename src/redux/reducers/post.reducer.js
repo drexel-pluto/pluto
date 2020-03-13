@@ -8,6 +8,10 @@ const SEND_COMMENT = 'profile/SEND_COMMENT'
 const SEND_COMMENT_SUCCESS = 'profile/SEND_COMMENT_SUCCESS'
 const SEND_COMMENT_FAIL = 'profile/SEND_COMMENT_FAIL'
 
+const SEND_REACT = 'profile/SEND_REACT'
+const SEND_REACT_SUCCESS = 'profile/SEND_REACT_SUCCESS'
+const SEND_REACT_FAIL = 'profile/SEND_REACT_FAIL'
+
 const SET_POSTER = 'profile/SET_POSTER'
 
 let defaultStatePost = {
@@ -20,6 +24,7 @@ let defaultStatePost = {
   text: '',
   id: '',
   tags: [],
+  isLiked: false,
 }
 
 export default function reducer(state = defaultStatePost, action) {
@@ -46,6 +51,8 @@ export default function reducer(state = defaultStatePost, action) {
     case SEND_COMMENT_FAIL:
       console.log(action)
       return { ...state, loading: false }
+    case SEND_REACT_SUCCESS:
+    case SEND_REACT_FAIL:
     default:
       return state
   }
@@ -102,5 +109,26 @@ export function openPost(post_id, poster) {
   return function(dispatch) {
     dispatch(fetchPost(post_id))
     dispatch(setPoster(poster))
+  }
+}
+
+export function sendReact(post_id, likes) {
+  console.log('react sent: ', likes, ' to ', post_id)
+  let token = store.getState().user.authToken
+  return {
+    type: SEND_REACT,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/posts/react`,
+        data: {
+          postId: post_id,
+          amountToAdd: likes,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    },
   }
 }

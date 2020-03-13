@@ -14,9 +14,10 @@ class DecaySlider extends React.Component {
 
   sliderOptions = [
     { value: 0, label: 'infinite' },
-    { value: 1, label: '30 days' },
+    { value: 1, label: '180 days' },
     { value: 2, label: '60 days' },
-    { value: 3, label: '90 days' },
+    { value: 3, label: '30 days' },
+    { value: 4, label: '1 day'},
   ]
 
   slidingComplete() {

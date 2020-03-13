@@ -44,6 +44,8 @@ class Home extends React.Component {
         active: false,
         x: 0,
       },
+      key: 0,
+      resetting: false
     }
 
     this.swipe = React.createRef()
@@ -53,16 +55,23 @@ class Home extends React.Component {
     this.setState({ index })
   }
 
+  toProfile(id) {
+    this.props.navigation.navigate('Profile', {
+      userId: id,
+    })
+  }
+
   render() {
     const rightHeaderItems = [
-      <IconButton type="notiCenter" style={{paddingRight: Mixins.scaleSize(20)}} />,
     
+      <IconButton type="notiCenter" 
+      _onPress={() => {
+        this.props.navigation.navigate('Notifications')
+      }}/>,
       <IconButton
         type="myProfile"
         _onPress={() => {
-          this.props.navigation.navigate('Profile', {
-            userId: this.props.userId,
-          })
+          this.toProfile(this.props.userId)
         }}
       />,
     ]
@@ -75,10 +84,10 @@ class Home extends React.Component {
           }}
           style={{ position: 'absolute', zIndex: 1 }}
           isLeft={true}
-          color={'#FFFAAA'}
+          color={Colors.VIOLET.light}
         />
         <Physics
-          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0 }}
+          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, opacity: this.state.resetting ? 0 : 1}}
           groups={this.props.groups}
           friends={this.props.friends}
           setIndex={index => this.setIndex(index)}
@@ -86,6 +95,10 @@ class Home extends React.Component {
           startSwipe={x => this.startSwipe(x)}
           moveSwipe={(x, y) => this.moveSwipe(x, y)}
           endSwipe={cancel => this.endSwipe(cancel)}
+          key={this.state.key}
+          toProfile={id => {
+            this.toProfile(id)
+          }}
         />
         <ScreenHeader
           leftItems={<IconButton type="searchItem" />}
@@ -109,8 +122,9 @@ class Home extends React.Component {
           <View style={styles.action_wrapper}>
             <IconButton
               type="addFriend"
+              requestNum={this.props.requestNum}
               _onPress={() => {
-                this.props.navigation.navigate('AddFriend')
+                this.props.goToAddFriend(() => this.reset());
               }}
             />
             <IconButton
@@ -149,12 +163,15 @@ class Home extends React.Component {
 
   endSwipe(cancel) {
     if (this.state.index !== min) return
-    
+
     if (!cancel) {
-      this.swipe.animateToEdge(cancel, ()=>{
+      this.swipe.animateToEdge(cancel, () => {
         this.props.navigation.navigate('EditGroup', {
           onBack: () => {
-            this.endSwipe(true);
+            this.endSwipe(true); 
+          },
+          reset: () => {
+            this.reset();
           }
         })
       })
@@ -167,6 +184,16 @@ class Home extends React.Component {
         active: false,
         x: 0,
       },
+    })
+  }
+
+  reset() {
+    this.setState({resetting: true});
+    this.props.reset().then(() => {
+      this.setState(state => ({
+        resetting: false,
+        key: ++state.key
+      }));
     })
   }
 }

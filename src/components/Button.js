@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, TouchableHighlight, Text, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import { LinearGradient } from 'expo-linear-gradient'
 
@@ -12,15 +12,21 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 export default Button = props => {
   const { _onPress, text, type, color, isBold } = props
+  var {style, disabled} = props;
+  
   switch (type) {
     case 'small':
       return (
-        <TouchableOpacity
+        <TouchableHighlight
+          underlayColor="#ffffff00"
           onPress={() => {
-            _onPress()
+            !disabled && _onPress();
           }}
 
-          style={props.style ?? props.style}
+          style={[
+            props.style,
+            props.disabled && {opacity: 0.4}
+          ]}
         >
           <LinearGradient
             style={styles.smallButton}
@@ -36,15 +42,19 @@ export default Button = props => {
               {text}
             </Text>
           </LinearGradient>
-        </TouchableOpacity>
+        </TouchableHighlight>
       )
     case 'text':
       return (
-        <TouchableOpacity
+        <TouchableHighlight
+          underlayColor="#ffffff00"
           onPress={() => {
-            _onPress()
+            !disabled && _onPress();
           }}
-          style={props.style ?? props.style}
+          style={[
+            props.style,
+            props.disabled && {opacity: 0.4}
+          ]}
         >
           <View style={styles.button}>
             <Text
@@ -57,15 +67,19 @@ export default Button = props => {
               {text}
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableHighlight>
       )
     case 'outline':
       return (
-        <TouchableOpacity
+        <TouchableHighlight
+          underlayColor="#ffffff00"
           onPress={() => {
-            _onPress()
+            !disabled && _onPress();
           }}
-          style={props.style ?? props.style}
+          style={[
+            props.style,
+            props.disabled && {opacity: 0.4}
+          ]}
         >
           <View
             style={[styles.button, { borderWidth: 1, borderColor: color.dark }]}
@@ -80,15 +94,19 @@ export default Button = props => {
               {text}
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableHighlight>
       )
     default:
       return (
-        <TouchableOpacity
+        <TouchableHighlight
+          underlayColor="#ffffff00"
           onPress={() => {
-            _onPress()
+            !disabled && _onPress();
           }}
-          style={props.style ?? props.style}
+          style={[
+            props.style,
+            props.disabled && {opacity: 0.4}
+          ]}
         >
           <LinearGradient
             style={styles.button}
@@ -104,7 +122,7 @@ export default Button = props => {
               {text}
             </Text>
           </LinearGradient>
-        </TouchableOpacity>
+        </TouchableHighlight>
       )
   }
 }
@@ -112,6 +130,7 @@ export default Button = props => {
 Button.defaultProps = {
   text: 'button',
   color: Colors.VIOLET,
+  disabled: false,
   _onPress: () => {},
 }
 

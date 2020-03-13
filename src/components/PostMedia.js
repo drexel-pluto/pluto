@@ -42,8 +42,10 @@ const CarouselView = props => {
           paddingVertical: Layouts.PAD_VERT,
         }}
       >
-        <IconButton type="like" />
+        <IconButton type="heartPost" />
         <IconButton type="comment" />
+        {/* <IconButton type="like" />
+        <IconButton type="replies" /> */}
       </View>
     </View>
   )

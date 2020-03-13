@@ -45,39 +45,39 @@ export default class RigidBodies extends Component {
     })
 
     Matter.World.addConstraint(world, constraint)
-    const wallWidth = 50
-    const wallDist = 150 //px distance outside edge of screen;
-    Matter.World.add(world, [
-      // walls
-      Matter.Bodies.rectangle(
-        width / 2,
-        -wallDist,
-        width + 2 * wallDist,
-        wallWidth,
-        { isStatic: true, continuous: 1 }
-      ),
-      Matter.Bodies.rectangle(
-        width / 2,
-        height + wallDist,
-        width + 2 * wallDist,
-        wallWidth,
-        { isStatic: true, continuous: 1 }
-      ),
-      Matter.Bodies.rectangle(
-        -wallDist,
-        height / 2,
-        wallWidth,
-        height + 2 * wallDist,
-        { isStatic: true, continuous: 1 }
-      ),
-      Matter.Bodies.rectangle(
-        width + wallDist,
-        height / 2,
-        wallWidth,
-        height + 2 * wallDist,
-        { isStatic: true, continuous: 1 }
-      ),
-    ])
+    // const wallWidth = 50
+    // const wallDist = 150 //px distance outside edge of screen;
+    // Matter.World.add(world, [
+    //   // walls
+    //   Matter.Bodies.rectangle(
+    //     width / 2,
+    //     -wallDist,
+    //     width + 2 * wallDist,
+    //     wallWidth,
+    //     { isStatic: true, continuous: 1 }
+    //   ),
+    //   Matter.Bodies.rectangle(
+    //     width / 2,
+    //     height + wallDist,
+    //     width + 2 * wallDist,
+    //     wallWidth,
+    //     { isStatic: true, continuous: 1 }
+    //   ),
+    //   Matter.Bodies.rectangle(
+    //     -wallDist,
+    //     height / 2,
+    //     wallWidth,
+    //     height + 2 * wallDist,
+    //     { isStatic: true, continuous: 1 }
+    //   ),
+    //   Matter.Bodies.rectangle(
+    //     width + wallDist,
+    //     height / 2,
+    //     wallWidth,
+    //     height + 2 * wallDist,
+    //     { isStatic: true, continuous: 1 }
+    //   ),
+    // ])
 
     let attractor = Matter.Bodies.circle(width / 2, height / 2, 0, {
       frictionAir: 0,
@@ -185,7 +185,11 @@ export default class RigidBodies extends Component {
     Matter.Engine.update(this.state.physics.engine, time.delta)
 
     if (!this.state.swipeTouch.active) {
-      MoveBox(this.state, { touches, screen, layout, time })
+      MoveBox(
+        this.state,
+        { touches, screen, layout, time },
+        this.props.toProfile
+      )
     }
 
     this.backgroundDrag(touches)
@@ -202,12 +206,11 @@ export default class RigidBodies extends Component {
     let start = touches.find(x => x.type === 'start')
 
     if (start && start.backgroundTarget) {
-      
       this.setState({
         swipeTouch: {
           active: true,
           x: start.event.pageX,
-        }
+        },
       })
       let constraint = this.state.physics.constraint
       constraint.pointA = null
@@ -330,14 +333,14 @@ export default class RigidBodies extends Component {
       element.zIndex = 4
       if (!element.isVisible && element.groups.includes(index)) {
         if (Matter.Composite.get(world, element.body.id, element.body.type)) {
-          console.log("IN HERE ALREADY");
+          console.log('IN HERE ALREADY')
         }
         Matter.World.add(world, [element.body])
         Matter.Body.setPosition(element.body, { x: xPos, y: height / 2 })
         element.isVisible = true
       } else if (element.isVisible && !element.groups.includes(index)) {
         if (!Matter.Composite.get(world, element.body.id, element.body.type)) {
-          console.log("NOT HERE ALREADY");
+          console.log('NOT HERE ALREADY')
         }
         Matter.World.remove(world, [element.body])
         element.isVisible = false

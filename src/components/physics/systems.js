@@ -16,7 +16,7 @@ const Physics = (state, { touches, time }) => {
   return state
 }
 
-const MoveBox = (state, { touches }) => {
+const MoveBox = (state, { touches }, onPress = () => {}) => {
   let constraint = state.physics.constraint
   //-- Handle start touch
   let start = touches.find(x => x.type === 'start')
@@ -27,7 +27,10 @@ const MoveBox = (state, { touches }) => {
       let body = state.entities[key].body
       return (
         body &&
-        Matter.Bounds.contains(body.bounds, { x: startPos[0], y: startPos[1] }) &&
+        Matter.Bounds.contains(body.bounds, {
+          x: startPos[0],
+          y: startPos[1],
+        }) &&
         state.entities[key].isVisible == true
       )
     })
@@ -58,6 +61,33 @@ const MoveBox = (state, { touches }) => {
     constraint.pointA = null
     constraint.bodyB = null
     constraint.pointB = null
+  }
+
+  //-- Handle tap touch
+  let press = touches.find(x => x.type === 'press')
+
+  if (press) {
+    let pressX = press.event.pageX
+    let pressY = press.event.pageY
+
+    let circles = state.entities.filter(circle => circle.isVisible)
+
+    for (let i = 0; i < circles.length; i++) {
+      // console.log('press ', pressX, pressY)
+
+      let bounds = { ...circles[i].body.bounds }
+      // console.log('circle_min: ', bounds.min.x, bounds.min.y)
+      // console.log('circle_max: ', bounds.max.x, bounds.max.y)
+
+      let checkX = pressX >= bounds.min.x && pressX <= bounds.max.x
+      let checkY = pressY >= bounds.min.y && pressY <= bounds.max.y
+
+      if (checkX && checkY) {
+        // console.log(circles[i].friendData.name)
+        onPress(circles[i].friendData._id)
+        break
+      }
+    }
   }
 }
 

@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import AddFriend from '../../assets/images/iconFriend.svg'
 
 export default AddFriendButton = props => {
-  const { _onPress } = props
+  const { _onPress, requestNum } = props
 
   return (
     // gradient ver
@@ -34,16 +34,23 @@ export default AddFriendButton = props => {
       <View style={[styles.addFriend, Styles.shadow(Colors.VIOLET.dark)]}>
         <AddFriend />
       </View>
-      <LinearGradient
-        colors={Colors.gradient.dark(Colors.MELON)}
-        style={styles.notiCount}
-      >
-        <Text
-          style={[Typography.F_CAPTION, Typography.F_BOLD, { color: 'white' }]}
+
+      {requestNum > 0 ? (
+        <LinearGradient
+          colors={Colors.gradient.dark(Colors.MELON)}
+          style={styles.notiCount}
         >
-          50
-        </Text>
-      </LinearGradient>
+          <Text
+            style={[
+              Typography.F_CAPTION,
+              Typography.F_BOLD,
+              { color: 'white' },
+            ]}
+          >
+            {requestNum}
+          </Text>
+        </LinearGradient>
+      ) : null}
     </TouchableOpacity>
   )
 }
