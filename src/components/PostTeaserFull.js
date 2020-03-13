@@ -27,7 +27,7 @@ class PostTeaserFull extends React.Component {
             postedAt={this.props.postedAt}
             author={this.props.poster}
             likes={this.props.likes}
-            leftItem={<IconButton type="replies" />}
+            leftItem={<IconButton type="comment" style={{paddingLeft: Mixins.scaleSize(40)}} />}
           />
         </View>
 
@@ -93,10 +93,10 @@ class PostTeaserFull extends React.Component {
               </View>
             ) : null}
             <View style={styles.action_wrapper}>
-              <TouchableWithoutFeedback>
-                <Text style={{ color: Colors.ACCENT }}>replies</Text>
-              </TouchableWithoutFeedback>
-              <IconButton type="heartPost" customColor={Colors.ACCENT} />
+              <View style={styles.heart_wrapper}>
+                <IconButton type="heartPost" customColor={Colors.ACCENT} />
+              </View>
+              <IconButton type="comment" customColor={Colors.ACCENT} />
             </View>
           </LinearGradient>
         </View> */}
@@ -140,6 +140,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: Mixins.scaleSize(15),
+  },
+
+  heart_wrapper: {
+
+    paddingRight: Mixins.scaleSize(15),
+
   },
 })
 

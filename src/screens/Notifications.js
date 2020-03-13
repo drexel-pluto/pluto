@@ -21,7 +21,11 @@ class Notifications extends React.Component {
           }
         />
             <View style={styles.screenContainer}>
-                <Text style={[Typography.F_H1, {paddingVertical: Layouts.PAD_VERT}]}>notifications</Text>
+                <View style={styles.heading}>
+                    <IconButton type="back"/>
+                    <Text style={Typography.F_H1}>notifications</Text>
+                </View>
+                {/* <Text style={[Typography.F_H1, {paddingVertical: Layouts.PAD_VERT}]}>notifications</Text> */}
                 <View style={{paddingBottom: Layouts.PAD_VERT}}>
                     <View style={styles.notificationContainer}>
                         <Image

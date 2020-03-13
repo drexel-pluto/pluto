@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins } from '../styles/index'
+import IconButton from './iconButton/IconButton'
 
 const MediaItem = props => (
   <View>
