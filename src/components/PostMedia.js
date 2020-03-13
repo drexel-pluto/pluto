@@ -15,7 +15,8 @@ const CarouselView = props => {
           width: '100%',
           position: 'absolute',
           top: 0,
-          padding: Layouts.PAD_HORZ,
+          paddingHorizontal: Layouts.PAD_HORZ,
+          paddingTop: Layouts.HEAD_PAD_VERT,
           alignItems: 'flex-end',
           zIndex: 10,
         }}
@@ -42,10 +43,8 @@ const CarouselView = props => {
           paddingVertical: Layouts.PAD_VERT,
         }}
       >
-        <IconButton type="heartPost" />
-        <IconButton type="comment" />
-        {/* <IconButton type="like" />
-        <IconButton type="replies" /> */}
+        {/* <IconButton type="heartPost" />
+        <IconButton type="comment" /> */}
       </View>
     </View>
   )

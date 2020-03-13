@@ -114,7 +114,9 @@ class PostContent extends React.Component {
                 likes={this.props.likes}
                 _id={this.props._id}
               />
-              {this.props.leftItem || null}
+              <View style={{ paddingLeft: Mixins.scaleSize(20) }}>
+                {this.props.leftItem || null}
+              </View>
             </View>
 
             <View style={styles.actions}>{this.props.rightItem || null}</View>
@@ -157,6 +159,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
 })
 

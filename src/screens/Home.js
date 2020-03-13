@@ -45,7 +45,7 @@ class Home extends React.Component {
         x: 0,
       },
       key: 0,
-      resetting: false
+      resetting: false,
     }
 
     this.swipe = React.createRef()
@@ -63,11 +63,12 @@ class Home extends React.Component {
 
   render() {
     const rightHeaderItems = [
-    
-      <IconButton type="notiCenter" 
-      _onPress={() => {
-        this.props.navigation.navigate('Notifications')
-      }}/>,
+      <IconButton
+        type="notiCenter"
+        _onPress={() => {
+          this.props.navigation.navigate('Notifications')
+        }}
+      />,
       <IconButton
         type="myProfile"
         _onPress={() => {
@@ -87,7 +88,14 @@ class Home extends React.Component {
           color={Colors.VIOLET.light}
         />
         <Physics
-          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, opacity: this.state.resetting ? 0 : 1}}
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            right: 0,
+            opacity: this.state.resetting ? 0 : 1,
+          }}
           groups={this.props.groups}
           friends={this.props.friends}
           setIndex={index => this.setIndex(index)}
@@ -124,7 +132,7 @@ class Home extends React.Component {
               type="addFriend"
               requestNum={this.props.requestNum}
               _onPress={() => {
-                this.props.goToAddFriend(() => this.reset());
+                this.props.goToAddFriend(() => this.reset())
               }}
             />
             <IconButton
@@ -168,11 +176,11 @@ class Home extends React.Component {
       this.swipe.animateToEdge(cancel, () => {
         this.props.navigation.navigate('EditGroup', {
           onBack: () => {
-            this.endSwipe(true); 
+            this.endSwipe(true)
           },
           reset: () => {
-            this.reset();
-          }
+            this.reset()
+          },
         })
       })
     } else {
@@ -188,12 +196,12 @@ class Home extends React.Component {
   }
 
   reset() {
-    this.setState({resetting: true});
+    this.setState({ resetting: true })
     this.props.reset().then(() => {
       this.setState(state => ({
         resetting: false,
-        key: ++state.key
-      }));
+        key: ++state.key,
+      }))
     })
   }
 }
@@ -215,7 +223,6 @@ const styles = StyleSheet.create({
   },
   bottom: {
     position: 'absolute',
-    bottom: '5%',
     left: 0,
     width: '100%',
   },

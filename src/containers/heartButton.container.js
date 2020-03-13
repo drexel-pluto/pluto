@@ -3,6 +3,7 @@ import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { sendReact } from '../redux/reducers/post.reducer'
 import HeartButton from '../components/iconButton/HeartButton'
+import { Mixins } from './../styles/index'
 
 class HeartButtonContainer extends React.Component {
   constructor(props) {
@@ -54,7 +55,9 @@ class HeartButtonContainer extends React.Component {
             this.updateReact()
           }}
         />
-        <Text style={{ marginLeft: 5 }}>{this.state.likes}</Text>
+        <Text style={{ paddingLeft: Mixins.scaleSize(5) }}>
+          {this.state.likes}
+        </Text>
       </View>
     )
   }

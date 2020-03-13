@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
-import Button from './../components/Button'
+import IconButton from './../components/iconButton/IconButton'
 
 export default AddPostOptionBar = props => {
   openImagePickerAsync = async () => {
@@ -50,15 +50,10 @@ export default AddPostOptionBar = props => {
     <View style={styles.addPostOptionBar}>
       <View style={styles.option_wrapper}>
         <View style={styles.option}>
-          {/* <Button type="small" _onPress={this.openCameraAsync} /> */}
-          <Camera />
+          <IconButton type="uploadImage" _onPress={this.openCameraAsync} />
         </View>
         <View style={styles.option}>
-          <Button
-            text="album"
-            type="small"
-            _onPress={this.openImagePickerAsync}
-          />
+          <IconButton type="chooseImage" _onPress={this.openImagePickerAsync} />
         </View>
       </View>
     </View>
@@ -75,5 +70,10 @@ const styles = StyleSheet.create({
   },
   option: {
     marginRight: Mixins.scaleSize(15),
+    backgroundColor: Colors.VIOLET.dark,
+    width: Mixins.scaleSize(50),
+    borderRadius: Mixins.scaleSize(17),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })

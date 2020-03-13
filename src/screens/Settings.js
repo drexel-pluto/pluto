@@ -15,8 +15,6 @@ class Settings extends React.Component {
     return (
       <View style={Layouts.FLEX_CONTAINER}>
         <ScreenHeader
-          isFixed={true}
-          headerColor={Colors.PEARL}
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }

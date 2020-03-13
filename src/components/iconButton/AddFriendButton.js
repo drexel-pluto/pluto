@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.PLUTO_WHITE,
     borderWidth: 2,
     borderColor: Colors.VIOLET.dark,
+    paddingLeft: Mixins.scaleSize(5),
   },
   notiCount: {
     width: Mixins.scaleSize(20),

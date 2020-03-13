@@ -86,10 +86,10 @@ class GroupFeed extends React.Component {
             openPost={this.props.openPost}
           />
         </ScrollView>
-        <LinearGradient
+        {/* <LinearGradient
           colors={[Colors.TRANSPARENT, Colors.rgba(Colors.BLACK_ROCK, 0.5)]}
           style={styles.bottom_overlay}
-        ></LinearGradient>
+        ></LinearGradient> */}
         <View style={[Layouts.BOTTOM_WRAPPER, styles.addPost_wrapper]}>
           <IconButton
             type="addPost"

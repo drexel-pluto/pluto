@@ -37,31 +37,36 @@ export default IconButton = props => {
         />
       )
     case 'heartPost':
+      return <HeartButton />
+
+    case 'settings':
       return (
-
-        <HeartButton />
-      )
-
-      case 'settings':
-        return (
-  
-        <Settings
-          _onPress={() => {
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
             _onPress()
           }}
-        />
-        )
+        >
+          <Settings />
+        </TouchableOpacity>
+      )
 
-      case 'filter':
-        return (
-
+    case 'filter':
+      return (
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            _onPress()
+          }}
+        >
           <Filter />
-
-        )
+        </TouchableOpacity>
+      )
 
     case 'searchItem':
       return (
         <TouchableOpacity
+          style={styles.iconButton}
           onPress={() => {
             _onPress()
           }}
@@ -72,6 +77,7 @@ export default IconButton = props => {
     case 'notiCenter':
       return (
         <TouchableOpacity
+          style={styles.iconButton}
           onPress={() => {
             _onPress()
           }}
@@ -83,6 +89,7 @@ export default IconButton = props => {
     case 'myProfile':
       return (
         <TouchableOpacity
+          style={styles.iconButton}
           onPress={() => {
             _onPress()
           }}
@@ -91,35 +98,54 @@ export default IconButton = props => {
         </TouchableOpacity>
       )
 
-      case 'comment':
+    case 'comment':
       return (
-    
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            _onPress()
+          }}
+        >
           <Comment />
-        
+        </TouchableOpacity>
       )
 
-      case 'chooseImage':
+    case 'chooseImage':
       return (
-    
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            _onPress()
+          }}
+        >
           <ChooseImage />
-        
+        </TouchableOpacity>
       )
 
-      case 'uploadImage':
+    case 'uploadImage':
       return (
-
-
-        <UploadImage 
-        _onPress={this.openCameraAsync} 
-        />
-
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            _onPress()
+          }}
+        >
+          <UploadImage />
+        </TouchableOpacity>
       )
 
-      case 'cancel':
+    case 'cancel':
       return (
-        <Cancel
-        />
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            _onPress()
+          }}
+        >
+          <Cancel />
+        </TouchableOpacity>
       )
+
     default:
       return (
         <TouchableOpacity
