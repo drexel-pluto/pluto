@@ -18,7 +18,6 @@ class EditGroupName extends React.Component {
       <TextInput           
       style={[
               Typography.F_H3,
-              { paddingTop: Mixins.scaleSize(12) },
               styles.input
           ]}
           placeholder={'enter a group name...'}
@@ -32,13 +31,13 @@ class EditGroupName extends React.Component {
 
 const styles = StyleSheet.create({
   inputName: {
-    flexDirection: 'row',
-    justifyContent: 'center'
+    alignItems: 'center',
+    flex: 0.5
   },
   input: {
     borderBottomWidth: 1,
     borderBottomColor: Colors.VIOLET.dark,
-    width: 120,
+    width: 200,
   },
 })
 

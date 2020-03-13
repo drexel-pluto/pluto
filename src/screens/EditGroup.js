@@ -7,6 +7,7 @@ import SelectFriendList from '../components/SelectFriendList'
 import InputHeader from '../components/InputHeader'
 import EditGroupName from '../components/EditGroupName'
 import Button from '../components/Button'
+import MiniPhysics from '../components/physics/mini'
 
 class EditGroup extends React.Component {
   constructor(props) {
@@ -14,23 +15,36 @@ class EditGroup extends React.Component {
     this.state = {
       text: undefined, // user's input
     }
+
+    this.physics = React.createRef();
   }
 
   onChangeText = text => this.setState({ text })
 
-
-  onSubmit = () => {}
+  toggleMember = (friend) => {
+    if (this.props.members.includes(friend._id)) {
+      this.physics.removeFriend(friend._id);
+    } else {
+      this.physics.addFriend(friend);
+    }
+    this.props.toggleMember(friend._id);
+  }
 
   render() {
     return (
-      <KeyboardAvoidingView style={[styles.editGroupScreen, Layouts.FLEX_CONTAINER]} behavior="padding">
+      <KeyboardAvoidingView style={[styles.editGroupScreen]} behavior="height">
         <View style={styles.actions}>
           <Button type="text" text="cancel" color="Colors.BLACK_ROCK" _onPress={()=>this.props.cancelEdit()}/>
           <Button type="outline" text={this.props.isNew ? "create" : "update"} color="Colors.BLACK_ROCK" _onPress={()=>this.props.doneEdit()} disabled={!this.props.canSubmit}/>
         </View>
         <EditGroupName onChange={this.props.setName} value={this.props.name}/>
-        <CircleContainer />
-        <SelectFriendList friends={this.props.friends} toggleMember={this.props.toggleMember} members={this.props.members}/>
+        <View style={{flex:1}} pointerEvents="none"/>
+        <MiniPhysics 
+          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, zIndex: -5}}
+          friends={this.props.friends}
+          ref={(ref) => {this.physics = ref}}
+        />
+        <SelectFriendList friends={this.props.friends} toggleMember={this.toggleMember} members={this.props.members}/>
       </KeyboardAvoidingView>
     )
   }
@@ -38,7 +52,8 @@ class EditGroup extends React.Component {
 
 const styles = StyleSheet.create({
   editGroupScreen: {
-    backgroundColor: Colors.UI_BG,
+    backgroundColor: Colors.VIOLET.light,
+    flex: 1,
   },
   actions: {
     flexDirection: 'row',
