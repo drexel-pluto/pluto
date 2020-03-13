@@ -16,7 +16,7 @@ const Physics = (state, { touches, time }) => {
   return state
 }
 
-const MoveBox = (state, { touches }, onPress) => {
+const MoveBox = (state, { touches }, onPress = () => {}) => {
   let constraint = state.physics.constraint
   //-- Handle start touch
   let start = touches.find(x => x.type === 'start')

@@ -46,7 +46,7 @@ class SelectFriendList extends React.Component {
           renderItem={({ item }) => (
             <SelectFriendItem 
               friend={item.friend}
-              onPress={() => this.props.toggleMember(item.friend._id)}
+              onPress={() => this.props.toggleMember(item.friend)}
               checked={this.props.members.includes(item.friend._id)}/>
           )}
           extraData={this.props.members}
@@ -60,12 +60,11 @@ class SelectFriendList extends React.Component {
 const styles = StyleSheet.create({
   FriendSelectList: {
     backgroundColor: Colors.UI_BG,
-    height: '50%',
     borderTopLeftRadius: Mixins.scaleSize(35),
     borderTopRightRadius: Mixins.scaleSize(35),
     backgroundColor: Colors.CREAM,
     paddingHorizontal: Layouts.PAD_HORZ,
-    flex: 1
+    height: 50
   },
 })
 

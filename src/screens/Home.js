@@ -83,7 +83,7 @@ class Home extends React.Component {
           }}
           style={{ position: 'absolute', zIndex: 1 }}
           isLeft={true}
-          color={'#FFFAAA'}
+          color={Colors.VIOLET.light}
         />
         <Physics
           style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, opacity: this.state.resetting ? 0 : 1}}

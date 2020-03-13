@@ -45,39 +45,39 @@ export default class RigidBodies extends Component {
     })
 
     Matter.World.addConstraint(world, constraint)
-    const wallWidth = 50
-    const wallDist = 150 //px distance outside edge of screen;
-    Matter.World.add(world, [
-      // walls
-      Matter.Bodies.rectangle(
-        width / 2,
-        -wallDist,
-        width + 2 * wallDist,
-        wallWidth,
-        { isStatic: true, continuous: 1 }
-      ),
-      Matter.Bodies.rectangle(
-        width / 2,
-        height + wallDist,
-        width + 2 * wallDist,
-        wallWidth,
-        { isStatic: true, continuous: 1 }
-      ),
-      Matter.Bodies.rectangle(
-        -wallDist,
-        height / 2,
-        wallWidth,
-        height + 2 * wallDist,
-        { isStatic: true, continuous: 1 }
-      ),
-      Matter.Bodies.rectangle(
-        width + wallDist,
-        height / 2,
-        wallWidth,
-        height + 2 * wallDist,
-        { isStatic: true, continuous: 1 }
-      ),
-    ])
+    // const wallWidth = 50
+    // const wallDist = 150 //px distance outside edge of screen;
+    // Matter.World.add(world, [
+    //   // walls
+    //   Matter.Bodies.rectangle(
+    //     width / 2,
+    //     -wallDist,
+    //     width + 2 * wallDist,
+    //     wallWidth,
+    //     { isStatic: true, continuous: 1 }
+    //   ),
+    //   Matter.Bodies.rectangle(
+    //     width / 2,
+    //     height + wallDist,
+    //     width + 2 * wallDist,
+    //     wallWidth,
+    //     { isStatic: true, continuous: 1 }
+    //   ),
+    //   Matter.Bodies.rectangle(
+    //     -wallDist,
+    //     height / 2,
+    //     wallWidth,
+    //     height + 2 * wallDist,
+    //     { isStatic: true, continuous: 1 }
+    //   ),
+    //   Matter.Bodies.rectangle(
+    //     width + wallDist,
+    //     height / 2,
+    //     wallWidth,
+    //     height + 2 * wallDist,
+    //     { isStatic: true, continuous: 1 }
+    //   ),
+    // ])
 
     let attractor = Matter.Bodies.circle(width / 2, height / 2, 0, {
       frictionAir: 0,
