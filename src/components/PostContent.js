@@ -68,6 +68,7 @@ class PostContent extends React.Component {
               <View style={styles.author_wrapper}>
                 <AuthorHeader
                   isCompact={false}
+                  author={this.props.author}
                   authorId={this.props.author._id}
                   time={this.props.postedAt}
                 />

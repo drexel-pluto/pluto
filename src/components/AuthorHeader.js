@@ -11,7 +11,7 @@ const AuthorHeader = props => {
   if (author) {
     authInfo = author
   } else {
-    authInfo = getFriendById(authorId)
+    authInfo = getFriendById(authorId) // TODO: this doesn't seem to work
   }
 
   return (
