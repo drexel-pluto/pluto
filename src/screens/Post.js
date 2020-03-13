@@ -20,7 +20,7 @@ class Post extends React.Component {
     return (
       <KeyboardAwareScrollView
         stickyHeaderIndices={[0]}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="handled"
       >
         <ScreenHeader
           isFixed={true}

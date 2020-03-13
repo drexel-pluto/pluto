@@ -11,6 +11,7 @@ import {
 import { VIOLET } from '../../styles/colors'
 import Button from './../../components/Button'
 import PlutoLogo from './../../assets/images/plutoLogo.svg'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -29,73 +30,81 @@ export default class LoginScreen extends Component {
 
   render() {
     return (
-      <LinearGradient
-        colors={Colors.gradient.light(VIOLET)}
-        style={{ flex: 1 }}
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flex: 1 }}
       >
-        <View style={[styles.login, Styles.shadow(Colors.VIOLET.dark)]}>
-          <View
-            style={{ alignItems: 'center', marginBottom: Mixins.scaleSize(20) }}
-          >
-            <PlutoLogo />
-          </View>
-          <Text
-            style={[
-              Typography.F_H1,
-              { color: 'white', marginBottom: Layouts.PAD_VERT },
-            ]}
-          >
-            log in
-          </Text>
-          {this.props.error.length > 0 && (
-            <View style={{ backgroundColor: Colors.MELON.dark }}>
-              <Text style={{ color: 'white' }}>{this.props.error}</Text>
+        <LinearGradient
+          style={{ flex: 1 }}
+          colors={Colors.gradient.light(VIOLET)}
+        >
+          <View style={[styles.login, Styles.shadow(Colors.VIOLET.dark)]}>
+            <View
+              style={{
+                alignItems: 'center',
+                marginBottom: Mixins.scaleSize(20),
+              }}
+            >
+              <PlutoLogo />
             </View>
-          )}
-          <View
-            style={{
-              paddingVertical: Layouts.PAD_VERT,
-              width: '100%',
-              alignItems: 'center',
-            }}
-          >
-            <TextInput
-              style={styles.input}
-              placeholder="username"
-              onChangeText={username => this.setState({ username })}
-              autoCompleteType="username"
-              autoCapitalize="none"
-              autoCorrect={false}
-              textContentType="username"
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="password"
-              onChangeText={password => this.setState({ password })}
-              autoCompleteType="password"
-              autoCapitalize="none"
-              autoCorrect={false}
-              textContentType="password"
-              secureTextEntry={true}
-            />
+            <Text
+              style={[
+                Typography.F_H1,
+                { color: 'white', marginBottom: Layouts.PAD_VERT },
+              ]}
+            >
+              log in
+            </Text>
+            {this.props.error.length > 0 && (
+              <View style={{ backgroundColor: Colors.MELON.dark }}>
+                <Text style={{ color: 'white' }}>{this.props.error}</Text>
+              </View>
+            )}
+            <View
+              style={{
+                paddingVertical: Layouts.PAD_VERT,
+                width: '100%',
+                alignItems: 'center',
+              }}
+            >
+              <TextInput
+                style={styles.input}
+                placeholder="username"
+                onChangeText={username => this.setState({ username })}
+                autoCompleteType="username"
+                autoCapitalize="none"
+                autoCorrect={false}
+                textContentType="username"
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="password"
+                onChangeText={password => this.setState({ password })}
+                autoCompleteType="password"
+                autoCapitalize="none"
+                autoCorrect={false}
+                textContentType="password"
+                secureTextEntry={true}
+              />
+            </View>
+            <View style={{ paddingVertical: Layouts.PAD_VERT }}>
+              <Button
+                style={{ marginBottom: Layouts.PAD_VERT }}
+                _onPress={() =>
+                  this.props.login(this.state.username, this.state.password)
+                }
+                text="login"
+                color={Colors.MELON}
+              />
+              <Button
+                _onPress={() => this.props.setIsCreate(true)}
+                text="create account"
+                type="outline"
+              />
+            </View>
           </View>
-          <View style={{ paddingVertical: Layouts.PAD_VERT }}>
-            <Button
-              style={{ marginBottom: Layouts.PAD_VERT }}
-              _onPress={() =>
-                this.props.login(this.state.username, this.state.password)
-              }
-              text="login"
-              color={Colors.MELON}
-            />
-            <Button
-              _onPress={() => this.props.setIsCreate(true)}
-              text="create account"
-              type="outline"
-            />
-          </View>
-        </View>
-      </LinearGradient>
+        </LinearGradient>
+      </KeyboardAwareScrollView>
     )
   }
 }
