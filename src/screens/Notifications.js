@@ -13,18 +13,19 @@ class Notifications extends React.Component {
     render() {
       return (
         <View style={[Layouts.FLEX_CONTAINER]}>
-            <LinearGradient
-            colors={Colors.UI_BG_GRADIENT}
-            style={{flex: 1}}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            locations={[0, 0.5]}
-            >
+             <ScreenHeader
+          isFixed={true}
+          headerColor={Colors.PEARL}
+          leftItems={
+            <IconButton type="back" _onPress={this.props.navigation.goBack} />
+          }
+        />
             <View style={styles.screenContainer}>
                 <View style={styles.heading}>
+                    <IconButton type="back"/>
                     <Text style={Typography.F_H1}>notifications</Text>
-                    <IconButton type="cancel"/>
                 </View>
+                {/* <Text style={[Typography.F_H1, {paddingVertical: Layouts.PAD_VERT}]}>notifications</Text> */}
                 <View style={{paddingBottom: Layouts.PAD_VERT}}>
                     <View style={styles.notificationContainer}>
                         <Image
@@ -42,7 +43,6 @@ class Notifications extends React.Component {
                
 
             </View>
-          </LinearGradient>
         </View>
       )
     }
@@ -54,7 +54,7 @@ class Notifications extends React.Component {
     },
     heading: {
         flexDirection: 'row',
-        paddingTop: Mixins.scaleSize(60),
+        // paddingTop: Mixins.scaleSize(60),
         paddingHorizontal: Layouts.PAD_HORZ,
         justifyContent: 'space-between',
     },
