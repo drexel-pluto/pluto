@@ -118,9 +118,8 @@ const styles = StyleSheet.create({
     height: Mixins.scaleSize(100),
   },
   addPost_wrapper: {
-    paddingBottom: Mixins.scaleSize(30),
     paddingHorizontal: Layouts.PAD_HORZ,
-    alignItems: 'flex-end',
+    right: 0,
   },
 })
 

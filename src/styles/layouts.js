@@ -24,7 +24,14 @@ export const HEAD_PAD_VERT = scaleSize(10) + getStatusBarHeight
 // -- Bottom Els
 export const BOTTOM_WRAPPER = {
   position: 'absolute',
-  bottom: '5%',
+  bottom: '8%',
+  width: 'auto',
+}
+
+export const BOTTOM_WRAPPER_CENTER = {
+  position: 'absolute',
+  bottom: '8%',
+  width: 'auto',
   left: 0,
-  width: '100%',
+  right: 0,
 }
