@@ -32,6 +32,7 @@ class GroupFeed extends React.Component {
   }
 
   render() {
+    console.log(this.props.group)
     const leftHeaderItems = [
       <IconButton type="back" _onPress={this.props.navigation.goBack} />,
     ]
@@ -51,7 +52,7 @@ class GroupFeed extends React.Component {
           <ScreenHeader
             isFixed={true}
             headerColor={Colors.PEARL}
-            title={'Group Feed'}
+            title={this.props.group.title}
             leftItems={leftHeaderItems}
             rightItems={rightHeaderItems}
           />
