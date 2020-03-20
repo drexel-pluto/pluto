@@ -3,10 +3,16 @@ import { connect } from 'react-redux'
 import HomeScreen from '../screens/Home.js'
 import { setGroup } from '../redux/reducers/group.reducer'
 import { getMe } from '../redux/reducers/user.reducer'
+import { updateFriendRequests } from '../redux/reducers/addFriend.reducer'
 
 class AuthLoadingContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    props.updateFriendRequests()
+  }
+
   reset() {
-    return this.props.getMe(this.props.auth);
+    return this.props.getMe(this.props.auth)
   }
 
   render() {
@@ -17,9 +23,9 @@ class AuthLoadingContainer extends React.Component {
         friends={this.props.friends}
         userId={this.props.userId}
         navigation={this.props.navigation}
-        route={this.props.route} 
+        route={this.props.route}
         reset={() => this.reset()}
-        goToAddFriend={(onAcceptCallback) => this.goToAddFriend(onAcceptCallback)}
+        goToAddFriend={onAcceptCallback => this.goToAddFriend(onAcceptCallback)}
         requestNum={this.props.requestNum}
       />
     )
@@ -33,8 +39,8 @@ class AuthLoadingContainer extends React.Component {
   goToAddFriend(onAcceptCallback) {
     this.props.navigation.navigate('AddFriend', {
       onAccept: () => {
-        onAcceptCallback();
-      }
+        onAcceptCallback()
+      },
     })
   }
 }
@@ -44,12 +50,13 @@ const mapStateToProps = state => ({
   friends: state.user.friends,
   userId: state.user.userData.id,
   auth: state.user.authToken,
-  requestNum: state.addFriend.friendRequests.length
+  requestNum: state.addFriend.friendRequests.length,
 })
 
 const mapDispatchToProps = {
   setGroup,
-  getMe
+  getMe,
+  updateFriendRequests,
 }
 
 export default connect(

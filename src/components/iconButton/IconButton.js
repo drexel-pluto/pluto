@@ -145,16 +145,26 @@ export default IconButton = props => {
           <Cancel />
         </TouchableOpacity>
       )
-
+    case 'back':
+      return (
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            _onPress(null)
+          }}
+        >
+          <Back />
+        </TouchableOpacity>
+      )
     default:
       return (
         <TouchableOpacity
           style={styles.iconButton}
           onPress={() => {
-            type == 'back' ? _onPress(null) : _onPress()
+            _onPress()
           }}
         >
-          <Back />
+          <Text>{type}</Text>
         </TouchableOpacity>
       )
   }
