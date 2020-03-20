@@ -91,7 +91,7 @@ class GroupFeed extends React.Component {
           colors={[Colors.TRANSPARENT, Colors.rgba(Colors.BLACK_ROCK, 0.5)]}
           style={styles.bottom_overlay}
         ></LinearGradient> */}
-        <View style={[Layouts.BOTTOM_WRAPPER, styles.addPost_wrapper]}>
+        <View style={Layouts.BOTTOM_WRAPPER_RIGHT}>
           <IconButton
             type="addPost"
             _onPress={() => {
@@ -116,10 +116,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: Mixins.scaleSize(100),
-  },
-  addPost_wrapper: {
-    paddingHorizontal: Layouts.PAD_HORZ,
-    right: 0,
   },
 })
 

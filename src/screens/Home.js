@@ -131,9 +131,7 @@ class Home extends React.Component {
           // bottom fixed items
           // needs to be positioned separately to avoid blocking the touch in b/t
         }
-        <View
-          style={[Layouts.BOTTOM_WRAPPER, styles.action, styles.action_left]}
-        >
+        <View style={Layouts.BOTTOM_WRAPPER_LEFT}>
           <IconButton
             type="addFriend"
             requestNum={this.props.requestNum}
@@ -142,9 +140,7 @@ class Home extends React.Component {
             }}
           />
         </View>
-        <View
-          style={[Layouts.BOTTOM_WRAPPER, styles.action, styles.action_right]}
-        >
+        <View style={Layouts.BOTTOM_WRAPPER_RIGHT}>
           <IconButton
             type="addPost"
             _onPress={() => {
@@ -222,15 +218,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     bottom: '5%',
-  },
-  action: {
-    paddingHorizontal: Layouts.PAD_HORZ,
-  },
-  action_left: {
-    left: 0,
-  },
-  action_right: {
-    right: 0,
   },
 })
 
