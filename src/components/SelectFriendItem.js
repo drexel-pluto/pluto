@@ -25,7 +25,11 @@ class SelectFriendItem extends React.Component {
           <View style={styles.friend_wrapper}>
             <Image
               style={styles.image}
-              source={{ uri: 'https://picsum.photos/id/237/300/300' }}
+              source={
+                this.props.friend.profilePicURL
+                  ? { uri: this.props.friend.profilePicURL }
+                  : { uri: 'https://picsum.photos/id/237/300/300' }
+              }
             />
             <Text style={Typography.F_BODY}>{this.props.friend.name}</Text>
           </View>
@@ -47,11 +51,11 @@ class SelectFriendItem extends React.Component {
 SelectFriendItem.defaultProps = {
   isChecked: false,
   friend: {
-    name: "",
-    id: ""
+    name: '',
+    id: '',
   },
   checked: false,
-  onPress: () => {}
+  onPress: () => {},
 }
 
 const styles = StyleSheet.create({
