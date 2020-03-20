@@ -23,6 +23,7 @@ class AddPost extends React.Component {
     this.state = {
       text: '',
       tags: [],
+      submitted: false,
     }
   }
 
@@ -55,7 +56,10 @@ class AddPost extends React.Component {
   }
 
   submitPost() {
-    this.props.submitPost(this.state.text, this.state.tags)
+    if (this.state.text.length > 0) {
+      this.props.submitPost(this.state.text, this.state.tags)
+      this.setState({ submitted: true })
+    } else return // any alerts?
   }
 
   onChangeText(text) {
@@ -97,6 +101,7 @@ class AddPost extends React.Component {
             <Button
               text="post"
               type="outline"
+              disabled={this.state.submitted}
               _onPress={() => this.submitPost()}
             />
           }
