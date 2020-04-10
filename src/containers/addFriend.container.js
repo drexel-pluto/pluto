@@ -6,7 +6,7 @@ import {updateFriendRequests, acceptFriendRequest, rejectFriendRequest} from "..
 class AddFriendContainer extends React.Component {
   constructor(props) {
     super(props);
-    props.updateFriendRequests();
+    // props.updateFriendRequests();
   }
 
   accept(username) {

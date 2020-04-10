@@ -32,6 +32,7 @@ class GroupFeed extends React.Component {
   }
 
   render() {
+    console.log(this.props.group)
     const leftHeaderItems = [
       <IconButton type="back" _onPress={this.props.navigation.goBack} />,
     ]
@@ -51,7 +52,7 @@ class GroupFeed extends React.Component {
           <ScreenHeader
             isFixed={true}
             headerColor={Colors.PEARL}
-            title={'Group Feed'}
+            title={this.props.group.title}
             leftItems={leftHeaderItems}
             rightItems={rightHeaderItems}
           />
@@ -90,7 +91,7 @@ class GroupFeed extends React.Component {
           colors={[Colors.TRANSPARENT, Colors.rgba(Colors.BLACK_ROCK, 0.5)]}
           style={styles.bottom_overlay}
         ></LinearGradient> */}
-        <View style={[Layouts.BOTTOM_WRAPPER, styles.addPost_wrapper]}>
+        <View style={Layouts.BOTTOM_WRAPPER_RIGHT}>
           <IconButton
             type="addPost"
             _onPress={() => {
@@ -115,11 +116,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: Mixins.scaleSize(100),
-  },
-  addPost_wrapper: {
-    paddingBottom: Mixins.scaleSize(30),
-    paddingHorizontal: Layouts.PAD_HORZ,
-    alignItems: 'flex-end',
   },
 })
 

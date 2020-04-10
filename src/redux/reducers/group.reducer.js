@@ -7,9 +7,12 @@ export const GET_GROUP_POSTS_FAIL = 'group/GET_GROUP_POSTS_FAIL'
 
 export const SET_MEMBERS = 'group/SET_MEMBERS'
 
+export const SET_TITLE = 'group/SET_TITLE'
+
 // reducer
 
 let defaultStateGroup = {
+  title: '',
   posts: [],
   members: [],
   loading: true,
@@ -21,12 +24,21 @@ export default function reducer(state = defaultStateGroup, action) {
       return { ...state, loading: false, posts: action.payload.data }
     case SET_MEMBERS:
       return { ...state, members: action.members }
+    case SET_TITLE:
+      return { ...state, title: action.title }
     default:
       return state
   }
 }
 
 // actions
+
+export function setTitle(group_title) {
+  return {
+    type: SET_TITLE,
+    title: group_title,
+  }
+}
 
 export function setMemebers(members) {
   return {
@@ -77,5 +89,6 @@ export function setGroup(group_id) {
     const group = groups.find(element => element._id == group_id)
     dispatch(setMemebers(group.members))
     dispatch(getPosts(group_id))
+    dispatch(setTitle(group.title))
   }
 }

@@ -126,28 +126,32 @@ class Home extends React.Component {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={Layouts.BOTTOM_WRAPPER}>
-          <View style={styles.action_wrapper}>
-            <IconButton
-              type="addFriend"
-              requestNum={this.props.requestNum}
-              _onPress={() => {
-                this.props.goToAddFriend(() => this.reset())
-              }}
-            />
-            <IconButton
-              type="addPost"
-              _onPress={() => {
-                this.props.navigation.navigate('AddPost', {
-                  defaultRecipients: this.props.groups[this.state.index]
-                    .members,
-                })
-              }}
-            />
-          </View>
-          <View style={styles.dot_wrapper}>
-            {pageDots(this.props.groups.length, this.state.index)}
-          </View>
+
+        {
+          // bottom fixed items
+          // needs to be positioned separately to avoid blocking the touch in b/t
+        }
+        <View style={Layouts.BOTTOM_WRAPPER_LEFT}>
+          <IconButton
+            type="addFriend"
+            requestNum={this.props.requestNum}
+            _onPress={() => {
+              this.props.goToAddFriend(() => this.reset())
+            }}
+          />
+        </View>
+        <View style={Layouts.BOTTOM_WRAPPER_RIGHT}>
+          <IconButton
+            type="addPost"
+            _onPress={() => {
+              this.props.navigation.navigate('AddPost', {
+                defaultRecipients: this.props.groups[this.state.index].members,
+              })
+            }}
+          />
+        </View>
+        <View style={[Layouts.BOTTOM_WRAPPER_CENTER, styles.dot_wrapper]}>
+          {pageDots(this.props.groups.length, this.state.index)}
         </View>
       </View>
     )
@@ -210,21 +214,10 @@ const styles = StyleSheet.create({
   group_wrapper: {
     paddingVertical: Mixins.scaleSize(40),
   },
-  action_wrapper: {
-    paddingBottom: Mixins.scaleSize(40),
-    paddingHorizontal: Layouts.PAD_HORZ,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   dot_wrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
-  },
-  bottom: {
-    position: 'absolute',
-    left: 0,
-    width: '100%',
+    bottom: '5%',
   },
 })
 

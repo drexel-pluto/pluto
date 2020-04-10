@@ -27,7 +27,15 @@ class PostTeaserFull extends React.Component {
             postedAt={this.props.postedAt}
             author={this.props.poster}
             likes={this.props.likes}
-            leftItem={<IconButton type="comment" style={{paddingLeft: Mixins.scaleSize(40)}} />}
+            leftItem={
+              <IconButton
+                type="comment"
+                _onPress={() =>
+                  this.props.openPost(this.props._id, this.props.poster)
+                }
+                style={{ paddingLeft: Mixins.scaleSize(40) }}
+              />
+            }
           />
         </View>
 
@@ -143,9 +151,7 @@ const styles = StyleSheet.create({
   },
 
   heart_wrapper: {
-
     paddingRight: Mixins.scaleSize(15),
-
   },
 })
 
