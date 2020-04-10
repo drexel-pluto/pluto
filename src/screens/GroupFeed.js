@@ -80,16 +80,16 @@ class GroupFeed extends React.Component {
           <RecentPostList
             data={this.props.group.posts}
             openPost={this.props.openPost}
-            isLoaded={this.props.isLoaded}
+            loading={this.props.loading}
           />
-          {this.props.isLoaded === false
+          {this.props.loading === true
             ? <TagListSkeleton />
             : <TagList data={TAG_DATA} />
           }
           <PostFeed
             data={this.props.group.posts}
             openPost={this.props.openPost}
-            isLoaded={this.props.isLoaded}
+            loading={this.props.loading}
           />
         </ScrollView>
         {/* <LinearGradient

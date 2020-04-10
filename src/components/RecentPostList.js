@@ -20,7 +20,7 @@ export default RecentPostList = props => {
       >
         top picks
       </Text>
-      {props.isLoaded === false 
+      {props.loading === true 
         ? <View 
             style={{
               paddingHorizontal: Layouts.PAD_HORZ,

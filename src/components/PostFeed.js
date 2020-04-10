@@ -7,7 +7,7 @@ import PostTeaserFullSkeleton from "./skeleton/PostTeaserFull.skeleton"
 export default PostFeed = props => {
   return (
     <View style={styles.postFeed}>
-      {props.isLoaded === false
+      {props.loading === true
         ? <PostTeaserFullSkeleton />
         : <FlatList
             data={props.data}

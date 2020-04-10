@@ -4,6 +4,7 @@ import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from './../components/ScreenHeader'
 import ProfileHeader from '../components/ProfileHeader'
 import PostGrid from '../components/PostGrid'
+import PostGridSkeleton from '../components/skeleton/PostGrid.skeleton'
 import IconButton from './../components/iconButton/IconButton'
 
 class Profile extends React.Component {
@@ -33,11 +34,14 @@ class Profile extends React.Component {
             )
           }
         />
-        <ProfileHeader profile={this.props.profile} />
-        <PostGrid
-          data={this.props.profile.posts}
-          openPost={this.props.openPost}
-        />
+        <ProfileHeader profile={this.props.profile} loading={this.props.loading}/>
+        {this.props.loading
+          ? <PostGridSkeleton />
+          : <PostGrid
+              data={this.props.profile.posts}
+              openPost={this.props.openPost}
+            />
+        }
       </ScrollView>
     )
   }

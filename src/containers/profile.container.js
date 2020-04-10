@@ -27,6 +27,7 @@ class ProfileContainer extends React.Component {
         route={this.props.route}
         myId={this.props.myId}
         openPost={(id, poster) => this._openPost(id, poster)}
+        loading={this.props.loading}
       />
     )
   }
@@ -35,6 +36,7 @@ class ProfileContainer extends React.Component {
 const mapStateToProps = state => ({
   profile: state.profile,
   myId: state.user.userData.id,
+  loading: state.profile.loading
 })
 
 const mapDispatchToProps = {

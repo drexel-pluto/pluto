@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import UserProfile from './UserProfile'
+import UserProfileSkeleton from './skeleton/UserProfile.skeleton'
 
 class ProfileHeader extends React.Component {
   constructor(props) {
@@ -11,7 +12,10 @@ class ProfileHeader extends React.Component {
   render() {
     return (
       <View style={[styles.ProfileHeader, Styles.shadow('black')]}>
-        <UserProfile profile={this.props.profile} />
+        {this.props.loading
+          ? <UserProfileSkeleton />
+          : <UserProfile profile={this.props.profile} />
+        }
       </View>
     )
   }

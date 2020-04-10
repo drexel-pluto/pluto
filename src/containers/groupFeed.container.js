@@ -17,7 +17,7 @@ class AuthLoadingContainer extends React.Component {
         route={this.props.route}
         openPost={(id, poster) => this._openPost(id, poster)}
         user={this.props.user}
-        isLoaded={!this.props.loading}
+        loading={this.props.loading}
       />
     )
   }
