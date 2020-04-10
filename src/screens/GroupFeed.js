@@ -5,11 +5,11 @@ import ScreenHeader from '../components/ScreenHeader'
 import CircleList from './../components/CircleList'
 import RecentPostList from '../components/RecentPostList'
 import TagList from './../components/TagList'
+import TagListSkeleton from '../components/skeleton/TagList.skeleton'
 import PostFeed from './../components/PostFeed'
 import IconButton from '../components/iconButton/IconButton'
-import { LinearGradient } from 'expo-linear-gradient'
 import ContainerTail from './../assets/images/containerTail--pearl.svg'
-import { TAG_DATA, POST_DATA, CIRCLE_DATA } from './../assets/data'
+import { TAG_DATA } from './../assets/data'
 
 class GroupFeed extends React.Component {
   constructor(props) {
@@ -80,11 +80,16 @@ class GroupFeed extends React.Component {
           <RecentPostList
             data={this.props.group.posts}
             openPost={this.props.openPost}
+            isLoaded={this.props.isLoaded}
           />
-          <TagList data={TAG_DATA} />
+          {this.props.isLoaded === false
+            ? <TagListSkeleton />
+            : <TagList data={TAG_DATA} />
+          }
           <PostFeed
             data={this.props.group.posts}
             openPost={this.props.openPost}
+            isLoaded={this.props.isLoaded}
           />
         </ScrollView>
         {/* <LinearGradient

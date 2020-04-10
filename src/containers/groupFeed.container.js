@@ -17,6 +17,7 @@ class AuthLoadingContainer extends React.Component {
         route={this.props.route}
         openPost={(id, poster) => this._openPost(id, poster)}
         user={this.props.user}
+        isLoaded={!this.props.loading}
       />
     )
   }
@@ -25,6 +26,7 @@ class AuthLoadingContainer extends React.Component {
 const mapStateToProps = state => ({
   group: state.group,
   user: state.user.userData,
+  loading: state.group.loading,
 })
 
 const mapDispatchToProps = {

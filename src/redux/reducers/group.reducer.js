@@ -20,6 +20,8 @@ let defaultStateGroup = {
 
 export default function reducer(state = defaultStateGroup, action) {
   switch (action.type) {
+    case GET_GROUP_POSTS:
+      return { ...state, loading: true, posts: [] }
     case GET_GROUP_POSTS_SUCCESS:
       return { ...state, loading: false, posts: action.payload.data }
     case SET_MEMBERS:

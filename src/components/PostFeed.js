@@ -2,29 +2,34 @@ import React from 'react'
 import { View, FlatList, Text, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import PostTeaserFull from './PostTeaserFull'
+import PostTeaserFullSkeleton from "./skeleton/PostTeaserFull.skeleton"
 
 export default PostFeed = props => {
   return (
     <View style={styles.postFeed}>
-      <FlatList
-        data={props.data}
-        renderItem={({ item, index }) => {
-          return (
-            <PostTeaserFull
-              key={item._id}
-              _id={item._id}
-              media={item.mediaURLs}
-              text={item.text}
-              tags={item.tags}
-              postedAt={item.postedAt}
-              poster={item.poster}
-              likes={item.likes}
-              openPost={props.openPost}
-            />
-          )
-        }}
-        keyExtractor={item => item._id}
-      />
+      {props.isLoaded === false
+        ? <PostTeaserFullSkeleton />
+        : <FlatList
+            data={props.data}
+            renderItem={({ item, index }) => {
+              return (
+                <PostTeaserFull
+                  key={item._id}
+                  _id={item._id}
+                  media={item.mediaURLs}
+                  text={item.text}
+                  tags={item.tags}
+                  postedAt={item.postedAt}
+                  poster={item.poster}
+                  likes={item.likes}
+                  openPost={props.openPost}
+                />
+              )
+            }}
+            keyExtractor={item => item._id}
+          />
+      }
+      
     </View>
   )
 }
