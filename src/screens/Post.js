@@ -9,6 +9,7 @@ import IconButton from '../components/iconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import PostContent from './../components/PostContent'
+import PostTeaserFullSkeleton from "../components/skeleton/PostTeaserFull.skeleton"
 
 class Post extends React.Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class Post extends React.Component {
   }
 
   render() {
-    console.log(this.props.data)
     return (
       <KeyboardAwareScrollView
         stickyHeaderIndices={[0]}
@@ -30,23 +30,24 @@ class Post extends React.Component {
         />
 
         <View style={{ paddingHorizontal: Layouts.PAD_HORZ_SM }}>
-          <PostContent
-            _id={this.props.data.id}
-            media={this.props.data.mediaURLs}
-            text={this.props.data.text}
-            tags={this.props.data.tags}
-            postedAt={this.props.data.postedAt}
-            author={this.props.data.poster}
-            likes={this.props.data.likes}
-          />
-        </View>
-
-        <View style={styles.tag_wrapper}>
-          <TagList data={TAG_DATA} />
+          {this.props.loading
+            ? <PostTeaserFullSkeleton />
+            : <PostContent
+                _id={this.props.data.id}
+                media={this.props.data.mediaURLs}
+                text={this.props.data.text}
+                tags={this.props.data.tags}
+                postedAt={this.props.data.postedAt}
+                author={this.props.data.poster}
+                likes={this.props.data.likes}
+              />
+          }
+          
         </View>
         <CommentList
           data={this.props.data.comments}
           sendComment={this.props.sendComment}
+          loading={this.props.loading}
         />
       </KeyboardAwareScrollView>
     )
