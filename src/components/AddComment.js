@@ -26,11 +26,11 @@ class AddComment extends React.Component {
 
       this.props.sendComment(text).then(action => {
         if (action.type.endsWith('SUCCESS')) {
-          this.setState({ text: undefined });
+          this.setState({ text: undefined })
         } else {
           //ERROR POSTING
         }
-      });
+      })
     } else {
       alert('Please enter your comment first')
     }
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   addComment: {
     paddingHorizontal: Mixins.scaleSize(5),
     paddingVertical: Layouts.PAD_VERT,
+    paddingHorizontal: Layouts.PAD_HORZ_SM,
   },
 })
 

@@ -8,15 +8,15 @@ import AddComment from './AddComment'
 export default CommentList = props => {
   return (
     <View style={styles.commentList}>
-      { props.loading
-        ? <CommentListSkeleton/>
-        : <FlatList
-            data={props.data}
-            renderItem={({ item }) => <Comment data={item} />}
-            keyExtractor={item => item.id}
-          />
-      }
-      <AddComment sendComment={props.sendComment} />
+      {props.loading ? (
+        <CommentListSkeleton />
+      ) : (
+        <FlatList
+          data={props.data}
+          renderItem={({ item }) => <Comment data={item} />}
+          keyExtractor={item => item.id}
+        />
+      )}
     </View>
   )
 }
