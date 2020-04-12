@@ -9,7 +9,7 @@ import IconButton from '../components/iconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import PostContent from './../components/PostContent'
-import PostTeaserFullSkeleton from "../components/skeleton/PostTeaserFull.skeleton"
+import PostTeaserFullSkeleton from '../components/skeleton/PostTeaserFull.skeleton'
 
 class Post extends React.Component {
   constructor(props) {
@@ -30,19 +30,20 @@ class Post extends React.Component {
         />
 
         <View style={{ paddingHorizontal: Layouts.PAD_HORZ_SM }}>
-          {this.props.loading
-            ? <PostTeaserFullSkeleton />
-            : <PostContent
-                _id={this.props.data.id}
-                media={this.props.data.mediaURLs}
-                text={this.props.data.text}
-                tags={this.props.data.tags}
-                postedAt={this.props.data.postedAt}
-                author={this.props.data.poster}
-                likes={this.props.data.likes}
-              />
-          }
-          
+          {this.props.loading ? (
+            <PostTeaserFullSkeleton />
+          ) : (
+            <PostContent
+              _id={this.props.data.id}
+              media={this.props.data.mediaURLs}
+              text={this.props.data.text}
+              tags={this.props.data.tags}
+              postedAt={this.props.data.postedAt}
+              author={this.props.data.poster}
+              likes={this.props.data.likes}
+              showLightbox={true}
+            />
+          )}
         </View>
         <CommentList
           data={this.props.data.comments}

@@ -27,7 +27,6 @@ class PostTeaserFull extends React.Component {
             postedAt={this.props.postedAt}
             author={this.props.poster}
             likes={this.props.likes}
-            showLightbox={false}
             leftItem={
               <IconButton
                 type="comment"

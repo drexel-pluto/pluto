@@ -130,6 +130,10 @@ class PostContent extends React.Component {
   }
 }
 
+PostMedia.defaultProps = {
+  showLightbox: false,
+}
+
 const styles = StyleSheet.create({
   content: {
     width: '100%',

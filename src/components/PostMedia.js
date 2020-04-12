@@ -128,10 +128,6 @@ class PostMedia extends React.Component {
   }
 }
 
-PostMedia.defaultProps = {
-  showLightbox: true,
-}
-
 const styles = StyleSheet.create({
   postMediaWrapper: {
     height: Mixins.scaleSize(250),
