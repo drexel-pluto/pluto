@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     backgroundColor: Colors.PLUTO_WHITE,
-    paddingBottom: Mixins.scaleSize(20),
+    paddingBottom: Layouts.PAD_BOTTOM,
   },
 })
 

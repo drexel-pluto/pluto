@@ -11,7 +11,11 @@ class Notifications extends React.Component {
   }
   render() {
     return (
-      <ScrollView style={[Layouts.FLEX_CONTAINER]} stickyHeaderIndices={[0]}>
+      <ScrollView
+        style={[Layouts.FLEX_CONTAINER]}
+        stickyHeaderIndices={[0]}
+        contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
+      >
         <ScreenHeader
           isFixed={true}
           title={'notifications'}

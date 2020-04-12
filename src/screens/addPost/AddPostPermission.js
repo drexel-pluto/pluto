@@ -22,7 +22,7 @@ class AddPostPermission extends React.Component {
       <ScrollView
         stickyHeaderIndices={[0]}
         style={Layouts.FLEX_CONTAINER}
-        contentContainerStyle={{ paddingBottom: Mixins.scaleSize(50) }}
+        contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
       >
         <ScreenHeader
           isFixed={true}

@@ -14,7 +14,10 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <ScrollView stickyHeaderIndices={[0]}>
+      <ScrollView
+        stickyHeaderIndices={[0]}
+        contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
+      >
         <ScreenHeader
           isFixed={true}
           headerColor={Colors.PEARL}
@@ -34,14 +37,18 @@ class Profile extends React.Component {
             )
           }
         />
-        <ProfileHeader profile={this.props.profile} loading={this.props.loading}/>
-        {this.props.loading
-          ? <PostGridSkeleton />
-          : <PostGrid
-              data={this.props.profile.posts}
-              openPost={this.props.openPost}
-            />
-        }
+        <ProfileHeader
+          profile={this.props.profile}
+          loading={this.props.loading}
+        />
+        {this.props.loading ? (
+          <PostGridSkeleton />
+        ) : (
+          <PostGrid
+            data={this.props.profile.posts}
+            openPost={this.props.openPost}
+          />
+        )}
       </ScrollView>
     )
   }

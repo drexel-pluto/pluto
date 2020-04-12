@@ -47,7 +47,7 @@ class GroupFeed extends React.Component {
         <ScrollView
           stickyHeaderIndices={[0]}
           style={[styles.groupFeedScreen, Layouts.FLEX_CONTAINER]}
-          contentContainerStyle={{ paddingBottom: Mixins.scaleSize(100) }}
+          contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
         >
           <ScreenHeader
             isFixed={true}
@@ -82,10 +82,11 @@ class GroupFeed extends React.Component {
             openPost={this.props.openPost}
             loading={this.props.loading}
           />
-          {this.props.loading === true
-            ? <TagListSkeleton />
-            : <TagList data={TAG_DATA} />
-          }
+          {this.props.loading === true ? (
+            <TagListSkeleton />
+          ) : (
+            <TagList data={TAG_DATA} />
+          )}
           <PostFeed
             data={this.props.group.posts}
             openPost={this.props.openPost}

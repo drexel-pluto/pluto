@@ -21,7 +21,7 @@ class AddFriend extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, paddingBottom: Layouts.PAD_BOTTOM }}>
         <ScreenHeader
           isFixed={true}
           leftItems={

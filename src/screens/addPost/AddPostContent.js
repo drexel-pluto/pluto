@@ -90,6 +90,7 @@ class AddPost extends React.Component {
       <KeyboardAwareScrollView
         stickyHeaderIndices={[0]}
         keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
       >
         <ScreenHeader
           isFixed={true}

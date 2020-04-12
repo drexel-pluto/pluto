@@ -217,7 +217,8 @@ const styles = StyleSheet.create({
   dot_wrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
-    bottom: '5%',
+    bottom: 0,
+    paddingBottom: Layouts.PAD_BOTTOM,
   },
 })
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import DecaySlider from '../components/DecaySlider'
@@ -13,8 +13,13 @@ class Settings extends React.Component {
   }
   render() {
     return (
-      <View style={Layouts.FLEX_CONTAINER}>
+      <ScrollView
+        style={Layouts.FLEX_CONTAINER}
+        contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
+        stickyHeaderIndices={[0]}
+      >
         <ScreenHeader
+          isFixed={true}
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
@@ -113,7 +118,7 @@ class Settings extends React.Component {
             />
           </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
