@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, Vibration } from 'react-native'
 import { connect } from 'react-redux'
 import { sendReact } from '../redux/reducers/post.reducer'
 import HeartButton from '../components/iconButton/HeartButton'
@@ -44,6 +44,7 @@ class HeartButtonContainer extends React.Component {
   updateReact() {
     this.setState({ likes: this.state.likes + 1 })
     this.react()
+    Vibration.vibrate()
   }
 
   render() {
