@@ -100,7 +100,10 @@ class PostContent extends React.Component {
           {// render img if exists
           this.props.media.length > 0 ? (
             <View style={styles.image_wrapper}>
-              <PostMedia media={this.props.media} />
+              <PostMedia
+                media={this.props.media}
+                showLightbox={this.props.showLightbox}
+              />
             </View>
           ) : null}
           <View style={styles.action_wrapper}>

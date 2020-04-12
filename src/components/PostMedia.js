@@ -87,13 +87,28 @@ class PostMedia extends React.Component {
           />
         </Modal>
         {this.props.media.map((imgUrl, index) => {
-          return (
-            <TouchableWithoutFeedback
-              onPress={() => {
-                this.toggleLightBox(index)
-              }}
-              style={styles.mediaItem}
-            >
+          if (this.props.showLightbox) {
+            return (
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  this.toggleLightBox(index)
+                }}
+              >
+                <View style={styles.mediaItem}>
+                  <Image
+                    source={{ uri: imgUrl }}
+                    key={index}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: Mixins.scaleSize(20),
+                    }}
+                  />
+                </View>
+              </TouchableWithoutFeedback>
+            )
+          } else {
+            return (
               <View style={styles.mediaItem}>
                 <Image
                   source={{ uri: imgUrl }}
@@ -105,12 +120,16 @@ class PostMedia extends React.Component {
                   }}
                 />
               </View>
-            </TouchableWithoutFeedback>
-          )
+            )
+          }
         })}
       </View>
     )
   }
+}
+
+PostMedia.defaultProps = {
+  showLightbox: true,
 }
 
 const styles = StyleSheet.create({
