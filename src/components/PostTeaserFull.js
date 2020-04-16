@@ -7,6 +7,7 @@ import PostMedia from './PostMedia'
 import { LinearGradient } from 'expo-linear-gradient'
 import ContainerTail from './../assets/images/containerTail.svg'
 import PostContent from './PostContent'
+import CommentButton from './iconButton/CommentButton'
 
 class PostTeaserFull extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class PostTeaserFull extends React.Component {
   }
 
   render() {
+    console.log(this.props.post)
     return (
       <TouchableWithoutFeedback
         onPress={() => this.props.openPost(this.props._id, this.props.poster)}
@@ -29,12 +31,11 @@ class PostTeaserFull extends React.Component {
             likes={this.props.likes}
             hasMaxTextLine={true}
             leftItem={
-              <IconButton
-                type="comment"
+              <CommentButton
                 _onPress={() =>
                   this.props.openPost(this.props._id, this.props.poster)
                 }
-                style={{ paddingLeft: Mixins.scaleSize(40) }}
+                comments={this.props.comments}
               />
             }
           />
