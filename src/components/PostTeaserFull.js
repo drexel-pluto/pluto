@@ -27,6 +27,7 @@ class PostTeaserFull extends React.Component {
             postedAt={this.props.postedAt}
             author={this.props.poster}
             likes={this.props.likes}
+            hasMaxTextLine={true}
             leftItem={
               <IconButton
                 type="comment"

@@ -25,9 +25,14 @@ const PostGridItem = props => {
               source={{ uri: media[0] }} // use first image as thumb if multiple images
             />
           ) : (
-            <Text style={[styles.postGridItem__text, { width: itemWidth }]}>
-              {text}
-            </Text>
+            <View
+              style={[
+                styles.postGridItem__text,
+                { width: itemWidth, maxHeight: Mixins.scaleSize(200) },
+              ]}
+            >
+              <Text numberOfLines={8}>{text}</Text>
+            </View>
           )}
         </View>
       </StyledContainer>

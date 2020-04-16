@@ -76,7 +76,10 @@ class PostContent extends React.Component {
               {// render text if exists
               this.props.text ? (
                 <View style={styles.text_wrapper}>
-                  <Text style={[styles.text, Typography.F_BODY]}>
+                  <Text
+                    numberOfLines={this.props.hasMaxTextLine ? 10 : 'none'}
+                    style={[styles.text, Typography.F_BODY]}
+                  >
                     {this.renderText()}
                   </Text>
                 </View>
@@ -132,6 +135,7 @@ class PostContent extends React.Component {
 
 PostMedia.defaultProps = {
   showLightbox: false,
+  hasMaxTextLine: false,
 }
 
 const styles = StyleSheet.create({
