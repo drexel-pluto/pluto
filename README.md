@@ -17,17 +17,10 @@ Get up and running with our app:
 packager that will transform your JS code on-the-fly:
 ```bash
 yarn
-yarn start
-```
-2. Next, you can start the iOS or android simulator with one of the following two commands in a new terminal:
-```bash
-# for ios:
-yarn ios
-# for android:
-yarn android
+expo start
 ```
 
-You should now see the app running on either the ios or android simulator!
+This will open up the expo dev webpage in your preferred web browser. You can scan the QR code pictured there with the app on your device, or open a simulator via the provided links.
 
 ## Contributing
 
@@ -37,5 +30,8 @@ Every time you commit or push, `husky` will run the `jest` tests to ensure every
 
 ## Troubleshooting
 
-`#TODO`
+### Experiencing errors regarding missing packages or yarn
+Try running `yarn` again then `expo start -c` to clear the cache before running.
 
+### Expo app not finding your development server
+Try switching to 'tunnel' connection mode via the expo dev webpage 
