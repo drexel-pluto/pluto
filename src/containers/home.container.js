@@ -12,7 +12,7 @@ class AuthLoadingContainer extends React.Component {
   }
 
   reset() {
-    return this.props.getMe(this.props.auth)
+    return this.props.getMe()
   }
 
   render() {
@@ -49,7 +49,6 @@ const mapStateToProps = state => ({
   groups: state.user.groups,
   friends: state.user.friends,
   userId: state.user.userData.id,
-  auth: state.user.authToken,
   requestNum: state.addFriend.friendRequests.length,
 })
 

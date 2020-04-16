@@ -15,7 +15,6 @@ class AuthLoadingContainer extends React.Component {
         this.props.navigation.navigate(
           action.type.endsWith('SUCCESS') ? 'App' : 'Login'
         )
-
         if (action.type.endsWith('SUCCESS')) {
           this.props.initLinkListener();
         }

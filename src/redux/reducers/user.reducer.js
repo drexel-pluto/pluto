@@ -252,16 +252,13 @@ export function removeUserToken () {
       })
 }
 
-export function getMe(authToken) {
+export function getMe() {
   return {
     type: GET_ME,
     payload: {
       request: {
         method: 'GET',
         url: `/user`,
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       },
     },
   }
@@ -276,7 +273,7 @@ export function logout() {
 export function init() {
   return function(dispatch, getState) {
     return dispatch(getUserToken()).then(() =>
-      dispatch(getMe(getState().user.authToken))
+      dispatch(getMe())
     )
   }
 }

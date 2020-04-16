@@ -83,7 +83,7 @@ export function setGroup(group) {
 
 // api functions
 
-function createGroup(name, authToken) {
+function createGroup(name) {
   return {
     type: CREATE_GROUP,
     payload: {
@@ -93,15 +93,12 @@ function createGroup(name, authToken) {
         data: {
           groupName: name
         },
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       }
     }
   }
 }
 
-function addMembers(members, groupId, authToken) {
+function addMembers(members, groupId) {
   return {
     type: ADD_MEMBERS,
     payload: {
@@ -112,15 +109,12 @@ function addMembers(members, groupId, authToken) {
           groupId,
           friendsToAdd: members
         },
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       }
     }
   }
 }
 
-function removeMembers(members, groupId, authToken) {
+function removeMembers(members, groupId) {
   return {
     type: ADD_MEMBERS,
     payload: {
@@ -131,9 +125,6 @@ function removeMembers(members, groupId, authToken) {
           groupId,
           friendsToRemove: members
         },
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       }
     }
   }
@@ -142,11 +133,10 @@ function removeMembers(members, groupId, authToken) {
 
 export function newGroup(members, name) {
   return function(dispatch, getState) {
-    let authToken = getState().user.authToken;
-    return dispatch(createGroup(name, authToken)).then(action => {
+    return dispatch(createGroup(name)).then(action => {
       if (action.type.endsWith("SUCCESS")) {
         let groupId = action.payload.data._id;
-        return dispatch(addMembers(members, groupId, authToken));
+        return dispatch(addMembers(members, groupId));
       }
     });
   }

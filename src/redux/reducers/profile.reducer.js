@@ -1,5 +1,3 @@
-import store from '../store'
-
 const FETCH_USER = 'profile/FETCH_USER'
 const FETCH_USER_SUCCESS = 'profile/FETCH_USER_SUCCESS'
 const FETCH_USER_FAIL = 'profile/FETCH_USER_FAIL'
@@ -40,8 +38,6 @@ export default function reducer(state = defaultStateProfile, action) {
 }
 
 export function fetchUser(user_id) {
-  let token = store.getState().user.authToken
-
   return {
     type: FETCH_USER,
     payload: {
@@ -50,9 +46,6 @@ export function fetchUser(user_id) {
         url: `/user`,
         data: {
           userId: user_id,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
         },
       },
     },

@@ -73,7 +73,7 @@ export function resetRecipient() {
   return { type: RESET_RECIPIENT }
 }
 
-export function sendPost(postParams, media, token) {
+export function sendPost(postParams, media) {
   const json = JSON.stringify(postParams)
   let form = new FormData()
   form.append('postParams', json)
@@ -98,7 +98,6 @@ export function sendPost(postParams, media, token) {
         method: 'POST',
         url: `/posts/create`,
         headers: {
-          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
         data: form,
@@ -128,7 +127,7 @@ export function submitPost(postText, postTags) {
 
     var media = getState().create.media
 
-    return dispatch(sendPost(params, media, getState().user.authToken))
+    return dispatch(sendPost(params, media))
   }
 }
 
