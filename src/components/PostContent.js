@@ -33,9 +33,10 @@ class PostContent extends React.Component {
     const text = this.props.text
     const tags = this.props.tags ? [...this.props.tags] : []
     let result = []
-    let beginIndex = 0
-
+    let beginIndex = 0;
+    console.log(tags);
     tags.map(tag => {
+      if (!tag.indices) return;
       result.push(text.substring(beginIndex, tag.indices[0]))
       result.push(this.linkHash(tag.name))
       beginIndex = tag.indices[1]
