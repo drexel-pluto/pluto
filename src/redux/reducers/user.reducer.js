@@ -293,7 +293,7 @@ export function initLinkListener() {
       let { path, queryParams } = Linking.parse(dat.url)
       if (path == 'addfriend') {
         dispatch(setFriend(queryParams.username))
-        RootNavigation.navigate('Modal')
+        RootNavigation.navigate('UserModal')
       }
     })
 
@@ -302,7 +302,7 @@ export function initLinkListener() {
       console.log(queryParams, path)
       if (path == 'addfriend') {
         dispatch(setFriend(queryParams.username))
-        RootNavigation.navigate('Modal')
+        RootNavigation.navigate('UserModal')
       }
     })
 

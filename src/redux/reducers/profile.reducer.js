@@ -18,7 +18,7 @@ let defaultStateProfile = {
 export default function reducer(state = defaultStateProfile, action) {
   switch (action.type) {
     case FETCH_USER:
-      return defaultStateProfile
+      return {...defaultStateProfile, id: action.payload.request.data.userId }
     case FETCH_USER_SUCCESS:
       data = action.payload.data
       return {

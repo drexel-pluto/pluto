@@ -39,7 +39,7 @@ class GroupFeed extends React.Component {
 
     const rightHeaderItems = [
       <IconButton type="searchItem" />,
-      <IconButton type="settings" />,
+      <IconButton type="settings" _onPress={() => this.props.showOptions()}/>,
     ]
 
     return (

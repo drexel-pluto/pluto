@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Profile from '../screens/Profile.js'
 import { fetchUser } from '../redux/reducers/profile.reducer'
 import { openPost } from '../redux/reducers/post.reducer'
+import { connectActionSheet } from '@expo/react-native-action-sheet'
 
 class ProfileContainer extends React.Component {
   componentWillMount() {
@@ -19,6 +20,25 @@ class ProfileContainer extends React.Component {
     this.props.navigation.navigate('Post')
   }
 
+  openOptions() {
+    const options = ['Remove Friend', 'Cancel'];
+    const destructiveButtonIndex = 0;
+    const cancelButtonIndex = 1;
+
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+      },
+      buttonIndex => {
+        if (buttonIndex == destructiveButtonIndex) {
+          // TODO: remove friend and navigate back
+        }
+      },
+    );
+  }
+
   render() {
     return (
       <Profile
@@ -28,6 +48,7 @@ class ProfileContainer extends React.Component {
         myId={this.props.myId}
         openPost={(id, poster) => this._openPost(id, poster)}
         loading={this.props.loading}
+        openOptions={() => this.openOptions()}
       />
     )
   }
@@ -44,4 +65,6 @@ const mapDispatchToProps = {
   openPost,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)
+export default connectActionSheet(
+  connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)
+);
