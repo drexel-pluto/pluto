@@ -15,11 +15,13 @@ class UserPopup extends React.Component {
         <View style={styles.wrapper}>
           <View style={[styles.listSpacing, styles.userInfo]}>
             <Circle size={70} user={this.props.user} style={{marginRight: Layouts.PAD_HORZ_SM}}/>
-            <Text >{this.props.user.name ?? "Name"}</Text>
+            <Text style={Typography.F_H3}>{this.props.user.name ?? "Name"}</Text>
             <Text >{this.props.user.username ?? "Username"}</Text>
           </View>
-          <Button _onPress={this.props.send} text="send friend request" style={styles.listSpacing}/>
-          <Button _onPress={this.props.cancel} text="cancel" color={Colors.MELON}/>
+          <View style={styles.buttonRow}>
+            <Button _onPress={this.props.send} text="send friend request" style={styles.listSpacing}/>
+            <Button _onPress={this.props.cancel} text="cancel" color={Colors.MELON}/>
+          </View>
         </View>
       </BlurView>
     )
@@ -29,16 +31,17 @@ class UserPopup extends React.Component {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: Colors.PLUTO_WHITE,
+    backgroundColor: Colors.CREAM,
     marginHorizontal: Layouts.PAD_HORZ,
     paddingHorizontal: Layouts.PAD_HORZ,
     paddingVertical: Layouts.PAD_HORZ,
-    borderColor: Colors.VIOLET.med,
-    borderWidth: 1,
     borderRadius: 16,
   },
   listSpacing: {
-    marginBottom: Layouts.PAD_VERT
+    marginRight: Layouts.PAD_HORZ
+  },
+  buttonRow: {
+    flexDirection: "row",
   },
   userInfo: {
     flexWrap: "wrap",
