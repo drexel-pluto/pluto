@@ -65,8 +65,10 @@ export default class RigidBodies extends Component {
     if (this.props.members.length >= 1) {
       this.props.members.forEach(member_id => {
         let friend = this.props.friends.find(x => x.friend._id == member_id);
-        let entity = this.addFriend(friend.friend, world);
-        entities[friend.friend._id] = entity;
+        if (friend.friend) {
+          let entity = this.addFriend(friend.friend, world);
+          entities[friend.friend._id] = entity;
+        }
       });
     }
 

@@ -18,7 +18,7 @@ class ProfileContainer extends React.Component {
   }
 
   removeFriend() {
-    this.props.removeFriend(this.props.profile.username).then(action => {
+    this.props.removeFriend(this.props.profile.id).then(action => {
       if (action.type.endsWith('SUCCESS')) {
         return this.props.getMe();
       } 

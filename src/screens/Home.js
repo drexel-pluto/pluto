@@ -61,20 +61,22 @@ class Home extends React.Component {
   }
 
   render() {
-    const rightHeaderItems = [
-      <IconButton
-        type="notiCenter"
-        _onPress={() => {
-          this.props.navigation.navigate('Notifications')
-        }}
-      />,
-      <IconButton
-        type="myProfile"
-        _onPress={() => {
-          this.toProfile(this.props.userId)
-        }}
-      />,
-    ]
+    const rightHeaderItems = 
+      <>
+        <IconButton
+          type="notiCenter"
+          _onPress={() => {
+            this.props.navigation.navigate('Notifications')
+          }}
+        />
+        <IconButton
+          type="myProfile"
+          _onPress={() => {
+            this.toProfile(this.props.userId)
+          }}
+        />
+      </>
+    
 
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>

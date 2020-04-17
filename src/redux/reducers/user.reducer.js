@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native'
 import { Linking } from 'expo'
-import { sendFriendRequest, setFriend } from './addFriend.reducer'
+import { setFriend } from './addFriend.reducer'
 import * as RootNavigation from '../../navigation'
 // types
 
@@ -96,9 +96,11 @@ export default function reducer(state = defaultStateUser, action) {
       }
       everyone_members = []
       everyone_memberIds = []
-      data.friends.map(friend => {
-        everyone_members.push(friend.friend)
-        everyone_memberIds.push(friend.friend._id)
+      data.friends.forEach(friend => {
+        if (friend.friend) {
+          everyone_members.push(friend.friend)
+          everyone_memberIds.push(friend.friend._id)
+        }
       })
       everyone = {
         __v: 0,

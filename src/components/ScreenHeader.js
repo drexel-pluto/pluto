@@ -4,7 +4,7 @@ import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 
 export default ScreenHeader = props => {
   const { isFixed, headerColor, title, rightItems, leftItems } = props
-
+  
   return (
     <View
       style={[

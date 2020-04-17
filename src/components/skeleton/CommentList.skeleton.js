@@ -14,7 +14,7 @@ export default CommentListSkeleton = props => {
 
   for (let i = 0; i < 3; i++) {
     comments.push(
-      <View style={{marginBottom: 20}}>
+      <View style={{marginBottom: 20}} key={i}>
         <Placeholder
           Animation={Fade}
           Left={ props => (

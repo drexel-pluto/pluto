@@ -5,7 +5,7 @@ import { setGroup } from '../redux/reducers/group.reducer'
 import { getMe, resetHome, setSwipeIndex } from '../redux/reducers/user.reducer'
 import { updateFriendRequests } from '../redux/reducers/addFriend.reducer'
 
-class AuthLoadingContainer extends React.Component {
+class HomeContainer extends React.Component {
   constructor(props) {
     super(props)
     props.updateFriendRequests()
@@ -30,7 +30,7 @@ class AuthLoadingContainer extends React.Component {
         requestNum={this.props.requestNum}
         swipeIndex={this.props.swipeIndex}
         setSwipeIndex={this.props.setSwipeIndex}
-        physicsKey={this.props.key}
+        physicsKey={this.props.physicsKey}
       />
     )
   }
@@ -55,7 +55,7 @@ const mapStateToProps = state => ({
   userId: state.user.userData.id,
   requestNum: state.addFriend.friendRequests.length,
   swipeIndex: state.user.swipeIndex,
-  key: state.user.key,
+  physicsKey: state.user.key,
 })
 
 const mapDispatchToProps = {
@@ -69,4 +69,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AuthLoadingContainer)
+)(HomeContainer)

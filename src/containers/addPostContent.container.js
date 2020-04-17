@@ -12,9 +12,9 @@ import {
 
 class AddPostContentContainer extends React.Component {
   submitPost(text, tags) {
-    this.props.submitPost(text, tags).then(action => {
+    return this.props.submitPost(text, tags).then(action => {
       if (action.type.endsWith('SUCCESS')) {
-        this.props.navigation.navigate('Home')
+        return this.props.navigation.navigate('Home')
         // TODO:: navigate to new post instead of home
       } else {
         // failure to post
@@ -29,7 +29,7 @@ class AddPostContentContainer extends React.Component {
         navigation={this.props.navigation}
         route={this.props.route}
         submitPost={(text, tags) => {
-          this.submitPost(text, tags)
+          return this.submitPost(text, tags)
         }}
         pendingSubmission={this.props.pendingSubmission}
         addImage={this.props.addImage}
