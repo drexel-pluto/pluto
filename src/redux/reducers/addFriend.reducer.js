@@ -6,6 +6,10 @@ export const GET_FRIEND_REQUESTS = 'friend/GET_FRIEND_REQUESTS'
 export const GET_FRIEND_REQUESTS_SUCCESS = 'friend/GET_FRIEND_REQUESTS_SUCCESS'
 export const GET_FRIEND_REQUESTS_FAIL = 'friend/GET_FRIEND_REQUESTS_FAIL'
 
+export const GET_PUBLIC = 'friend/GET_PUBLIC'
+export const GET_PUBLIC_SUCCESS = 'friend/GET_PUBLIC_SUCCESS'
+export const GET_PUBLIC_FAIL = 'friend/GET_PUBLIC_FAIL'
+
 export const SEND_FRIEND = 'friend/SEND_FRIEND'
 export const SEND_FRIEND_SUCCESS = 'friend/SEND_FRIEND_SUCCESS'
 export const SEND_FRIEND_FAIL = 'friend/SEND_FRIEND_FAIL'
@@ -26,8 +30,9 @@ let defaultStateAddFriend = {
   friendRequests: [],
   user: {
     username: "",
-    image: "",
-    name: ""
+    profilePicURL: "",
+    name: "",
+    mutualFriends: []
   },
   loading: false
 }
@@ -38,10 +43,21 @@ export default function reducer(state = defaultStateAddFriend, action) {
       return { ...state,
         user: {
           username: action.username, 
-          image: "https://picsum.photos/id/239/300/300", 
+          profilePicURL: "https://picsum.photos/id/239/300/300", 
           name: "John Smith" 
         } 
       }
+    case GET_PUBLIC_SUCCESS:
+      data = action.payload.data;
+      return {
+        ...state,
+        user: {
+          username: data.username, 
+          profilePicURL: data.profilePicURL, 
+          name: data.name,
+          mutualFriends: data.mutualFriends
+        } 
+      };
     case GET_FRIEND_REQUESTS:
     case SEND_FRIEND_FAIL:
       return { ...state, loading: true };
@@ -95,6 +111,18 @@ export function sendFriendRequest(username) {
         data: {
           username
         },
+      }
+    }
+  }
+}
+
+export function getPublicUser(username) {
+  return {
+    type: GET_PUBLIC,
+    payload: {
+      request: {
+        method: 'GET',
+        url: `/user/public/${username}`,
       }
     }
   }

@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native'
 import { Linking } from 'expo'
-import { setFriend } from './addFriend.reducer'
+import { getPublicUser } from './addFriend.reducer'
 import * as RootNavigation from '../../navigation'
 // types
 
@@ -300,7 +300,7 @@ export function initLinkListener() {
     Linking.addEventListener('url', dat => {
       let { path, queryParams } = Linking.parse(dat.url)
       if (path == 'addfriend') {
-        dispatch(setFriend(queryParams.username))
+        dispatch(getPublicUser(queryParams.username))
         RootNavigation.navigate('UserModal')
       }
     })
@@ -308,7 +308,7 @@ export function initLinkListener() {
     Linking.getInitialURL().then(url => {
       let { path, queryParams } = Linking.parse(url)
       if (path == 'addfriend') {
-        dispatch(setFriend(queryParams.username))
+        dispatch(getPublicUser(queryParams.username))
         RootNavigation.navigate('UserModal')
       }
     })
