@@ -19,28 +19,46 @@ class InvitationCenter extends React.Component {
   render() {
     return (
       <View>
-        <Text style={[styles.invitationHeading, Typography.F_H2]}>
+        <Text
+          style={[styles.invitationHeading, Typography.F_H2, Typography.F_BOLD]}
+        >
           friend requests
         </Text>
-        <ScrollView contentContainerStyle={styles.invitationCenter}>
-          {this.props.requests.map(request => (
-            <View style={styles.requestContainer}>
-              <View style={styles.requestContent}>
-                <Text style={[styles.requestText, Typography.F_BODY]}>
-                  {request.from.name}
-                </Text>
-                <IconButton
-                  type="accept"
-                  _onPress={() => this.props.accept(request.from.username)}
-                />
-                <IconButton
-                  type="reject"
-                  _onPress={() => this.props.reject(request.from.username)}
-                />
+        {this.props.request ? (
+          <ScrollView contentContainerStyle={styles.invitationCenter}>
+            {this.props.requests.map(request => (
+              <View style={styles.requestContainer}>
+                <View style={styles.requestContent}>
+                  <Text style={[styles.requestText, Typography.F_BODY]}>
+                    {request.from.name}
+                  </Text>
+                  <IconButton
+                    type="accept"
+                    _onPress={() => this.props.accept(request.from.username)}
+                  />
+                  <IconButton
+                    type="reject"
+                    _onPress={() => this.props.reject(request.from.username)}
+                  />
+                </View>
               </View>
-            </View>
-          ))}
-        </ScrollView>
+            ))}
+          </ScrollView>
+        ) : (
+          <Text
+            style={[
+              Typography.F_H3,
+              Typography.F_REGULAR,
+              {
+                textAlign: 'center',
+                opacity: 0.5,
+                paddingVertical: Layouts.PAD_VERT,
+              },
+            ]}
+          >
+            no pending requests
+          </Text>
+        )}
       </View>
     )
   }

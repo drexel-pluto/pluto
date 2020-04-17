@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   topContainer: {
     borderBottomLeftRadius: Mixins.scaleSize(35),
     borderBottomRightRadius: Mixins.scaleSize(35),
-    backgroundColor: 'white',
+    backgroundColor: Colors.PLUTO_WHITE,
     marginBottom: Layouts.PAD_VERT,
   },
 })
