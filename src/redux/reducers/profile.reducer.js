@@ -6,6 +6,14 @@ const REMOVE_FRIEND = 'profile/REMOVE_FRIEND'
 const REMOVE_FRIEND_SUCCESS = 'profile/REMOVE_FRIEND_SUCCESS'
 const REMOVE_FRIEND_FAIL = 'profile/REMOVE_FRIEND_FAIL'
 
+ const UPDATEPIC = 'profile/UPDATEPIC'
+ const UPDATEPIC_SUCCESS = 'profile/UPDATEPIC_SUCCESS'
+ const UPDATEPIC_FAIL = 'profile/UPDATEPIC_FAIL'
+
+ const UPDATEPROF = 'profile/UPDATEPROF'
+ const UPDATEPROF_SUCCESS = 'profile/UPDATEPROF_SUCCESS'
+ const UPDATEPROF_FAIL = 'profile/UPDATEPROF_FAIL'
+
 let defaultStateProfile = {
   id: '',
   image: '',
@@ -36,6 +44,16 @@ export default function reducer(state = defaultStateProfile, action) {
         profilePicURL: data.profilePicURL,
         loading: false,
       }
+    case UPDATEPIC_SUCCESS:
+    case UPDATEPROF_SUCCESS:
+      data = action.payload.data
+      return {
+        ...state,
+        username: data.username,
+        name: data.name,
+        bio: data.bio,
+        profilePicURL: data.profilePicURL,
+      }
     case FETCH_USER_FAIL:
       return { ...state, loading: false }
     default:
@@ -58,7 +76,7 @@ export function fetchUser(user_id) {
   }
 }
 
-export function removeFriend(username) {
+export function removeFriend(friendId) {
   return {
     type: REMOVE_FRIEND,
     payload: {
@@ -66,9 +84,71 @@ export function removeFriend(username) {
         method: 'POST',
         url: `/user/friends/remove`,
         data: {
-          username
+          friendId
         },
       },
     },
+  }
+}
+
+
+function updateProfilePic(uri) {
+  let form = new FormData()
+  
+  form.append(
+    'media',
+    {
+      uri: uri,
+      name: 'prof.jpg',
+      type: 'image/jpeg',
+    },
+    'prof.jpg'
+  )
+
+  return {
+    type: UPDATEPIC,
+    payload: {
+      request: {
+        method: 'PUT',
+        url: `/user/profile-picture`,
+        data: form,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    },
+  }
+}
+
+function updateProfileDetail(field, newValue) {
+  return {
+    type: UPDATEPROF,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/user/update`,
+        data: {
+          field,
+          newValue
+        },
+      },
+    },
+  }
+}
+
+export function updateProfile(newDat) {
+  return function (dispatch) {
+
+    promises = [];
+
+    Object.keys(newDat).forEach(key => {
+      if (key == "imageUri") {
+        promises.push(dispatch(updateProfilePic(newDat[key])))
+      } else {
+        promises.push(dispatch(updateProfileDetail(key, newDat[key])))
+      }
+    });
+
+    return Promise.all(promises);
   }
 }

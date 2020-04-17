@@ -16,6 +16,7 @@ import AddPostPermissionsCont from '../containers/addPostPermission.container'
 import UserPopupContainer from '../containers/userPopup.container'
 import EditGroupContainer from '../containers/editGroup.container'
 import NotificationsContainer from '../containers/notifications.container';
+import editProfileContainer from '../containers/editProfile.container';
 
 import modal from "./transitions/modal"
 
@@ -133,6 +134,10 @@ export default function ModalStack() {
       <Stack.Screen
         name="UserModal"
         component={UserPopupContainer}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={editProfileContainer}
       />
     </Stack.Navigator>
   );

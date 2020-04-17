@@ -14,6 +14,7 @@ import Comment from '../../assets/images/iconComment.svg'
 import Cancel from '../../assets/images/iconCancel.svg'
 import UploadImage from '../../assets/images/iconCamera.svg'
 import ChooseImage from '../../assets/images/iconImage.svg'
+import EditImage from '../../assets/images/iconEdit.svg'
 
 export default IconButton = props => {
   const { type, customColor, _onPress } = props
@@ -26,6 +27,18 @@ export default IconButton = props => {
             _onPress()
           }}
         />
+      )
+
+    case 'edit':
+      return (
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            _onPress()
+          }}
+        >
+          <EditImage />
+        </TouchableOpacity>
       )
     case 'addFriend':
       return (
