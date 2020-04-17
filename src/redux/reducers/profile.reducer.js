@@ -2,6 +2,10 @@ const FETCH_USER = 'profile/FETCH_USER'
 const FETCH_USER_SUCCESS = 'profile/FETCH_USER_SUCCESS'
 const FETCH_USER_FAIL = 'profile/FETCH_USER_FAIL'
 
+const REMOVE_FRIEND = 'profile/REMOVE_FRIEND'
+const REMOVE_FRIEND_SUCCESS = 'profile/REMOVE_FRIEND_SUCCESS'
+const REMOVE_FRIEND_FAIL = 'profile/REMOVE_FRIEND_FAIL'
+
 let defaultStateProfile = {
   id: '',
   image: '',
@@ -46,6 +50,21 @@ export function fetchUser(user_id) {
         url: `/user`,
         data: {
           userId: user_id,
+        },
+      },
+    },
+  }
+}
+
+export function removeFriend(username) {
+  return {
+    type: REMOVE_FRIEND,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/user/friends/remove`,
+        data: {
+          username
         },
       },
     },

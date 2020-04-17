@@ -1,9 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Profile from '../screens/Profile.js'
-import { fetchUser } from '../redux/reducers/profile.reducer'
+import { fetchUser, removeFriend } from '../redux/reducers/profile.reducer'
 import { openPost } from '../redux/reducers/post.reducer'
+import { getMe } from '../redux/reducers/user.reducer'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
+import { CommonActions } from '@react-navigation/native';
 
 class ProfileContainer extends React.Component {
   componentWillMount() {
@@ -13,6 +15,25 @@ class ProfileContainer extends React.Component {
     if (userId) {
       this.props.fetchUser(userId)
     }
+  }
+
+  removeFriend() {
+    this.props.removeFriend(this.props.profile.username).then(action => {
+      if (action.type.endsWith('SUCCESS')) {
+        return this.props.getMe();
+      } 
+    }).then((action) => {
+      if (action.type.endsWith('SUCCESS')) {
+        this.props.navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              { name: 'Home' },
+            ],
+          })
+        );
+      } 
+    });
   }
 
   _openPost(post_id, poster) {
@@ -33,7 +54,7 @@ class ProfileContainer extends React.Component {
       },
       buttonIndex => {
         if (buttonIndex == destructiveButtonIndex) {
-          // TODO: remove friend and navigate back
+          this.removeFriend();
         }
       },
     );
@@ -63,6 +84,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchUser,
   openPost,
+  removeFriend,
+  getMe
 }
 
 export default connectActionSheet(
