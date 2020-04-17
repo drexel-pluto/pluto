@@ -59,7 +59,6 @@ export default function reducer(state = defaultStatePost, action) {
 }
 
 export function sendComment(content) {
-  let token = store.getState().user.authToken
   let postId = store.getState().post.id
   return {
     type: SEND_COMMENT,
@@ -71,16 +70,12 @@ export function sendComment(content) {
           postId: postId,
           text: content,
         },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       },
     },
   }
 }
 
 export function fetchPost(post_id) {
-  let token = store.getState().user.authToken
   return {
     type: FETCH_POST,
     payload: {
@@ -89,9 +84,6 @@ export function fetchPost(post_id) {
         url: `/posts/one`,
         data: {
           postId: post_id,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
         },
       },
     },
@@ -113,8 +105,6 @@ export function openPost(post_id, poster) {
 }
 
 export function sendReact(post_id, likes) {
-  console.log('react sent: ', likes, ' to ', post_id)
-  let token = store.getState().user.authToken
   return {
     type: SEND_REACT,
     payload: {
@@ -124,9 +114,6 @@ export function sendReact(post_id, likes) {
         data: {
           postId: post_id,
           amountToAdd: likes,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
         },
       },
     },

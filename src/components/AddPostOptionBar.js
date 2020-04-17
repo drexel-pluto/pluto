@@ -14,7 +14,7 @@ export default AddPostOptionBar = props => {
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images, //TODO: once videos are working, set to all
     })
 
     if (pickerResult.uri) {
@@ -34,7 +34,7 @@ export default AddPostOptionBar = props => {
     }
 
     let pickerResult = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images, //TODO: once videos are working, set to all
     })
 
     if (pickerResult.uri) {

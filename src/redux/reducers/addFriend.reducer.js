@@ -68,16 +68,13 @@ export default function reducer(state = defaultStateAddFriend, action) {
   }
 }
 
-function getFriendRequests(authToken) {
+function getFriendRequests() {
   return {
     type: GET_FRIEND_REQUESTS,
     payload: {
       request: {
         method: 'GET',
         url: `/user/friends/requests-in`,
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       }
     }
   }
@@ -85,12 +82,11 @@ function getFriendRequests(authToken) {
 
 export function updateFriendRequests() {
   return function (dispatch, getState) {
-    let authToken = getState().user.authToken;
-    return dispatch(getFriendRequests(authToken));
+    return dispatch(getFriendRequests());
   }
 }
 
-export function sendFriendRequest(username, authToken) {
+export function sendFriendRequest(username) {
   return {
     type: SEND_FRIEND,
     payload: {
@@ -100,9 +96,6 @@ export function sendFriendRequest(username, authToken) {
         data: {
           username
         },
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       }
     }
   }
@@ -110,9 +103,8 @@ export function sendFriendRequest(username, authToken) {
 
 export function addFriend() {
   return function (dispatch, getState) {
-    let authToken = getState().user.authToken;
     let username = getState().addFriend.user.username;
-    return dispatch(sendFriendRequest(username, authToken));
+    return dispatch(sendFriendRequest(username));
   }
 }
 
@@ -126,7 +118,7 @@ export function setFriend(username) {
 
 
 
-function postAccept(username, authToken) {
+function postAccept(username) {
   return {
     type: ACCEPT_FRIEND,
     payload: {
@@ -136,9 +128,6 @@ function postAccept(username, authToken) {
         data: {
           username
         },
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       }
     }
   }
@@ -146,16 +135,14 @@ function postAccept(username, authToken) {
 
 export function acceptFriendRequest(username) {
   return function (dispatch, getState) {
-    let authToken = getState().user.authToken;
-    return dispatch(postAccept(username, authToken)).then(()=> {
-      console.log(authToken)
-      dispatch(getMe(authToken));
+    return dispatch(postAccept(username)).then(()=> {
+      dispatch(getMe());
     });;
   }
 }
 
 
-function postReject(username, authToken) {
+function postReject(username) {
   return {
     type: REJECT_FRIEND,
     payload: {
@@ -165,9 +152,6 @@ function postReject(username, authToken) {
         data: {
           username
         },
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       }
     }
   }
@@ -175,7 +159,6 @@ function postReject(username, authToken) {
 
 export function rejectFriendRequest(username) {
   return function (dispatch, getState) {
-    let authToken = getState().user.authToken;
-    return dispatch(postReject(username, authToken));
+    return dispatch(postReject(username));
   }
 }

@@ -66,10 +66,9 @@ const MoveBox = (state, { touches }, onPress = () => {}) => {
   //-- Handle tap touch
   let press = touches.find(x => x.type === 'press')
 
-  if (press) {
+  if (press && onPress !== null) {
     let pressX = press.event.pageX
     let pressY = press.event.pageY
-
     let circles = state.entities.filter(circle => circle.isVisible)
 
     for (let i = 0; i < circles.length; i++) {

@@ -33,15 +33,26 @@ class EditGroup extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView style={[styles.editGroupScreen]} behavior="height">
-        <View style={styles.actions}>
-          <Button type="text" text="cancel" color="Colors.BLACK_ROCK" _onPress={()=>this.props.cancelEdit()}/>
-          <Button type="outline" text={this.props.isNew ? "create" : "update"} color="Colors.BLACK_ROCK" _onPress={()=>this.props.doneEdit()} disabled={!this.props.canSubmit}/>
-        </View>
+        <ScreenHeader
+          leftItems={
+            <Button type="text" text="cancel" color="Colors.BLACK_ROCK" _onPress={()=>this.props.cancelEdit()}/>
+          }
+          rightItems={
+            <Button 
+              type="outline" 
+              text={this.props.isNew ? "create" : "update"} 
+              color="Colors.BLACK_ROCK" 
+              _onPress={()=>this.props.doneEdit()} 
+              disabled={!this.props.canSubmit}
+            />
+          }
+        />
         <EditGroupName onChange={this.props.setName} value={this.props.name}/>
         <View style={{flex:1}} pointerEvents="none"/>
         <MiniPhysics 
           style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, zIndex: -5}}
           friends={this.props.friends}
+          members={this.props.members}
           ref={(ref) => {this.physics = ref}}
         />
         <SelectFriendList friends={this.props.friends} toggleMember={this.toggleMember} members={this.props.members}/>

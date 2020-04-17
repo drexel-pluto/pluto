@@ -1,21 +1,41 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import EditGroup from '../screens/EditGroup'
-import { toggleMember, setName, newGroup } from '../redux/reducers/editGroup.reducer'
+import { toggleMember, setName, newGroup, updateGroup } from '../redux/reducers/editGroup.reducer'
+import { getMe } from '../redux/reducers/user.reducer'
+import { CommonActions } from '@react-navigation/native';
 
 class EditGroupContainer extends React.Component {
   componentWillMount() {}
   
   doneEdit() {
-    this.props.newGroup(this.props.members, this.props.name).then(action => {
-      if (action.type.endsWith("SUCCESS")) {
-        let resetHome = this.props.route.params?.reset ?? false;
-        if (resetHome) {
-          resetHome();
+    if (this.props.isNew) {
+      this.props.newGroup(this.props.members, this.props.name).then(action => {
+        if (action.type.endsWith("SUCCESS")) {
+          this.props.getMe().then(
+            this.goBack()
+            )
+          }
         }
-        this.goBack();
-      }
-    });
+      );
+    } else {
+      this.props.updateGroup().then(action => {
+        if (action.type.endsWith("SUCCESS")) {
+          return this.props.getMe();
+        }
+      }).then(action => {
+        if (action.type.endsWith("SUCCESS")) {
+          this.props.navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [
+                { name: 'Home' },
+              ],
+            })
+          );
+        }
+      })
+    }
   }
 
   cancelEdit() {
@@ -62,7 +82,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   toggleMember,
   setName,
-  newGroup
+  newGroup,
+  getMe,
+  updateGroup
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditGroupContainer)

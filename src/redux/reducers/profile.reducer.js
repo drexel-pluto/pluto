@@ -1,8 +1,10 @@
-import store from '../store'
-
 const FETCH_USER = 'profile/FETCH_USER'
 const FETCH_USER_SUCCESS = 'profile/FETCH_USER_SUCCESS'
 const FETCH_USER_FAIL = 'profile/FETCH_USER_FAIL'
+
+const REMOVE_FRIEND = 'profile/REMOVE_FRIEND'
+const REMOVE_FRIEND_SUCCESS = 'profile/REMOVE_FRIEND_SUCCESS'
+const REMOVE_FRIEND_FAIL = 'profile/REMOVE_FRIEND_FAIL'
 
 let defaultStateProfile = {
   id: '',
@@ -18,7 +20,7 @@ let defaultStateProfile = {
 export default function reducer(state = defaultStateProfile, action) {
   switch (action.type) {
     case FETCH_USER:
-      return defaultStateProfile
+      return {...defaultStateProfile, id: action.payload.request.data.userId }
     case FETCH_USER_SUCCESS:
       data = action.payload.data
       return {
@@ -40,8 +42,6 @@ export default function reducer(state = defaultStateProfile, action) {
 }
 
 export function fetchUser(user_id) {
-  let token = store.getState().user.authToken
-
   return {
     type: FETCH_USER,
     payload: {
@@ -51,8 +51,20 @@ export function fetchUser(user_id) {
         data: {
           userId: user_id,
         },
-        headers: {
-          Authorization: `Bearer ${token}`,
+      },
+    },
+  }
+}
+
+export function removeFriend(username) {
+  return {
+    type: REMOVE_FRIEND,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/user/friends/remove`,
+        data: {
+          username
         },
       },
     },

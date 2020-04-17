@@ -27,6 +27,9 @@ export const SET_IS_CREATE = 'user/SET_IS_CREATE'
 
 export const INIT_LINKS = 'user/INIT_LINKS_SUCCESS'
 
+export const RESET_HOME = 'user/RESET_HOME'
+export const SET_SWIPE_INDEX = 'user/SET_SWIPE_INDEX'
+
 // reducer
 
 let defaultStateUser = {
@@ -37,10 +40,16 @@ let defaultStateUser = {
   error: '',
   authToken: '',
   isCreate: false,
+  swipeIndex: 0,
+  key: 0,
 }
 
 export default function reducer(state = defaultStateUser, action) {
   switch (action.type) {
+    case SET_SWIPE_INDEX:
+      return {...state, swipeIndex: action.index}
+    case RESET_HOME:
+      return {...state, key: state.key + 1, swipeIndex: 0 }
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -133,6 +142,8 @@ export default function reducer(state = defaultStateUser, action) {
         },
         friends,
         groups,
+        key: state.key + 1,
+        swipeIndex: 0
       }
     case SET_IS_CREATE:
       return {
@@ -230,14 +241,13 @@ export function getUserToken () {
 }
 
 export function saveUserToken (token) {
+  console.log("TOKEN", token);
   return (dispatch) =>
     AsyncStorage.setItem(storageKey, token)
       .then(data => {
-        console.log("LINE 202")
         dispatch(saveToken(token))
       })
       .catch(err => {
-        console.log("LINE 206")
         dispatch(tokenError(err.message || 'ERROR'))
       })
 }
@@ -252,16 +262,13 @@ export function removeUserToken () {
       })
 }
 
-export function getMe(authToken) {
+export function getMe() {
   return {
     type: GET_ME,
     payload: {
       request: {
         method: 'GET',
         url: `/user`,
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
       },
     },
   }
@@ -276,7 +283,7 @@ export function logout() {
 export function init() {
   return function(dispatch, getState) {
     return dispatch(getUserToken()).then(() =>
-      dispatch(getMe(getState().user.authToken))
+      dispatch(getMe())
     )
   }
 }
@@ -293,7 +300,7 @@ export function initLinkListener() {
       let { path, queryParams } = Linking.parse(dat.url)
       if (path == 'addfriend') {
         dispatch(setFriend(queryParams.username))
-        RootNavigation.navigate('Modal')
+        RootNavigation.navigate('UserModal')
       }
     })
 
@@ -302,10 +309,24 @@ export function initLinkListener() {
       console.log(queryParams, path)
       if (path == 'addfriend') {
         dispatch(setFriend(queryParams.username))
-        RootNavigation.navigate('Modal')
+        RootNavigation.navigate('UserModal')
       }
     })
 
     return dispatch(initLinks())
+  }
+}
+
+
+export function resetHome() {
+  return {
+    type: RESET_HOME,
+  }
+}
+
+export function setSwipeIndex(i) {
+  return {
+    type: SET_SWIPE_INDEX,
+    index: i
   }
 }

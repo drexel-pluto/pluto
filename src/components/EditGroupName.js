@@ -32,12 +32,13 @@ class EditGroupName extends React.Component {
 const styles = StyleSheet.create({
   inputName: {
     alignItems: 'center',
-    flex: 0.5
+    flex: 0.5,
+    marginTop: 40
   },
   input: {
     borderBottomWidth: 1,
     borderBottomColor: Colors.VIOLET.dark,
-    width: 200,
+    textAlign: "center"
   },
 })
 

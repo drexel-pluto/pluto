@@ -131,7 +131,7 @@ export default function ModalStack() {
         component={MainStack}
       />
       <Stack.Screen
-        name="Modal"
+        name="UserModal"
         component={UserPopupContainer}
       />
     </Stack.Navigator>

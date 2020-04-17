@@ -15,7 +15,20 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 export default store = createStore(
   rootReducer,
   /* preloadedState, */
-  composeEnhancers(applyMiddleware(axiosMiddleware(client), ReduxThunk))
+  composeEnhancers(applyMiddleware(axiosMiddleware(client, 
+  {
+    interceptors: {
+    request: [
+      function ({getState, dispatch, getSourceAction}, req) {
+        let token = getState().user.authToken;
+        if (token !== null) {
+          req.headers.Authorization = "Bearer " + token;
+        }
+        return req;
+
+      },
+    ],
+  }}), ReduxThunk))
 )
 
 // helper functions
