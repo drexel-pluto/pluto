@@ -39,12 +39,10 @@ class Home extends React.Component {
     super(props)
 
     this.state = {
-      index: min,
       swipe: {
         active: false,
         x: 0,
       },
-      key: 0,
       resetting: false,
     }
 
@@ -52,7 +50,7 @@ class Home extends React.Component {
   }
 
   setIndex(index) {
-    this.setState({ index })
+    this.props.setSwipeIndex(index)
   }
 
   toProfile(id) {
@@ -98,12 +96,12 @@ class Home extends React.Component {
           }}
           groups={this.props.groups}
           friends={this.props.friends}
-          setIndex={index => this.setIndex(index)}
+          setIndex={index => this.props.setSwipeIndex(index)}
           newGroup={() => console.log('new group')}
           startSwipe={x => this.startSwipe(x)}
           moveSwipe={(x, y) => this.moveSwipe(x, y)}
           endSwipe={cancel => this.endSwipe(cancel)}
-          key={this.state.key}
+          key={this.props.physicsKey}
           toProfile={id => {
             this.toProfile(id)
           }}
@@ -115,11 +113,11 @@ class Home extends React.Component {
         <View style={styles.group_wrapper}>
           <TouchableOpacity
             onPress={() => {
-              this.props.openGroup(this.props.groups[this.state.index]._id)
+              this.props.openGroup(this.props.groups[this.props.swipeIndex]._id)
             }}
           >
             <Text style={[Typography.F_H1, { textAlign: 'center' }]}>
-              {this.props.groups[this.state.index].title}
+              {this.props.groups[this.props.swipeIndex].title}
             </Text>
             <Text style={{ textAlign: 'center', color: Colors.VIOLET.dark }}>
               view posts >
@@ -145,20 +143,20 @@ class Home extends React.Component {
             type="addPost"
             _onPress={() => {
               this.props.navigation.navigate('AddPost', {
-                defaultRecipients: this.props.groups[this.state.index].members,
+                defaultRecipients: this.props.groups[this.props.swipeIndex].members,
               })
             }}
           />
         </View>
         <View style={[Layouts.BOTTOM_WRAPPER_CENTER, styles.dot_wrapper]}>
-          {pageDots(this.props.groups.length, this.state.index)}
+          {pageDots(this.props.groups.length, this.props.swipeIndex)}
         </View>
       </View>
     )
   }
 
   startSwipe(x) {
-    if (this.state.index !== min) return
+    if (this.props.swipeIndex !== min) return
     this.setState({
       swipe: {
         active: true,
@@ -168,13 +166,13 @@ class Home extends React.Component {
   }
 
   moveSwipe(x, y) {
-    if (this.state.index !== min) return
+    if (this.props.swipeIndex !== min) return
 
     this.swipe.setTargetPos({ x: x - this.state.swipe.x, y })
   }
 
   endSwipe(cancel) {
-    if (this.state.index !== min) return
+    if (this.props.swipeIndex !== min) return
 
     if (!cancel) {
       this.swipe.animateToEdge(cancel, () => {
@@ -203,8 +201,7 @@ class Home extends React.Component {
     this.setState({ resetting: true })
     this.props.reset().then(() => {
       this.setState(state => ({
-        resetting: false,
-        key: ++state.key,
+        resetting: false
       }))
     })
   }

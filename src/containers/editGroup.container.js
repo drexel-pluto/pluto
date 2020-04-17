@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import EditGroup from '../screens/EditGroup'
 import { toggleMember, setName, newGroup } from '../redux/reducers/editGroup.reducer'
+import { getMe } from '../redux/reducers/user.reducer'
 
 class EditGroupContainer extends React.Component {
   componentWillMount() {}
@@ -9,11 +10,9 @@ class EditGroupContainer extends React.Component {
   doneEdit() {
     this.props.newGroup(this.props.members, this.props.name).then(action => {
       if (action.type.endsWith("SUCCESS")) {
-        let resetHome = this.props.route.params?.reset ?? false;
-        if (resetHome) {
-          resetHome();
-        }
-        this.goBack();
+        this.props.getMe().then(
+          this.goBack()
+        )
       }
     });
   }
@@ -62,7 +61,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   toggleMember,
   setName,
-  newGroup
+  newGroup,
+  getMe
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditGroupContainer)

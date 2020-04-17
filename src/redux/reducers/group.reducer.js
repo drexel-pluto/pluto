@@ -21,12 +21,13 @@ let defaultStateGroup = {
   posts: [],
   members: [],
   loading: true,
+  id: ''
 }
 
 export default function reducer(state = defaultStateGroup, action) {
   switch (action.type) {
     case GET_GROUP_POSTS:
-      return { ...state, loading: true, posts: [] }
+      return { ...state, loading: true, posts: [], id: action.payload.request?.data?.groupId ?? -1 }
     case GET_GROUP_POSTS_SUCCESS:
       return { ...state, loading: false, posts: action.payload.data }
     case SET_MEMBERS:
@@ -57,7 +58,6 @@ export function setMembers(members) {
 }
 
 export function getPosts(group_id) {
-
   if (group_id === -1) {
     // when group_id = -1, get all posts (everyone)
     return {
@@ -101,7 +101,10 @@ export function deleteGroup(group_id) {
     payload: {
       request: {
         method: 'POST',
-        url: `/user/groups/delete`
+        url: `/user/groups/delete`,
+        data: {
+          groupId: group_id
+        }
       },
     },
   }

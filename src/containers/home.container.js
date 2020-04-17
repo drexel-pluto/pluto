@@ -2,17 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import HomeScreen from '../screens/Home.js'
 import { setGroup } from '../redux/reducers/group.reducer'
-import { getMe } from '../redux/reducers/user.reducer'
+import { getMe, resetHome, setSwipeIndex } from '../redux/reducers/user.reducer'
 import { updateFriendRequests } from '../redux/reducers/addFriend.reducer'
 
 class AuthLoadingContainer extends React.Component {
   constructor(props) {
     super(props)
     props.updateFriendRequests()
+    this.screenRef = React.createRef();
   }
 
   reset() {
-    return this.props.getMe()
+    return this.props.getMe();
   }
 
   render() {
@@ -27,6 +28,9 @@ class AuthLoadingContainer extends React.Component {
         reset={() => this.reset()}
         goToAddFriend={onAcceptCallback => this.goToAddFriend(onAcceptCallback)}
         requestNum={this.props.requestNum}
+        swipeIndex={this.props.swipeIndex}
+        setSwipeIndex={this.props.setSwipeIndex}
+        physicsKey={this.props.key}
       />
     )
   }
@@ -50,12 +54,16 @@ const mapStateToProps = state => ({
   friends: state.user.friends,
   userId: state.user.userData.id,
   requestNum: state.addFriend.friendRequests.length,
+  swipeIndex: state.user.swipeIndex,
+  key: state.user.key,
 })
 
 const mapDispatchToProps = {
   setGroup,
   getMe,
   updateFriendRequests,
+  resetHome,
+  setSwipeIndex
 }
 
 export default connect(

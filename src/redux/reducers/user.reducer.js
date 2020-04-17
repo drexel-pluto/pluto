@@ -27,6 +27,9 @@ export const SET_IS_CREATE = 'user/SET_IS_CREATE'
 
 export const INIT_LINKS = 'user/INIT_LINKS_SUCCESS'
 
+export const RESET_HOME = 'user/RESET_HOME'
+export const SET_SWIPE_INDEX = 'user/SET_SWIPE_INDEX'
+
 // reducer
 
 let defaultStateUser = {
@@ -37,10 +40,16 @@ let defaultStateUser = {
   error: '',
   authToken: '',
   isCreate: false,
+  swipeIndex: 0,
+  key: 0,
 }
 
 export default function reducer(state = defaultStateUser, action) {
   switch (action.type) {
+    case SET_SWIPE_INDEX:
+      return {...state, swipeIndex: action.index}
+    case RESET_HOME:
+      return {...state, key: state.key + 1, swipeIndex: 0 }
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -133,6 +142,8 @@ export default function reducer(state = defaultStateUser, action) {
         },
         friends,
         groups,
+        key: state.key + 1,
+        swipeIndex: 0
       }
     case SET_IS_CREATE:
       return {
@@ -304,5 +315,19 @@ export function initLinkListener() {
     })
 
     return dispatch(initLinks())
+  }
+}
+
+
+export function resetHome() {
+  return {
+    type: RESET_HOME,
+  }
+}
+
+export function setSwipeIndex(i) {
+  return {
+    type: SET_SWIPE_INDEX,
+    index: i
   }
 }

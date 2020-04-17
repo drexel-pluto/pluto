@@ -2,12 +2,24 @@ import React from 'react'
 import { connect } from 'react-redux'
 import GroupFeed from '../screens/GroupFeed.js'
 import { openPost } from '../redux/reducers/post.reducer'
+import { deleteGroup } from '../redux/reducers/group.reducer'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
+import { resetHome, getMe } from '../redux/reducers/user.reducer'
 
 class GroupFeedContainer extends React.Component {
   _openPost(post_id, poster) {
     this.props.openPost(post_id, poster)
     this.props.navigation.navigate('Post')
+  }
+
+  deleteGroup() {
+    this.props.deleteGroup(this.props.group.id).then(action => {
+      if (action.type.endsWith('SUCCESS')) {
+        return this.props.getMe().then(
+          this.props.navigation.navigate('Home')
+        );
+      } 
+    });
   }
 
   showOptions() {
@@ -23,7 +35,7 @@ class GroupFeedContainer extends React.Component {
       },
       buttonIndex => {
         if (buttonIndex == destructiveButtonIndex) {
-          // TODO: delete group
+          this.deleteGroup()
         } else if (buttonIndex == 1) {
           // TODO: edit group
         }
@@ -55,6 +67,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   openPost,
+  deleteGroup,
+  resetHome,
+  getMe
 }
 
 export default connectActionSheet(connect(

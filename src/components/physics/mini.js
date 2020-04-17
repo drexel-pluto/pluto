@@ -102,7 +102,8 @@ export default class RigidBodies extends Component {
 
     MoveBox(
       this.state,
-      { touches, screen, layout, time }
+      { touches, screen, layout, time },
+      null
     )
 
 
