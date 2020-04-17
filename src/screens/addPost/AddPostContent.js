@@ -76,8 +76,6 @@ class AddPost extends React.Component {
       })
     }
 
-    console.log(tags)
-
     this.setState({ text, tags })
   }
 

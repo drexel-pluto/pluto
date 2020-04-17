@@ -26,8 +26,8 @@ class InvitationCenter extends React.Component {
         </Text>
         {this.props.request ? (
           <ScrollView contentContainerStyle={styles.invitationCenter}>
-            {this.props.requests.map(request => (
-              <View style={styles.requestContainer}>
+            {this.props.requests.map((request, index) => (
+              <View style={styles.requestContainer} key={index}>
                 <View style={styles.requestContent}>
                   <Text style={[styles.requestText, Typography.F_BODY]}>
                     {request.from.name}

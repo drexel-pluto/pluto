@@ -53,7 +53,6 @@ export default function reducer(state = defaultStateAddFriend, action) {
     case GET_FRIEND_REQUESTS_FAIL:
     case ACCEPT_FRIEND_FAIL:
     case REJECT_FRIEND_FAIL:
-      console.log(action);
       return { ...state,  loading: false };
     case ACCEPT_FRIEND_SUCCESS:
     case REJECT_FRIEND_SUCCESS:

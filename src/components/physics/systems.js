@@ -72,17 +72,13 @@ const MoveBox = (state, { touches }, onPress = () => {}) => {
     let circles = state.entities.filter(circle => circle.isVisible)
 
     for (let i = 0; i < circles.length; i++) {
-      // console.log('press ', pressX, pressY)
 
       let bounds = { ...circles[i].body.bounds }
-      // console.log('circle_min: ', bounds.min.x, bounds.min.y)
-      // console.log('circle_max: ', bounds.max.x, bounds.max.y)
 
       let checkX = pressX >= bounds.min.x && pressX <= bounds.max.x
       let checkY = pressY >= bounds.min.y && pressY <= bounds.max.y
 
       if (checkX && checkY) {
-        // console.log(circles[i].friendData.name)
         onPress(circles[i].friendData._id)
         break
       }

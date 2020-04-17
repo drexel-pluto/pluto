@@ -16,8 +16,7 @@ export default UserProfile = props => {
           {props.profile.name}
         </Text>
         <Text style={[styles.bio, Typography.F_SUBTITLE]}>
-          Lali ho! Hosting another event at Redcaps, be there or be- well I
-          don’t need to tell you dweebs!
+          {props.profile.bio}
         </Text>
       </View>
     </View>

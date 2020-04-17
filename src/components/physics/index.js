@@ -333,14 +333,12 @@ export default class RigidBodies extends Component {
       element.zIndex = 4
       if (!element.isVisible && element.groups.includes(index)) {
         if (Matter.Composite.get(world, element.body.id, element.body.type)) {
-          console.log('IN HERE ALREADY')
         }
         Matter.World.add(world, [element.body])
         Matter.Body.setPosition(element.body, { x: xPos, y: height / 2 })
         element.isVisible = true
       } else if (element.isVisible && !element.groups.includes(index)) {
         if (!Matter.Composite.get(world, element.body.id, element.body.type)) {
-          console.log('NOT HERE ALREADY')
         }
         Matter.World.remove(world, [element.body])
         element.isVisible = false

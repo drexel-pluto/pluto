@@ -16,6 +16,7 @@ const pageDots = (total, current) => {
   for (let index = 0; index < dot_total; index++) {
     dots.push(
       <View
+        key={index}
         style={[
           Styles.shadow(Colors.VIOLET.dark),
           {

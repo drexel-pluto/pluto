@@ -49,10 +49,8 @@ export default function reducer(state = defaultStateCreate, action) {
     case SEND_POST:
       return { ...state, pendingSubmission: true }
     case SEND_POST_FAIL:
-      console.log(action)
       return { ...state, pendingSubmission: false }
     case SEND_POST_SUCCESS:
-      console.log(action)
       return { ...defaultStateCreate }
     default:
       return state
@@ -79,7 +77,6 @@ export function sendPost(postParams, media) {
   form.append('postParams', json)
 
   for (let i in media) {
-    console.log(media[i].type, media[i].type == 'image')
     form.append(
       `media[]`,
       {

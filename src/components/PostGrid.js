@@ -44,7 +44,7 @@ export default PostGrid = props => {
   return (
     <View style={styles.postGrid}>
       <RNMasonryScroll columns={2}>
-        {props.data.map(item => {
+        {props.data.map((item, index) => {
           return (
             <PostGridItem
               _id={item._id}
@@ -52,6 +52,7 @@ export default PostGrid = props => {
               media={item.mediaURLs}
               text={item.text}
               openPost={props.openPost}
+              key={index}
             />
           )
         })}

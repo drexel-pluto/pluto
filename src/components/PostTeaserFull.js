@@ -15,7 +15,6 @@ class PostTeaserFull extends React.Component {
   }
 
   render() {
-    console.log(this.props.post)
     return (
       <TouchableWithoutFeedback
         onPress={() => this.props.openPost(this.props._id, this.props.poster)}
