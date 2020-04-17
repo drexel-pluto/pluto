@@ -21,11 +21,14 @@ class AuthContainer extends React.Component {
   login(username, password) {
     this.props.login({ username, password }).then(action => {
       if (action.type.endsWith('SUCCESS')) {
-        this.props.getMe().then(() => (
-          this.props.navigation.navigate('App'),
-          this.props.initLinkListener(),
-          this.props.saveUserToken()
-        ))
+        return this.props.getMe()
+      }
+    }).then((action) => {
+      if (action.type.endsWith('SUCCESS')) {
+        console.log("why no work", this.props.token)
+        this.props.navigation.navigate('App')
+        this.props.initLinkListener()
+        this.props.saveUserToken(this.props.token)
       }
     })
   }
@@ -59,6 +62,7 @@ const mapStateToProps = state => ({
   loggedIn: state.user.loggedIn,
   error: state.user.error,
   isCreate: state.user.isCreate,
+  token: state.user.authToken
 })
 
 const mapDispatchToProps = {

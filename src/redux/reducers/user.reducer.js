@@ -241,14 +241,13 @@ export function getUserToken () {
 }
 
 export function saveUserToken (token) {
+  console.log("TOKEN", token);
   return (dispatch) =>
     AsyncStorage.setItem(storageKey, token)
       .then(data => {
-        console.log("LINE 202")
         dispatch(saveToken(token))
       })
       .catch(err => {
-        console.log("LINE 206")
         dispatch(tokenError(err.message || 'ERROR'))
       })
 }
