@@ -12,6 +12,7 @@ let defaultStateProfile = {
   username: '',
   name: '',
   gender: '',
+  bio: '',
   profilePicURL: '',
   loading: true,
   posts: [],
@@ -31,6 +32,7 @@ export default function reducer(state = defaultStateProfile, action) {
         gender: data.gender,
         name: data.name,
         posts: data.posts,
+        bio: data.bio,
         profilePicURL: data.profilePicURL,
         loading: false,
       }

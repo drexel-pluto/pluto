@@ -31,6 +31,7 @@ export default class CreateProfileScreen extends Component {
       name: '',
       gender: 'male',
       imageUri: '',
+      bio: ''
     }
   }
 
@@ -124,6 +125,16 @@ export default class CreateProfileScreen extends Component {
               />
               <TextInput
                 style={styles.input}
+                placeholder="Insert password"
+                onChangeText={password => this.setState({ password })}
+                autoCompleteType="password"
+                autoCapitalize="none"
+                autoCorrect={false}
+                textContentType="newPassword"
+                secureTextEntry={true}
+              />
+              <TextInput
+                style={styles.input}
                 placeholder="Insert full name"
                 onChangeText={name => this.setState({ name })}
                 autoCompleteType="name"
@@ -132,14 +143,10 @@ export default class CreateProfileScreen extends Component {
                 textContentType="name"
               />
               <TextInput
-                style={styles.input}
-                placeholder="Insert password"
-                onChangeText={password => this.setState({ password })}
-                autoCompleteType="password"
-                autoCapitalize="none"
-                autoCorrect={false}
-                textContentType="newPassword"
-                secureTextEntry={true}
+                style={styles.multiLineInput}
+                placeholder="Bio"
+                onChangeText={bio => this.setState({ bio })}
+                multiline={true}
               />
             </View>
             <View>
@@ -153,6 +160,7 @@ export default class CreateProfileScreen extends Component {
                       name: this.state.name,
                       password: this.state.password,
                       gender: this.state.gender,
+                      bio: this.state.bio,
                     },
                     this.state.imageUri
                   )
@@ -186,6 +194,16 @@ const styles = StyleSheet.create({
   },
   input: {
     height: Mixins.scaleSize(40),
+    width: '70%',
+    marginBottom: 6,
+    borderRadius: Mixins.scaleSize(20),
+    borderWidth: 1,
+    borderColor: 'white',
+    paddingVertical: Mixins.scaleSize(5),
+    paddingHorizontal: Mixins.scaleSize(15),
+  },
+  multiLineInput: {
+    height: Mixins.scaleSize(80),
     width: '70%',
     marginBottom: 6,
     borderRadius: Mixins.scaleSize(20),
