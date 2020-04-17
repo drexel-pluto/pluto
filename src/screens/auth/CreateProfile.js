@@ -106,7 +106,7 @@ export default class CreateProfileScreen extends Component {
             >
               <TextInput
                 style={styles.input}
-                placeholder="Insert username"
+                placeholder="username"
                 onChangeText={username => this.setState({ username })}
                 autoCompleteType="username"
                 autoCapitalize="none"
@@ -115,7 +115,7 @@ export default class CreateProfileScreen extends Component {
               />
               <TextInput
                 style={styles.input}
-                placeholder="Insert email"
+                placeholder="email"
                 onChangeText={email => this.setState({ email })}
                 autoCompleteType="email"
                 autoCapitalize="none"
@@ -125,7 +125,7 @@ export default class CreateProfileScreen extends Component {
               />
               <TextInput
                 style={styles.input}
-                placeholder="Insert password"
+                placeholder="password"
                 onChangeText={password => this.setState({ password })}
                 autoCompleteType="password"
                 autoCapitalize="none"
@@ -135,7 +135,7 @@ export default class CreateProfileScreen extends Component {
               />
               <TextInput
                 style={styles.input}
-                placeholder="Insert full name"
+                placeholder="full name"
                 onChangeText={name => this.setState({ name })}
                 autoCompleteType="name"
                 autoCapitalize="words"
@@ -144,7 +144,7 @@ export default class CreateProfileScreen extends Component {
               />
               <TextInput
                 style={styles.multiLineInput}
-                placeholder="Bio"
+                placeholder="bio"
                 onChangeText={bio => this.setState({ bio })}
                 multiline={true}
               />
