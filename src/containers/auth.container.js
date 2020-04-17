@@ -25,7 +25,6 @@ class AuthContainer extends React.Component {
       }
     }).then((action) => {
       if (action.type.endsWith('SUCCESS')) {
-        console.log("why no work", this.props.token)
         this.props.navigation.navigate('App')
         this.props.initLinkListener()
         this.props.saveUserToken(this.props.token)

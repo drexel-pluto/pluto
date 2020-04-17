@@ -24,8 +24,6 @@ class GroupFeedContainer extends React.Component {
   }
 
   editGroup() {
-    console.log("edit group");
-    console.log(this.props.group);
     this.props.setGroup(this.props.group)
     this.props.navigation.navigate('EditGroup')
   }

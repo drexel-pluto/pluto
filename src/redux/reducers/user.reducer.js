@@ -241,7 +241,6 @@ export function getUserToken () {
 }
 
 export function saveUserToken (token) {
-  console.log("TOKEN", token);
   return (dispatch) =>
     AsyncStorage.setItem(storageKey, token)
       .then(data => {
@@ -306,7 +305,6 @@ export function initLinkListener() {
 
     Linking.getInitialURL().then(url => {
       let { path, queryParams } = Linking.parse(url)
-      console.log(queryParams, path)
       if (path == 'addfriend') {
         dispatch(setFriend(queryParams.username))
         RootNavigation.navigate('UserModal')

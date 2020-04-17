@@ -153,9 +153,6 @@ export function updateGroup() {
 
     let newMembers = members.filter(( mem_id ) => !originalData.members.includes( mem_id ));
     let removedMembers = originalData.members.filter(( mem_id ) => !members.includes( mem_id ));
-    console.log(
-      promises
-    );
 
     let promises = [
       name !== originalData.name && dispatch(updateName(name, groupId)),

@@ -32,7 +32,6 @@ class GroupFeed extends React.Component {
   }
 
   render() {
-    console.log(this.props.group)
     const leftHeaderItems = [
       <IconButton type="back" _onPress={this.props.navigation.goBack} />,
     ]

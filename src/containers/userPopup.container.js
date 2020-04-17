@@ -5,7 +5,6 @@ import { addFriend } from '../redux/reducers/addFriend.reducer'
 
 class UserPopupContainer extends React.Component {
   send() {
-    console.log("send");
     this.props.addFriend().then(action => {
       if (action.type.endsWith('SUCCESS')) {
         this.props.navigation.goBack();
@@ -15,7 +14,6 @@ class UserPopupContainer extends React.Component {
     });
   }
   cancel() {
-    console.log("cancel");
     this.props.navigation.goBack();
   }
   render() {
