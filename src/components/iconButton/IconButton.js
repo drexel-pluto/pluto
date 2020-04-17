@@ -68,7 +68,8 @@ export default IconButton = props => {
         <TouchableOpacity
           style={styles.iconButton}
           onPress={() => {
-            _onPress()
+            // _onPress()
+            alert('feature in progress')
           }}
         >
           <SearchItem />
@@ -79,7 +80,8 @@ export default IconButton = props => {
         <TouchableOpacity
           style={styles.iconButton}
           onPress={() => {
-            _onPress()
+            // _onPress()
+            alert('feature in progress')
           }}
         >
           <NotiCenter />

@@ -13,11 +13,9 @@ class DecaySlider extends React.Component {
   }
 
   sliderOptions = [
-    { value: 0, label: 'infinite' },
+    { value: 0, label: '30 days' },
     { value: 1, label: '180 days' },
-    { value: 2, label: '60 days' },
-    { value: 3, label: '30 days' },
-    { value: 4, label: '1 day'},
+    { value: 2, label: 'infinite' },
   ]
 
   slidingComplete() {
@@ -67,6 +65,9 @@ class DecaySlider extends React.Component {
             this.slidingComplete()
           }}
         />
+        <Text style={{ paddingTop: 20, fontSize: 12 }}>
+          * this will not take effect for the current build
+        </Text>
       </View>
     )
   }

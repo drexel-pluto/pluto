@@ -25,18 +25,19 @@ class Profile extends React.Component {
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
           rightItems={
-              <IconButton
-                type="settings"
-                _onPress={() => {
-                  if (this.props.profile.id == this.props.myId) {
-                    this.props.navigation.navigate('Settings', {
-                      user: this.props.profile,
-                    })
-                  } else {
-                    this.props.openOptions()
-                  }
-                }}
-              />
+            <IconButton
+              type="settings"
+              _onPress={() => {
+                if (this.props.profile.id == this.props.myId) {
+                  // this.props.navigation.navigate('Settings', {
+                  //   user: this.props.profile,
+                  // })
+                  alert('feature in progress')
+                } else {
+                  this.props.openOptions()
+                }
+              }}
+            />
           }
         />
         <ProfileHeader
