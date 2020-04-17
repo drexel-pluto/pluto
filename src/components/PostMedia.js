@@ -100,8 +100,10 @@ class PostMedia extends React.Component {
                     source={{ uri: imgUrl }}
                     key={index}
                     style={{
-                      width: '100%',
-                      height: '100%',
+                      flex:1,
+                      height: null,
+                      resizeMode: 'cover',
+                      width: null,
                       borderRadius: Mixins.scaleSize(20),
                     }}
                   />
@@ -115,8 +117,10 @@ class PostMedia extends React.Component {
                   source={{ uri: imgUrl }}
                   key={index}
                   style={{
-                    width: '100%',
-                    height: '100%',
+                    flex:1,
+                    height: null,
+                    resizeMode: 'cover',
+                    width: null,
                     borderRadius: Mixins.scaleSize(20),
                   }}
                 />
@@ -135,6 +139,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignContent: 'stretch',
+    justifyContent: 'flex-start',
     padding: 0,
   },
   mediaItem: {
@@ -142,6 +147,7 @@ const styles = StyleSheet.create({
     width: '40%',
     flexGrow: 1,
     paddingHorizontal: Mixins.scaleSize(5),
+    paddingVertical: Mixins.scaleSize(5)
   },
 })
 
