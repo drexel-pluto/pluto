@@ -61,13 +61,23 @@ export default class RigidBodies extends Component {
     })
     Matter.World.add(world, attractor)
 
+    let entities = {};
+    if (this.props.members.length >= 1) {
+      this.props.members.forEach(member_id => {
+        let friend = this.props.friends.find(x => x.friend._id == member_id);
+        let entity = this.addFriend(friend.friend, world);
+        entities[friend.friend._id] = entity;
+      });
+    }
+
+
     this.setState({
       physics: {
         engine: engine,
         world: world,
         constraint: constraint,
       },
-      entities: {}
+      entities
     })
   }
 
@@ -114,10 +124,10 @@ export default class RigidBodies extends Component {
   }
 
 
-  addFriend = (friend) => {
+  addFriend = (friend, world = null) => {
     const { width, height } = Dimensions.get('window');
     let radius = Matter.Common.random(30, 70)
-    let groups = friend.groups
+    let groups = []
     let item = Matter.Bodies.circle(
       Matter.Common.random(radius / 2, width - radius / 2),
       Matter.Common.random(radius / 2, height - radius / 2),
@@ -125,7 +135,7 @@ export default class RigidBodies extends Component {
       { continuous: 1 }
     )
 
-    Matter.World.add(this.state.physics.world, [item])
+    Matter.World.add(world ?? this.state.physics.world, [item])
     
     let ents = {...this.state.entities};
     ents[friend._id] = {
@@ -139,6 +149,17 @@ export default class RigidBodies extends Component {
       friendData: friend,
     }
     this.setState({entities: ents});
+
+    return ({
+      body: item,
+      size: radius,
+      color: pickHex('#664391', '#15DAD6'),
+      id: friend._id,
+      groups: groups,
+      isVisible: true,
+      zIndex: 0,
+      friendData: friend,
+    })
   }
 
   removeFriend = (id) => {

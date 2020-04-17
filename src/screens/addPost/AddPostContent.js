@@ -57,8 +57,10 @@ class AddPost extends React.Component {
 
   submitPost() {
     if (this.state.text.length > 0) {
-      this.props.submitPost(this.state.text, this.state.tags)
       this.setState({ submitted: true })
+      this.props.submitPost(this.state.text, this.state.tags).then(
+        this.setState({ submitted: false })
+      )
     } else return // any alerts?
   }
 
