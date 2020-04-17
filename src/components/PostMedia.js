@@ -90,6 +90,7 @@ class PostMedia extends React.Component {
           if (this.props.showLightbox) {
             return (
               <TouchableWithoutFeedback
+                key={imgUrl}
                 onPress={() => {
                   this.toggleLightBox(index)
                 }}
