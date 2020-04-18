@@ -20,37 +20,37 @@ export default RecentPostList = props => {
       >
         top picks
       </Text>
-      {props.loading === true 
-        ? <View 
-            style={{
-              paddingHorizontal: Layouts.PAD_HORZ,
-              paddingVertical: Layouts.PAD_VERT,
-            }}
-          >
+      {props.loading === true ? (
+        <View
+          style={{
+            paddingHorizontal: Layouts.PAD_HORZ,
+            paddingVertical: Layouts.PAD_VERT,
+          }}
+        >
           <PostTeaserSkeleton />
-          </View>
-        : <FlatList
-            contentContainerStyle={{
-              paddingHorizontal: Layouts.PAD_HORZ,
-              paddingVertical: Layouts.PAD_VERT,
-            }}
-            data={props.data}
-            renderItem={({ item }) => (
-              <PostTeaser
-                key={item._id}
-                _id={item._id}
-                media={item.mediaURLs}
-                text={item.text}
-                poster={item.poster}
-                openPost={props.openPost}
-              />
-            )}
-            keyExtractor={item => item.id}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          />
-      }
-      
+        </View>
+      ) : (
+        <FlatList
+          contentContainerStyle={{
+            paddingHorizontal: Layouts.PAD_HORZ,
+            paddingVertical: Layouts.PAD_VERT,
+          }}
+          data={props.data}
+          renderItem={({ item }) => (
+            <PostTeaser
+              key={item._id}
+              _id={item._id}
+              media={item.mediaURLs}
+              text={item.text}
+              poster={item.poster}
+              openPost={props.openPost}
+            />
+          )}
+          keyExtractor={item => item.id}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+      )}
     </View>
   )
 }

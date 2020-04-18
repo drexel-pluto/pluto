@@ -100,7 +100,7 @@ class PostMedia extends React.Component {
                     source={{ uri: imgUrl }}
                     key={index}
                     style={{
-                      flex:1,
+                      flex: 1,
                       height: null,
                       resizeMode: 'cover',
                       width: null,
@@ -117,7 +117,7 @@ class PostMedia extends React.Component {
                   source={{ uri: imgUrl }}
                   key={index}
                   style={{
-                    flex:1,
+                    flex: 1,
                     height: null,
                     resizeMode: 'cover',
                     width: null,
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     width: '40%',
     flexGrow: 1,
     paddingHorizontal: Mixins.scaleSize(5),
-    paddingVertical: Mixins.scaleSize(5)
+    paddingVertical: Mixins.scaleSize(5),
   },
 })
 

@@ -31,7 +31,7 @@ export default class CreateProfileScreen extends Component {
       name: '',
       gender: 'male',
       imageUri: '',
-      bio: ''
+      bio: '',
     }
   }
 

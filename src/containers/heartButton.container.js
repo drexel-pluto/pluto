@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { sendReact } from '../redux/reducers/post.reducer'
 import HeartButton from '../components/iconButton/HeartButton'
 import { Mixins } from './../styles/index'
-import * as Haptics from 'expo-haptics';
+import * as Haptics from 'expo-haptics'
 
 class HeartButtonContainer extends React.Component {
   constructor(props) {

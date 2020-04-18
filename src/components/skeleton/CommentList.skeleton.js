@@ -5,41 +5,47 @@ import {
   Placeholder,
   PlaceholderMedia,
   PlaceholderLine,
-  Fade
-} from "rn-placeholder";
+  Fade,
+} from 'rn-placeholder'
 
 export default CommentListSkeleton = props => {
-  color = "green";
-  var comments = [];
+  color = 'green'
+  var comments = []
 
   for (let i = 0; i < 3; i++) {
     comments.push(
-      <View style={{marginBottom: 20}} key={i}>
+      <View style={{ marginBottom: 20 }} key={i}>
         <Placeholder
           Animation={Fade}
-          Left={ props => (
+          Left={props => (
             <PlaceholderMedia
               isRound={true}
               width={45}
               height={45}
-              style={[{
-                  width: Mixins.scaleSize(45), 
-                  height: Mixins.scaleSize(45), 
+              style={[
+                {
+                  width: Mixins.scaleSize(45),
+                  height: Mixins.scaleSize(45),
                   borderRadius: Mixins.scaleSize(45),
-                }
-                , props.style]
-              }
+                },
+                props.style,
+              ]}
             />
           )}
         >
-          <PlaceholderLine width={50} height={16} style={{marginBottom: 10}}/>
+          <PlaceholderLine
+            width={50}
+            height={16}
+            style={{ marginBottom: 10 }}
+          />
           <PlaceholderLine width={40} height={16} />
         </Placeholder>
-        <Placeholder
-          Animation={Fade}
-          style={{marginVertical: 8}}
-        >
-          <PlaceholderLine width={80} height={16} style={{marginBottom: 10}}/>
+        <Placeholder Animation={Fade} style={{ marginVertical: 8 }}>
+          <PlaceholderLine
+            width={80}
+            height={16}
+            style={{ marginBottom: 10 }}
+          />
         </Placeholder>
       </View>
     )
@@ -54,5 +60,5 @@ export default CommentListSkeleton = props => {
     >
       {comments}
     </View>
-  );
-};
+  )
+}

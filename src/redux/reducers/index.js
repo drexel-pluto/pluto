@@ -14,5 +14,5 @@ export default combineReducers({
   create,
   post,
   addFriend,
-  editGroup
+  editGroup,
 })

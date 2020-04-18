@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import Notifications from '../screens/Notifications'
 
 class NotificationsContainer extends React.Component {
-  componentWillMount() {
-  }
+  componentWillMount() {}
 
   render() {
     return (
@@ -16,10 +15,11 @@ class NotificationsContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-})
+const mapStateToProps = state => ({})
 
-const mapDispatchToProps = {
-}
+const mapDispatchToProps = {}
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationsContainer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NotificationsContainer)

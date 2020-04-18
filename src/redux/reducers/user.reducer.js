@@ -47,9 +47,9 @@ let defaultStateUser = {
 export default function reducer(state = defaultStateUser, action) {
   switch (action.type) {
     case SET_SWIPE_INDEX:
-      return {...state, swipeIndex: action.index}
+      return { ...state, swipeIndex: action.index }
     case RESET_HOME:
-      return {...state, key: state.key + 1, swipeIndex: 0 }
+      return { ...state, key: state.key + 1, swipeIndex: 0 }
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -145,7 +145,7 @@ export default function reducer(state = defaultStateUser, action) {
         friends,
         groups,
         key: state.key + 1,
-        swipeIndex: 0
+        swipeIndex: 0,
       }
     case SET_IS_CREATE:
       return {
@@ -231,19 +231,19 @@ export const tokenError = error => ({
 
 const storageKey = 'userToken'
 
-export function getUserToken () { 
-  return (dispatch) =>
-  AsyncStorage.getItem(storageKey)
-    .then(data => {
-      dispatch(getToken(data))
-    })
-    .catch(err => {
-      dispatch(tokenError(err.message || 'ERROR'))
-    })
+export function getUserToken() {
+  return dispatch =>
+    AsyncStorage.getItem(storageKey)
+      .then(data => {
+        dispatch(getToken(data))
+      })
+      .catch(err => {
+        dispatch(tokenError(err.message || 'ERROR'))
+      })
 }
 
-export function saveUserToken (token) {
-  return (dispatch) =>
+export function saveUserToken(token) {
+  return dispatch =>
     AsyncStorage.setItem(storageKey, token)
       .then(data => {
         dispatch(saveToken(token))
@@ -252,8 +252,8 @@ export function saveUserToken (token) {
         dispatch(tokenError(err.message || 'ERROR'))
       })
 }
-export function removeUserToken () { 
-  return (dispatch) =>
+export function removeUserToken() {
+  return dispatch =>
     AsyncStorage.removeItem(storageKey)
       .then(data => {
         dispatch(removeToken(data))
@@ -283,9 +283,7 @@ export function logout() {
 
 export function init() {
   return function(dispatch, getState) {
-    return dispatch(getUserToken()).then(() =>
-      dispatch(getMe())
-    )
+    return dispatch(getUserToken()).then(() => dispatch(getMe()))
   }
 }
 
@@ -317,7 +315,6 @@ export function initLinkListener() {
   }
 }
 
-
 export function resetHome() {
   return {
     type: RESET_HOME,
@@ -327,6 +324,6 @@ export function resetHome() {
 export function setSwipeIndex(i) {
   return {
     type: SET_SWIPE_INDEX,
-    index: i
+    index: i,
   }
 }

@@ -48,14 +48,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.VIOLET.dark,
   },
   inner: {
-
     width: Mixins.scaleSize(55),
     height: Mixins.scaleSize(55),
     borderRadius: Mixins.scaleSize(55) / 2,
     backgroundColor: Colors.VIOLET_dark,
     justifyContent: 'center',
     alignItems: 'center',
-
-
   },
 })

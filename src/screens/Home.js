@@ -61,7 +61,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const rightHeaderItems = 
+    const rightHeaderItems = (
       <>
         <IconButton
           type="notiCenter"
@@ -76,7 +76,7 @@ class Home extends React.Component {
           }}
         />
       </>
-    
+    )
 
     return (
       <View style={[styles.homeScreen, Layouts.FLEX_CONTAINER]}>
@@ -146,7 +146,8 @@ class Home extends React.Component {
             type="addPost"
             _onPress={() => {
               this.props.navigation.navigate('AddPost', {
-                defaultRecipients: this.props.groups[this.props.swipeIndex].members,
+                defaultRecipients: this.props.groups[this.props.swipeIndex]
+                  .members,
               })
             }}
           />
@@ -204,7 +205,7 @@ class Home extends React.Component {
     this.setState({ resetting: true })
     this.props.reset().then(() => {
       this.setState(state => ({
-        resetting: false
+        resetting: false,
       }))
     })
   }

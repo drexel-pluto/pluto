@@ -29,54 +29,56 @@ export const SET_FRIEND = 'friend/SET_FRIEND'
 let defaultStateAddFriend = {
   friendRequests: [],
   user: {
-    username: "",
-    profilePicURL: "",
-    name: "",
-    mutualFriends: []
+    username: '',
+    profilePicURL: '',
+    name: '',
+    mutualFriends: [],
   },
-  loading: false
+  loading: false,
 }
 
 export default function reducer(state = defaultStateAddFriend, action) {
   switch (action.type) {
     case SET_FRIEND:
-      return { ...state,
-        user: {
-          username: action.username, 
-          profilePicURL: "https://picsum.photos/id/239/300/300", 
-          name: "John Smith" 
-        } 
-      }
-    case GET_PUBLIC_SUCCESS:
-      data = action.payload.data;
       return {
         ...state,
         user: {
-          username: data.username, 
-          profilePicURL: data.profilePicURL, 
+          username: action.username,
+          profilePicURL: 'https://picsum.photos/id/239/300/300',
+          name: 'John Smith',
+        },
+      }
+    case GET_PUBLIC_SUCCESS:
+      data = action.payload.data
+      return {
+        ...state,
+        user: {
+          username: data.username,
+          profilePicURL: data.profilePicURL,
           name: data.name,
-          mutualFriends: data.mutualFriends
-        } 
-      };
+          mutualFriends: data.mutualFriends,
+        },
+      }
     case GET_FRIEND_REQUESTS:
     case SEND_FRIEND_FAIL:
-      return { ...state, loading: true };
+      return { ...state, loading: true }
     case GET_FRIEND_REQUESTS_SUCCESS:
-      return { ...state, loading: false, friendRequests: action.payload.data };
+      return { ...state, loading: false, friendRequests: action.payload.data }
     case SEND_FRIEND_SUCCESS:
-      return { ...state, loading: false };
+      return { ...state, loading: false }
     case SEND_FRIEND_FAIL:
     case GET_FRIEND_REQUESTS_FAIL:
     case ACCEPT_FRIEND_FAIL:
     case REJECT_FRIEND_FAIL:
-      return { ...state,  loading: false };
+      return { ...state, loading: false }
     case ACCEPT_FRIEND_SUCCESS:
     case REJECT_FRIEND_SUCCESS:
-      let username = action.meta.previousAction.payload.request.data.username;
-      return { ...state,
+      let username = action.meta.previousAction.payload.request.data.username
+      return {
+        ...state,
         friendRequests: state.friendRequests.filter((item, index) => {
-          item.from.username !== username;
-        })
+          item.from.username !== username
+        }),
       }
     default:
       return state
@@ -90,14 +92,14 @@ function getFriendRequests() {
       request: {
         method: 'GET',
         url: `/user/friends/requests-in`,
-      }
-    }
+      },
+    },
   }
 }
 
 export function updateFriendRequests() {
-  return function (dispatch, getState) {
-    return dispatch(getFriendRequests());
+  return function(dispatch, getState) {
+    return dispatch(getFriendRequests())
   }
 }
 
@@ -109,10 +111,10 @@ export function sendFriendRequest(username) {
         method: 'POST',
         url: `/user/friends/request`,
         data: {
-          username
+          username,
         },
-      }
-    }
+      },
+    },
   }
 }
 
@@ -123,15 +125,15 @@ export function getPublicUser(username) {
       request: {
         method: 'GET',
         url: `/user/public/${username}`,
-      }
-    }
+      },
+    },
   }
 }
 
 export function addFriend() {
-  return function (dispatch, getState) {
-    let username = getState().addFriend.user.username;
-    return dispatch(sendFriendRequest(username));
+  return function(dispatch, getState) {
+    let username = getState().addFriend.user.username
+    return dispatch(sendFriendRequest(username))
   }
 }
 
@@ -139,11 +141,9 @@ export function addFriend() {
 export function setFriend(username) {
   return {
     type: SET_FRIEND,
-    username
+    username,
   }
 }
-
-
 
 function postAccept(username) {
   return {
@@ -153,21 +153,20 @@ function postAccept(username) {
         method: 'POST',
         url: `/user/friends/request/confirm`,
         data: {
-          username
+          username,
         },
-      }
-    }
+      },
+    },
   }
 }
 
 export function acceptFriendRequest(username) {
-  return function (dispatch, getState) {
-    return dispatch(postAccept(username)).then(()=> {
-      dispatch(getMe());
-    });;
+  return function(dispatch, getState) {
+    return dispatch(postAccept(username)).then(() => {
+      dispatch(getMe())
+    })
   }
 }
-
 
 function postReject(username) {
   return {
@@ -177,15 +176,15 @@ function postReject(username) {
         method: 'POST',
         url: `/user/friends/request/reject`,
         data: {
-          username
+          username,
         },
-      }
-    }
+      },
+    },
   }
 }
 
 export function rejectFriendRequest(username) {
-  return function (dispatch, getState) {
-    return dispatch(postReject(username));
+  return function(dispatch, getState) {
+    return dispatch(postReject(username))
   }
 }

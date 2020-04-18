@@ -6,13 +6,13 @@ const REMOVE_FRIEND = 'profile/REMOVE_FRIEND'
 const REMOVE_FRIEND_SUCCESS = 'profile/REMOVE_FRIEND_SUCCESS'
 const REMOVE_FRIEND_FAIL = 'profile/REMOVE_FRIEND_FAIL'
 
- const UPDATEPIC = 'profile/UPDATEPIC'
- const UPDATEPIC_SUCCESS = 'profile/UPDATEPIC_SUCCESS'
- const UPDATEPIC_FAIL = 'profile/UPDATEPIC_FAIL'
+const UPDATEPIC = 'profile/UPDATEPIC'
+const UPDATEPIC_SUCCESS = 'profile/UPDATEPIC_SUCCESS'
+const UPDATEPIC_FAIL = 'profile/UPDATEPIC_FAIL'
 
- const UPDATEPROF = 'profile/UPDATEPROF'
- const UPDATEPROF_SUCCESS = 'profile/UPDATEPROF_SUCCESS'
- const UPDATEPROF_FAIL = 'profile/UPDATEPROF_FAIL'
+const UPDATEPROF = 'profile/UPDATEPROF'
+const UPDATEPROF_SUCCESS = 'profile/UPDATEPROF_SUCCESS'
+const UPDATEPROF_FAIL = 'profile/UPDATEPROF_FAIL'
 
 let defaultStateProfile = {
   id: '',
@@ -29,7 +29,7 @@ let defaultStateProfile = {
 export default function reducer(state = defaultStateProfile, action) {
   switch (action.type) {
     case FETCH_USER:
-      return {...defaultStateProfile, id: action.payload.request.data.userId }
+      return { ...defaultStateProfile, id: action.payload.request.data.userId }
     case FETCH_USER_SUCCESS:
       data = action.payload.data
       return {
@@ -84,17 +84,16 @@ export function removeFriend(friendId) {
         method: 'POST',
         url: `/user/friends/remove`,
         data: {
-          friendId
+          friendId,
         },
       },
     },
   }
 }
 
-
 function updateProfilePic(uri) {
   let form = new FormData()
-  
+
   form.append(
     'media',
     {
@@ -129,7 +128,7 @@ function updateProfileDetail(field, newValue) {
         url: `/user/update`,
         data: {
           field,
-          newValue
+          newValue,
         },
       },
     },
@@ -137,18 +136,17 @@ function updateProfileDetail(field, newValue) {
 }
 
 export function updateProfile(newDat) {
-  return function (dispatch) {
-
-    promises = [];
+  return function(dispatch) {
+    promises = []
 
     Object.keys(newDat).forEach(key => {
-      if (key == "imageUri") {
+      if (key == 'imageUri') {
         promises.push(dispatch(updateProfilePic(newDat[key])))
       } else {
         promises.push(dispatch(updateProfileDetail(key, newDat[key])))
       }
-    });
+    })
 
-    return Promise.all(promises);
+    return Promise.all(promises)
   }
 }

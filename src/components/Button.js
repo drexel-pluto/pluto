@@ -12,21 +12,17 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 export default Button = props => {
   const { _onPress, text, type, color, isBold } = props
-  var {style, disabled} = props;
-  
+  var { style, disabled } = props
+
   switch (type) {
     case 'small':
       return (
         <TouchableHighlight
           underlayColor="#ffffff00"
           onPress={() => {
-            !disabled && _onPress();
+            !disabled && _onPress()
           }}
-
-          style={[
-            props.style,
-            props.disabled && {opacity: 0.4}
-          ]}
+          style={[props.style, props.disabled && { opacity: 0.4 }]}
         >
           <LinearGradient
             style={styles.smallButton}
@@ -49,12 +45,9 @@ export default Button = props => {
         <TouchableHighlight
           underlayColor="#ffffff00"
           onPress={() => {
-            !disabled && _onPress();
+            !disabled && _onPress()
           }}
-          style={[
-            props.style,
-            props.disabled && {opacity: 0.4}
-          ]}
+          style={[props.style, props.disabled && { opacity: 0.4 }]}
         >
           <View style={styles.button}>
             <Text
@@ -74,12 +67,9 @@ export default Button = props => {
         <TouchableHighlight
           underlayColor="#ffffff00"
           onPress={() => {
-            !disabled && _onPress();
+            !disabled && _onPress()
           }}
-          style={[
-            props.style,
-            props.disabled && {opacity: 0.4}
-          ]}
+          style={[props.style, props.disabled && { opacity: 0.4 }]}
         >
           <View
             style={[styles.button, { borderWidth: 1, borderColor: color.dark }]}
@@ -101,12 +91,9 @@ export default Button = props => {
         <TouchableHighlight
           underlayColor="#ffffff00"
           onPress={() => {
-            !disabled && _onPress();
+            !disabled && _onPress()
           }}
-          style={[
-            props.style,
-            props.disabled && {opacity: 0.4}
-          ]}
+          style={[props.style, props.disabled && { opacity: 0.4 }]}
         >
           <LinearGradient
             style={styles.button}

@@ -9,7 +9,7 @@ export default CircleList = props => {
       contentContainerStyle={{
         paddingHorizontal: Layouts.PAD_HORZ,
         paddingVertical: Layouts.PAD_VERT,
-        marginBottom: Mixins.scaleSize(5)
+        marginBottom: Mixins.scaleSize(5),
       }}
       data={props.data}
       renderItem={({ item, index }) => (

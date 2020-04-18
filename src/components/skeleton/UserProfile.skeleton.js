@@ -5,8 +5,8 @@ import {
   Placeholder,
   PlaceholderMedia,
   PlaceholderLine,
-  Fade
-} from "rn-placeholder";
+  Fade,
+} from 'rn-placeholder'
 
 export default TagListSkeleton = props => {
   return (
@@ -18,17 +18,29 @@ export default TagListSkeleton = props => {
       }}
     >
       <View style={[styles.userProfile, Layouts.FLEX_CONTAINER_CENTER]}>
-        <PlaceholderMedia style={styles.image}/>
+        <PlaceholderMedia style={styles.image} />
         <View style={[styles.text_wrapper, Layouts.FLEX_CONTAINER_CENTER]}>
-          <PlaceholderLine height={30} width={200} style={{height: 30, width: 200, marginBottom: 20, marginTop: 16}}/>
-          
-          <PlaceholderLine height={20} width={240} style={{height: 20, width: 280, marginBottom: 10}}/>
-          <PlaceholderLine height={20} width={240} style={{height: 20, width: 280, marginBottom: 10}}/>
+          <PlaceholderLine
+            height={30}
+            width={200}
+            style={{ height: 30, width: 200, marginBottom: 20, marginTop: 16 }}
+          />
+
+          <PlaceholderLine
+            height={20}
+            width={240}
+            style={{ height: 20, width: 280, marginBottom: 10 }}
+          />
+          <PlaceholderLine
+            height={20}
+            width={240}
+            style={{ height: 20, width: 280, marginBottom: 10 }}
+          />
         </View>
       </View>
     </Placeholder>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   image: {

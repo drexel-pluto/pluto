@@ -26,16 +26,16 @@ class Profile extends React.Component {
           }
           rightItems={
             <>
-              {(this.props.profile.id == this.props.myId) && 
-                <IconButton 
+              {this.props.profile.id == this.props.myId && (
+                <IconButton
                   type="edit"
                   _onPress={() => {
                     this.props.navigation.navigate('EditProfile', {
-                      user: this.props.profile
+                      user: this.props.profile,
                     })
                   }}
                 />
-              }
+              )}
               <IconButton
                 type="settings"
                 _onPress={() => {

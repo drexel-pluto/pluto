@@ -9,11 +9,11 @@ class HomeContainer extends React.Component {
   constructor(props) {
     super(props)
     props.updateFriendRequests()
-    this.screenRef = React.createRef();
+    this.screenRef = React.createRef()
   }
 
   reset() {
-    return this.props.getMe();
+    return this.props.getMe()
   }
 
   render() {
@@ -63,10 +63,7 @@ const mapDispatchToProps = {
   getMe,
   updateFriendRequests,
   resetHome,
-  setSwipeIndex
+  setSwipeIndex,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomeContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

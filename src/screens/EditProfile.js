@@ -1,15 +1,23 @@
 import React from 'react'
-import { View, ScrollView, StyleSheet, Text, Image, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native'
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  TextInput,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
-
 
 class Profile extends React.Component {
   constructor(props) {
     super(props)
 
-    user = this.props.route.params?.user ?? {};
+    user = this.props.route.params?.user ?? {}
 
     this.state = {
       username: user.username,
@@ -20,17 +28,19 @@ class Profile extends React.Component {
   }
 
   getDifferent() {
-    original = this.props.route.params?.user ?? {};
-    obj = {};
+    original = this.props.route.params?.user ?? {}
+    obj = {}
 
-    this.state.username != original.username && (obj.username = this.state.username)
+    this.state.username != original.username &&
+      (obj.username = this.state.username)
     this.state.name != original.name && (obj.name = this.state.name)
-    this.state.imageUri != original.profilePicURL && (obj.imageUri = this.state.imageUri)
+    this.state.imageUri != original.profilePicURL &&
+      (obj.imageUri = this.state.imageUri)
     this.state.bio != original.bio && (obj.bio = this.state.bio)
 
-    if (Object.keys(obj).length === 0) return null;
+    if (Object.keys(obj).length === 0) return null
 
-    return obj;
+    return obj
   }
 
   openImagePickerAsync = async () => {
@@ -49,41 +59,45 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.wrapper} behavior={"padding"}>
+      <KeyboardAvoidingView style={styles.wrapper} behavior={'padding'}>
         <ScreenHeader
           leftItems={
-            <Button type="text" text="cancel" color="Colors.BLACK_ROCK" _onPress={()=>this.props.navigation.goBack()}/>
+            <Button
+              type="text"
+              text="cancel"
+              color="Colors.BLACK_ROCK"
+              _onPress={() => this.props.navigation.goBack()}
+            />
           }
           rightItems={
-            <Button 
-              type="outline" 
-              text={this.props.isNew ? "create" : "update"} 
-              color="Colors.BLACK_ROCK" 
-              _onPress={()=>{
-                if (this.getDifferent())
-                  this.props.submit(this.getDifferent())
-              }} 
+            <Button
+              type="outline"
+              text={this.props.isNew ? 'create' : 'update'}
+              color="Colors.BLACK_ROCK"
+              _onPress={() => {
+                if (this.getDifferent()) this.props.submit(this.getDifferent())
+              }}
             />
           }
         />
         <TouchableOpacity onPress={() => this.openImagePickerAsync()}>
           <View style={styles.image_wrapper}>
-              <Image
-                source={{
-                  uri: this.state.imageUri,
-                }}
-                style={{
-                  width: Mixins.scaleSize(120),
-                  height: Mixins.scaleSize(120),
-                  borderRadius: Mixins.scaleSize(120 / 2)
-                }}
-              />
+            <Image
+              source={{
+                uri: this.state.imageUri,
+              }}
+              style={{
+                width: Mixins.scaleSize(120),
+                height: Mixins.scaleSize(120),
+                borderRadius: Mixins.scaleSize(120 / 2),
+              }}
+            />
           </View>
         </TouchableOpacity>
         <View style={styles.input_section}>
           <View style={styles.input_wrapper}>
             <Text style={styles.label}>Name:</Text>
-            <TextInput 
+            <TextInput
               style={styles.input}
               value={this.state.name}
               onChangeText={name => this.setState({ name })}
@@ -91,7 +105,7 @@ class Profile extends React.Component {
           </View>
           <View style={styles.input_wrapper}>
             <Text style={styles.label}>Username:</Text>
-            <TextInput 
+            <TextInput
               style={styles.input}
               value={this.state.username}
               onChangeText={username => this.setState({ username })}
@@ -99,7 +113,7 @@ class Profile extends React.Component {
           </View>
           <View style={styles.input_wrapper}>
             <Text style={styles.label}>Bio:</Text>
-            <TextInput 
+            <TextInput
               style={styles.input}
               value={this.state.bio}
               onChangeText={bio => this.setState({ bio })}
@@ -114,11 +128,11 @@ class Profile extends React.Component {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: "#FFFFFF",
-    flex: 1
+    backgroundColor: '#FFFFFF',
+    flex: 1,
   },
   image_wrapper: {
-    alignItems: "center",
+    alignItems: 'center',
     marginBottom: Layouts.PAD_VERT,
   },
   input_section: {
@@ -126,23 +140,23 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   input_wrapper: {
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingVertical: Layouts.PAD_VERT,
     borderTopColor: Colors.GRAY_LIGHT,
-    borderTopWidth: 1
+    borderTopWidth: 1,
   },
   label: {
     width: Mixins.scaleSize(100),
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: '600',
     color: Colors.BLACK_ROCK,
   },
   input: {
     flex: 1,
     fontSize: 16,
-    fontWeight: "300",
+    fontWeight: '300',
     color: Colors.BLACK_ROCK,
-  }
+  },
 })
 
 export default Profile

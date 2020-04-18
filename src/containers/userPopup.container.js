@@ -7,14 +7,14 @@ class UserPopupContainer extends React.Component {
   send() {
     this.props.addFriend().then(action => {
       if (action.type.endsWith('SUCCESS')) {
-        this.props.navigation.goBack();
+        this.props.navigation.goBack()
       } else {
         //ERROR SENDING
       }
-    });
+    })
   }
   cancel() {
-    this.props.navigation.goBack();
+    this.props.navigation.goBack()
   }
   render() {
     return (
@@ -28,11 +28,11 @@ class UserPopupContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.addFriend.user
+  user: state.addFriend.user,
 })
 
 const mapDispatchToProps = {
-  addFriend
+  addFriend,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPopupContainer)

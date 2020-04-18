@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  KeyboardAvoidingView,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import CircleContainer from '../components/CircleContainer'
@@ -16,18 +22,18 @@ class EditGroup extends React.Component {
       text: undefined, // user's input
     }
 
-    this.physics = React.createRef();
+    this.physics = React.createRef()
   }
 
   onChangeText = text => this.setState({ text })
 
-  toggleMember = (friend) => {
+  toggleMember = friend => {
     if (this.props.members.includes(friend._id)) {
-      this.physics.removeFriend(friend._id);
+      this.physics.removeFriend(friend._id)
     } else {
-      this.physics.addFriend(friend);
+      this.physics.addFriend(friend)
     }
-    this.props.toggleMember(friend._id);
+    this.props.toggleMember(friend._id)
   }
 
   render() {
@@ -35,27 +41,45 @@ class EditGroup extends React.Component {
       <KeyboardAvoidingView style={[styles.editGroupScreen]} behavior="height">
         <ScreenHeader
           leftItems={
-            <Button type="text" text="cancel" color="Colors.BLACK_ROCK" _onPress={()=>this.props.cancelEdit()}/>
+            <Button
+              type="text"
+              text="cancel"
+              color="Colors.BLACK_ROCK"
+              _onPress={() => this.props.cancelEdit()}
+            />
           }
           rightItems={
-            <Button 
-              type="outline" 
-              text={this.props.isNew ? "create" : "update"} 
-              color="Colors.BLACK_ROCK" 
-              _onPress={()=>this.props.doneEdit()} 
+            <Button
+              type="outline"
+              text={this.props.isNew ? 'create' : 'update'}
+              color="Colors.BLACK_ROCK"
+              _onPress={() => this.props.doneEdit()}
               disabled={!this.props.canSubmit}
             />
           }
         />
-        <EditGroupName onChange={this.props.setName} value={this.props.name}/>
-        <View style={{flex:1}} pointerEvents="none"/>
-        <MiniPhysics 
-          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, right: 0, zIndex: -5}}
+        <EditGroupName onChange={this.props.setName} value={this.props.name} />
+        <View style={{ flex: 1 }} pointerEvents="none" />
+        <MiniPhysics
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            right: 0,
+            zIndex: -5,
+          }}
           friends={this.props.friends}
           members={this.props.members}
-          ref={(ref) => {this.physics = ref}}
+          ref={ref => {
+            this.physics = ref
+          }}
         />
-        <SelectFriendList friends={this.props.friends} toggleMember={this.toggleMember} members={this.props.members}/>
+        <SelectFriendList
+          friends={this.props.friends}
+          toggleMember={this.toggleMember}
+          members={this.props.members}
+        />
       </KeyboardAvoidingView>
     )
   }

@@ -72,7 +72,6 @@ const MoveBox = (state, { touches }, onPress = () => {}) => {
     let circles = state.entities.filter(circle => circle.isVisible)
 
     for (let i = 0; i < circles.length; i++) {
-
       let bounds = { ...circles[i].body.bounds }
 
       let checkX = pressX >= bounds.min.x && pressX <= bounds.max.x

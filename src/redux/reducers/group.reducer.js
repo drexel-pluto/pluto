@@ -9,7 +9,6 @@ export const DELETE_GROUP = 'group/DELETE_GROUP'
 export const DELETE_GROUP_SUCCESS = 'group/DELETE_GROUP_SUCCESS'
 export const DELETE_GROUP_FAIL = 'group/DELETE_GROUP_FAIL'
 
-
 export const SET_MEMBERS = 'group/SET_MEMBERS'
 
 export const SET_TITLE = 'group/SET_TITLE'
@@ -21,13 +20,18 @@ let defaultStateGroup = {
   posts: [],
   members: [],
   loading: true,
-  id: ''
+  id: '',
 }
 
 export default function reducer(state = defaultStateGroup, action) {
   switch (action.type) {
     case GET_GROUP_POSTS:
-      return { ...state, loading: true, posts: [], id: action.payload.request?.data?.groupId ?? -1 }
+      return {
+        ...state,
+        loading: true,
+        posts: [],
+        id: action.payload.request?.data?.groupId ?? -1,
+      }
     case GET_GROUP_POSTS_SUCCESS:
       return { ...state, loading: false, posts: action.payload.data }
     case SET_MEMBERS:
@@ -35,7 +39,7 @@ export default function reducer(state = defaultStateGroup, action) {
     case SET_TITLE:
       return { ...state, title: action.title }
     case DELETE_GROUP:
-      return defaultStateGroup;
+      return defaultStateGroup
     default:
       return state
   }
@@ -65,7 +69,7 @@ export function getPosts(group_id) {
       payload: {
         request: {
           method: 'GET',
-          url: `/posts/all`
+          url: `/posts/all`,
         },
       },
     }
@@ -78,7 +82,7 @@ export function getPosts(group_id) {
           url: `/posts/from-group`,
           data: {
             groupId: group_id,
-          }
+          },
         },
       },
     }
@@ -103,8 +107,8 @@ export function deleteGroup(group_id) {
         method: 'POST',
         url: `/user/groups/delete`,
         data: {
-          groupId: group_id
-        }
+          groupId: group_id,
+        },
       },
     },
   }

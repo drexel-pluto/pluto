@@ -15,30 +15,34 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 export default store = createStore(
   rootReducer,
   /* preloadedState, */
-  composeEnhancers(applyMiddleware(axiosMiddleware(client, 
-  {
-    interceptors: {
-    request: [
-      function ({getState, dispatch, getSourceAction}, req) {
-        let token = getState().user.authToken;
-        if (token !== null) {
-          req.headers.Authorization = "Bearer " + token;
-        }
-        return req;
-
-      },
-    ],
-  }}), ReduxThunk))
+  composeEnhancers(
+    applyMiddleware(
+      axiosMiddleware(client, {
+        interceptors: {
+          request: [
+            function({ getState, dispatch, getSourceAction }, req) {
+              let token = getState().user.authToken
+              if (token !== null) {
+                req.headers.Authorization = 'Bearer ' + token
+              }
+              return req
+            },
+          ],
+        },
+      }),
+      ReduxThunk
+    )
+  )
 )
 
 // helper functions
 
-export const getFriendById = (id) => {
+export const getFriendById = id => {
   if (id == store.getState().user.userData.id || !id) {
-    return store.getState().user.userData;
+    return store.getState().user.userData
   }
-  friends = store.getState().user.friends;
+  friends = store.getState().user.friends
   return friends.find(obj => {
     return obj.friend._id === id
-  }).friend;
+  }).friend
 }

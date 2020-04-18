@@ -5,48 +5,58 @@ import {
   Placeholder,
   PlaceholderMedia,
   PlaceholderLine,
-  Fade
-} from "rn-placeholder";
+  Fade,
+} from 'rn-placeholder'
 import RNMasonryScroll from 'react-native-masonry-scrollview'
 
 export default TagListSkeleton = props => {
-  var row1=[];
-  var row2=[];
+  var row1 = []
+  var row2 = []
 
   for (let i = 0; i < 12; i++) {
     row1.push(
       <PlaceholderMedia
-        style={[{
-          height: 60 + ((i % 4) * 20 ),
-          width: "100%" 
-        }, styles.postGridItem]}
-      />);
+        style={[
+          {
+            height: 60 + (i % 4) * 20,
+            width: '100%',
+          },
+          styles.postGridItem,
+        ]}
+      />
+    )
     row2.push(
       <PlaceholderMedia
-        style={[{
-          height: 60 + (((i + 2) % 4) * 20 ),
-          width: "100%"
-        }, styles.postGridItem]}
-      />);
+        style={[
+          {
+            height: 60 + ((i + 2) % 4) * 20,
+            width: '100%',
+          },
+          styles.postGridItem,
+        ]}
+      />
+    )
   }
 
   return (
-    <Placeholder
-      Animation={Fade}
-    >
+    <Placeholder Animation={Fade}>
       <View style={styles.postGrid}>
-        <View style={{width: "50%", paddingHorizontal: Mixins.scaleSize(7)}}>{row1}</View>
-        <View style={{width: "50%", paddingHorizontal: Mixins.scaleSize(7)}}>{row2}</View>
+        <View style={{ width: '50%', paddingHorizontal: Mixins.scaleSize(7) }}>
+          {row1}
+        </View>
+        <View style={{ width: '50%', paddingHorizontal: Mixins.scaleSize(7) }}>
+          {row2}
+        </View>
       </View>
     </Placeholder>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   postGrid: {
     flex: 1,
-    flexDirection: "row",
-    width: "100%",
+    flexDirection: 'row',
+    width: '100%',
     paddingTop: Layouts.PAD_VERT,
     paddingBottom: Mixins.scaleSize(20),
     paddingHorizontal: Layouts.PAD_HORZ,
@@ -54,5 +64,5 @@ const styles = StyleSheet.create({
   postGridItem: {
     borderRadius: Mixins.scaleSize(15),
     marginVertical: Mixins.scaleSize(7),
-  }
+  },
 })

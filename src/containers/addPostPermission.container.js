@@ -8,7 +8,7 @@ class AddPostPermissionContainer extends React.Component {
     return (
       <AddPostPermission
         navigation={this.props.navigation}
-        route={this.props.route} 
+        route={this.props.route}
         groups={this.props.groups}
         recipients={this.props.recipients}
         setRecipient={this.props.setRecipient}

@@ -5,11 +5,11 @@ import {
   Placeholder,
   PlaceholderMedia,
   PlaceholderLine,
-  Fade
-} from "rn-placeholder";
+  Fade,
+} from 'rn-placeholder'
 
 export default TagListSkeleton = props => {
-  color = "green";
+  color = 'green'
   return (
     <Placeholder
       Animation={Fade}
@@ -19,7 +19,9 @@ export default TagListSkeleton = props => {
       }}
       Left={props => (
         <>
-          <PlaceholderMedia height={200} width={130} 
+          <PlaceholderMedia
+            height={200}
+            width={130}
             style={{
               marginRight: Mixins.scaleSize(20),
               borderRadius: Mixins.scaleSize(18),
@@ -27,7 +29,9 @@ export default TagListSkeleton = props => {
               height: Mixins.scaleSize(40),
             }}
           />
-          <PlaceholderMedia height={200} width={130} 
+          <PlaceholderMedia
+            height={200}
+            width={130}
             style={{
               marginRight: Mixins.scaleSize(20),
               borderRadius: Mixins.scaleSize(18),
@@ -35,7 +39,9 @@ export default TagListSkeleton = props => {
               height: Mixins.scaleSize(40),
             }}
           />
-          <PlaceholderMedia height={200} width={130} 
+          <PlaceholderMedia
+            height={200}
+            width={130}
             style={{
               marginRight: Mixins.scaleSize(20),
               borderRadius: Mixins.scaleSize(18),
@@ -45,7 +51,6 @@ export default TagListSkeleton = props => {
           />
         </>
       )}
-    >
-    </Placeholder>
-  );
-};
+    ></Placeholder>
+  )
+}

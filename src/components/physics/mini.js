@@ -21,7 +21,7 @@ export default class RigidBodies extends Component {
     this.state = {
       entities: {},
       colors: {
-        bg: Colors.PLUTO_WHITE
+        bg: Colors.PLUTO_WHITE,
       },
     }
   }
@@ -61,17 +61,16 @@ export default class RigidBodies extends Component {
     })
     Matter.World.add(world, attractor)
 
-    let entities = {};
+    let entities = {}
     if (this.props.members.length >= 1) {
       this.props.members.forEach(member_id => {
-        let friend = this.props.friends.find(x => x.friend._id == member_id);
+        let friend = this.props.friends.find(x => x.friend._id == member_id)
         if (friend.friend) {
-          let entity = this.addFriend(friend.friend, world);
-          entities[friend.friend._id] = entity;
+          let entity = this.addFriend(friend.friend, world)
+          entities[friend.friend._id] = entity
         }
-      });
+      })
     }
-
 
     this.setState({
       physics: {
@@ -79,18 +78,15 @@ export default class RigidBodies extends Component {
         world: world,
         constraint: constraint,
       },
-      entities
+      entities,
     })
   }
 
   render() {
     return (
-      <GameLoop
-        onUpdate={this.updateHandler}
-        style={{ ...this.props.style}}
-      >
+      <GameLoop onUpdate={this.updateHandler} style={{ ...this.props.style }}>
         {Object.keys(this.state.entities).map((key, i) => {
-          let item = this.state.entities[key];
+          let item = this.state.entities[key]
           return (
             <UserCircle
               key={key}
@@ -112,12 +108,7 @@ export default class RigidBodies extends Component {
 
     Matter.Engine.update(this.state.physics.engine, time.delta)
 
-    MoveBox(
-      this.state,
-      { touches, screen, layout, time },
-      null
-    )
-
+    MoveBox(this.state, { touches, screen, layout, time }, null)
 
     // entity values are getting updated, but this line
     // is necessary to rerender to show updates
@@ -125,9 +116,8 @@ export default class RigidBodies extends Component {
     this.setState({ entities: this.state.entities })
   }
 
-
   addFriend = (friend, world = null) => {
-    const { width, height } = Dimensions.get('window');
+    const { width, height } = Dimensions.get('window')
     let radius = Matter.Common.random(30, 70)
     let groups = []
     let item = Matter.Bodies.circle(
@@ -138,8 +128,8 @@ export default class RigidBodies extends Component {
     )
 
     Matter.World.add(world ?? this.state.physics.world, [item])
-    
-    let ents = {...this.state.entities};
+
+    let ents = { ...this.state.entities }
     ents[friend._id] = {
       body: item,
       size: radius,
@@ -150,9 +140,9 @@ export default class RigidBodies extends Component {
       zIndex: 0,
       friendData: friend,
     }
-    this.setState({entities: ents});
+    this.setState({ entities: ents })
 
-    return ({
+    return {
       body: item,
       size: radius,
       color: pickHex('#664391', '#15DAD6'),
@@ -161,14 +151,16 @@ export default class RigidBodies extends Component {
       isVisible: true,
       zIndex: 0,
       friendData: friend,
-    })
+    }
   }
 
-  removeFriend = (id) => {
-    Matter.World.remove(this.state.physics.world, [this.state.entities[id].body])
-    let ents = {...this.state.entities};
-    delete ents[id];
-    this.setState({entities: ents});
+  removeFriend = id => {
+    Matter.World.remove(this.state.physics.world, [
+      this.state.entities[id].body,
+    ])
+    let ents = { ...this.state.entities }
+    delete ents[id]
+    this.setState({ entities: ents })
   }
 }
 

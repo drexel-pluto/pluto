@@ -8,7 +8,7 @@ import {
   setIsCreate,
   saveUserToken,
   getMe,
-  initLinkListener
+  initLinkListener,
 } from '../redux/reducers/user.reducer'
 
 class AuthContainer extends React.Component {
@@ -19,17 +19,20 @@ class AuthContainer extends React.Component {
   }
 
   login(username, password) {
-    this.props.login({ username, password }).then(action => {
-      if (action.type.endsWith('SUCCESS')) {
-        return this.props.getMe()
-      }
-    }).then((action) => {
-      if (action.type.endsWith('SUCCESS')) {
-        this.props.navigation.navigate('App')
-        this.props.initLinkListener()
-        this.props.saveUserToken(this.props.token)
-      }
-    })
+    this.props
+      .login({ username, password })
+      .then(action => {
+        if (action.type.endsWith('SUCCESS')) {
+          return this.props.getMe()
+        }
+      })
+      .then(action => {
+        if (action.type.endsWith('SUCCESS')) {
+          this.props.navigation.navigate('App')
+          this.props.initLinkListener()
+          this.props.saveUserToken(this.props.token)
+        }
+      })
   }
 
   create(userData, profilePic) {
@@ -61,7 +64,7 @@ const mapStateToProps = state => ({
   loggedIn: state.user.loggedIn,
   error: state.user.error,
   isCreate: state.user.isCreate,
-  token: state.user.authToken
+  token: state.user.authToken,
 })
 
 const mapDispatchToProps = {
@@ -70,7 +73,7 @@ const mapDispatchToProps = {
   setIsCreate,
   saveUserToken,
   getMe,
-  initLinkListener
+  initLinkListener,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer)

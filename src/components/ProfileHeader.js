@@ -12,10 +12,11 @@ class ProfileHeader extends React.Component {
   render() {
     return (
       <View style={[styles.ProfileHeader, Styles.shadow('black')]}>
-        {this.props.loading
-          ? <UserProfileSkeleton />
-          : <UserProfile profile={this.props.profile} />
-        }
+        {this.props.loading ? (
+          <UserProfileSkeleton />
+        ) : (
+          <UserProfile profile={this.props.profile} />
+        )}
       </View>
     )
   }

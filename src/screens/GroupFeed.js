@@ -32,16 +32,23 @@ class GroupFeed extends React.Component {
   }
 
   render() {
-    const leftHeaderItems = 
+    const leftHeaderItems = (
       <>
         <IconButton type="back" _onPress={this.props.navigation.goBack} />
       </>
+    )
 
-    const rightHeaderItems = 
+    const rightHeaderItems = (
       <>
         <IconButton type="searchItem" />
-        {this.props.group.id !== -1 && <IconButton type="settings" _onPress={() => this.props.showOptions()}/>}
+        {this.props.group.id !== -1 && (
+          <IconButton
+            type="settings"
+            _onPress={() => this.props.showOptions()}
+          />
+        )}
       </>
+    )
 
     return (
       <View style={{ flex: 1 }}>

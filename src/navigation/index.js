@@ -1,7 +1,7 @@
 import React from 'react'
 import { Colors } from '../styles/index'
 
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack'
 
 import AuthContainer from '../containers/auth.container'
 import AuthLoadingContainer from '../containers/authLoading.container'
@@ -15,30 +15,24 @@ import AddPostContentCont from '../containers/addPostContent.container'
 import AddPostPermissionsCont from '../containers/addPostPermission.container'
 import UserPopupContainer from '../containers/userPopup.container'
 import EditGroupContainer from '../containers/editGroup.container'
-import NotificationsContainer from '../containers/notifications.container';
-import editProfileContainer from '../containers/editProfile.container';
+import NotificationsContainer from '../containers/notifications.container'
+import editProfileContainer from '../containers/editProfile.container'
 
-import modal from "./transitions/modal"
+import modal from './transitions/modal'
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 function AuthStack() {
   return (
     <Stack.Navigator
       initialRouteName="Loading"
       headerMode="none"
-      screenOptions={{gestureEnabled:false}}
+      screenOptions={{ gestureEnabled: false }}
     >
-      <Stack.Screen
-        name="Login"
-        component={AuthContainer}
-      />
-      <Stack.Screen
-        name="Loading"
-        component={AuthLoadingContainer}
-      />
+      <Stack.Screen name="Login" component={AuthContainer} />
+      <Stack.Screen name="Loading" component={AuthLoadingContainer} />
     </Stack.Navigator>
-  );
+  )
 }
 
 function AppStack() {
@@ -48,74 +42,42 @@ function AppStack() {
       headerMode="none"
       cardStyle={{ backgroundColor: Colors.PLUTO_WHITE }}
     >
-      <Stack.Screen
-        name="Home"
-        component={HomeContainer}
-      />
-      <Stack.Screen
-        name="GroupFeed"
-        component={GroupFeedContainer}
-      />
-      <Stack.Screen
-        name="Profile"
-        component={profileContainer}
-      />
-      <Stack.Screen
-        name="AddPost"
-        component={AddPostContentCont}
-      />
+      <Stack.Screen name="Home" component={HomeContainer} />
+      <Stack.Screen name="GroupFeed" component={GroupFeedContainer} />
+      <Stack.Screen name="Profile" component={profileContainer} />
+      <Stack.Screen name="AddPost" component={AddPostContentCont} />
       <Stack.Screen
         name="AddPostPermissions"
         component={AddPostPermissionsCont}
       />
-      <Stack.Screen
-        name="Post"
-        component={PostContainer}
-      />
-      <Stack.Screen
-        name="Settings"
-        component={SettingsContainer}
-      />
-      <Stack.Screen
-        name="AddFriend"
-        component={AddFriendContainer}
-      />
+      <Stack.Screen name="Post" component={PostContainer} />
+      <Stack.Screen name="Settings" component={SettingsContainer} />
+      <Stack.Screen name="AddFriend" component={AddFriendContainer} />
       <Stack.Screen
         name="EditGroup"
         component={EditGroupContainer}
         options={{
-          gestureDirection: "horizontal-inverted",
-          gestureEnabled: false
+          gestureDirection: 'horizontal-inverted',
+          gestureEnabled: false,
         }}
       />
-      <Stack.Screen
-        name="Notifications"
-        component={NotificationsContainer}
-      />
+      <Stack.Screen name="Notifications" component={NotificationsContainer} />
     </Stack.Navigator>
-  );
+  )
 }
-
 
 function MainStack() {
   return (
     <Stack.Navigator
       initialRouteName="Auth"
       headerMode="none"
-      screenOptions={{gestureEnabled:false, animationTypeForReplace: 'pop'}}
+      screenOptions={{ gestureEnabled: false, animationTypeForReplace: 'pop' }}
     >
-      <Stack.Screen
-        name="App"
-        component={AppStack}
-      />
-      <Stack.Screen
-        name="Auth"
-        component={AuthStack}
-      />
+      <Stack.Screen name="App" component={AppStack} />
+      <Stack.Screen name="Auth" component={AuthStack} />
     </Stack.Navigator>
-  );
+  )
 }
-
 
 export default function ModalStack() {
   return (
@@ -124,28 +86,18 @@ export default function ModalStack() {
       headerMode="none"
       mode="modal"
       screenOptions={{
-        cardStyle: {backgroundColor: 'transparent'}
+        cardStyle: { backgroundColor: 'transparent' },
       }}
     >
-      <Stack.Screen
-        name="Main"
-        component={MainStack}
-      />
-      <Stack.Screen
-        name="UserModal"
-        component={UserPopupContainer}
-      />
-      <Stack.Screen
-        name="EditProfile"
-        component={editProfileContainer}
-      />
+      <Stack.Screen name="Main" component={MainStack} />
+      <Stack.Screen name="UserModal" component={UserPopupContainer} />
+      <Stack.Screen name="EditProfile" component={editProfileContainer} />
     </Stack.Navigator>
-  );
+  )
 }
 
-
-export const navigationRef = React.createRef();
+export const navigationRef = React.createRef()
 
 export function navigate(name, params) {
-  navigationRef.current?.navigate(name, params);
+  navigationRef.current?.navigate(name, params)
 }

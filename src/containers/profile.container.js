@@ -5,7 +5,7 @@ import { fetchUser, removeFriend } from '../redux/reducers/profile.reducer'
 import { openPost } from '../redux/reducers/post.reducer'
 import { getMe } from '../redux/reducers/user.reducer'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native'
 
 class ProfileContainer extends React.Component {
   componentWillMount() {
@@ -18,22 +18,23 @@ class ProfileContainer extends React.Component {
   }
 
   removeFriend() {
-    this.props.removeFriend(this.props.profile.id).then(action => {
-      if (action.type.endsWith('SUCCESS')) {
-        return this.props.getMe();
-      } 
-    }).then((action) => {
-      if (action.type.endsWith('SUCCESS')) {
-        this.props.navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [
-              { name: 'Home' },
-            ],
-          })
-        );
-      } 
-    });
+    this.props
+      .removeFriend(this.props.profile.id)
+      .then(action => {
+        if (action.type.endsWith('SUCCESS')) {
+          return this.props.getMe()
+        }
+      })
+      .then(action => {
+        if (action.type.endsWith('SUCCESS')) {
+          this.props.navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{ name: 'Home' }],
+            })
+          )
+        }
+      })
   }
 
   _openPost(post_id, poster) {
@@ -42,9 +43,9 @@ class ProfileContainer extends React.Component {
   }
 
   openOptions() {
-    const options = ['Remove Friend', 'Cancel'];
-    const destructiveButtonIndex = 0;
-    const cancelButtonIndex = 1;
+    const options = ['Remove Friend', 'Cancel']
+    const destructiveButtonIndex = 0
+    const cancelButtonIndex = 1
 
     this.props.showActionSheetWithOptions(
       {
@@ -54,10 +55,10 @@ class ProfileContainer extends React.Component {
       },
       buttonIndex => {
         if (buttonIndex == destructiveButtonIndex) {
-          this.removeFriend();
+          this.removeFriend()
         }
-      },
-    );
+      }
+    )
   }
 
   render() {
@@ -78,16 +79,16 @@ class ProfileContainer extends React.Component {
 const mapStateToProps = state => ({
   profile: state.profile,
   myId: state.user.userData.id,
-  loading: state.profile.loading
+  loading: state.profile.loading,
 })
 
 const mapDispatchToProps = {
   fetchUser,
   openPost,
   removeFriend,
-  getMe
+  getMe,
 }
 
 export default connectActionSheet(
   connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)
-);
+)

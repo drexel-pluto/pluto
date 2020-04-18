@@ -16,7 +16,7 @@ class AuthLoadingContainer extends React.Component {
           action.type.endsWith('SUCCESS') ? 'App' : 'Login'
         )
         if (action.type.endsWith('SUCCESS')) {
-          this.props.initLinkListener();
+          this.props.initLinkListener()
         }
       })
       .catch(() => {
@@ -32,7 +32,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   init,
-  initLinkListener
+  initLinkListener,
 }
 
 export default connect(

@@ -16,11 +16,9 @@ class GroupFeedContainer extends React.Component {
   deleteGroup() {
     this.props.deleteGroup(this.props.group.id).then(action => {
       if (action.type.endsWith('SUCCESS')) {
-        return this.props.getMe().then(
-          this.props.navigation.navigate('Home')
-        );
-      } 
-    });
+        return this.props.getMe().then(this.props.navigation.navigate('Home'))
+      }
+    })
   }
 
   editGroup() {
@@ -29,9 +27,9 @@ class GroupFeedContainer extends React.Component {
   }
 
   showOptions() {
-    const options = ['Delete Group', 'Edit Group', 'Cancel'];
-    const destructiveButtonIndex = 0;
-    const cancelButtonIndex = 2;
+    const options = ['Delete Group', 'Edit Group', 'Cancel']
+    const destructiveButtonIndex = 0
+    const cancelButtonIndex = 2
 
     this.props.showActionSheetWithOptions(
       {
@@ -41,12 +39,12 @@ class GroupFeedContainer extends React.Component {
       },
       buttonIndex => {
         if (buttonIndex == destructiveButtonIndex) {
-          this.deleteGroup();
+          this.deleteGroup()
         } else if (buttonIndex == 1) {
-          this.editGroup();
+          this.editGroup()
         }
-      },
-    );
+      }
+    )
   }
 
   render() {
@@ -64,7 +62,6 @@ class GroupFeedContainer extends React.Component {
   }
 }
 
-
 const mapStateToProps = state => ({
   group: state.group,
   user: state.user.userData,
@@ -76,10 +73,9 @@ const mapDispatchToProps = {
   deleteGroup,
   resetHome,
   getMe,
-  setGroup
+  setGroup,
 }
 
-export default connectActionSheet(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GroupFeedContainer))
+export default connectActionSheet(
+  connect(mapStateToProps, mapDispatchToProps)(GroupFeedContainer)
+)
