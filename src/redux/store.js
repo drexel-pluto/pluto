@@ -34,7 +34,7 @@ export default store = createStore(
 // helper functions
 
 export const getFriendById = (id) => {
-  if (id == store.getState().user.userData.id) {
+  if (id == store.getState().user.userData.id || !id) {
     return store.getState().user.userData;
   }
   friends = store.getState().user.friends;
