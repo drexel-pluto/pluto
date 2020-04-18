@@ -77,7 +77,7 @@ class PostContent extends React.Component {
               this.props.text ? (
                 <View style={styles.text_wrapper}>
                   <Text
-                    numberOfLines={this.props.hasMaxTextLine ? 10 : 'none'}
+                    numberOfLines={this.props.hasMaxTextLine ? 10 : null}
                     style={[styles.text, Typography.F_BODY]}
                   >
                     {this.renderText()}

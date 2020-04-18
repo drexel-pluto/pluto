@@ -117,7 +117,7 @@ export default class SvgSwipe extends Component {
             L${OriginX} 0
           `
     return (
-      <Svg height={height} width={width} style={this.props.style}>
+      <Svg height={height} width={width} style={this.props.style} pointerEvents="none">
         <AnimatedPath d={path} fill={this.props.color || 'red'} />
       </Svg>
     )

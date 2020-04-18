@@ -13,7 +13,6 @@ import CommentList from '../components/CommentList'
 import AuthorHeader from '../components/AuthorHeader'
 import IconButton from '../components/iconButton/IconButton'
 import { TAG_DATA, COMMENT_DATA } from './../assets/data'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import PostContent from './../components/PostContent'
 import PostTeaserFullSkeleton from '../components/skeleton/PostTeaserFull.skeleton'
 import AddComment from '../components/AddComment'
@@ -28,9 +27,8 @@ class Post extends React.Component {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         keyboardShouldPersistTaps="handled"
-        behavior="padding"
+        behavior="height"
       >
-        <View style={{ flex: 1 }}>
           <ScrollView
             stickyHeaderIndices={[0]}
             contentContainerStyle={{ paddingBottom: Mixins.scaleSize(70) }}
@@ -70,7 +68,6 @@ class Post extends React.Component {
           <View style={styles.fixedComment}>
             <AddComment sendComment={this.props.sendComment} />
           </View>
-        </View>
       </KeyboardAvoidingView>
     )
   }
