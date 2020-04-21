@@ -2,12 +2,22 @@ import React from 'react'
 import { connect } from 'react-redux'
 import GroupFeed from '../screens/GroupFeed.js'
 import { openPost } from '../redux/reducers/post.reducer'
-import { deleteGroup } from '../redux/reducers/group.reducer'
+import { deleteGroup, updatePosts } from '../redux/reducers/group.reducer'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
 import { resetHome, getMe } from '../redux/reducers/user.reducer'
 import { setGroup } from '../redux/reducers/editGroup.reducer'
 
 class GroupFeedContainer extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.newUpdates !== prevProps.newUpdates) {
+      this.props.updatePosts(
+        this.props.updatedPostId,
+        this.props.newLikes,
+        this.props.newComments
+      )
+    }
+  }
+
   _openPost(post_id, poster) {
     this.props.openPost(post_id, poster)
     this.props.navigation.navigate('Post')
@@ -66,6 +76,10 @@ const mapStateToProps = state => ({
   group: state.group,
   user: state.user.userData,
   loading: state.group.loading,
+  newUpdates: state.post.newUpdates,
+  newLikes: state.post.likes,
+  newComments: state.post.comments,
+  updatedPostId: state.post.id,
 })
 
 const mapDispatchToProps = {
@@ -74,6 +88,7 @@ const mapDispatchToProps = {
   resetHome,
   getMe,
   setGroup,
+  updatePosts,
 }
 
 export default connectActionSheet(
