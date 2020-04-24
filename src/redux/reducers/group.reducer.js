@@ -1,4 +1,5 @@
 import store from '../store'
+import update from 'react-addons-update'
 
 // actions
 export const GET_GROUP_POSTS = 'group/GET_GROUP_POSTS'
@@ -12,6 +13,8 @@ export const DELETE_GROUP_FAIL = 'group/DELETE_GROUP_FAIL'
 export const SET_MEMBERS = 'group/SET_MEMBERS'
 
 export const SET_TITLE = 'group/SET_TITLE'
+
+export const UPDATE_POST = 'group/UPDATE_POST'
 
 // reducer
 
@@ -38,6 +41,18 @@ export default function reducer(state = defaultStateGroup, action) {
       return { ...state, members: action.members }
     case SET_TITLE:
       return { ...state, title: action.title }
+    case UPDATE_POST:
+      let updatePosts = state.posts.map(post => {
+        if (post._id === action.post_id) {
+          post.likes = action.likes
+          post.comments = action.comments
+
+          return post
+        }
+
+        return post
+      })
+      return { ...state, posts: updatePosts }
     case DELETE_GROUP:
       return defaultStateGroup
     default:
@@ -111,5 +126,14 @@ export function deleteGroup(group_id) {
         },
       },
     },
+  }
+}
+
+export function updatePosts(post_id, likes, comments) {
+  return {
+    type: UPDATE_POST,
+    post_id,
+    likes,
+    comments,
   }
 }

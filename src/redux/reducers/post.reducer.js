@@ -25,6 +25,7 @@ let defaultStatePost = {
   id: '',
   tags: [],
   isLiked: false,
+  newUpdates: 0,
 }
 
 export default function reducer(state = defaultStatePost, action) {
@@ -32,7 +33,6 @@ export default function reducer(state = defaultStatePost, action) {
     case FETCH_POST:
       return defaultStatePost
     case FETCH_POST_SUCCESS:
-    case SEND_COMMENT_SUCCESS:
       data = action.payload.data
       return {
         ...state,
@@ -45,12 +45,25 @@ export default function reducer(state = defaultStatePost, action) {
         id: data._id,
         tags: data.tags,
       }
+    case SEND_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        comments: action.payload.data.comments,
+        newUpdates: state.newUpdates + 1,
+      }
     case SET_POSTER:
       return { ...state, poster: action.poster }
     case FETCH_POST_FAIL:
     case SEND_COMMENT_FAIL:
       return { ...state, loading: false }
     case SEND_REACT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        likes: action.payload.data.likes,
+        newUpdates: state.newUpdates + 1,
+      }
     case SEND_REACT_FAIL:
     default:
       return state
