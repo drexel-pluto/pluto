@@ -3,7 +3,6 @@ import { View, FlatList, StyleSheet } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import Comment from './Comment'
 import CommentListSkeleton from './skeleton/CommentList.skeleton'
-import AddComment from './AddComment'
 
 export default CommentList = props => {
   return (
@@ -13,7 +12,9 @@ export default CommentList = props => {
       ) : (
         <FlatList
           data={props.data}
-          renderItem={({ item }) => <Comment data={item} />}
+          renderItem={({ item }) => (
+            <Comment data={item} updateModal={props.updateModal} />
+          )}
           keyExtractor={item => item.id}
         />
       )}
