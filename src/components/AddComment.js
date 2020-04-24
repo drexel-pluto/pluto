@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Keyboard,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import InputHeader from './InputHeader'
@@ -44,6 +45,8 @@ class AddComment extends React.Component {
     } else {
       alert('Please enter your comment first')
     }
+
+    Keyboard.dismiss()
   }
 
   render() {
