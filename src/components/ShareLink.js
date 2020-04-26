@@ -5,6 +5,7 @@ import {
   TouchableHightlight,
   StyleSheet,
   Share,
+  Platform
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import Button from './Button'
@@ -25,6 +26,8 @@ class ShareLink extends React.Component {
           _onPress={() => {
             Share.share({
               url: this.props.url,
+              message: Platform.OS == "ios" ? null : this.props.url,
+              title: "pluto invite"
             })
           }}
           isBold={false}
