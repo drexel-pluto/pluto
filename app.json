@@ -24,7 +24,7 @@
     },
     "android": {
       "package": "io.plutosocial.pluto",
-      "versionCode": 2
+      "versionCode": 3
     },
     "packagerOpts": {
       "config": "metro.config.js",
