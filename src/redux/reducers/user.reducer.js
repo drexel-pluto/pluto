@@ -12,6 +12,10 @@ export const GET_ME = 'user/GET_ME'
 export const GET_ME_SUCCESS = 'user/GET_ME_SUCCESS'
 export const GET_ME_FAIL = 'user/GET_ME_FAIL'
 
+export const SET_PUSHTOKEN = 'user/SET_PUSHTOKEN'
+export const SET_PUSHTOKEN_SUCCESS = 'user/SET_PUSHTOKEN_SUCCESS'
+export const SET_PUSHTOKEN_FAIL = 'user/SET_PUSHTOKEN_FAIL'
+
 export const LOGIN = 'user/LOGIN'
 export const LOGIN_SUCCESS = 'user/LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'user/LOGIN_FAIL'
@@ -159,14 +163,18 @@ export default function reducer(state = defaultStateUser, action) {
 
 // actions
 
-export function login(user) {
+export function login(user, token = "") {
+  console.log(user, token)
   return {
     type: LOGIN,
     payload: {
       request: {
         method: 'POST',
         url: `/login`,
-        data: user,
+        data: {
+          ...user,
+          token
+        },
       },
     },
   }
@@ -277,6 +285,7 @@ export function getMe() {
 
 export function logout() {
   return function(dispatch) {
+    dispatch(setPushToken(""))
     dispatch(removeUserToken())
   }
 }
@@ -325,5 +334,20 @@ export function setSwipeIndex(i) {
   return {
     type: SET_SWIPE_INDEX,
     index: i,
+  }
+}
+
+export function setPushToken(token) {
+  return {
+    type: SET_PUSHTOKEN,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/user/pushtoken`,
+        data: {
+          token
+        }
+      },
+    },
   }
 }

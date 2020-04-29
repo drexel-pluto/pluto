@@ -9,7 +9,12 @@ import {
   saveUserToken,
   getMe,
   initLinkListener,
+  setPushToken,
 } from '../redux/reducers/user.reducer'
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
+
 
 class AuthContainer extends React.Component {
   componentDidUpdate() {
@@ -18,21 +23,40 @@ class AuthContainer extends React.Component {
     }
   }
 
+  registerForPushNotificationsAsync = async () => {
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        return;
+      }
+      token = await Notifications.getExpoPushTokenAsync();
+      console.log(token);
+      return token;
+    }
+  };
+
   login(username, password) {
-    this.props
-      .login({ username, password })
-      .then(action => {
-        if (action.type.endsWith('SUCCESS')) {
-          return this.props.getMe()
-        }
-      })
-      .then(action => {
-        if (action.type.endsWith('SUCCESS')) {
-          this.props.navigation.navigate('App')
-          this.props.initLinkListener()
-          this.props.saveUserToken(this.props.token)
-        }
-      })
+    this.props.login({ username, password })
+    .then(action => {
+      if (action.type.endsWith('SUCCESS')) {
+        return this.props.getMe()
+      }
+    })
+    .then(action => {
+      if (action.type.endsWith('SUCCESS')) {
+        this.registerForPushNotificationsAsync().then(
+          (token) => this.props.setPushToken(token)
+        );
+        this.props.navigation.navigate('App')
+        this.props.initLinkListener()
+        this.props.saveUserToken(this.props.token)
+      }
+    })
   }
 
   create(userData, profilePic) {
@@ -74,6 +98,7 @@ const mapDispatchToProps = {
   saveUserToken,
   getMe,
   initLinkListener,
+  setPushToken,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer)

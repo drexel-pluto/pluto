@@ -46,7 +46,7 @@ const AuthorHeader = props => {
 
 export default AuthorHeader
 
-const calcTimeDif = time => {
+export const calcTimeDif = time => {
   if (!time) return ''
 
   const date = new Date(time)
