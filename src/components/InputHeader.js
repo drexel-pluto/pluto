@@ -10,7 +10,7 @@ class InputHeader extends React.Component {
 
   render() {
     return (
-      <View style={[styles.inputHeader, Styles.shadow(Colors.VIOLET.dark)]}>
+      <View style={[styles.inputHeader, Styles.shadow(Colors.VIOLET.dark), this.props.style]}>
         <TextInput
           style={[
             styles.input,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     paddingLeft: Mixins.scaleSize(15),
     borderWidth: 1,
     borderColor: Colors.VIOLET.med,
-    borderRadius: Mixins.scaleSize(30),
+    borderRadius: Mixins.scaleSize(80),
   },
   input: {
     flex: 1,

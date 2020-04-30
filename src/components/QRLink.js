@@ -11,12 +11,13 @@ class QRLink extends React.Component {
   render() {
     return (
       <View style={styles.link}>
-        <Text style={[styles.heading, Typography.F_H1]}>your QR code</Text>
+        {/* <Text style={[styles.heading, Typography.F_H1]}>your QR code</Text> */}
         <View style={styles.qr}>
           <QRCode
             value={this.props.url}
-            size={Mixins.scaleSize(200)}
+            size={Mixins.scaleSize(140)}
             color={Colors.BLACK_ROCK}
+            backgroundColor={Colors.PLUTO_WHITE}
           />
         </View>
       </View>
@@ -32,11 +33,6 @@ const styles = StyleSheet.create({
   heading: {
     paddingVertical: Layouts.PAD_VERT,
     textAlign: 'center',
-  },
-  qr: {
-    height: Mixins.scaleSize(200),
-    width: Mixins.scaleSize(200),
-    backgroundColor: Colors.GRAY_MEDIUM,
   },
 })
 

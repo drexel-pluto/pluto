@@ -41,7 +41,7 @@ class Toast extends Component {
   render() {
     return (
       <SafeAreaView style={styles.wrapper}>
-        <Animated.View style={[styles.toast, Styles.shadow, {
+        <Animated.View style={[styles.toast, {
           top: this.state.slideAnim
         }]}>
           <Text style={[Typography.F_BODY, styles.content]}>{this.props.content}</Text>
@@ -64,11 +64,15 @@ const styles = StyleSheet.create({
     right: 0
   },
   toast: {
-    backgroundColor: Colors.UI_BG,
+    backgroundColor: Colors.PLUTO_WHITE,
     borderRadius: 4,
     flexDirection: "row",
     alignItems: "center",
-    padding: Layouts.PAD_HORZ_SM
+    padding: Layouts.PAD_HORZ_SM,
+    shadowColor: Colors.VIOLET.dark,
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+    shadowOffset: { width: 3, height: 3 },
   },
   content: {
     flex: 1,

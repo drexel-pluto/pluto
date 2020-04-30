@@ -2,15 +2,18 @@ import React from 'react'
 import { connect, Button } from 'react-redux'
 import AddFriend from '../screens/AddFriend'
 import {
-  updateFriendRequests,
+  getFriendRequests,
   acceptFriendRequest,
   rejectFriendRequest,
+  sendFriendRequest,
+  cancelFriendRequest
 } from '../redux/reducers/addFriend.reducer'
+import { newToast } from '../redux/reducers/toast.reducer'
 
 class AddFriendContainer extends React.Component {
   constructor(props) {
     super(props)
-    // props.updateFriendRequests();
+    // props.getFriendRequests();
   }
 
   accept(username) {
@@ -26,6 +29,30 @@ class AddFriendContainer extends React.Component {
     this.props.rejectFriendRequest(username)
   }
 
+  cancel(username) {
+    this.props.cancelFriendRequest(username)
+  }
+
+  onSubmit(username) {
+    this.props.sendFriendRequest(username).then(
+      (action) => {
+        if (action.type.endsWith('SUCCESS')) {
+          //clear text
+          this.props.newToast({
+            content: "friend request sent to " + username + "!"
+          })
+          this.props.getFriendRequests();
+        } else {
+
+          this.props.newToast({
+            content: "Could not send friend request",
+            isErr: true
+          })
+        }
+      }
+    )
+  }
+
   render() {
     return (
       <AddFriend
@@ -33,8 +60,11 @@ class AddFriendContainer extends React.Component {
         route={this.props.route}
         username={this.props.username}
         requests={this.props.requests}
+        sent={this.props.sent}
+        onSubmit={text => this.onSubmit(text)}
         accept={username => this.accept(username)}
         reject={username => this.reject(username)}
+        cancel={username => this.cancel(username)}
       />
     )
   }
@@ -43,12 +73,16 @@ class AddFriendContainer extends React.Component {
 const mapStateToProps = state => ({
   username: state.user.userData.username,
   requests: state.addFriend.friendRequests,
+  sent: state.addFriend.sentRequests
 })
 
 const mapDispatchToProps = {
-  updateFriendRequests,
+  getFriendRequests,
   acceptFriendRequest,
   rejectFriendRequest,
+  sendFriendRequest,
+  cancelFriendRequest,
+  newToast
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddFriendContainer)

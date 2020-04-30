@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
-import ScreenHeader from './../components/ScreenHeader'
-import QRLink from './../components/QRLink'
-import ShareLink from './../components/ShareLink'
-import InvitationCenter from './../components/InvitationCenter'
+import ScreenHeader from '../components/ScreenHeader'
+import QRLink from '../components/QRLink'
+import ShareLink from '../components/ShareLink'
+import InvitationCenter from '../components/InvitationCenter'
+import InputHeader from '../components/InputHeader'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Linking } from 'expo'
 
@@ -16,7 +17,12 @@ class AddFriend extends React.Component {
 
     this.state = {
       url,
+      text: ""
     }
+  }
+
+  onChangeText(text) {
+    this.setState({text});
   }
 
   render() {
@@ -40,13 +46,24 @@ class AddFriend extends React.Component {
               style={[styles.topContainer, Styles.shadow(Colors.VIOLET.dark)]}
             >
               <QRLink url={this.state.url} />
-              <ShareLink url={this.state.url} />
+              <InputHeader
+                placeholder={'username...'}
+                buttonText={'send request'}
+                onSubmit={() => this.props.onSubmit(this.state.text)}
+                onChangeText={(text)=>this.onChangeText(text)}
+                text={this.state.text}
+                style={{
+                  margin : Layouts.PAD_HORZ,
+                }}
+              />
             </View>
           </View>
           <InvitationCenter
             requests={this.props.requests}
+            sent={this.props.sent}
             accept={this.props.accept}
             reject={this.props.reject}
+            cancel={this.props.cancel}
           />
         </LinearGradient>
       </View>
@@ -61,6 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PLUTO_WHITE,
     marginBottom: Layouts.PAD_VERT,
   },
+
 })
 
 export default AddFriend
