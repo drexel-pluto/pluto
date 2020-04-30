@@ -45,7 +45,7 @@ class AddFriend extends React.Component {
             <View
               style={[styles.topContainer, Styles.shadow(Colors.VIOLET.dark)]}
             >
-              <QRLink url={this.state.url} />
+              <QRLink url={this.state.url} username={this.props.username}/>
               <InputHeader
                 placeholder={'username...'}
                 buttonText={'send request'}

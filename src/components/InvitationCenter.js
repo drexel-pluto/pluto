@@ -10,15 +10,13 @@ import {
   Animated,
   Dimensions
 } from 'react-native'
-import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
+import { Colors, Typography, Layouts, Mixins } from '../styles/index'
 import IconButton from './iconButton/IconButton'
-import { LinearGradient } from 'expo-linear-gradient'
 
 
 const screenWidth = Dimensions.get('window').width;
 
 class HeadingWrapper extends Component  {
-
   state = {
     targets: {
       l: {
@@ -89,7 +87,8 @@ class HeadingWrapper extends Component  {
 const RequestList = (props) => {
   return (
     <ScrollView style={props.style} contentContainerStyle={styles.invitationCenter}>
-      {props.requests.map((request, index) => (
+      { props.requests.length > 0
+      ? props.requests.map((request, index) => (
         <View style={styles.requestContainer} key={index}>
           <View style={styles.requestContent}>
             <Text style={[styles.requestText, Typography.F_BODY]}>
@@ -111,10 +110,19 @@ const RequestList = (props) => {
                   />
                 </>
               }
-            
+            </View>
           </View>
-        </View>
-      ))}
+        )) 
+      : <Text 
+          style={[
+            Typography.F_H3,
+            Typography.F_REGULAR,
+            {
+              textAlign: 'center',
+              opacity: 0.5,
+              paddingVertical: Layouts.PAD_VERT,
+            },
+          ]}>No pending requests</Text> }
     </ScrollView>
   )
 }
