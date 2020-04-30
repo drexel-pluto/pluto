@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Layouts.PAD_HORZ,
     paddingTop: Layouts.HEAD_PAD_VERT,
     paddingBottom: Layouts.PAD_VERT,
+    minHeight: Mixins.scaleSize(35),
   },
   title: {
     marginLeft: Mixins.scaleSize(10),

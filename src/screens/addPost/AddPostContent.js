@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
@@ -16,6 +16,7 @@ import IconButton from './../../components/iconButton/IconButton'
 import Button from './../../components/Button'
 import Circle from './../../components/Circle'
 import PostMedia from '../../components/PostMediaUpload'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 class AddPost extends React.Component {
   constructor(props) {
@@ -88,7 +89,10 @@ class AddPost extends React.Component {
     )
 
     return (
-      <KeyboardAvoidingView>
+      <KeyboardAwareScrollView
+        style={{ flex: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
         <ScrollView
           stickyHeaderIndices={[0]}
           keyboardShouldPersistTaps="handled"
@@ -184,7 +188,7 @@ class AddPost extends React.Component {
             }}
           />
         </ScrollView>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     )
   }
 }
