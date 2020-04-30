@@ -6,6 +6,7 @@ import PlutoStatusBar from './src/components/PlutoStatusBar'
 import { NavigationContainer } from '@react-navigation/native';
 import RootStack, { navigationRef } from './src/navigation'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
+import Toasts from "./src/containers/toasts.container"
 import { Colors } from './src/styles/index'
 import * as Font from 'expo-font'
 
@@ -34,6 +35,7 @@ class App extends React.Component {
             <ActionSheetProvider>
               <NavigationContainer ref={navigationRef}>
                 <RootStack />
+                <Toasts />
               </NavigationContainer>
             </ActionSheetProvider>
           </Provider>

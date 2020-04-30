@@ -66,11 +66,6 @@ export default class LoginScreen extends Component {
               >
                 log in
               </Text>
-              {this.props.error.length > 0 && (
-                <View style={{ backgroundColor: Colors.MELON.dark }}>
-                  <Text style={{ color: 'white' }}>{this.props.error}</Text>
-                </View>
-              )}
               <View
                 style={{
                   paddingVertical: Layouts.PAD_VERT,

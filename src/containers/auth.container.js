@@ -11,6 +11,7 @@ import {
   initLinkListener,
   setPushToken,
 } from '../redux/reducers/user.reducer'
+import { newToast } from '../redux/reducers/toast.reducer'
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
@@ -42,11 +43,16 @@ class AuthContainer extends React.Component {
 
   login(username, password) {
     this.props.login({ username, password })
-    .then(action => {
-      if (action.type.endsWith('SUCCESS')) {
-        return this.props.getMe()
+    .then(
+      action => {
+        if (action.type.endsWith('SUCCESS')) {
+          return this.props.getMe()
+        } else {
+          console.log("calling new toast")
+          this.props.newToast({content: "invalid username or password"});
+        }
       }
-    })
+    )
     .then(action => {
       if (action.type.endsWith('SUCCESS')) {
         this.registerForPushNotificationsAsync().then(
@@ -63,6 +69,8 @@ class AuthContainer extends React.Component {
     this.props.createProfile(userData, profilePic).then(action => {
       if (action.type.endsWith('SUCCESS')) {
         this.login(userData.username, userData.password)
+      } else {
+        this.props.newToast({content: action.error.response?.data?.errMessage ?? "error creating profile"})
       }
     })
   }
@@ -99,6 +107,7 @@ const mapDispatchToProps = {
   getMe,
   initLinkListener,
   setPushToken,
+  newToast
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer)

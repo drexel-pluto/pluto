@@ -98,13 +98,6 @@ export default class CreateProfileScreen extends Component {
                 </View>
               </TouchableOpacity>
 
-              {// error
-              this.props.error.length > 0 > 0 && (
-                <View style={{ backgroundColor: Colors.MELON.dark }}>
-                  <Text style={{ color: 'white' }}>{this.props.error}</Text>
-                </View>
-              )}
-
               <View
                 style={{
                   paddingVertical: Layouts.PAD_VERT,
