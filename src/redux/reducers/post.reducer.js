@@ -8,6 +8,10 @@ const SEND_COMMENT = 'profile/SEND_COMMENT'
 const SEND_COMMENT_SUCCESS = 'profile/SEND_COMMENT_SUCCESS'
 const SEND_COMMENT_FAIL = 'profile/SEND_COMMENT_FAIL'
 
+const SEND_SUB_COMMENT = 'profile/SEND_SUB_COMMENT'
+const SEND_SUB_COMMENT_SUCCESS = 'profile/SEND_SUB_COMMENT_SUCCESS'
+const SEND_SUB_COMMENT_FAIL = 'profile/SEND_SUB_COMMENT_FAIL'
+
 const SEND_REACT = 'profile/SEND_REACT'
 const SEND_REACT_SUCCESS = 'profile/SEND_REACT_SUCCESS'
 const SEND_REACT_FAIL = 'profile/SEND_REACT_FAIL'
@@ -24,7 +28,6 @@ let defaultStatePost = {
   text: '',
   id: '',
   tags: [],
-  isLiked: false,
   newUpdates: 0,
 }
 
@@ -52,6 +55,12 @@ export default function reducer(state = defaultStatePost, action) {
         comments: action.payload.data.comments,
         newUpdates: state.newUpdates + 1,
       }
+    case SEND_SUB_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        comments: action.payload.data.comments,
+      }
     case SET_POSTER:
       return { ...state, poster: action.poster }
     case FETCH_POST_FAIL:
@@ -70,20 +79,38 @@ export default function reducer(state = defaultStatePost, action) {
   }
 }
 
-export function sendComment(content) {
+export function sendComment(content, subCommentId = null) {
   let postId = store.getState().post.id
-  return {
-    type: SEND_COMMENT,
-    payload: {
-      request: {
-        method: 'POST',
-        url: `/posts/comment`,
-        data: {
-          postId: postId,
-          text: content,
+
+  if (subCommentId != null) {
+    return {
+      type: SEND_SUB_COMMENT,
+      payload: {
+        request: {
+          method: 'POST',
+          url: `/posts/sub-comment`,
+          data: {
+            replyTo: subCommentId,
+            postId: postId,
+            text: content,
+          },
         },
       },
-    },
+    }
+  } else {
+    return {
+      type: SEND_COMMENT,
+      payload: {
+        request: {
+          method: 'POST',
+          url: `/posts/comment`,
+          data: {
+            postId: postId,
+            text: content,
+          },
+        },
+      },
+    }
   }
 }
 

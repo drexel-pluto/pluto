@@ -49,7 +49,7 @@ export default Button = props => {
           }}
           style={[props.style, props.disabled && { opacity: 0.4 }]}
         >
-          <View style={styles.button}>
+          <View style={styles.textButton}>
             <Text
               style={[
                 Typography.F_CAPTION,
@@ -124,11 +124,14 @@ Button.defaultProps = {
 const styles = StyleSheet.create({
   button: {
     // width: Mixins.scaleSize(100),
-    height: Mixins.scaleSize(35),
+    paddingVertical: Mixins.scaleSize(8),
     paddingHorizontal: Mixins.scaleSize(20),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: Mixins.scaleSize(17),
+  },
+  textButton: {
+    height: Mixins.scaleSize(35),
   },
   smallButton: {
     paddingHorizontal: Mixins.scaleSize(10),

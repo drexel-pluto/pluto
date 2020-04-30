@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Keyboard,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import InputHeader from './InputHeader'
@@ -24,16 +25,28 @@ class AddComment extends React.Component {
     if (text) {
       // pass the comment and reset input
 
-      this.props.sendComment(text).then(action => {
-        if (action.type.endsWith('SUCCESS')) {
-          this.setState({ text: undefined })
-        } else {
-          //ERROR POSTING
-        }
-      })
+      if (this.props.commentId != undefined) {
+        this.props.sendComment(text, this.props.commentId).then(action => {
+          if (action.type.endsWith('SUCCESS')) {
+            this.setState({ text: undefined })
+          } else {
+            //ERROR POSTING
+          }
+        })
+      } else {
+        this.props.sendComment(text).then(action => {
+          if (action.type.endsWith('SUCCESS')) {
+            this.setState({ text: undefined })
+          } else {
+            //ERROR POSTING
+          }
+        })
+      }
     } else {
       alert('Please enter your comment first')
     }
+
+    Keyboard.dismiss()
   }
 
   render() {
@@ -53,11 +66,13 @@ class AddComment extends React.Component {
   }
 }
 
+AddComment.defaultProps = {
+  commentId: undefined,
+}
+
 const styles = StyleSheet.create({
   addComment: {
-    paddingHorizontal: Mixins.scaleSize(5),
     paddingVertical: Layouts.PAD_VERT,
-    paddingHorizontal: Layouts.PAD_HORZ_SM,
   },
 })
 

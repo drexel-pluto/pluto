@@ -1,22 +1,56 @@
-import React from 'react'
-import { View, Image, Text, StyleSheet } from 'react-native'
+import React, { useEffect } from 'react'
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
-import IconButton from './iconButton/IconButton'
+import CommentButton from './iconButton/CommentButton'
 
-export default Comment = props => {
-  const { data } = props
+export const FormattedComment = props => {
   return (
-    <View style={styles.comment}>
+    <View>
       <View style={styles.header_wrapper}>
-        <AuthorHeader author={data.poster} time={data.postedAt} />
-        {/* <IconButton type="heartPost" /> */}
+        <AuthorHeader author={props.data.poster} time={props.data.postedAt} />
       </View>
       <View style={styles.content}>
-        <Text>{data.text}</Text>
+        <Text>{props.data.text}</Text>
       </View>
     </View>
   )
+}
+
+export default class Comment extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.data.replies !== prevProps.data.replies) {
+  //     this.props.updateModal(this.props.data, false)
+  //   }
+  // }
+
+  render() {
+    return (
+      <View style={styles.comment}>
+        <FormattedComment data={this.props.data} />
+        <View style={{ alignItems: 'flex-end' }}>
+          <CommentButton
+            isSmall={true}
+            comments={this.props.data.replies.length}
+            _onPress={() => {
+              this.props.updateModal(this.props.data)
+            }}
+          />
+        </View>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
