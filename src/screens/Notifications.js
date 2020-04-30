@@ -4,6 +4,33 @@ import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import { LinearGradient } from 'expo-linear-gradient'
 import IconButton from '../components/iconButton/IconButton'
 import AuthorHeader from '../components/AuthorHeader'
+import { FlatList } from 'react-native-gesture-handler'
+import { calcTimeDif } from '../components/AuthorHeader'
+
+
+const NotificationItem = (props) => {
+  return (
+    <View style={styles.notificationContainer}>
+      <Image
+        style={[styles.image]}
+        source={{
+          uri: props.data?.from?.profilePicURL ?? 'https://picsum.photos/id/237/300/300',
+        }}
+      />
+      <View>
+        <Text
+          style={[
+            Typography.F_BODY,
+            { maxWidth: Mixins.scaleSize(230) },
+          ]}
+        >
+          {props.data.text}
+        </Text>
+        <Text style={Typography.F_CAPTION}>{calcTimeDif(props.data.createdAt)}</Text>
+      </View>
+    </View>
+  )
+}
 
 class Notifications extends React.Component {
   constructor(props) {
@@ -11,11 +38,7 @@ class Notifications extends React.Component {
   }
   render() {
     return (
-      <ScrollView
-        style={[Layouts.FLEX_CONTAINER]}
-        stickyHeaderIndices={[0]}
-        contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
-      >
+      <>
         <ScreenHeader
           isFixed={true}
           title={'notifications'}
@@ -23,31 +46,26 @@ class Notifications extends React.Component {
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
         />
-        <View style={styles.screenContainer}>
-          {/* <Text style={[Typography.F_H1, {paddingVertical: Layouts.PAD_VERT}]}>notifications</Text> */}
-          <View style={{ paddingBottom: Layouts.PAD_VERT }}>
-            <View style={styles.notificationContainer}>
-              <Image
-                style={[styles.image]}
-                source={{
-                  uri: 'https://picsum.photos/id/237/300/300',
-                }}
-              />
-              <View>
-                <Text
-                  style={[
-                    Typography.F_BODY,
-                    { maxWidth: Mixins.scaleSize(230) },
-                  ]}
-                >
-                  Friendly Person liked your post
-                </Text>
-                <Text style={Typography.F_CAPTION}>2 hrs ago</Text>
-              </View>
-            </View>
+        <ScrollView
+          style={[Layouts.FLEX_CONTAINER]}
+          contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
+        >
+          <View style={styles.screenContainer}>
+            {/* <Text style={[Typography.F_H1, {paddingVertical: Layouts.PAD_VERT}]}>notifications</Text> */}
+            <FlatList
+              data={this.props.notifications}
+              renderItem={({ item, index }) => {
+                return (
+                  <NotificationItem
+                    data={item}
+                    key={item._id}
+                  />
+                )
+              }}
+            />
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </>
     )
   }
 }
@@ -62,7 +80,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: Layouts.PAD_HORZ,
     paddingVertical: Layouts.PAD_VERT,
     borderRadius: Mixins.scaleSize(60),
-    borderWidth: Mixins.scaleSize(1),
+    borderWidth: 1,
+    marginBottom: Layouts.PAD_VERT,
     borderColor: Colors.MELON.dark,
     flexDirection: 'row',
   },

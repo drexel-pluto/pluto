@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
@@ -42,7 +45,7 @@ export default class CreateProfileScreen extends Component {
       return
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync()
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({allowsEditing: true})
 
     if (pickerResult.uri) {
       this.setState({ imageUri: pickerResult.uri })
@@ -51,132 +54,143 @@ export default class CreateProfileScreen extends Component {
 
   render() {
     return (
-      <KeyboardAwareScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ flex: 1 }}
+      <LinearGradient
+        colors={Colors.gradient.light(Colors.VIOLET)}
+        style={{ flex: 1}}
       >
-        <LinearGradient
-          colors={Colors.gradient.light(Colors.VIOLET)}
-          style={{ flex: 1 }}
+        <KeyboardAvoidingView
+          style={{flex: 1 }}
+          behavior="padding"
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -500}
         >
-          <View style={[styles.create, Styles.shadow(Colors.VIOLET.dark)]}>
-            <TouchableOpacity onPress={() => this.openImagePickerAsync()}>
-              <View style={styles.image_wrapper}>
-                {this.state.imageUri ? (
-                  <Image
-                    source={{
-                      uri: this.state.imageUri,
-                    }}
-                    style={{
-                      width: Mixins.scaleSize(180),
-                      height: Mixins.scaleSize(180),
-                    }}
-                  />
-                ) : (
-                  <View
-                    style={{
-                      width: Mixins.scaleSize(180),
-                      height: Mixins.scaleSize(180),
-                      backgroundColor: Colors.rgba(Colors.BLACK_ROCK, 0.5),
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Text style={[Typography.F_H3, { color: 'white' }]}>
-                      upload photo
-                    </Text>
-                  </View>
-                )}
-              </View>
-            </TouchableOpacity>
+          <ScrollView
+            style={{flex: 1}}
+            contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}
+          >
+            <View style={[styles.create, Styles.shadow(Colors.VIOLET.dark)]}>
+              <TouchableOpacity onPress={() => this.openImagePickerAsync()}>
+                <View style={styles.image_wrapper}>
+                  {this.state.imageUri ? (
+                    <Image
+                      source={{
+                        uri: this.state.imageUri,
+                      }}
+                      style={{
+                        width: Mixins.scaleSize(180),
+                        height: Mixins.scaleSize(180),
+                      }}
+                    />
+                  ) : (
+                    <View
+                      style={{
+                        width: Mixins.scaleSize(180),
+                        height: Mixins.scaleSize(180),
+                        backgroundColor: Colors.rgba(Colors.BLACK_ROCK, 0.5),
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Text style={[Typography.F_H3, { color: 'white' }]}>
+                        upload photo
+                      </Text>
+                    </View>
+                  )}
+                </View>
+              </TouchableOpacity>
 
-            {// error
-            this.props.error.length > 0 > 0 && (
-              <View style={{ backgroundColor: Colors.MELON.dark }}>
-                <Text style={{ color: 'white' }}>{this.props.error}</Text>
-              </View>
-            )}
+              {// error
+              this.props.error.length > 0 > 0 && (
+                <View style={{ backgroundColor: Colors.MELON.dark }}>
+                  <Text style={{ color: 'white' }}>{this.props.error}</Text>
+                </View>
+              )}
 
-            <View
-              style={{
-                paddingVertical: Layouts.PAD_VERT,
-                width: '100%',
-                alignItems: 'center',
-              }}
-            >
-              <TextInput
-                style={styles.input}
-                placeholder="username"
-                onChangeText={username => this.setState({ username })}
-                autoCompleteType="username"
-                autoCapitalize="none"
-                autoCorrect={false}
-                textContentType="username"
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="email"
-                onChangeText={email => this.setState({ email })}
-                autoCompleteType="email"
-                autoCapitalize="none"
-                autoCorrect={false}
-                textContentType="email"
-                keyboardType="email-address"
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="password"
-                onChangeText={password => this.setState({ password })}
-                autoCompleteType="password"
-                autoCapitalize="none"
-                autoCorrect={false}
-                textContentType="newPassword"
-                secureTextEntry={true}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="full name"
-                onChangeText={name => this.setState({ name })}
-                autoCompleteType="name"
-                autoCapitalize="words"
-                autoCorrect={false}
-                textContentType="name"
-              />
-              <TextInput
-                style={styles.multiLineInput}
-                placeholder="bio"
-                onChangeText={bio => this.setState({ bio })}
-                multiline={true}
-              />
+              <View
+                style={{
+                  paddingVertical: Layouts.PAD_VERT,
+                  width: '100%',
+                  alignItems: 'center',
+                }}
+              >
+                <TextInput
+                  style={styles.input}
+                  placeholder="username"
+                  onChangeText={username => this.setState({ username })}
+                  autoCompleteType="username"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  textContentType="username"
+                  placeholderTextColor={Colors.BLACK_ROCK + "88"}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="email"
+                  onChangeText={email => this.setState({ email })}
+                  autoCompleteType="email"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  textContentType="email"
+                  keyboardType="email-address"
+                  placeholderTextColor={Colors.BLACK_ROCK + "88"}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="password"
+                  onChangeText={password => this.setState({ password })}
+                  autoCompleteType="password"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  textContentType="newPassword"
+                  secureTextEntry={true}
+                  placeholderTextColor={Colors.BLACK_ROCK + "88"}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="full name"
+                  onChangeText={name => this.setState({ name })}
+                  autoCompleteType="name"
+                  autoCapitalize="words"
+                  autoCorrect={false}
+                  textContentType="name"
+                  placeholderTextColor={Colors.BLACK_ROCK + "88"}
+                />
+                <TextInput
+                  style={styles.multiLineInput}
+                  placeholder="bio"
+                  onChangeText={bio => this.setState({ bio })}
+                  multiline={true}
+                  placeholderTextColor={Colors.BLACK_ROCK + "88"}
+                />
+              </View>
+              <View>
+                <Button
+                  style={{ marginBottom: Layouts.PAD_VERT }}
+                  _onPress={() =>
+                    this.props.create(
+                      {
+                        username: this.state.username,
+                        email: this.state.email,
+                        name: this.state.name,
+                        password: this.state.password,
+                        gender: this.state.gender,
+                        bio: this.state.bio,
+                      },
+                      this.state.imageUri
+                    )
+                  }
+                  text="create"
+                  color={Colors.MELON}
+                />
+                <Button
+                  _onPress={() => this.props.setIsCreate(false)}
+                  text="login"
+                  type="outline"
+                />
+              </View>
             </View>
-            <View>
-              <Button
-                style={{ marginBottom: Layouts.PAD_VERT }}
-                _onPress={() =>
-                  this.props.create(
-                    {
-                      username: this.state.username,
-                      email: this.state.email,
-                      name: this.state.name,
-                      password: this.state.password,
-                      gender: this.state.gender,
-                      bio: this.state.bio,
-                    },
-                    this.state.imageUri
-                  )
-                }
-                text="create"
-                color={Colors.MELON}
-              />
-              <Button
-                _onPress={() => this.props.setIsCreate(false)}
-                text="login"
-                type="outline"
-              />
-            </View>
-          </View>
-        </LinearGradient>
-      </KeyboardAwareScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </LinearGradient>
     )
   }
 }
@@ -185,7 +199,7 @@ const styles = StyleSheet.create({
   create: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
+    marginVertical: Mixins.scaleSize(40),
   },
   image_wrapper: {
     borderRadius: 999,

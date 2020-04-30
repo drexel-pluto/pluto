@@ -50,7 +50,7 @@ class Profile extends React.Component {
       return
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync()
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({allowsEditing: true})
 
     if (pickerResult.uri) {
       this.setState({ imageUri: pickerResult.uri })
