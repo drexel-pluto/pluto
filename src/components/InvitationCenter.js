@@ -24,7 +24,7 @@ class InvitationCenter extends React.Component {
         >
           friend requests
         </Text>
-        {this.props.requests ? (
+        {this.props.requests.length > 0 ? (
           <ScrollView contentContainerStyle={styles.invitationCenter}>
             {this.props.requests.map((request, index) => (
               <View style={styles.requestContainer} key={index}>

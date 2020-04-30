@@ -15,12 +15,12 @@ const AuthorHeader = props => {
   }
 
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('Profile', { userId: authInfo._id })
-      }}
-    >
-      <View style={styles.author}>
+    <View style={styles.author}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Profile', { userId: authInfo._id })
+        }}
+      >
         <Image
           style={[styles.author__image, isCompact ? styles.isCompact : '']}
           source={{
@@ -29,18 +29,18 @@ const AuthorHeader = props => {
               : 'https://picsum.photos/id/237/300/300',
           }}
         />
-        {isCompact ? null : (
-          <View>
-            <Text style={[Typography.F_BODY, Typography.F_BOLD]}>
-              {authInfo.name}
-            </Text>
-            <Text style={[Typography.F_SUBTITLE, { opacity: 0.7 }]}>
-              {calcTimeDif(props.time)}
-            </Text>
-          </View>
-        )}
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      {isCompact ? null : (
+        <View>
+          <Text style={[Typography.F_BODY, Typography.F_BOLD]}>
+            {authInfo.name}
+          </Text>
+          <Text style={[Typography.F_SUBTITLE, { opacity: 0.7 }]}>
+            {calcTimeDif(props.time)}
+          </Text>
+        </View>
+      )}
+    </View>
   )
 }
 
