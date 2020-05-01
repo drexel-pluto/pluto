@@ -10,7 +10,13 @@ class InputHeader extends React.Component {
 
   render() {
     return (
-      <View style={[styles.inputHeader, Styles.shadow(Colors.VIOLET.dark), this.props.style]}>
+      <View
+        style={[
+          styles.inputHeader,
+          Styles.shadow(Colors.VIOLET.dark),
+          this.props.style,
+        ]}
+      >
         <TextInput
           style={[
             styles.input,
@@ -30,12 +36,14 @@ class InputHeader extends React.Component {
             !this.props.text ? styles.inactive : null,
           ]}
         >
-          <Button
-            text={this.props.buttonText}
-            type={'small'}
-            isBold={true}
-            _onPress={this.props.onSubmit}
-          />
+          {this.props.buttonText ? (
+            <Button
+              text={this.props.buttonText}
+              type={'small'}
+              isBold={true}
+              _onPress={this.props.onSubmit}
+            />
+          ) : null}
         </View>
       </View>
     )

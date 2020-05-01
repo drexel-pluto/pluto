@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import SelectFriendItem from './SelectFriendItem'
-import SearchInput from './SearchInput'
+import InputHeader from './InputHeader'
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 
 class SelectFriendList extends React.Component {
@@ -98,7 +98,7 @@ class SelectFriendList extends React.Component {
                 marginBottom: Mixins.scaleSize(15),
               }}
             ></View>
-            <SearchInput
+            <InputHeader
               placeholder="search for friends..."
               onChangeText={text => this.onChangeText(text)}
             />
