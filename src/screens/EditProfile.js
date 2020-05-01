@@ -50,7 +50,9 @@ class Profile extends React.Component {
       return
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({allowsEditing: true})
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+    })
 
     if (pickerResult.uri) {
       this.setState({ imageUri: pickerResult.uri })
@@ -98,6 +100,7 @@ class Profile extends React.Component {
           <View style={styles.input_wrapper}>
             <Text style={styles.label}>Name:</Text>
             <TextInput
+              placeholder={'enter your name'}
               style={styles.input}
               value={this.state.name}
               onChangeText={name => this.setState({ name })}
@@ -106,6 +109,7 @@ class Profile extends React.Component {
           <View style={styles.input_wrapper}>
             <Text style={styles.label}>Username:</Text>
             <TextInput
+              placeholder={'enter your username'}
               style={styles.input}
               value={this.state.username}
               onChangeText={username => this.setState({ username })}
@@ -114,7 +118,8 @@ class Profile extends React.Component {
           <View style={styles.input_wrapper}>
             <Text style={styles.label}>Bio:</Text>
             <TextInput
-              style={styles.input}
+              placeholder={'enter your bio'}
+              style={[styles.input, { maxHeight: Mixins.scaleSize(250) }]}
               value={this.state.bio}
               onChangeText={bio => this.setState({ bio })}
               multiline={true}
