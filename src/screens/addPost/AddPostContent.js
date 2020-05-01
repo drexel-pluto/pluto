@@ -191,6 +191,8 @@ class AddPost extends React.Component {
           backdropColor={Colors.BLACK}
           backdropOpacity={0.6}
           style={{ margin: 0 }}
+          animatedIn="none"
+          animatedOut="none"
         >
           <View
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
