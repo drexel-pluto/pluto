@@ -21,7 +21,6 @@ import Button from './../components/Button'
 import { FormattedComment } from './../components/Comment'
 
 const CommentDetailView = props => {
-  console.log(props.data)
   if (props.data !== undefined) {
     return (
       <Modal

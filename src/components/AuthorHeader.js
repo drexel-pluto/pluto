@@ -20,6 +20,7 @@ const AuthorHeader = props => {
         onPress={() => {
           navigation.navigate('Profile', { userId: authInfo._id })
         }}
+        disabled={authInfo.name == null}
       >
         <Image
           style={[styles.author__image, isCompact ? styles.isCompact : '']}
@@ -33,7 +34,7 @@ const AuthorHeader = props => {
       {isCompact ? null : (
         <View>
           <Text style={[Typography.F_BODY, Typography.F_BOLD]}>
-            {authInfo.name}
+            {authInfo.name ?? authInfo}
           </Text>
           <Text style={[Typography.F_SUBTITLE, { opacity: 0.7 }]}>
             {calcTimeDif(props.time)}

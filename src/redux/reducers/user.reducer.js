@@ -86,6 +86,8 @@ export default function reducer(state = defaultStateUser, action) {
     case GET_ME_SUCCESS:
       const data = action.payload.data
 
+      data.friends = [... new Set(data.friends)];
+
       friends = []
       groups = []
 
@@ -116,7 +118,7 @@ export default function reducer(state = defaultStateUser, action) {
         title: 'everyone',
       }
       groups = [everyone, ...data.groups]
-
+      
       // process friends data for group info
       data.friends.forEach(element => {
         let friend = { ...element }

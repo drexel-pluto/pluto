@@ -45,7 +45,7 @@ class Toast extends Component {
           top: this.state.slideAnim
         }]}>
           <Text style={[Typography.F_BODY, styles.content]}>{this.props.content}</Text>
-          <Button onPress={this.props.onDismissClick} style={Typography.F_BODY} title="x"/>
+          <Button onPress={this.props.onDismissClick} style={Typography.F_BODY} title="x" color={Colors.BLACK_ROCK}/>
         </Animated.View>
       </SafeAreaView>
     );
@@ -65,14 +65,12 @@ const styles = StyleSheet.create({
   },
   toast: {
     backgroundColor: Colors.PLUTO_WHITE,
-    borderRadius: 4,
+    borderRadius: 6,
     flexDirection: "row",
     alignItems: "center",
     padding: Layouts.PAD_HORZ_SM,
-    shadowColor: Colors.VIOLET.dark,
-    shadowOpacity: 0.4,
-    shadowRadius: 2,
-    shadowOffset: { width: 3, height: 3 },
+    borderColor: Colors.VIOLET.dark,
+    borderWidth: 1
   },
   content: {
     flex: 1,

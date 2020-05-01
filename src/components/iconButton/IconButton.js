@@ -151,7 +151,7 @@ export default IconButton = props => {
     case 'cancel':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[styles.iconButton, props.style]}
           onPress={() => {
             _onPress()
           }}
