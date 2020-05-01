@@ -51,7 +51,7 @@ export default function reducer(state = defaultStateCreate, action) {
     case SEND_POST_FAIL:
       return { ...state, pendingSubmission: false }
     case SEND_POST_SUCCESS:
-      return { ...defaultStateCreate }
+      return { ...defaultStateCreate, pendingSubmission: false }
     default:
       return state
   }

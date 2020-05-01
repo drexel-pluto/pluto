@@ -17,6 +17,8 @@ import Button from './../../components/Button'
 import Circle from './../../components/Circle'
 import PostMedia from '../../components/PostMediaUpload'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Modal from 'react-native-modal'
+import LottieView from 'lottie-react-native'
 
 class AddPost extends React.Component {
   constructor(props) {
@@ -105,7 +107,7 @@ class AddPost extends React.Component {
             <Button
               text="post"
               type="outline"
-              disabled={this.state.submitted}
+              disabled={this.props.pendingSubmission}
               _onPress={() => this.submitPost()}
             />
           }
@@ -184,6 +186,28 @@ class AddPost extends React.Component {
             this.props.addImage(uri)
           }}
         />
+        <Modal
+          isVisible={this.props.pendingSubmission}
+          backdropColor={Colors.BLACK}
+          backdropOpacity={0.6}
+          style={{ margin: 0 }}
+        >
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          >
+            <LottieView
+              ref={animation => {
+                this.loadingAnimation = animation
+              }}
+              style={{
+                width: 50,
+                height: 50,
+              }}
+              autoPlay
+              source={require('./../../assets/lottie/loading--pluto.json')}
+            />
+          </View>
+        </Modal>
       </KeyboardAwareScrollView>
     )
   }
