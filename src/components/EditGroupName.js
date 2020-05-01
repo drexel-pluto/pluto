@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,
     borderBottomColor: Colors.VIOLET.dark,
-    textAlign: 'center',
+    width: '65%',
+    paddingBottom: 10,
   },
 })
 
