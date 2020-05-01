@@ -4,9 +4,11 @@
     "slug": "pluto",
     "scheme": "pluto",
     "privacy": "unlisted",
-    "sdkVersion": "35.0.0",
-    "platforms": ["ios", "android"],
-    "version": "0.4.3",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "0.4.5",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "splash": {
@@ -17,18 +19,26 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "bundleIdentifier": "io.plutosocial.pluto",
       "supportsTablet": false
     },
     "android": {
       "package": "io.plutosocial.pluto",
-      "versionCode": 4
+      "versionCode": 6
     },
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": ["js", "jsx", "ts", "tsx", "svg"]
+      "sourceExts": [
+        "js",
+        "jsx",
+        "ts",
+        "tsx",
+        "svg"
+      ]
     }
   }
 }
