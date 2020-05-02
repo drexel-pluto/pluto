@@ -3,12 +3,15 @@ import { connect } from 'react-redux'
 import Post from '../screens/Post'
 import { sendComment, deletePost } from '../redux/reducers/post.reducer'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
+import { getPosts } from '../redux/reducers/group.reducer'
 
 class PostContainer extends React.Component {
   deletePost() {
     this.props.deletePost(this.props.post.id).then(action => {
       if (action.type.endsWith('SUCCESS')) {
-        this.props.navigation.navigate('Home')
+        return this.props
+          .getPosts(this.props.lastGroupId)
+          .then(this.props.navigation.navigate('GroupFeed'))
       }
     })
   }
@@ -51,11 +54,13 @@ const mapStateToProps = state => ({
   post: state.post,
   loading: state.post.loading,
   userId: state.user.userData.id,
+  lastGroupId: state.group.id,
 })
 
 const mapDispatchToProps = {
   sendComment,
   deletePost,
+  getPosts,
 }
 
 export default connectActionSheet(
