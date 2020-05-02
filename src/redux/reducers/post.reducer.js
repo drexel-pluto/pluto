@@ -18,6 +18,10 @@ const SEND_REACT_FAIL = 'profile/SEND_REACT_FAIL'
 
 const SET_POSTER = 'profile/SET_POSTER'
 
+const DELETE_POST = 'profile/DELETE_POST'
+const DELETE_POST_SUCCESS = 'profile/DELETE_POST_SUCCESS'
+const DELETE_POST_FAIL = 'profile/DELETE_POST_FAIL'
+
 let defaultStatePost = {
   loading: true,
   mediaURLs: [],
@@ -74,6 +78,8 @@ export default function reducer(state = defaultStatePost, action) {
         newUpdates: state.newUpdates + 1,
       }
     case SEND_REACT_FAIL:
+    case DELETE_POST:
+      return defaultStatePost
     default:
       return state
   }
@@ -153,6 +159,21 @@ export function sendReact(post_id, likes) {
         data: {
           postId: post_id,
           amountToAdd: likes,
+        },
+      },
+    },
+  }
+}
+
+export function deletePost(post_id) {
+  return {
+    type: DELETE_POST,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/posts/delete`,
+        data: {
+          postId: post_id,
         },
       },
     },

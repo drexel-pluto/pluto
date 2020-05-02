@@ -8,11 +8,8 @@ import {
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
-import TagList from '../components/TagList'
 import CommentList from '../components/CommentList'
-import AuthorHeader from '../components/AuthorHeader'
 import IconButton from '../components/iconButton/IconButton'
-import { TAG_DATA, COMMENT_DATA } from './../assets/data'
 import PostContent from './../components/PostContent'
 import PostTeaserFullSkeleton from '../components/skeleton/PostTeaserFull.skeleton'
 import AddComment from '../components/AddComment'
@@ -166,6 +163,14 @@ class Post extends React.Component {
                   type="back"
                   _onPress={this.props.navigation.goBack}
                 />
+              }
+              rightItems={
+                this.props.data.poster._id === this.props.userId && (
+                  <IconButton
+                    type="settings"
+                    _onPress={() => this.props.showOptions()}
+                  />
+                )
               }
             />
 
