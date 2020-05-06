@@ -127,7 +127,7 @@ export default IconButton = props => {
     case 'chooseImage':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={styles.iconButton, styles.iconChooseImage}
           onPress={() => {
             _onPress()
           }}
@@ -139,7 +139,7 @@ export default IconButton = props => {
     case 'uploadImage':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={styles.iconUploadImg} 
           onPress={() => {
             _onPress()
           }}
@@ -193,4 +193,13 @@ const styles = StyleSheet.create({
   iconButton: {
     padding: Mixins.scaleSize(5),
   },
+  iconChooseImage: {
+    paddingTop: '7%',
+    paddingLeft: '5%',
+  },
+  iconUploadImg: {
+    padding: Mixins.scaleSize(5),
+    paddingLeft: '13%',
+  },
+ 
 })
