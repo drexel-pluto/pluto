@@ -4,8 +4,18 @@ import Post from '../screens/Post'
 import { sendComment, deletePost } from '../redux/reducers/post.reducer'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
 import { getPosts } from '../redux/reducers/group.reducer'
+import { fetchPostAndPoster } from '../redux/reducers/post.reducer'
 
 class PostContainer extends React.Component {
+  componentWillMount() {
+    const { params } = this.props.route
+    const postId = params ? params.postId : null
+
+    if (postId) {
+      this.props.fetchPostAndPoster(postId);
+    }
+  }
+
   deletePost() {
     this.props.deletePost(this.props.post.id).then(action => {
       if (action.type.endsWith('SUCCESS')) {
@@ -61,6 +71,7 @@ const mapDispatchToProps = {
   sendComment,
   deletePost,
   getPosts,
+  fetchPostAndPoster,
 }
 
 export default connectActionSheet(

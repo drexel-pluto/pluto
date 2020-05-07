@@ -4,6 +4,10 @@ const FETCH_POST = 'profile/FETCH_POST'
 const FETCH_POST_SUCCESS = 'profile/FETCH_POST_SUCCESS'
 const FETCH_POST_FAIL = 'profile/FETCH_POST_FAIL'
 
+const FETCH_POST_AND_POSTER = 'profile/FETCH_POST_AND_POSTER'
+const FETCH_POST_AND_POSTER_SUCCESS = 'profile/FETCH_POST_AND_POSTER_SUCCESS'
+const FETCH_POST_AND_POSTER_FAIL = 'profile/FETCH_POST_AND_POSTER_FAIL'
+
 const SEND_COMMENT = 'profile/SEND_COMMENT'
 const SEND_COMMENT_SUCCESS = 'profile/SEND_COMMENT_SUCCESS'
 const SEND_COMMENT_FAIL = 'profile/SEND_COMMENT_FAIL'
@@ -40,7 +44,9 @@ export default function reducer(state = defaultStatePost, action) {
     case FETCH_POST:
       return defaultStatePost
     case FETCH_POST_SUCCESS:
-      data = action.payload.data
+    case FETCH_POST_AND_POSTER_SUCCESS:
+      let data = action.payload.data
+      console.log("data", data);
       return {
         ...state,
         loading: false,
@@ -51,6 +57,9 @@ export default function reducer(state = defaultStatePost, action) {
         text: data.text,
         id: data._id,
         tags: data.tags,
+        ...(action.type == FETCH_POST_AND_POSTER_SUCCESS) && {
+          poster: data.poster
+        }
       }
     case SEND_COMMENT_SUCCESS:
       return {
@@ -123,6 +132,21 @@ export function sendComment(content, subCommentId = null) {
 export function fetchPost(post_id) {
   return {
     type: FETCH_POST,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/posts/one`,
+        data: {
+          postId: post_id,
+        },
+      },
+    },
+  }
+}
+
+export function fetchPostAndPoster(post_id) {
+  return {
+    type: FETCH_POST_AND_POSTER,
     payload: {
       request: {
         method: 'POST',
