@@ -12,16 +12,16 @@ const NotificationItem = (props) => {
   return (
     <View style={styles.notificationContainer}>
       <Image
-        style={[styles.image]}
+        style={styles.image}
         source={{
           uri: props.data?.from?.profilePicURL ?? 'https://picsum.photos/id/237/300/300',
         }}
       />
-      <View>
+      <View style={{flex: 1}}>
         <Text
           style={[
             Typography.F_BODY,
-            { maxWidth: Mixins.scaleSize(230) },
+            styles.notiText
           ]}
         >
           {props.data.text}
@@ -38,22 +38,25 @@ class Notifications extends React.Component {
   }
   render() {
     return (
-      <>
+      <View style={styles.screenContainer}>
         <ScreenHeader
           isFixed={true}
           title={'notifications'}
+          headerColor={Colors.UI_BG}
           leftItems={
             <IconButton type="back" _onPress={this.props.navigation.goBack} />
           }
         />
         <ScrollView
           style={[Layouts.FLEX_CONTAINER]}
-          contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
+          contentContainerStyle={{ 
+            paddingBottom: Layouts.PAD_BOTTOM,
+            paddingVertical: Layouts.PAD_VERT,
+          }}
         >
-          <View style={styles.screenContainer}>
-            {/* <Text style={[Typography.F_H1, {paddingVertical: Layouts.PAD_VERT}]}>notifications</Text> */}
             <FlatList
               data={this.props.notifications}
+              contentContainerStyle={{ paddingHorizontal: Layouts.PAD_HORZ}}
               renderItem={({ item, index }) => {
                 return (
                   <NotificationItem
@@ -63,27 +66,36 @@ class Notifications extends React.Component {
                 )
               }}
             />
-          </View>
         </ScrollView>
-      </>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   screenContainer: {
-    paddingHorizontal: Layouts.PAD_HORZ,
-    paddingVertical: Layouts.PAD_VERT,
+    flex: 1,
+    backgroundColor: Colors.UI_BG,
   },
   notificationContainer: {
-    // backgroundColor: Colors.CREAM,
-    paddingHorizontal: Layouts.PAD_HORZ,
+    backgroundColor: Colors.CREAM,
+    paddingHorizontal: Layouts.PAD_VERT,
     paddingVertical: Layouts.PAD_VERT,
-    borderRadius: Mixins.scaleSize(60),
+    borderRadius: Mixins.scaleSize(24),
     borderWidth: 1,
-    marginBottom: Layouts.PAD_VERT,
     borderColor: Colors.MELON.dark,
+    marginBottom: Layouts.PAD_VERT * 2,
     flexDirection: 'row',
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: Colors.BLACK_ROCK,
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  },
+  notiText: {
+    maxWidth: "100%",
+    marginBottom: 6,
+    lineHeight: Mixins.scaleFont(20),
+    fontSize: Mixins.scaleFont(16),
   },
   image: {
     width: Mixins.scaleSize(45),
