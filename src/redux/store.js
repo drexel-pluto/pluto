@@ -5,8 +5,10 @@ import axiosMiddleware from 'redux-axios-middleware'
 import ReduxThunk from 'redux-thunk'
 import rootReducer from './reducers'
 
+const localTesting = "http://192.168.1.221:3555";
+
 const client = axios.create({
-  baseURL: 'https://drexel-pluto.herokuapp.com/api',
+  baseURL: "http://192.168.1.221:3555/api",
   responseType: 'json',
 })
 

@@ -5,7 +5,8 @@ import {
   Button,
   SafeAreaView,
   StyleSheet,
-  Animated
+  Animated,
+  TouchableOpacity
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 
@@ -39,14 +40,17 @@ class Toast extends Component {
   }
 
   render() {
+    const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity)
     return (
       <SafeAreaView style={styles.wrapper}>
-        <Animated.View style={[styles.toast, {
+        <AnimatedTouchableOpacity style={[styles.toast, {
           top: this.state.slideAnim
-        }]}>
+        }]}
+          onPress={() => this.props.onTap(this.props.onDismissClick)}
+          >
           <Text style={[Typography.F_BODY, styles.content]}>{this.props.content}</Text>
           <Button onPress={this.props.onDismissClick} style={Typography.F_BODY} title="x" color={Colors.BLACK_ROCK}/>
-        </Animated.View>
+        </AnimatedTouchableOpacity>
       </SafeAreaView>
     );
   }
