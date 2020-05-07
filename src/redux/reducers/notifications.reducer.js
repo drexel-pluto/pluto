@@ -39,29 +39,48 @@ export function getNotifications() {
 
 export function pushNotificationListener(notification) {
   return function (dispatch) {
+    console.log(notification);
     dispatch(getFriendRequests());
 
-    let onTap = notification.data.postId
-      ? (dismiss) => {
-        RootNavigation.navigate('Post', {
-          postId: notification.data.postId
-        });
-        dismiss();
-      }
-      : (dismiss) => {
-        RootNavigation.navigate('Profile', {
-          userId: notification.data.fromId
-        });
-        dismiss();
-      }
+    let onTap;
+
+    switch (notification.data.type) {
+      case "comment":
+        onTap = (dismiss) => {
+          RootNavigation.navigate('Post', {
+            postId: notification.data.postId
+          });
+          dismiss();
+        };
+        break;
+      case "recieveFriendReq":
+        onTap = (dismiss) => {
+          RootNavigation.navigate('AddFriend');
+          dismiss();
+        };
+        break;
+      case "confirmFriendReq":
+        onTap = (dismiss) => {
+          RootNavigation.navigate('Profile', {
+            userId: notification.data.fromId
+          });
+          dismiss();
+        }
+        break;
+      default:
+        onTap = ()=>{};
+    }
 
     if (notification.origin == "received" && notification.data.body) {
       dispatch(newToast({
         content: notification.data.body,
         onTap
       }));
-    } else if (notification.origin == "selected") {
-      //goto post or user
+    }
+    
+    if (notification.origin == "selected") {
+      //immediately navigate to relevant page
+      onTap(()=>{});
     }
   }
 }

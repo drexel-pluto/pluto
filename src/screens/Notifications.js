@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, StyleSheet, Text, Image } from 'react-native'
+import { View, ScrollView, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import { LinearGradient } from 'expo-linear-gradient'
 import IconButton from '../components/iconButton/IconButton'
@@ -9,8 +9,38 @@ import { calcTimeDif } from '../components/AuthorHeader'
 
 
 const NotificationItem = (props) => {
+  let onTap;
+  
+  switch (props.data.type) {
+    case "comment":
+
+  }
+  switch (props.data.type) {
+    case "comment":
+      onTap = () => {
+        props.navigation.navigate('Post', {
+          postId: props.data.postId
+        });
+      };
+      break;
+    case "recieveFriendReq":
+      onTap = () => {
+        props.navigation.navigate('AddFriend');
+      };
+      break;
+    case "confirmFriendReq":
+      onTap = () => {
+        props.navigation.navigate('Profile', {
+          userId: props.data.fromId
+        });
+      }
+      break;
+    default:
+      onTap = ()=>{};
+  }
+
   return (
-    <View style={styles.notificationContainer}>
+    <TouchableOpacity onPress={onTap} style={styles.notificationContainer}>
       <Image
         style={styles.image}
         source={{
@@ -28,7 +58,7 @@ const NotificationItem = (props) => {
         </Text>
         <Text style={Typography.F_CAPTION}>{calcTimeDif(props.data.createdAt)}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -62,6 +92,7 @@ class Notifications extends React.Component {
                   <NotificationItem
                     data={item}
                     key={item._id}
+                    navigation={this.props.navigation}
                   />
                 )
               }}

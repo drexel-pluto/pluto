@@ -42,6 +42,7 @@ let defaultStatePost = {
 export default function reducer(state = defaultStatePost, action) {
   switch (action.type) {
     case FETCH_POST:
+    case FETCH_POST_AND_POSTER:
       return defaultStatePost
     case FETCH_POST_SUCCESS:
     case FETCH_POST_AND_POSTER_SUCCESS:
