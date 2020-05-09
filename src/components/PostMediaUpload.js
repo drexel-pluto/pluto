@@ -38,6 +38,7 @@ export default PostMedia = props => {
     <ScrollView
       horizontal={true}
       showsHorizontalScrollIndicator={false}
+      keyboardShouldPersistTaps="always"
       contentContainerStyle={styles.postMediaWrapper}
       snapToInterval={snapIntervalVal}
       snapToAlignment="center"

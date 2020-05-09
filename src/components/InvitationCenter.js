@@ -145,7 +145,6 @@ class InvitationCenter extends Component {
   }
 
   render() {
-    console.log(this.props.requests)
     return (
       <View>
         <HeadingWrapper progress={this.state.swipeDist} onPress={(isLeft) => this.headerPress(isLeft)}/>
