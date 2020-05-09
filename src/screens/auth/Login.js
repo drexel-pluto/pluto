@@ -102,7 +102,7 @@ export default class LoginScreen extends Component {
                     this.props.login(this.state.username, this.state.password)
                   }
                   text="login"
-                  color={Colors.MELON}
+                  color={Colors.VIOLET}
                 />
                 <Button
                   _onPress={() => this.props.setIsCreate(true)}

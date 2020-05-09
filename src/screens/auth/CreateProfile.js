@@ -172,7 +172,7 @@ export default class CreateProfileScreen extends Component {
                     )
                   }
                   text="create"
-                  color={Colors.MELON}
+                  color={Colors.VIOLET}
                 />
                 <Button
                   _onPress={() => this.props.setIsCreate(false)}
