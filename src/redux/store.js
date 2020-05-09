@@ -6,7 +6,7 @@ import ReduxThunk from 'redux-thunk'
 import rootReducer from './reducers'
 
 const client = axios.create({
-  baseURL: 'https://drexel-pluto.herokuapp.com/api',
+  baseURL: "https://drexel-pluto.herokuapp.com/api",
   responseType: 'json',
 })
 

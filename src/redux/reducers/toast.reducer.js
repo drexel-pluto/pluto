@@ -64,7 +64,8 @@ let id = 0;
 const defaultOptions = {
   title: "",
   content: "",
-  isErr: false
+  isErr: false,
+  onTap: () => {}
 };
 
 function createToast(options) {

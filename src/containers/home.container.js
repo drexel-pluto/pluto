@@ -4,6 +4,7 @@ import HomeScreen from '../screens/Home.js'
 import { setGroup } from '../redux/reducers/group.reducer'
 import { getMe, resetHome, setSwipeIndex } from '../redux/reducers/user.reducer'
 import { getFriendRequests } from '../redux/reducers/addFriend.reducer'
+import { pushNotificationListener } from '../redux/reducers/notifications.reducer'
 import { Notifications } from 'expo';
 
 class HomeContainer extends React.Component {
@@ -14,11 +15,7 @@ class HomeContainer extends React.Component {
   }
 
   componentDidMount() {
-    Notifications.addListener((notification) => {
-      // TODO: add toast for any incoming notification while app is open
-      // every time user receives push notification, check for new friend requests
-      this.props.getFriendRequests();
-    });
+    Notifications.addListener((notification) => this.props.pushNotificationListener(notification));
   }
   reset() {
     return this.props.getMe()
@@ -72,6 +69,7 @@ const mapDispatchToProps = {
   getFriendRequests,
   resetHome,
   setSwipeIndex,
+  pushNotificationListener,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

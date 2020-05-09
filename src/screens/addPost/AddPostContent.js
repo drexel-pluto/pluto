@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
-  KeyboardAvoidingView,
+  Platform,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../../styles/index'
 import ScreenHeader from '../../components/ScreenHeader'
@@ -18,7 +18,7 @@ import Circle from './../../components/Circle'
 import PostMedia from '../../components/PostMediaUpload'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Modal from 'react-native-modal'
-import LottieView from 'lottie-react-native'
+// import LottieView from 'lottie-react-native'
 
 class AddPost extends React.Component {
   constructor(props) {
@@ -197,17 +197,18 @@ class AddPost extends React.Component {
           <View
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
           >
-            <LottieView
-              ref={animation => {
-                this.loadingAnimation = animation
-              }}
-              style={{
-                width: 50,
-                height: 50,
-              }}
-              autoPlay
-              source={require('./../../assets/lottie/loading--pluto.json')}
-            />
+            {Platform.OS === "ios" && 
+              <LottieView
+                ref={animation => {
+                  this.loadingAnimation = animation
+                }}
+                style={{
+                  width: 50,
+                  height: 50,
+                }}
+                autoPlay
+                source={require('./../../assets/lottie/loading--pluto.json')}
+              />}
           </View>
         </Modal>
       </KeyboardAwareScrollView>
