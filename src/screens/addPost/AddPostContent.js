@@ -37,8 +37,7 @@ class AddPost extends React.Component {
 
   componentDidMount() {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.textInputRef.focus()
-      console.log("FOCUSED");
+      this.textInputRef.focus();
     });
 
     // reset for new draft
@@ -110,7 +109,11 @@ class AddPost extends React.Component {
           style={{ flex: 1, marginBottom: Mixins.scaleSize(54) }}
           contentContainerStyle={{ flexGrow: 1 }}>
 
-          <View style={styles.recipients_wrapper}>
+          <TouchableOpacity
+            style={styles.recipients_wrapper}
+            onPress={() => {
+              this.props.navigation.navigate('AddPostPermissions')
+            }}>
             {
               // CircleList for addPost...
               // let's keep this here for now since it works ;p
@@ -145,10 +148,7 @@ class AddPost extends React.Component {
               showsHorizontalScrollIndicator={false}
             />
 
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.navigate('AddPostPermissions')
-              }}
+            <View
             >
               <View style={{ paddingVertical: Layouts.PAD_VERT }}>
                 <Text style={Typography.F_REGULAR}>
@@ -156,8 +156,8 @@ class AddPost extends React.Component {
                   <Text style={Typography.F_BOLD}>edit</Text>
                 </Text>
               </View>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
 
           <View style={{ flex: 1 }}>
             <TextInput
@@ -209,6 +209,9 @@ class AddPost extends React.Component {
             navigation={this.props.navigation}
             addImage={uri => {
               this.props.addImage(uri)
+            }}
+            callback={() => {
+              this.textInputRef.focus();
             }}
           />
         </View>

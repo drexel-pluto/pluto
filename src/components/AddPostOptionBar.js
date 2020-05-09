@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Keyboard } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
@@ -7,6 +7,7 @@ import IconButton from './../components/iconButton/IconButton'
 
 export default AddPostOptionBar = props => {
   openImagePickerAsync = async () => {
+    Keyboard.dismiss();
     const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
     if (status == 'denied') {
       alert('Sorry, we need camera roll permissions to make this work!')
@@ -16,6 +17,7 @@ export default AddPostOptionBar = props => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images, //TODO: once videos are working, set to all
     })
+    props.callback();
 
     if (pickerResult.uri) {
       let data = {
@@ -27,6 +29,7 @@ export default AddPostOptionBar = props => {
   }
 
   openCameraAsync = async () => {
+    Keyboard.dismiss();
     const { status } = await Permissions.askAsync(Permissions.CAMERA)
     if (status == 'denied') {
       alert('Sorry, we need camera permissions to make this work!')
@@ -36,6 +39,7 @@ export default AddPostOptionBar = props => {
     let pickerResult = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images, //TODO: once videos are working, set to all
     })
+    props.callback();
 
     if (pickerResult.uri) {
       let data = {
