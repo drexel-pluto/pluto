@@ -113,12 +113,12 @@ export default class RigidBodies extends Component {
     i = 0
     for (element of this.props.friends) {
       let friend = element.friend
-      let radius = Matter.Common.random(40, 70)
+      let radius = Matter.Common.random(50, 80)
       let groups = friend.groups
       let item = Matter.Bodies.circle(
         Matter.Common.random(radius / 2, width - radius / 2),
         Matter.Common.random(radius / 2, height - radius / 2),
-        radius / 2,
+        radius / 2 + 8,
         { continuous: 1 }
       )
 
