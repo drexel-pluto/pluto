@@ -8,6 +8,7 @@ import addFriend from './addFriend.reducer'
 import editGroup from './editGroup.reducer'
 import notifications from './notifications.reducer'
 import toasts from './toast.reducer'
+import tagFeed from './tagFeed.reducer'
 
 export default combineReducers({
   user,
@@ -19,4 +20,5 @@ export default combineReducers({
   editGroup,
   notifications,
   toasts,
+  tagFeed,
 })

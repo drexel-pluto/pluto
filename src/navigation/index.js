@@ -17,6 +17,7 @@ import UserPopupContainer from '../containers/userPopup.container'
 import EditGroupContainer from '../containers/editGroup.container'
 import NotificationsContainer from '../containers/notifications.container'
 import editProfileContainer from '../containers/editProfile.container'
+import TagFeedContainer from '../containers/tagFeed.container'
 
 import modal from './transitions/modal'
 
@@ -44,6 +45,7 @@ function AppStack() {
     >
       <Stack.Screen name="Home" component={HomeContainer} />
       <Stack.Screen name="GroupFeed" component={GroupFeedContainer} />
+      <Stack.Screen name="TagFeed" component={TagFeedContainer} />
       <Stack.Screen name="Profile" component={profileContainer} />
       <Stack.Screen name="AddPost" component={AddPostContentCont} />
       <Stack.Screen

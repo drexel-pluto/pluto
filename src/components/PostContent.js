@@ -6,6 +6,7 @@ import ContainerTail from './../assets/images/containerTail.svg'
 import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
 import HeartButtonContainer from './../containers/heartButton.container'
+import * as RootNavigation from '../navigation'
 
 class PostContent extends React.Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class PostContent extends React.Component {
   }
 
   onPressHash(tag) {
-    console.log('hashtag clicked:', tag)
+    RootNavigation.navigate('TagFeed', {
+      tag
+    });
   }
 
   linkHash(text) {
