@@ -46,6 +46,7 @@ class HomeContainer extends React.Component {
   }
 
   goToAddFriend(onAcceptCallback) {
+    //TODO: clear addfriend data 
     this.props.navigation.navigate('AddFriend', {
       onAccept: () => {
         onAcceptCallback()

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Colors } from '../styles/index'
+import { Animated } from 'react-native'
 
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -36,6 +37,17 @@ function AuthStack() {
   )
 }
 
+ const forFade = ({ current, layouts: { screen } }) => ({
+  cardStyle: {
+    transform: [
+      { translateX: current.progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [-screen.width, 0]
+      })}
+    ]
+  },
+});
+
 function AppStack() {
   return (
     <Stack.Navigator
@@ -61,6 +73,7 @@ function AppStack() {
         options={{
           gestureDirection: 'horizontal-inverted',
           gestureEnabled: false,
+          cardStyleInterpolator: forFade
         }}
       />
       <Stack.Screen name="Notifications" component={NotificationsContainer} />
