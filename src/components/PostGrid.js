@@ -73,9 +73,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PLUTO_WHITE,
     borderRadius: Mixins.scaleSize(15),
     margin: Mixins.scaleSize(7),
+    minHeight: Mixins.scaleSize(70),
     overflow: 'hidden',
   },
-  postGridItem__image: {},
+  postGridItem__image: {
+  },
   postGridItem__text: {
     padding: Mixins.scaleSize(15),
   },
