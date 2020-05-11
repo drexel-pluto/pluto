@@ -40,7 +40,7 @@ class GroupFeed extends React.Component {
 
     const rightHeaderItems = (
       <>
-        <IconButton type="searchItem" />
+        {/* <IconButton type="searchItem" /> */}
         {this.props.group.id !== -1 && (
           <IconButton
             type="settings"
@@ -64,11 +64,13 @@ class GroupFeed extends React.Component {
             leftItems={leftHeaderItems}
             rightItems={rightHeaderItems}
           />
-          <View style={Styles.shadow('black')}>
+          <View style={[Styles.shadow('black'), {
+            marginBottom: Layouts.PAD_VERT
+          }]}>
             <View
               style={{
                 backgroundColor: Colors.PEARL,
-                borderBottomRightRadius: Mixins.scaleSize(20),
+                borderBottomRightRadius: Mixins.scaleSize(20)
               }}
             >
               <CircleList
@@ -85,7 +87,7 @@ class GroupFeed extends React.Component {
               }}
             />
           </View>
-          <RecentPostList
+          {/* <RecentPostList
             data={this.props.group.posts}
             openPost={this.props.openPost}
             loading={this.props.loading}
@@ -94,7 +96,7 @@ class GroupFeed extends React.Component {
             <TagListSkeleton />
           ) : (
             <TagList data={TAG_DATA} />
-          )}
+          )} */}
           <PostFeed
             data={this.props.group.posts}
             openPost={this.props.openPost}

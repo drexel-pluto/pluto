@@ -110,7 +110,7 @@ class Home extends React.Component {
           }}
         />
         <ScreenHeader
-          leftItems={<IconButton type="searchItem" />}
+          // leftItems={<IconButton type="searchItem" />}
           rightItems={rightHeaderItems}
         />
         <View style={styles.group_wrapper}>

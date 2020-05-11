@@ -8,7 +8,11 @@ export default PostFeed = props => {
   return (
     <View style={styles.postFeed}>
       {props.loading === true ? (
-        <PostTeaserFullSkeleton />
+        <>
+          <PostTeaserFullSkeleton />
+          <PostTeaserFullSkeleton />
+          <PostTeaserFullSkeleton />
+        </>
       ) : (
         <FlatList
           data={props.data}
