@@ -10,7 +10,9 @@ const guidelineBaseWidth = 375
 
 export const scaleSize = size => (width / guidelineBaseWidth) * size
 
-export const scaleFont = size => size * PixelRatio.getFontScale()
+// export const scaleFont = size => size * PixelRatio.getFontScale()
+// no longer have to scale fonts manually
+export const scaleFont = size => size
 
 export const resWidthPercent = percentage => useResponsiveWidth(percentage) // responsive to screen width
 
