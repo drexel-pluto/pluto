@@ -92,9 +92,15 @@ class Profile extends React.Component {
                 width: Mixins.scaleSize(120),
                 height: Mixins.scaleSize(120),
                 borderRadius: Mixins.scaleSize(120 / 2),
+                backgroundColor: Colors.GRAY_LIGHT
               }}
             />
           </View>
+          <Text style={{
+            fontWeight: "bold",
+            color: Colors.VIOLET.dark,
+            alignSelf: "center"
+          }}>change profile pic</Text>
         </TouchableOpacity>
         <View style={styles.input_section}>
           <View style={styles.input_wrapper}>
@@ -107,15 +113,6 @@ class Profile extends React.Component {
             />
           </View>
           <View style={styles.input_wrapper}>
-            <Text style={styles.label}>Username:</Text>
-            <TextInput
-              placeholder={'enter your username'}
-              style={styles.input}
-              value={this.state.username}
-              onChangeText={username => this.setState({ username })}
-            />
-          </View>
-          <View style={styles.input_wrapper}>
             <Text style={styles.label}>Bio:</Text>
             <TextInput
               placeholder={'enter your bio'}
@@ -123,6 +120,7 @@ class Profile extends React.Component {
               value={this.state.bio}
               onChangeText={bio => this.setState({ bio })}
               multiline={true}
+              scrollEnabled={false}
             />
           </View>
         </View>
@@ -142,7 +140,7 @@ const styles = StyleSheet.create({
   },
   input_section: {
     paddingHorizontal: Layouts.PAD_HORZ,
-    marginTop: 30,
+    marginTop: 20,
   },
   input_wrapper: {
     flexDirection: 'row',
@@ -151,7 +149,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   label: {
-    width: Mixins.scaleSize(100),
+    width: Mixins.scaleSize(80),
     fontSize: 16,
     fontWeight: '600',
     color: Colors.BLACK_ROCK,
