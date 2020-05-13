@@ -15,7 +15,9 @@ export default ScreenHeader = props => {
       <View style={styles.leftItems}>
         {leftItems}
         {title ? (
-          <Text style={[Typography.F_H1, styles.title]}>{title}</Text>
+          <Text numberOfLines={1} style={[Typography.F_H1, styles.title]}>
+            {title}
+          </Text>
         ) : null}
       </View>
       <View style={styles.rightItems}>{rightItems}</View>
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginLeft: Mixins.scaleSize(10),
+    maxWidth: '80%',
   },
   leftItems: { flexDirection: 'row', alignItems: 'center' },
   rightItems: { flexDirection: 'row', alignItems: 'center' },
