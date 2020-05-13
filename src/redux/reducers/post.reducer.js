@@ -26,6 +26,10 @@ const DELETE_POST = 'profile/DELETE_POST'
 const DELETE_POST_SUCCESS = 'profile/DELETE_POST_SUCCESS'
 const DELETE_POST_FAIL = 'profile/DELETE_POST_FAIL'
 
+const DELETE_COMMENT = 'profile/DELETE_COMMENT'
+const DELETE_COMMENT_SUCCESS = 'profile/DELETE_COMMENT_SUCCESS'
+const DELETE_COMMENT_FAIL = 'profile/DELETE_COMMENT_FAIL'
+
 let defaultStatePost = {
   loading: true,
   mediaURLs: [],
@@ -47,7 +51,7 @@ export default function reducer(state = defaultStatePost, action) {
     case FETCH_POST_SUCCESS:
     case FETCH_POST_AND_POSTER_SUCCESS:
       let data = action.payload.data
-      console.log("data", data);
+      console.log('data', data)
       return {
         ...state,
         loading: false,
@@ -58,9 +62,9 @@ export default function reducer(state = defaultStatePost, action) {
         text: data.text,
         id: data._id,
         tags: data.tags,
-        ...(action.type == FETCH_POST_AND_POSTER_SUCCESS) && {
-          poster: data.poster
-        }
+        ...(action.type == FETCH_POST_AND_POSTER_SUCCESS && {
+          poster: data.poster,
+        }),
       }
     case SEND_COMMENT_SUCCESS:
       return {
@@ -90,6 +94,13 @@ export default function reducer(state = defaultStatePost, action) {
     case SEND_REACT_FAIL:
     case DELETE_POST:
       return defaultStatePost
+    case DELETE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        comments: action.payload.data.comments,
+        newUpdates: state.newUpdates + 1,
+      }
     default:
       return state
   }
@@ -199,6 +210,26 @@ export function deletePost(post_id) {
         url: `/posts/delete`,
         data: {
           postId: post_id,
+        },
+      },
+    },
+  }
+}
+
+export function deleteComment(comment_id) {
+  let post_id = store.getState().post.id
+
+  console.log(comment_id)
+
+  return {
+    type: DELETE_COMMENT,
+    payload: {
+      request: {
+        method: 'DELETE',
+        url: `/posts/comment`,
+        data: {
+          postId: post_id,
+          commentId: comment_id,
         },
       },
     },

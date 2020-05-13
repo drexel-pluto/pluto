@@ -13,7 +13,6 @@ const AuthorHeader = props => {
   } else {
     authInfo = getFriendById(authorId)
   }
-
   return (
     <View style={styles.author}>
       <TouchableOpacity

@@ -6,24 +6,12 @@ import {
   StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
 import CommentButton from './iconButton/CommentButton'
-
-export const FormattedComment = props => {
-  return (
-    <View>
-      <View style={styles.header_wrapper}>
-        <AuthorHeader author={props.data.poster} time={props.data.postedAt} />
-      </View>
-      <View style={styles.content}>
-        <Text>{props.data.text}</Text>
-      </View>
-    </View>
-  )
-}
-
+import FormattedComment from './../containers/formattedComment.container'
 export default class Comment extends React.Component {
   constructor(props) {
     super(props)
@@ -37,18 +25,24 @@ export default class Comment extends React.Component {
 
   render() {
     return (
-      <View style={styles.comment}>
-        <FormattedComment data={this.props.data} />
-        <View style={{ alignItems: 'flex-end' }}>
-          <CommentButton
-            isSmall={true}
-            comments={this.props.data.replies.length}
-            _onPress={() => {
-              this.props.updateModal(this.props.data)
-            }}
-          />
+      <TouchableWithoutFeedback
+        onPress={() => {
+          this.props.updateModal(this.props.data)
+        }}
+      >
+        <View style={styles.comment}>
+          <FormattedComment data={this.props.data} />
+          <View style={{ alignItems: 'flex-end' }}>
+            <CommentButton
+              isSmall={true}
+              comments={this.props.data.replies.length}
+              _onPress={() => {
+                this.props.updateModal(this.props.data)
+              }}
+            />
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
