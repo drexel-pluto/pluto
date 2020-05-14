@@ -1,4 +1,5 @@
 import { getFriendRequests } from './addFriend.reducer'
+import { getMe } from './user.reducer'
 import { newToast } from './toast.reducer'
 import * as RootNavigation from '../../navigation'
 
@@ -39,7 +40,6 @@ export function getNotifications() {
 
 export function pushNotificationListener(notification) {
   return function (dispatch) {
-    console.log(notification);
     dispatch(getFriendRequests());
 
     let onTap;
@@ -60,6 +60,9 @@ export function pushNotificationListener(notification) {
         };
         break;
       case "confirmFriendReq":
+        if (notification.origin == "received") {
+          dispatch(getMe());
+        }
         onTap = (dismiss) => {
           RootNavigation.navigate('Profile', {
             userId: notification.data.fromId

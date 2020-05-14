@@ -8,6 +8,9 @@ import {
   sendFriendRequest,
   cancelFriendRequest
 } from '../redux/reducers/addFriend.reducer'
+import {
+  getMe
+} from '../redux/reducers/user.reducer'
 import { newToast } from '../redux/reducers/toast.reducer'
 
 class AddFriendContainer extends React.Component {
@@ -17,7 +20,11 @@ class AddFriendContainer extends React.Component {
   }
 
   accept(username) {
-    this.props.acceptFriendRequest(username)
+    this.props.acceptFriendRequest(username).then(action => {
+      if (action.type.endsWith('SUCCESS')) {
+        return this.props.getMe();
+      }
+    })
 
     let onAccept = this.props.route.params?.onAccept ?? false
     if (onAccept) {
@@ -82,7 +89,8 @@ const mapDispatchToProps = {
   rejectFriendRequest,
   sendFriendRequest,
   cancelFriendRequest,
-  newToast
+  newToast,
+  getMe,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddFriendContainer)
