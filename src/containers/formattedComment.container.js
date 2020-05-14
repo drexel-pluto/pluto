@@ -46,24 +46,25 @@ class FormattedComment extends React.Component {
             author={this.props.data.poster}
             time={this.props.data.postedAt}
           />
-          {this.props.data.poster._id === this.props.userId && (
-            <TouchableOpacity
-              onPress={() => {
-                this.showCommentOptions(this.props.data._id)
-              }}
-            >
-              <View style={styles.moreIcon}>
-                <View style={styles.circle}></View>
-                <View
-                  style={[
-                    styles.circle,
-                    { marginVertical: Mixins.scaleSize(5) },
-                  ]}
-                ></View>
-                <View style={styles.circle}></View>
-              </View>
-            </TouchableOpacity>
-          )}
+          {this.props.data.poster._id === this.props.userId &&
+            !this.props.isSub && (
+              <TouchableOpacity
+                onPress={() => {
+                  this.showCommentOptions(this.props.data._id)
+                }}
+              >
+                <View style={styles.moreIcon}>
+                  <View style={styles.circle}></View>
+                  <View
+                    style={[
+                      styles.circle,
+                      { marginVertical: Mixins.scaleSize(5) },
+                    ]}
+                  ></View>
+                  <View style={styles.circle}></View>
+                </View>
+              </TouchableOpacity>
+            )}
         </View>
         <View>
           <Text>{this.props.data.text}</Text>

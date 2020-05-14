@@ -78,7 +78,7 @@ const CommentDetailView = props => {
                       paddingVertical: Layouts.PAD_VERT,
                     }}
                   >
-                    <FormattedComment data={reply} />
+                    <FormattedComment data={reply} isSub={true} />
                   </View>
                 )
               })}
@@ -115,17 +115,14 @@ class Post extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('updating running')
     if (this.props.data.comments !== prevProps.data.comments) {
-      if (this.state.commentForModal != undefined && !this.props.loading) {
+      if (this.state.commentForModal != undefined) {
         let activeCommentId = this.state.commentForModal._id
         let activeCommentContent = this.props.data.comments.filter(
           comment => comment._id === activeCommentId
         )
 
         this.updateModal(activeCommentContent[0], false)
-      } else if (this.props.loading) {
-        this.updateModal(undefined)
       }
     }
   }
