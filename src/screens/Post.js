@@ -15,94 +15,90 @@ import PostTeaserFullSkeleton from '../components/skeleton/PostTeaserFull.skelet
 import AddComment from '../components/AddComment'
 import Modal from 'react-native-modal'
 import Button from './../components/Button'
-import { FormattedComment } from './../components/Comment'
+import FormattedComment from './../containers/formattedComment.container'
 
 const CommentDetailView = props => {
-  if (props.data !== undefined) {
-    return (
-      <Modal
-        isVisible={props.visible}
-        backdropColor={Colors.PLUTO_WHITE}
-        backdropOpacity={1}
-        style={{ margin: 0 }}
-      >
-        <View style={{ flex: 1 }}>
-          <KeyboardAvoidingView
+  return (
+    <Modal
+      isVisible={props.visible}
+      backdropColor={Colors.PLUTO_WHITE}
+      backdropOpacity={1}
+      style={{ margin: 0 }}
+    >
+      <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+          style={{
+            flex: 1,
+          }}
+          keyboardShouldPersistTaps="handled"
+          behavior="height"
+        >
+          <ScreenHeader
+            rightItems={
+              <Button
+                text="cancel"
+                type="text"
+                _onPress={() => {
+                  props.toggleModal()
+                }}
+              />
+            }
+          />
+          <ScrollView
             style={{
-              flex: 1,
+              paddingVertical: Layouts.PAD_VERT,
+              paddingHorizontal: Layouts.PAD_HORZ_SM,
             }}
-            keyboardShouldPersistTaps="handled"
-            behavior="height"
+            contentContainerStyle={{ paddingBottom: Mixins.scaleSize(70) }}
           >
-            <ScreenHeader
-              rightItems={
-                <Button
-                  text="cancel"
-                  type="text"
-                  _onPress={() => {
-                    props.toggleModal()
-                  }}
-                />
-              }
-            />
-            <ScrollView
-              style={{
-                paddingVertical: Layouts.PAD_VERT,
-                paddingHorizontal: Layouts.PAD_HORZ_SM,
-              }}
-              contentContainerStyle={{ paddingBottom: Mixins.scaleSize(70) }}
-            >
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: Colors.VIOLET.med,
-                  borderRadius: Mixins.scaleSize(25),
-                  padding: Mixins.scaleSize(15),
-                }}
-              >
-                <FormattedComment data={props.data} />
-              </View>
-              <View
-                style={{
-                  marginTop: Mixins.scaleSize(30),
-                  marginLeft: Layouts.PAD_HORZ,
-                  paddingLeft: Mixins.scaleSize(20),
-                  borderLeftColor: Colors.VIOLET.dark,
-                  borderLeftWidth: 1,
-                }}
-              >
-                {props.data.replies.map(reply => {
-                  return (
-                    <View
-                      style={{
-                        transform: [{ scale: 0.9 }],
-                        paddingVertical: Layouts.PAD_VERT,
-                      }}
-                    >
-                      <FormattedComment data={reply} />
-                    </View>
-                  )
-                })}
-              </View>
-            </ScrollView>
             <View
               style={{
-                paddingHorizontal: Layouts.PAD_HORZ_SM,
-                paddingBottom: Layouts.PAD_BOTTOM,
+                borderWidth: 1,
+                borderColor: Colors.VIOLET.med,
+                borderRadius: Mixins.scaleSize(25),
+                padding: Mixins.scaleSize(15),
               }}
             >
-              <AddComment
-                sendComment={props.sendComment}
-                commentId={props.data._id}
-              />
+              <FormattedComment data={props.data} />
             </View>
-          </KeyboardAvoidingView>
-        </View>
-      </Modal>
-    )
-  } else {
-    return null
-  }
+            <View
+              style={{
+                marginTop: Mixins.scaleSize(30),
+                marginLeft: Layouts.PAD_HORZ,
+                paddingLeft: Mixins.scaleSize(20),
+                borderLeftColor: Colors.VIOLET.dark,
+                borderLeftWidth: 1,
+              }}
+            >
+              {props.data.replies.map(reply => {
+                return (
+                  <View
+                    style={{
+                      transform: [{ scale: 0.9 }],
+                      paddingVertical: Layouts.PAD_VERT,
+                    }}
+                  >
+                    <FormattedComment data={reply} isSub={true} />
+                  </View>
+                )
+              })}
+            </View>
+          </ScrollView>
+          <View
+            style={{
+              paddingHorizontal: Layouts.PAD_HORZ_SM,
+              paddingBottom: Layouts.PAD_BOTTOM,
+            }}
+          >
+            <AddComment
+              sendComment={props.sendComment}
+              commentId={props.data._id}
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </View>
+    </Modal>
+  )
 }
 
 class Post extends React.Component {
@@ -132,7 +128,7 @@ class Post extends React.Component {
   }
 
   updateModal(comment, triggerToggle = true) {
-    this.setState({ commentForModal: { ...comment } })
+    this.setState({ commentForModal: comment })
     if (triggerToggle) {
       this.toggleModal()
     }
@@ -200,14 +196,15 @@ class Post extends React.Component {
             <AddComment sendComment={this.props.sendComment} />
           </View>
         </KeyboardAvoidingView>
-
-        <CommentDetailView
-          visible={this.state.visible}
-          data={this.state.commentForModal}
-          sendComment={this.props.sendComment}
-          updateModal={this.updateModal}
-          toggleModal={this.toggleModal}
-        />
+        {this.state.commentForModal !== undefined && (
+          <CommentDetailView
+            visible={this.state.visible}
+            data={this.state.commentForModal}
+            sendComment={this.props.sendComment}
+            updateModal={this.updateModal}
+            toggleModal={this.toggleModal}
+          />
+        )}
       </>
     )
   }

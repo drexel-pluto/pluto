@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, StyleSheet } from 'react-native'
+import { ScrollView, View, StyleSheet, Text } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import ScreenHeader from '../components/ScreenHeader'
 import CircleList from './../components/CircleList'
@@ -64,13 +64,18 @@ class GroupFeed extends React.Component {
             leftItems={leftHeaderItems}
             rightItems={rightHeaderItems}
           />
-          <View style={[Styles.shadow('black'), {
-            marginBottom: Layouts.PAD_VERT
-          }]}>
+          <View
+            style={[
+              Styles.shadow('black'),
+              {
+                marginBottom: Layouts.PAD_VERT,
+              },
+            ]}
+          >
             <View
               style={{
                 backgroundColor: Colors.PEARL,
-                borderBottomRightRadius: Mixins.scaleSize(20)
+                borderBottomRightRadius: Mixins.scaleSize(20),
               }}
             >
               <CircleList
@@ -97,11 +102,27 @@ class GroupFeed extends React.Component {
           ) : (
             <TagList data={TAG_DATA} />
           )} */}
-          <PostFeed
-            data={this.props.group.posts}
-            openPost={this.props.openPost}
-            loading={this.props.loading}
-          />
+          {this.state.groupMembers.length > 0 ? (
+            <PostFeed
+              data={this.props.group.posts}
+              openPost={this.props.openPost}
+              loading={this.props.loading}
+            />
+          ) : (
+            <View
+              style={{
+                position: 'relative',
+                top: '50%',
+                alignItems: 'center',
+                paddingHorizontal: Layouts.PAD_HORZ,
+              }}
+            >
+              <Text style={Typography.F_H2}>nothing to see here...</Text>
+              <Text style={[Typography.F_H3, { lineHeight: 25 }]}>
+                add friends to start browsing content!
+              </Text>
+            </View>
+          )}
         </ScrollView>
         {/* <LinearGradient
           colors={[Colors.TRANSPARENT, Colors.rgba(Colors.BLACK_ROCK, 0.5)]}

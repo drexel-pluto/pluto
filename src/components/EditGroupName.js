@@ -16,7 +16,7 @@ class EditGroupName extends React.Component {
     return (
       <View style={styles.inputName}>
         <TextInput
-          style={[Typography.F_H3, styles.input]}
+          style={styles.input}
           placeholder={'enter a group name...'}
           value={this.props.value}
           onChangeText={this.props.onChange} // handle input changes
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.VIOLET.dark,
     width: '65%',
     paddingBottom: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Colors.BLACK_ROCK,
   },
 })
 
