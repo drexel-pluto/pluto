@@ -21,7 +21,7 @@ class PostContainer extends React.Component {
       if (action.type.endsWith('SUCCESS')) {
         return this.props
           .getPosts(this.props.lastGroupId)
-          .then(this.props.navigation.navigate('GroupFeed'))
+          .then(this.props.navigation.goBack())
       }
     })
   }
