@@ -21,9 +21,9 @@ class PostContent extends React.Component {
       this.state.animValue,
       {
         toValue: 1,
-        duration: 800,
-        delay:  this.props.index * 150,
-        easing: Easing.out(Easing.cubic)
+        duration: 1400,
+        delay: this.props.index * 200,
+        easing: Easing.out(Easing.exp)
       }
     ).start();
   }
