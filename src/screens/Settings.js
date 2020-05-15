@@ -96,14 +96,14 @@ class Settings extends React.Component {
               </View>
             </View>
           </View>
-          <View style={{ paddingVertical: Layouts.PAD_VERT }}>
+          {/* <View style={{ paddingVertical: Layouts.PAD_VERT }}>
             <View style={styles.postDecay}>
               <Text style={[Typography.F_H3, styles.header]}>
                 post decay time
               </Text>
               <DecaySlider />
             </View>
-          </View>
+          </View> */}
           {/* <Button text="contact support"/> */}
           <View
             style={{
