@@ -14,6 +14,8 @@ export const SET_MEMBERS = 'group/SET_MEMBERS'
 
 export const SET_TITLE = 'group/SET_TITLE'
 
+export const LOAD_MORE = 'group/LOAD_MORE'
+
 export const UPDATE_POST = 'group/UPDATE_POST'
 
 // reducer
@@ -24,6 +26,7 @@ let defaultStateGroup = {
   members: [],
   loading: true,
   id: '',
+  endIndex: 0,
 }
 
 export default function reducer(state = defaultStateGroup, action) {
@@ -34,9 +37,13 @@ export default function reducer(state = defaultStateGroup, action) {
         loading: true,
         posts: [],
         id: action.payload.request?.data?.groupId ?? -1,
+        endIndex: 0
       }
     case GET_GROUP_POSTS_SUCCESS:
-      return { ...state, loading: false, posts: action.payload.data }
+      return { ...state, 
+        loading: false, posts: action.payload.data,
+        endIndex: Math.min(action.payload.data.length, 10)
+      }
     case SET_MEMBERS:
       return { ...state, members: action.members }
     case SET_TITLE:
@@ -55,6 +62,9 @@ export default function reducer(state = defaultStateGroup, action) {
       return { ...state, posts: updatePosts }
     case DELETE_GROUP:
       return defaultStateGroup
+    case LOAD_MORE:
+      console.log(state.endIndex, state.posts.length)
+      return { ...state, endIndex: Math.min(state.posts.length, state.endIndex + 10)}
     default:
       return state
   }
@@ -136,4 +146,8 @@ export function updatePosts(post_id, likes, comments) {
     likes,
     comments,
   }
+} 
+
+export function loadMore() {
+  return { type: LOAD_MORE }
 }

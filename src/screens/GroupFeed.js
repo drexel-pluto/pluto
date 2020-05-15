@@ -9,7 +9,6 @@ import TagListSkeleton from '../components/skeleton/TagList.skeleton'
 import PostFeed from './../components/PostFeed'
 import IconButton from '../components/iconButton/IconButton'
 import ContainerTail from './../assets/images/containerTail--pearl.svg'
-import { TAG_DATA } from './../assets/data'
 
 class GroupFeed extends React.Component {
   constructor(props) {
@@ -50,13 +49,50 @@ class GroupFeed extends React.Component {
       </>
     )
 
+
+    const feedHeader = (
+        <View
+          style={[
+            Styles.shadow('black'),
+            {
+              marginBottom: Layouts.PAD_VERT * 2,
+            },
+          ]}
+        >
+          <View 
+            style={{
+              backgroundColor: Colors.PEARL,
+              height: 600,
+              position: 'absolute',
+              top: -600,
+              left: 0,
+              right: 0
+            }} 
+          />
+          <View
+            style={{
+              backgroundColor: Colors.PEARL,
+              borderBottomRightRadius: Mixins.scaleSize(20),
+            }}
+          >
+            <CircleList
+              data={this.state.groupMembers}
+              navigation={this.props.navigation}
+            />
+          </View>
+          <ContainerTail
+            fill={Colors.PEARL}
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: '99.9%',
+            }}
+          />
+        </View>
+    )
+
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView
-          stickyHeaderIndices={[0]}
-          style={[styles.groupFeedScreen, Layouts.FLEX_CONTAINER]}
-          contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
-        >
           <ScreenHeader
             isFixed={true}
             headerColor={Colors.PEARL}
@@ -64,34 +100,6 @@ class GroupFeed extends React.Component {
             leftItems={leftHeaderItems}
             rightItems={rightHeaderItems}
           />
-          <View
-            style={[
-              Styles.shadow('black'),
-              {
-                marginBottom: Layouts.PAD_VERT,
-              },
-            ]}
-          >
-            <View
-              style={{
-                backgroundColor: Colors.PEARL,
-                borderBottomRightRadius: Mixins.scaleSize(20),
-              }}
-            >
-              <CircleList
-                data={this.state.groupMembers}
-                navigation={this.props.navigation}
-              />
-            </View>
-            <ContainerTail
-              fill={Colors.PEARL}
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: '99.9%',
-              }}
-            />
-          </View>
           {/* <RecentPostList
             data={this.props.group.posts}
             openPost={this.props.openPost}
@@ -107,6 +115,9 @@ class GroupFeed extends React.Component {
               data={this.props.group.posts}
               openPost={this.props.openPost}
               loading={this.props.loading}
+              endIndex={this.props.endIndex}
+              loadMore={this.props.loadMore}
+              header={feedHeader}
             />
           ) : (
             <View
@@ -123,7 +134,6 @@ class GroupFeed extends React.Component {
               </Text>
             </View>
           )}
-        </ScrollView>
         {/* <LinearGradient
           colors={[Colors.TRANSPARENT, Colors.rgba(Colors.BLACK_ROCK, 0.5)]}
           style={styles.bottom_overlay}

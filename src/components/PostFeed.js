@@ -6,32 +6,41 @@ import PostTeaserFullSkeleton from './skeleton/PostTeaserFull.skeleton'
 
 export default PostFeed = props => {
   return (
-    <View style={styles.postFeed}>
+    <View style={{flex:1, zIndex: 0}}>
       {props.loading === true ? (
         <>
+          {props.header}
           <PostTeaserFullSkeleton />
           <PostTeaserFullSkeleton />
           <PostTeaserFullSkeleton />
         </>
       ) : (
         <FlatList
-          data={props.data}
+          style={{flex:1}}
+          data={props.data.slice(0, props.endIndex)}
+          contentContainerStyle={{paddingBottom: Layouts.PAD_VERT * 1}}
+          onEndReached={() => props.loadMore()}
           removeClippedSubviews={true}
+          ListHeaderComponent={props.header}
+          style={styles.postFeed}
+          // showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => {
             return (
-              <PostTeaserFull
-                key={item._id}
-                _id={item._id}
-                media={item.mediaURLs}
-                text={item.text}
-                tags={item.tags}
-                postedAt={item.postedAt}
-                poster={item.poster}
-                likes={item.likes}
-                comments={item.comments.length}
-                openPost={props.openPost}
-                index={index}
-              />
+              <View style={styles.feedItem}>
+                <PostTeaserFull
+                  key={item._id}
+                  _id={item._id}
+                  media={item.mediaURLs}
+                  text={item.text}
+                  tags={item.tags}
+                  postedAt={item.postedAt}
+                  poster={item.poster}
+                  likes={item.likes}
+                  comments={item.comments.length}
+                  openPost={props.openPost}
+                  index={props.endIndex ? index - props.endIndex + 10 : index}
+                />
+              </View>
             )
           }}
           keyExtractor={item => item._id}
@@ -41,12 +50,13 @@ export default PostFeed = props => {
   )
 }
 
+PostFeed.defaultProps = {
+  loadMore: () => {},
+  label: "Button Text"
+};
+
 const styles = StyleSheet.create({
-  postFeed: {
-    width: '100%',
-    paddingTop: Layouts.PAD_VERT,
+  feedItem: {
     paddingHorizontal: Layouts.PAD_HORZ_SM,
-    borderTopLeftRadius: Mixins.scaleSize(20),
-    overflow: 'hidden',
   },
 })

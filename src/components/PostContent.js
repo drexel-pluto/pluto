@@ -22,8 +22,8 @@ class PostContent extends React.Component {
       {
         toValue: 1,
         duration: 800,
-        delay: 40 + this.props.index * 100,
-        easing: Easing.out(Easing.exp)
+        delay:  this.props.index * 150,
+        easing: Easing.out(Easing.cubic)
       }
     ).start();
   }

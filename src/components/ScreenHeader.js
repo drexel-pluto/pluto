@@ -9,7 +9,7 @@ export default ScreenHeader = props => {
     <View
       style={[
         styles.screenHeader,
-        isFixed ? { backgroundColor: headerColor } : null,
+        isFixed ? { backgroundColor: headerColor, zIndex: 100 } : null,
       ]}
     >
       <View style={styles.leftItems}>
