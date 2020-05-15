@@ -7,6 +7,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
+  Animated,
+  Easing
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import AuthorHeader from './AuthorHeader'
@@ -15,6 +17,22 @@ import FormattedComment from './../containers/formattedComment.container'
 export default class Comment extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      animValue: new Animated.Value(0)
+    }
+  }
+
+  componentDidMount() {
+    Animated.timing(
+      this.state.animValue,
+      {
+        toValue: 1,
+        duration: 800,
+        delay: 130 + this.props.index * 100,
+        easing: Easing.out(Easing.exp)
+      }
+    ).start();
   }
 
   // componentDidUpdate(prevProps) {
@@ -30,7 +48,13 @@ export default class Comment extends React.Component {
           this.props.updateModal(this.props.data)
         }}
       >
-        <View style={styles.comment}>
+        <Animated.View style={[styles.comment, {
+            opacity: this.state.animValue,
+            top: this.state.animValue.interpolate({
+              inputRange: [0, 1],
+              outputRange: [40, 0]
+            })
+          }]}>
           <FormattedComment data={this.props.data} />
           <View style={{ alignItems: 'flex-end' }}>
             <CommentButton
@@ -41,7 +65,7 @@ export default class Comment extends React.Component {
               }}
             />
           </View>
-        </View>
+        </Animated.View>
       </TouchableWithoutFeedback>
     )
   }

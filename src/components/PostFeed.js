@@ -16,6 +16,7 @@ export default PostFeed = props => {
       ) : (
         <FlatList
           data={props.data}
+          removeClippedSubviews={true}
           renderItem={({ item, index }) => {
             return (
               <PostTeaserFull
@@ -29,6 +30,7 @@ export default PostFeed = props => {
                 likes={item.likes}
                 comments={item.comments.length}
                 openPost={props.openPost}
+                index={index}
               />
             )
           }}

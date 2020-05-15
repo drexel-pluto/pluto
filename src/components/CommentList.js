@@ -12,8 +12,8 @@ export default CommentList = props => {
       ) : (
         <FlatList
           data={props.data}
-          renderItem={({ item }) => (
-            <Comment data={item} updateModal={props.updateModal} />
+          renderItem={({ item, index }) => (
+            <Comment data={item} updateModal={props.updateModal} index={index} />
           )}
           keyExtractor={item => item.id}
         />

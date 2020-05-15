@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native'
+import { View, Text, TouchableWithoutFeedback, StyleSheet, Animated, Easing } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import PostMedia from '../components/PostMedia'
 import ContainerTail from './../assets/images/containerTail.svg'
@@ -11,6 +11,21 @@ import * as RootNavigation from '../navigation'
 class PostContent extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      animValue: new Animated.Value(0)
+    }
+  }
+
+  componentDidMount() {
+    Animated.timing(
+      this.state.animValue,
+      {
+        toValue: 1,
+        duration: 800,
+        delay: 40 + this.props.index * 100,
+        easing: Easing.out(Easing.exp)
+      }
+    ).start();
   }
 
   onPressHash(tag) {
@@ -50,7 +65,14 @@ class PostContent extends React.Component {
 
   render() {
     return (
-      <View style={styles.content}>
+      <Animated.View style={[styles.content,
+         {
+          opacity: this.state.animValue,
+          top: this.state.animValue.interpolate({
+            inputRange: [0, 1],
+            outputRange: [40, 0]
+        })
+      }]}>
         {
           //top
         }
@@ -131,7 +153,7 @@ class PostContent extends React.Component {
             <View style={styles.actions}>{this.props.rightItem || null}</View>
           </View>
         </View>
-      </View>
+      </Animated.View>
     )
   }
 }

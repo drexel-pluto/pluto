@@ -1,16 +1,38 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import React, { useRef, useEffect } from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Animated, Easing } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import RNMasonryScroll from 'react-native-masonry-scrollview'
 import AutoHeightImage from 'react-native-auto-height-image'
 import StyledContainer from './StyledContainer'
 
-const PostGridItem = props => {
+const PostGridItem = React.memo(props => {
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  React.useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 800,
+        easing: Easing.out(Easing.exp),
+        delay: props.index * 50
+      }
+    ).start();
+  }, [])
+
   const itemWidth =
     Mixins.resWidthPercent(50) - Mixins.scaleSize(Layouts.PAD_HORZ + 15)
   const { _id, author, media, text, openPost } = props
-
   return (
+    <Animated.View
+    style={{
+      opacity: fadeAnim,
+      top: fadeAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [80, 0]
+      })
+    }}>
     <TouchableOpacity
       onPress={() => {
         openPost(_id, author)
@@ -37,8 +59,10 @@ const PostGridItem = props => {
         </View>
       </StyledContainer>
     </TouchableOpacity>
+
+    </Animated.View>
   )
-}
+});
 
 export default PostGrid = props => {
   return (
@@ -53,6 +77,7 @@ export default PostGrid = props => {
               text={item.text}
               openPost={props.openPost}
               key={index}
+              index={index}
             />
           )
         })}

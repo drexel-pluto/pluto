@@ -14,6 +14,10 @@ class PostTeaserFull extends React.Component {
     super(props)
   }
 
+  shouldComponentUpdate() {
+    return false;
+  };
+
   render() {
     return (
       <TouchableWithoutFeedback
@@ -29,6 +33,7 @@ class PostTeaserFull extends React.Component {
             author={this.props.poster}
             likes={this.props.likes}
             hasMaxTextLine={true}
+            index={this.props.index || 0}
             leftItem={
               <CommentButton
                 _onPress={() =>
