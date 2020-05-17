@@ -38,20 +38,21 @@ class HeartButton extends React.Component {
       )
     }
   }
-  componentDidUpdate(prevProps) {
-    if (this.props.isLiked !== prevProps.isLiked) {
-      this.setState({
-        isLiked: this.props.isLiked,
-      })
-      this.props.isLiked ??
-        this.state.animatedScaleValue.setValue(this.animatedScaleValueCompleted)
 
-      this.props.isLiked ??
-        this.state.animatedTranslateValue.setValue(
-          this.animatedTranslateValueCompleted
-        )
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.isLiked !== prevProps.isLiked) {
+  //     this.setState({
+  //       isLiked: this.props.isLiked,
+  //     })
+  //     this.props.isLiked ??
+  //       this.state.animatedScaleValue.setValue(this.animatedScaleValueCompleted)
+
+  //     this.props.isLiked ??
+  //       this.state.animatedTranslateValue.setValue(
+  //         this.animatedTranslateValueCompleted
+  //       )
+  //   }
+  // }
 
   componentWillUpdate(nextProps) {
     const oldCount = this.props.count
