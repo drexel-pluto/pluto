@@ -9,7 +9,6 @@ import TagListSkeleton from '../components/skeleton/TagList.skeleton'
 import PostFeed from './../components/PostFeed'
 import IconButton from '../components/iconButton/IconButton'
 import ContainerTail from './../assets/images/containerTail--pearl.svg'
-import { TAG_DATA } from './../assets/data'
 
 class TagFeed extends React.Component {
   render() {
@@ -24,7 +23,7 @@ class TagFeed extends React.Component {
         <ScreenHeader
           isFixed={true}
           headerColor={Colors.PEARL}
-          title={"#" + this.props.tag}
+          title={'#' + this.props.tag}
           leftItems={leftHeaderItems}
         />
         <ScrollView
@@ -43,7 +42,7 @@ class TagFeed extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  groupFeedScreen: {}
+  groupFeedScreen: {},
 })
 
 export default TagFeed
