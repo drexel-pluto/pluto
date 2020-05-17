@@ -14,7 +14,6 @@ import PostContent from './../components/PostContent'
 import PostTeaserFullSkeleton from '../components/skeleton/PostTeaserFull.skeleton'
 import AddComment from '../components/AddComment'
 import Modal from 'react-native-modal'
-import Button from './../components/Button'
 import FormattedComment from './../containers/formattedComment.container'
 
 const CommentDetailView = props => {
@@ -35,9 +34,8 @@ const CommentDetailView = props => {
         >
           <ScreenHeader
             rightItems={
-              <Button
-                text="cancel"
-                type="text"
+              <IconButton
+                type="cancel"
                 _onPress={() => {
                   props.toggleModal()
                 }}

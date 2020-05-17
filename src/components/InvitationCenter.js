@@ -116,6 +116,7 @@ const RequestList = props => {
                 <IconButton
                   type="cancel"
                   isSmall={true}
+                  customColor={Colors.MELON.dark}
                   _onPress={() => props.cancel(request.to.username)}
                 />
               ) : (
@@ -123,12 +124,14 @@ const RequestList = props => {
                   <IconButton
                     type="confirm"
                     isSmall={true}
+                    customColor={Colors.CARBONE.dark}
                     _onPress={() => props.accept(request.from.username)}
                     style={{ marginRight: Mixins.scaleSize(8) }}
                   />
                   <IconButton
                     type="cancel"
                     isSmall={true}
+                    customColor={Colors.MELON.dark}
                     _onPress={() => props.reject(request.from.username)}
                   />
                 </>

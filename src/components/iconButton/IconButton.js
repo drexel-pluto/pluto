@@ -18,7 +18,7 @@ import EditImage from '../../assets/images/iconEdit.svg'
 import Confirm from '../../assets/images/iconConfirm.svg'
 
 export default IconButton = props => {
-  const { type, isSmall, _onPress, style } = props
+  const { type, isSmall, _onPress, style, customColor } = props
   const smallIconSize = 0.8
 
   switch (type) {
@@ -190,7 +190,7 @@ export default IconButton = props => {
             _onPress()
           }}
         >
-          <Cancel />
+          <Cancel stroke={customColor} />
         </TouchableOpacity>
       )
 
@@ -206,7 +206,7 @@ export default IconButton = props => {
             _onPress()
           }}
         >
-          <Confirm />
+          <Confirm stroke={customColor} />
         </TouchableOpacity>
       )
     case 'back':
@@ -245,6 +245,7 @@ export default IconButton = props => {
 IconButton.defaultProps = {
   type: 'icon',
   isSmall: false,
+  customColor: Colors.BLACK_ROCK,
   _onPress: () => {},
 }
 
