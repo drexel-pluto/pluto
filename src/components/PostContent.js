@@ -1,5 +1,12 @@
 import React from 'react'
-import { View, Text, TouchableWithoutFeedback, StyleSheet, Animated, Easing } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  Animated,
+  Easing,
+} from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import PostMedia from '../components/PostMedia'
 import ContainerTail from './../assets/images/containerTail.svg'
@@ -12,26 +19,23 @@ class PostContent extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      animValue: new Animated.Value(0)
+      animValue: new Animated.Value(0),
     }
   }
 
   componentDidMount() {
-    Animated.timing(
-      this.state.animValue,
-      {
-        toValue: 1,
-        duration: 1400,
-        delay: this.props.index * 200,
-        easing: Easing.out(Easing.exp)
-      }
-    ).start();
+    Animated.timing(this.state.animValue, {
+      toValue: 1,
+      duration: 1400,
+      delay: this.props.index * 200,
+      easing: Easing.out(Easing.exp),
+    }).start()
   }
 
   onPressHash(tag) {
     RootNavigation.navigate('TagFeed', {
-      tag
-    });
+      tag,
+    })
   }
 
   linkHash(text) {
@@ -65,66 +69,69 @@ class PostContent extends React.Component {
 
   render() {
     return (
-      <Animated.View style={[styles.content,
-         {
-          opacity: this.state.animValue,
-          top: this.state.animValue.interpolate({
-            inputRange: [0, 1],
-            outputRange: [40, 0]
-        })
-      }]}>
+      <Animated.View
+        style={[
+          styles.content,
+          {
+            opacity: this.state.animValue,
+            top: this.state.animValue.interpolate({
+              inputRange: [0, 1],
+              outputRange: [40, 0],
+            }),
+          },
+        ]}
+      >
         {
           //top
         }
 
-        <View style={[Styles.shadow('black'), { zIndex: 2 }]}>
+        <View
+          style={{
+            borderBottomRightRadius: Mixins.scaleSize(20),
+            overflow: 'hidden',
+          }}
+        >
           <View
             style={{
-              borderBottomRightRadius: Mixins.scaleSize(20),
-              overflow: 'hidden',
+              backgroundColor: 'white',
+              padding: Mixins.scaleSize(15),
             }}
           >
-            <View
-              style={{
-                backgroundColor: 'white',
-                padding: Mixins.scaleSize(15),
-              }}
-            >
-              <View style={styles.author_wrapper}>
-                <AuthorHeader
-                  isCompact={false}
-                  author={this.props.author}
-                  authorId={this.props.author._id}
-                  time={this.props.postedAt}
-                />
-              </View>
-              {// render text if exists
-              this.props.text ? (
-                <View style={styles.text_wrapper}>
-                  <Text
-                    numberOfLines={this.props.hasMaxTextLine ? 10 : null}
-                    style={[styles.text, Typography.F_BODY]}
-                  >
-                    {this.renderText()}
-                  </Text>
-                </View>
-              ) : null}
+            <View style={styles.author_wrapper}>
+              <AuthorHeader
+                isCompact={false}
+                author={this.props.author}
+                authorId={this.props.author._id}
+                time={this.props.postedAt}
+              />
             </View>
+            {// render text if exists
+            this.props.text ? (
+              <View style={styles.text_wrapper}>
+                <Text
+                  numberOfLines={this.props.hasMaxTextLine ? 10 : null}
+                  style={[styles.text, Typography.F_BODY]}
+                >
+                  {this.renderText()}
+                </Text>
+              </View>
+            ) : null}
           </View>
-          <ContainerTail
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: '99.9%',
-            }}
-          />
         </View>
 
         {
           //bottom
         }
-
         <View style={{ backgroundColor: Colors.PEARL }}>
+          <View>
+            <ContainerTail
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: '99.9%',
+              }}
+            />
+          </View>
           {// render img if exists
           this.props.media.length > 0 ? (
             <View style={styles.image_wrapper}>
