@@ -15,9 +15,11 @@ import Cancel from '../../assets/images/iconCancel.svg'
 import UploadImage from '../../assets/images/iconCamera.svg'
 import ChooseImage from '../../assets/images/iconImage.svg'
 import EditImage from '../../assets/images/iconEdit.svg'
+import Confirm from '../../assets/images/iconConfirm.svg'
 
 export default IconButton = props => {
-  const { type, customColor, _onPress } = props
+  const { type, isSmall, _onPress, style } = props
+  const smallIconSize = 0.8
 
   switch (type) {
     case 'addPost':
@@ -32,7 +34,11 @@ export default IconButton = props => {
     case 'edit':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             _onPress()
           }}
@@ -55,7 +61,11 @@ export default IconButton = props => {
     case 'settings':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             _onPress()
           }}
@@ -67,7 +77,11 @@ export default IconButton = props => {
     case 'filter':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             _onPress()
           }}
@@ -79,7 +93,11 @@ export default IconButton = props => {
     case 'searchItem':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             // _onPress()
             alert('feature in progress')
@@ -91,7 +109,11 @@ export default IconButton = props => {
     case 'notiCenter':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             _onPress()
           }}
@@ -103,7 +125,11 @@ export default IconButton = props => {
     case 'myProfile':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             _onPress()
           }}
@@ -115,7 +141,11 @@ export default IconButton = props => {
     case 'comment':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             _onPress()
           }}
@@ -127,7 +157,7 @@ export default IconButton = props => {
     case 'chooseImage':
       return (
         <TouchableOpacity
-          style={styles.iconButton, styles.iconChooseImage}
+          style={(styles.iconButton, styles.iconChooseImage)}
           onPress={() => {
             _onPress()
           }}
@@ -139,7 +169,7 @@ export default IconButton = props => {
     case 'uploadImage':
       return (
         <TouchableOpacity
-          style={styles.iconUploadImg} 
+          style={styles.iconUploadImg}
           onPress={() => {
             _onPress()
           }}
@@ -151,7 +181,11 @@ export default IconButton = props => {
     case 'cancel':
       return (
         <TouchableOpacity
-          style={[styles.iconButton, props.style]}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             _onPress()
           }}
@@ -159,10 +193,30 @@ export default IconButton = props => {
           <Cancel />
         </TouchableOpacity>
       )
+
+    case 'confirm':
+      return (
+        <TouchableOpacity
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
+          onPress={() => {
+            _onPress()
+          }}
+        >
+          <Confirm />
+        </TouchableOpacity>
+      )
     case 'back':
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             _onPress(null)
           }}
@@ -173,7 +227,11 @@ export default IconButton = props => {
     default:
       return (
         <TouchableOpacity
-          style={styles.iconButton}
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? smallIconSize : 1 }] },
+            style,
+          ]}
           onPress={() => {
             _onPress()
           }}
@@ -186,6 +244,7 @@ export default IconButton = props => {
 
 IconButton.defaultProps = {
   type: 'icon',
+  isSmall: false,
   _onPress: () => {},
 }
 
@@ -201,5 +260,4 @@ const styles = StyleSheet.create({
     padding: Mixins.scaleSize(5),
     paddingLeft: '13%',
   },
- 
 })
