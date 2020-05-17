@@ -18,12 +18,8 @@ class HeartButton extends React.Component {
 
     this.state = {
       isLiked: this.props.isLiked,
-      animatedScaleValue: this.props.isLiked
-        ? new Animated.Value(this.animatedScaleValueCompleted)
-        : new Animated.Value(0),
-      animatedTranslateValue: this.props.isLiked
-        ? new Animated.Value(this.animatedTranslateValueCompleted)
-        : new Animated.Value(0),
+      animatedScaleValue: new Animated.Value(0),
+      animatedTranslateValue: new Animated.Value(0),
     }
   }
 
@@ -32,45 +28,38 @@ class HeartButton extends React.Component {
       this.setState({
         isLiked: this.props.isLiked,
       })
-      this.props.isLiked
-        ? this.state.animatedTranslateValue.setValue(
-            this.animatedTranslateValueCompleted
-          )
-        : this.state.animatedTranslateValue.setValue(0)
-      this.props.isLiked
-        ? this.state.animatedScaleValue.setValue(
-            this.animatedScaleValueCompleted
-          )
-        : this.state.animatedScaleValue.setValue(0)
+      this.props.isLiked ??
+        this.state.animatedScaleValue.setValue(this.animatedScaleValueCompleted)
+
+      this.props.isLiked ??
+        this.state.animatedTranslateValue.setValue(
+          this.animatedTranslateValueCompleted
+        )
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.isLiked) {
+      this.state.animatedScaleValue.setValue(this.animatedScaleValueCompleted)
+      this.state.animatedTranslateValue.setValue(
+        this.animatedTranslateValueCompleted
+      )
     }
   }
 
   heartAnimate() {
-    if (!this.state.isLiked) {
-      // first like
-      Animated.sequence([
-        Animated.spring(this.state.animatedScaleValue, {
-          toValue: this.animatedScaleValueCompleted,
-          duration: 300,
-        }).start(),
-        Animated.spring(this.state.animatedTranslateValue, {
-          toValue: this.animatedTranslateValueCompleted,
-          duration: 200,
-          friction: 3,
-          tension: 40,
-          delay: 300,
-        }).start(),
-      ])
-
-      this.setState({ isLiked: true })
-    } else {
-      // after liked
+    if (this.state.isLiked) {
       this.state.animatedTranslateValue.setValue(0)
       Animated.spring(this.state.animatedTranslateValue, {
         toValue: this.animatedTranslateValueCompleted,
         duration: 200,
-        friction: 3,
-        tension: 40,
+      }).start()
+    } else {
+      this.state.animatedScaleValue.setValue(1)
+
+      Animated.spring(this.state.animatedTranslateValue, {
+        toValue: this.animatedTranslateValueCompleted,
+        duration: 200,
       }).start()
     }
   }
@@ -81,24 +70,26 @@ class HeartButton extends React.Component {
   }
 
   render() {
-    const animatedStyleScale = {
-      transform: [
-        {
-          scale: this.state.animatedScaleValue,
-        },
-      ],
-    }
-
-    const animatedStyleTranslate = {
-      transform: [{ translateX: this.state.animatedTranslateValue }],
-    }
-
     return (
       <TouchableWithoutFeedback onPress={() => this._onPress()}>
         <View style={styles.heartButton}>
           <IconHeart />
-          <Animated.View style={[styles.filled, animatedStyleTranslate]}>
-            <Animated.View style={[styles.filled, animatedStyleScale]}>
+          <Animated.View
+            style={[
+              styles.filled,
+              {
+                transform: [{ translateX: this.state.animatedTranslateValue }],
+              },
+            ]}
+          >
+            <Animated.View
+              style={[
+                styles.filled,
+                {
+                  transform: [{ scale: this.state.animatedScaleValue }],
+                },
+              ]}
+            >
               <IconHeartFilled />
             </Animated.View>
           </Animated.View>
