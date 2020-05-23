@@ -14,9 +14,9 @@ class PostTeaserFull extends React.Component {
     super(props)
   }
 
-  shouldComponentUpdate() {
-    return false;
-  };
+  // shouldComponentUpdate() {
+  //   return false;
+  // };
 
   render() {
     return (
