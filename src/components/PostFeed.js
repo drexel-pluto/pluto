@@ -16,14 +16,17 @@ export default PostFeed = props => {
         </>
       ) : (
         <FlatList
-          style={{flex:1}}
           data={props.data.slice(0, props.endIndex)}
           contentContainerStyle={{paddingBottom: Layouts.PAD_VERT * 1}}
-          onEndReached={() => props.loadMore()}
+          onEndReached={() => {
+            if (props.data.length > props.endIndex) {
+              props.loadMore()
+            }
+          }}
           removeClippedSubviews={true}
           ListHeaderComponent={props.header}
           style={styles.postFeed}
-          // showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => {
             return (
               <View style={styles.feedItem}>
@@ -38,7 +41,7 @@ export default PostFeed = props => {
                   likes={item.likes}
                   comments={item.comments.length}
                   openPost={props.openPost}
-                  index={props.endIndex ? index - props.endIndex + 10 : index}
+                  index={props.endIndex ? index - props.endIndex + Math.min(props.endIndex, 10) : index}
                 />
               </View>
             )

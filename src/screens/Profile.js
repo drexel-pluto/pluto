@@ -16,7 +16,7 @@ class Profile extends React.Component {
     return (
       <ScrollView
         stickyHeaderIndices={[0]}
-        contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM }}
+        contentContainerStyle={{ paddingBottom: Layouts.PAD_BOTTOM, flexGrow: 1 }}
       >
         <ScreenHeader
           isFixed={true}

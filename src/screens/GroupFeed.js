@@ -92,7 +92,7 @@ class GroupFeed extends React.Component {
     )
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1}}>
           <ScreenHeader
             isFixed={true}
             headerColor={Colors.PEARL}

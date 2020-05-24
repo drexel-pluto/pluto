@@ -27,5 +27,6 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: Layouts.PAD_HORZ_SM,
     paddingVertical: Layouts.PAD_VERT,
+    flexGrow: 1,
   },
 })

@@ -148,7 +148,7 @@ class Post extends React.Component {
         >
           <ScrollView
             stickyHeaderIndices={[0]}
-            contentContainerStyle={{ paddingBottom: Mixins.scaleSize(70) }}
+            contentContainerStyle={{ paddingBottom: Mixins.scaleSize(70), flexGrow: 1 }}
           >
             <ScreenHeader
               isFixed={true}

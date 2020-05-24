@@ -67,7 +67,7 @@ const PostGridItem = React.memo(props => {
 export default PostGrid = props => {
   return (
     <View style={styles.postGrid}>
-      <RNMasonryScroll columns={2}>
+      <RNMasonryScroll columns={2} style={{flexGrow: 1}}>
         {props.data.map((item, index) => {
           return (
             <PostGridItem
