@@ -4,6 +4,14 @@ import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import { getFriendById } from '../redux/store'
 import { useNavigation } from '@react-navigation/native'
 
+const anonProfiles = [
+  require("../assets/images/anon_profiles/prof_01.png"),
+  require("../assets/images/anon_profiles/prof_02.png"),
+  require("../assets/images/anon_profiles/prof_03.png"),
+  require("../assets/images/anon_profiles/prof_04.png"),
+  require("../assets/images/anon_profiles/prof_05.png"),
+]
+
 const AuthorHeader = props => {
   const navigation = useNavigation()
   const { author, isCompact, authorId } = props
@@ -13,6 +21,7 @@ const AuthorHeader = props => {
   } else {
     authInfo = getFriendById(authorId)
   }
+
   return (
     <View style={styles.author}>
       <TouchableOpacity
@@ -23,11 +32,10 @@ const AuthorHeader = props => {
       >
         <Image
           style={[styles.author__image, isCompact ? styles.isCompact : '']}
-          source={{
-            uri: authInfo.profilePicURL
-              ? authInfo.profilePicURL
-              : 'https://picsum.photos/id/237/300/300',
-          }}
+          source={ authInfo.profilePicURL 
+            ? {uri: authInfo.profilePicURL}
+            : anonProfiles[hashString(JSON.stringify(authInfo))]
+          }
         />
       </TouchableOpacity>
       {isCompact ? null : (
@@ -76,6 +84,17 @@ export const calcTimeDif = time => {
   }
   return Math.floor(seconds) + ' seconds ago'
 }
+
+const hashString = function(str) {
+  var hash = 0, i, chr, len;
+  if (str.length === 0) return hash;
+  for (i = 0, len = str.length; i < len; i++) {
+    chr   = str.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return Math.abs(hash) % anonProfiles.length;
+};
 
 const styles = StyleSheet.create({
   author: {
