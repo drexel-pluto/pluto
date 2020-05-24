@@ -38,7 +38,7 @@ class EditGroup extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={[styles.editGroupScreen]} behavior="height">
+      <KeyboardAvoidingView style={[styles.editGroupScreen]} behavior="padding">
         <ScreenHeader
           leftItems={
             <Button
@@ -89,13 +89,6 @@ const styles = StyleSheet.create({
   editGroupScreen: {
     backgroundColor: Colors.VIOLET.light,
     flex: 1,
-  },
-  actions: {
-    flexDirection: 'row',
-    color: 'white',
-    paddingVertical: Mixins.scaleSize(45),
-    paddingHorizontal: Layouts.PAD_HORZ,
-    justifyContent: 'space-between',
   },
 })
 

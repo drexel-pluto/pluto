@@ -16,12 +16,12 @@ class SelectFriendList extends React.Component {
   constructor(props) {
     super(props)
 
-    this.animatedHeightValue = Mixins.scaleSize(350)
-    this.animatedHeightValueCompleted = Mixins.scaleSize(500)
+    // this.animatedHeightValue = Mixins.scaleSize(350)
+    // this.animatedHeightValueCompleted = Mixins.scaleSize(500)
 
     this.state = {
       searchText: '',
-      animatedHeightValue: new Animated.Value(this.animatedHeightValue),
+      // animatedHeightValue: new Animated.Value(this.animatedHeightValue),
     }
   }
 
@@ -29,30 +29,30 @@ class SelectFriendList extends React.Component {
     this.setState({ searchText: text })
   }
 
-  swipeUpAnimate() {
-    // expand
-    this.state.animatedHeightValue.setValue(this.animatedHeightValue)
-    Animated.spring(this.state.animatedHeightValue, {
-      toValue: this.animatedHeightValueCompleted,
-      duration: 200,
-      friction: 5,
-      tension: 35,
-    }).start()
-  }
+  // swipeUpAnimate() {
+  //   // expand
+  //   this.state.animatedHeightValue.setValue(this.animatedHeightValue)
+  //   Animated.spring(this.state.animatedHeightValue, {
+  //     toValue: this.animatedHeightValueCompleted,
+  //     duration: 200,
+  //     friction: 5,
+  //     tension: 35,
+  //   }).start()
+  // }
 
-  swipeDownAnimate() {
-    //collapse
-    this.state.animatedHeightValue.setValue(this.animatedHeightValueCompleted)
-    Animated.spring(this.state.animatedHeightValue, {
-      toValue: this.animatedHeightValue,
-      duration: 200,
-      friction: 5,
-      tension: 35,
-    }).start()
-  }
+  // swipeDownAnimate() {
+  //   //collapse
+  //   this.state.animatedHeightValue.setValue(this.animatedHeightValueCompleted)
+  //   Animated.spring(this.state.animatedHeightValue, {
+  //     toValue: this.animatedHeightValue,
+  //     duration: 200,
+  //     friction: 5,
+  //     tension: 35,
+  //   }).start()
+  // }
 
   render() {
-    var friends = this.props.friends
+    var friends = this.props.friends;
 
     if (this.state.searchText != '') {
       friends = this.props.friends.filter(item => {
@@ -64,32 +64,35 @@ class SelectFriendList extends React.Component {
       })
     }
 
-    const animatedStyleHeight = {
-      height: this.state.animatedHeightValue,
-    }
+    // const animatedStyleHeight = {
+    //   height: this.state.animatedHeightValue,
+    // }
 
     return (
-      <Animated.View
-        style={[styles.FriendSelectList, animatedStyleHeight]}
+      <View
+        style={[
+          styles.FriendSelectList, 
+          // animatedStyleHeight
+        ]}
         stickyHeaderIndices={[0]}
       >
-        <GestureRecognizer
+        {/* <GestureRecognizer
           onSwipeUp={() => {
             this.swipeUpAnimate()
           }}
           onSwipeDown={() => {
             this.swipeDownAnimate()
           }}
-        >
+        > */}
           <View
             style={{
-              paddingTop: Mixins.scaleSize(10),
+              paddingTop: Mixins.scaleSize(20),
               paddingBottom: Mixins.scaleSize(20),
               justifyContent: 'center',
               alignItems: 'center',
             }}
           >
-            <View
+            {/* <View
               style={{
                 width: 50,
                 height: 3,
@@ -97,13 +100,13 @@ class SelectFriendList extends React.Component {
                 backgroundColor: Colors.GRAY_LIGHT,
                 marginBottom: Mixins.scaleSize(15),
               }}
-            ></View>
+            ></View> */}
             <InputHeader
               placeholder="search for friends..."
               onChangeText={text => this.onChangeText(text)}
             />
           </View>
-        </GestureRecognizer>
+        {/* </GestureRecognizer> */}
         <FlatList
           style={{ flex: 1 }}
           contentContainerStyle={{
@@ -120,13 +123,14 @@ class SelectFriendList extends React.Component {
           extraData={this.props.members}
           keyExtractor={item => item.friend._id}
         />
-      </Animated.View>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   FriendSelectList: {
+    flex: 3,
     backgroundColor: Colors.UI_BG,
     borderTopLeftRadius: Mixins.scaleSize(35),
     borderTopRightRadius: Mixins.scaleSize(35),
