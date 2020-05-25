@@ -224,6 +224,22 @@ export default IconButton = props => {
           <Back />
         </TouchableOpacity>
       )
+
+    case 'options':
+      return (
+        <TouchableOpacity
+          style={[
+            styles.iconButton,
+            { transform: [{ scale: isSmall ? 0.7 : 1 }, {rotate: Math.PI / -2}] },
+            style,
+          ]}
+          onPress={() => {
+            _onPress(null)
+          }}
+        >
+          <Back />
+        </TouchableOpacity>
+      )
     default:
       return (
         <TouchableOpacity

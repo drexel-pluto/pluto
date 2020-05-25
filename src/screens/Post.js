@@ -158,14 +158,6 @@ class Post extends React.Component {
                   _onPress={this.props.navigation.goBack}
                 />
               }
-              rightItems={
-                this.props.data.poster._id === this.props.userId && (
-                  <IconButton
-                    type="settings"
-                    _onPress={() => this.props.showOptions()}
-                  />
-                )
-              }
             />
 
             <View style={{ paddingHorizontal: Layouts.PAD_HORZ_SM }}>

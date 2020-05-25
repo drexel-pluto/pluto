@@ -12,8 +12,11 @@ import PostMedia from '../components/PostMedia'
 import ContainerTail from './../assets/images/containerTail.svg'
 import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
+import Button from './Button'
 import HeartButtonContainer from './../containers/heartButton.container'
 import * as RootNavigation from '../navigation'
+import { connectActionSheet } from '@expo/react-native-action-sheet'
+import { connect } from 'react-redux'
 
 class PostContent extends React.Component {
   constructor(props) {
@@ -21,6 +24,67 @@ class PostContent extends React.Component {
     this.state = {
       animValue: new Animated.Value(0),
     }
+  }
+
+  showOptions() {
+    let cancelButtonIndex = 2
+    let options = ['Hide Post', 'Report Post', 'Cancel']
+    
+    if (this.props.author._id == this.props.userId) {
+      cancelButtonIndex = 1
+      options = ['Delete Post', 'Cancel']
+    }
+
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex: this.props.author._id == this.props.userId ? 0 : null,
+      },
+      buttonIndex => {
+        if (this.props.author._id == this.props.userId) {
+          if (buttonIndex == 0) { // DELETE POST
+            console.log("delete")
+          }
+        } else {
+          if (buttonIndex == 0 ) { // HIDE POST 
+            console.log("hide")
+          } else if (buttonIndex == 1) { //REPORT POST
+            console.log("report")
+          }
+        }
+      }
+    )
+  }
+
+  deletePost() {
+    this.props.deletePost(this.props.post._id).then(action => {
+      if (action.type.endsWith('SUCCESS')) {
+        return this.props
+          .getPosts(this.props.lastGroupId)
+          .then(this.props.navigation.goBack())
+      }
+    })
+  }
+
+  reportPost() {
+    this.props.deletePost(this.props.post._id).then(action => {
+      if (action.type.endsWith('SUCCESS')) {
+        return this.props
+          .getPosts(this.props.lastGroupId)
+          .then(this.props.navigation.goBack())
+      }
+    })
+  }
+
+  hidePost() {
+    this.props.deletePost(this.props.post._id).then(action => {
+      if (action.type.endsWith('SUCCESS')) {
+        return this.props
+          .getPosts(this.props.lastGroupId)
+          .then(this.props.navigation.goBack())
+      }
+    })
   }
 
   componentDidMount() {
@@ -104,6 +168,12 @@ class PostContent extends React.Component {
                 authorId={this.props.author._id}
                 time={this.props.postedAt}
               />
+              <IconButton 
+                type="options"
+                isSmall
+                style={{opacity: 0.6}}
+                _onPress={() => this.showOptions()}
+              />
             </View>
             {// render text if exists
             this.props.text ? (
@@ -184,6 +254,8 @@ const styles = StyleSheet.create({
     color: Colors.VIOLET.dark,
   },
   author_wrapper: {
+    flexDirection: "row",
+    alignItems: "flex-start",
     marginBottom: Mixins.scaleSize(20),
   },
   text_wrapper: {
@@ -206,4 +278,15 @@ const styles = StyleSheet.create({
   },
 })
 
-export default PostContent
+// export default PostContent
+
+const mapStateToProps = state => ({
+  userId : state.user.userData.id
+})
+
+const mapDispatchToProps = {
+}
+
+export default connectActionSheet(
+  connect(mapStateToProps, mapDispatchToProps)(PostContent)
+)
