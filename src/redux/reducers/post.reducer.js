@@ -26,6 +26,14 @@ const DELETE_POST = 'profile/DELETE_POST'
 const DELETE_POST_SUCCESS = 'profile/DELETE_POST_SUCCESS'
 const DELETE_POST_FAIL = 'profile/DELETE_POST_FAIL'
 
+const REPORT_POST = 'profile/REPORT_POST'
+const REPORT_POST_SUCCESS = 'profile/REPORT_POST_SUCCESS'
+const REPORT_POST_FAIL = 'profile/REPORT_POST_FAIL'
+
+const HIDE_POST = 'profile/HIDE_POST'
+const HIDE_POST_SUCCESS = 'profile/HIDE_POST_SUCCESS'
+const HIDE_POST_FAIL = 'profile/HIDE_POST_FAIL'
+
 const DELETE_COMMENT = 'profile/DELETE_COMMENT'
 const DELETE_COMMENT_SUCCESS = 'profile/DELETE_COMMENT_SUCCESS'
 const DELETE_COMMENT_FAIL = 'profile/DELETE_COMMENT_FAIL'
@@ -208,6 +216,36 @@ export function deletePost(post_id) {
       request: {
         method: 'POST',
         url: `/posts/delete`,
+        data: {
+          postId: post_id,
+        },
+      },
+    },
+  }
+}
+
+export function reportPost(post_id) {
+  return {
+    type: REPORT_POST,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/posts/report`,
+        data: {
+          postId: post_id,
+        },
+      },
+    },
+  }
+}
+
+export function hidePost(post_id) {
+  return {
+    type: HIDE_POST,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/posts/hide`,
         data: {
           postId: post_id,
         },

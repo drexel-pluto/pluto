@@ -2,21 +2,21 @@ import React from 'react'
 import {
   View,
   Text,
-  TouchableWithoutFeedback,
   StyleSheet,
   Animated,
   Easing,
+  Alert
 } from 'react-native'
 import { Colors, Typography, Layouts, Mixins, Styles } from '../styles/index'
 import PostMedia from '../components/PostMedia'
 import ContainerTail from './../assets/images/containerTail.svg'
 import AuthorHeader from './AuthorHeader'
 import IconButton from './iconButton/IconButton'
-import Button from './Button'
 import HeartButtonContainer from './../containers/heartButton.container'
 import * as RootNavigation from '../navigation'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
 import { connect } from 'react-redux'
+import { deletePost, reportPost, hidePost } from '../redux/reducers/post.reducer'
 
 class PostContent extends React.Component {
   constructor(props) {
@@ -44,13 +44,13 @@ class PostContent extends React.Component {
       buttonIndex => {
         if (this.props.author._id == this.props.userId) {
           if (buttonIndex == 0) { // DELETE POST
-            console.log("delete")
+            this.deletePost();
           }
         } else {
           if (buttonIndex == 0 ) { // HIDE POST 
-            console.log("hide")
+            this.hidePost();
           } else if (buttonIndex == 1) { //REPORT POST
-            console.log("report")
+            this.reportPost();
           }
         }
       }
@@ -58,31 +58,28 @@ class PostContent extends React.Component {
   }
 
   deletePost() {
-    this.props.deletePost(this.props.post._id).then(action => {
+    this.props.deletePost(this.props._id).then(action => {
       if (action.type.endsWith('SUCCESS')) {
-        return this.props
-          .getPosts(this.props.lastGroupId)
-          .then(this.props.navigation.goBack())
+        RootNavigation.navigate("Home");
       }
     })
   }
 
   reportPost() {
-    this.props.deletePost(this.props.post._id).then(action => {
+    this.props.reportPost(this.props._id).then(action => {
       if (action.type.endsWith('SUCCESS')) {
-        return this.props
-          .getPosts(this.props.lastGroupId)
-          .then(this.props.navigation.goBack())
+        RootNavigation.navigate("Home");
+        Alert.alert(
+          "Post Reported",
+          "Thank you for reporting this post. One of our team members will investigate within the next 24 hours.")
       }
     })
   }
 
   hidePost() {
-    this.props.deletePost(this.props.post._id).then(action => {
+    this.props.hidePost(this.props._id).then(action => {
       if (action.type.endsWith('SUCCESS')) {
-        return this.props
-          .getPosts(this.props.lastGroupId)
-          .then(this.props.navigation.goBack())
+        RootNavigation.navigate("Home");
       }
     })
   }
@@ -285,6 +282,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
+  deletePost,
+  reportPost,
+  hidePost,
 }
 
 export default connectActionSheet(
