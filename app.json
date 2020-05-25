@@ -27,7 +27,12 @@
       "supportsTablet": false,
       "config": {
         "usesNonExemptEncryption": false
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "This lets you share photos from your camera.",
+        "NSPhotoLibraryUsageDescription": "This lets you share photos from your photo library."
       }
+      
     },
     "android": {
       "package": "io.plutosocial.pluto",
