@@ -1,4 +1,5 @@
 import React from 'react'
+import { Modal, View} from 'react-native'
 import { connect } from 'react-redux'
 import LoginScreen from '../screens/auth/Login'
 import CreateScreen from '../screens/auth/CreateProfile'
@@ -76,18 +77,27 @@ class AuthContainer extends React.Component {
   }
 
   render() {
-    return this.props.isCreate ? (
-      <CreateScreen
-        create={(userData, profilePic) => this.create(userData, profilePic)}
-        error={this.props.error}
-        setIsCreate={bool => this.props.setIsCreate(bool)}
-      />
-    ) : (
+    return (
+    <View style={{flex: 1, zIndex: 0}}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={this.props.isCreate}
+        style={{ zIndex: 2 }}
+      >
+        <CreateScreen
+          create={(userData, profilePic) => this.create(userData, profilePic)}
+          error={this.props.error}
+          setIsCreate={bool => this.props.setIsCreate(bool)}
+        />
+      </Modal>
       <LoginScreen
         login={(username, password) => this.login(username, password)}
         error={this.props.error}
         setIsCreate={bool => this.props.setIsCreate(bool)}
+        isCreate={this.props.isCreate}
       />
+    </View>
     )
   }
 }

@@ -8,12 +8,12 @@ import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
-  Platform
+  Platform,
+  Dimensions,
+  Animated
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
-import PlutoLogo from './../../assets/images/plutoLogo.svg'
-import { LinearGradient } from 'expo-linear-gradient'
 import {
   Colors,
   Typography,
@@ -21,8 +21,10 @@ import {
   Layouts,
   Styles,
 } from './../../styles/index'
-import Button from './../../components/Button'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
+import CircleCheckBox from 'react-native-circle-checkbox'
+import Button from '../../components/Button'
+import EULA from '../../components/EULA'
 
 export default class CreateProfileScreen extends Component {
   constructor(props) {
@@ -35,6 +37,8 @@ export default class CreateProfileScreen extends Component {
       gender: 'male',
       imageUri: '',
       bio: '',
+      pageOffset: new Animated.Value(0),
+      agreed: false
     }
   }
 
@@ -52,21 +56,41 @@ export default class CreateProfileScreen extends Component {
     }
   }
 
+  setPageOffset( index ) {
+    Animated.spring(this.state.pageOffset, {
+      toValue: -index * Dimensions.get('window').width,
+      friction: 10
+    }).start()
+  }
+
   render() {
     return (
-      <LinearGradient
-        colors={Colors.gradient.light(Colors.VIOLET)}
-        style={{ flex: 1}}
+      <KeyboardAvoidingView
+        style={{
+          flex: 1, 
+          backgroundColor: Colors.PLUTO_WHITE, 
+          marginTop: 120,
+          borderTopLeftRadius: 40,
+          borderTopRightRadius: 40,
+        }}
+        behavior="padding"
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -500}
       >
-        <KeyboardAvoidingView
-          style={{flex: 1 }}
-          behavior="padding"
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -500}
+        <ScrollView
+          style={{flex: 1}}
+          contentContainerStyle={{
+            flexGrow: 1, 
+            justifyContent: "center",
+          }}
+          alwaysBounceVertical={false}
         >
-          <ScrollView
-            style={{flex: 1}}
-            contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}
-          >
+          <Animated.View style={{
+            width: "100%",
+            flexDirection: "row",
+            flex: 1,
+            left: this.state.pageOffset,
+            alignItems: "center"
+          }}>
             <View style={[styles.create, Styles.shadow(Colors.VIOLET.dark)]}>
               <TouchableOpacity onPress={() => this.openImagePickerAsync()}>
                 <View style={styles.image_wrapper}>
@@ -155,8 +179,20 @@ export default class CreateProfileScreen extends Component {
                   placeholderTextColor={Colors.BLACK_ROCK + "88"}
                 />
               </View>
-              <View>
+              <View style={{flexDirection: "row", alignItems: "baseline"}}>
                 <Button
+                  _onPress={() => this.props.setIsCreate(false)}
+                  text="back"
+                  type="text"
+                  style={{marginRight: 20}}
+                />
+                <Button
+                  style={{ marginBottom: Layouts.PAD_VERT }}
+                  _onPress={() => this.setPageOffset(1)}
+                  text="next"
+                  color={Colors.VIOLET}
+                />
+                {/* <Button
                   style={{ marginBottom: Layouts.PAD_VERT }}
                   _onPress={() =>
                     this.props.create(
@@ -173,17 +209,61 @@ export default class CreateProfileScreen extends Component {
                   }
                   text="create"
                   color={Colors.VIOLET}
+                /> */}
+              </View>
+            </View>
+          
+            <View style={[styles.create, {
+              justifyContent: "flex-start"
+            }]}>
+              <EULA/>
+              <View style={{flexDirection: "row", alignItems: "center", marginVertical: Layouts.PAD_VERT * 2}}>
+                <CircleCheckBox
+                  checked={this.state.agreed}
+                  outerColor={Colors.VIOLET.dark}
+                  innerColor={Colors.VIOLET.dark}
+                  filterColor={Colors.PLUTO_WHITE}
+                  onToggle={() => {
+                    this.setState((state) => ({
+                      agreed: !state.agreed
+                    }))
+                  }}
+                />
+                <Text style={[Typography.F_SIZE_16, {marginLeft: 16}]}>
+                  I agree to the pluto terms of service
+                </Text>
+              </View>
+              <View style={{flexDirection: "row", alignItems: "baseline", marginBottom: 30}}>
+                <Button
+                  _onPress={() => this.setPageOffset(0)}
+                  text="back"
+                  type="text"
+                  style={{marginRight: 20}}
                 />
                 <Button
-                  _onPress={() => this.props.setIsCreate(false)}
-                  text="login"
-                  type="outline"
+                  style={{ marginBottom: Layouts.PAD_VERT }}
+                  _onPress={() =>
+                    this.props.create(
+                      {
+                        username: this.state.username,
+                        email: this.state.email,
+                        name: this.state.name,
+                        password: this.state.password,
+                        gender: this.state.gender,
+                        bio: this.state.bio,
+                      },
+                      this.state.imageUri
+                    )
+                  }
+                  text="create account"
+                  color={Colors.VIOLET}
+                  disabled={!this.state.agreed}
                 />
               </View>
             </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </LinearGradient>
+          </Animated.View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -191,8 +271,9 @@ export default class CreateProfileScreen extends Component {
 const styles = StyleSheet.create({
   create: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
     marginVertical: Mixins.scaleSize(40),
+    width: "100%",
   },
   image_wrapper: {
     borderRadius: 999,
@@ -202,20 +283,20 @@ const styles = StyleSheet.create({
   input: {
     height: Mixins.scaleSize(40),
     width: '70%',
-    marginBottom: 6,
+    marginBottom: Layouts.PAD_VERT,
     borderRadius: Mixins.scaleSize(20),
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: Colors.BLUE.dark,
     paddingVertical: Mixins.scaleSize(5),
     paddingHorizontal: Mixins.scaleSize(15),
   },
   multiLineInput: {
     height: Mixins.scaleSize(80),
     width: '70%',
-    marginBottom: 6,
+    marginBottom: Layouts.PAD_VERT,
     borderRadius: Mixins.scaleSize(20),
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: Colors.BLUE.dark,
     paddingVertical: Mixins.scaleSize(5),
     paddingHorizontal: Mixins.scaleSize(15),
   },

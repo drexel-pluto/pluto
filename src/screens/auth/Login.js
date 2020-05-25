@@ -44,10 +44,12 @@ export default class LoginScreen extends Component {
           style={{flex: 1 }}
           behavior="padding"
           keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : -500}
+          enabled={!this.props.isCreate}
         >
           <ScrollView
             style={{flex: 1}}
             contentContainerStyle={{flexGrow: 1, justifyContent: "center"}}
+            alwaysBounceVertical={false}
           >
             <View style={[styles.login, Styles.shadow(Colors.VIOLET.dark)]}>
               <View
@@ -58,14 +60,16 @@ export default class LoginScreen extends Component {
               >
                 <PlutoLogo />
               </View>
-              <Text
-                style={[
-                  Typography.F_H1,
-                  { color: 'white', marginBottom: Layouts.PAD_VERT },
-                ]}
-              >
-                log in
-              </Text>
+              <View>
+                <Text
+                  style={[
+                    Typography.F_H1,
+                    { color: 'white', marginBottom: Layouts.PAD_VERT },
+                  ]}
+                  >
+                  log in
+                </Text>
+              </View>
               <View
                 style={{
                   paddingVertical: Layouts.PAD_VERT,
