@@ -6,6 +6,10 @@ const REMOVE_FRIEND = 'profile/REMOVE_FRIEND'
 const REMOVE_FRIEND_SUCCESS = 'profile/REMOVE_FRIEND_SUCCESS'
 const REMOVE_FRIEND_FAIL = 'profile/REMOVE_FRIEND_FAIL'
 
+const BLOCK_USER = 'profile/BLOCK_USER'
+const BLOCK_USER_SUCCESS = 'profile/BLOCK_USER_SUCCESS'
+const BLOCK_USER_FAIL = 'profile/BLOCK_USER_FAIL'
+
 const UPDATEPIC = 'profile/UPDATEPIC'
 const UPDATEPIC_SUCCESS = 'profile/UPDATEPIC_SUCCESS'
 const UPDATEPIC_FAIL = 'profile/UPDATEPIC_FAIL'
@@ -83,6 +87,21 @@ export function removeFriend(friendId) {
       request: {
         method: 'POST',
         url: `/user/friends/remove`,
+        data: {
+          friendId,
+        },
+      },
+    },
+  }
+}
+
+export function blockUser(friendId) {
+  return {
+    type: BLOCK_USER,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/user/friends/block`,
         data: {
           friendId,
         },

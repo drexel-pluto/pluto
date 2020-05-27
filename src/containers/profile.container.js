@@ -1,7 +1,8 @@
 import React from 'react'
+import {Alert} from 'react-native'
 import { connect } from 'react-redux'
 import Profile from '../screens/Profile.js'
-import { fetchUser, removeFriend } from '../redux/reducers/profile.reducer'
+import { fetchUser, removeFriend, blockUser } from '../redux/reducers/profile.reducer'
 import { openPost } from '../redux/reducers/post.reducer'
 import { getMe } from '../redux/reducers/user.reducer'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
@@ -37,25 +38,71 @@ class ProfileContainer extends React.Component {
       })
   }
 
+  showBlockAlert() {
+    Alert.alert(
+      "Are you sure you want to block " + this.props.profile.name + "?",
+      "They will be removed from your friend list and cannot request to be friends again in the future.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { 
+          text: "Block", 
+          onPress: () => this.blockUser(),
+          style: 'destructive', 
+        }
+      ],
+      { cancelable: false }
+    );
+  }
+
+  blockUser() {
+    this.props
+      .blockUser(this.props.profile.id)
+      .then(action => {
+        if (action.type.endsWith('SUCCESS')) {
+          return this.props.getMe()
+        } else {
+          console.log(action)
+        }
+      })
+      .then(action => {
+        if (action.type.endsWith('SUCCESS')) {
+          this.props.navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{ name: 'Home' }],
+            })
+          )
+        }
+      })
+  }
+
   _openPost(post_id, poster) {
     this.props.openPost(post_id, poster)
     this.props.navigation.navigate('Post')
   }
 
   openOptions() {
-    const options = ['Remove Friend', 'Cancel']
+    const options = ['Remove Friend', 'Block User', 'Cancel']
     const destructiveButtonIndex = 0
-    const cancelButtonIndex = 1
+    const cancelButtonIndex = 2
 
     this.props.showActionSheetWithOptions(
       {
         options,
         cancelButtonIndex,
-        destructiveButtonIndex,
+        destructiveButtonIndex: [0, 1],
       },
       buttonIndex => {
-        if (buttonIndex == destructiveButtonIndex) {
+        if (buttonIndex == 0) {
           this.removeFriend()
+        }
+
+        if (buttonIndex == 1) {
+          this.showBlockAlert()
         }
       }
     )
@@ -87,6 +134,7 @@ const mapDispatchToProps = {
   openPost,
   removeFriend,
   getMe,
+  blockUser
 }
 
 export default connectActionSheet(
