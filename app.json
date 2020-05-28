@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "splash": {
@@ -36,7 +36,7 @@
     },
     "android": {
       "package": "io.plutosocial.pluto",
-      "versionCode": 14
+      "versionCode": 15
     },
     "packagerOpts": {
       "config": "metro.config.js",
