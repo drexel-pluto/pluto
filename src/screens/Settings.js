@@ -8,8 +8,6 @@ import Button from '../components/Button'
 class Settings extends React.Component {
   constructor(props) {
     super(props)
-
-    this.user = this.props.route.params?.user ?? {}
   }
   render() {
     return (
@@ -71,18 +69,18 @@ class Settings extends React.Component {
                       { paddingVertical: Layouts.PAD_VERT },
                     ]}
                   >
-                    {this.user.username}
+                    {this.props.user.username}
                   </Text>
                   <Text
                     style={[
                       Typography.F_BODY,
                       { paddingVertical: Layouts.PAD_VERT },
-                      this.user.email
+                      this.props.user.email
                         ? null
                         : { opacity: 0.6, fontStyle: 'italic' },
                     ]}
                   >
-                    {this.user.email ? this.user.email : 'add email'}
+                    {this.props.user.email ? this.props.user.email : 'add email'}
                   </Text>
                   <Text
                     style={[
@@ -90,7 +88,7 @@ class Settings extends React.Component {
                       { paddingVertical: Layouts.PAD_VERT },
                     ]}
                   >
-                    **********
+                    *************
                   </Text>
                 </View>
               </View>

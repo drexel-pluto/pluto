@@ -13,12 +13,15 @@ class SettingsContainer extends React.Component {
         navigation={this.props.navigation}
         route={this.props.route}
         logout={() => this.logout()}
+        user={this.props.user}
       />
     )
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  user: state.user.userData
+})
 
 const mapDispatchToProps = {
   logout,
