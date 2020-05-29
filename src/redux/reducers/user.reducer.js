@@ -59,6 +59,7 @@ export default function reducer(state = defaultStateUser, action) {
         ...state,
         isLoggedIn: true,
         authToken: action.payload.data.authToken,
+        isCreate: false,
       }
     case CREATE_USER_FAIL:
     case LOGIN_FAIL:
