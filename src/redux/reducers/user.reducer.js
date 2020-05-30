@@ -46,10 +46,14 @@ let defaultStateUser = {
   isCreate: false,
   swipeIndex: 0,
   key: 0,
+  loading: true,
 }
 
 export default function reducer(state = defaultStateUser, action) {
   switch (action.type) {
+    case CREATE_USER:
+    case LOGIN:
+      return {...state, loading: true}
     case SET_SWIPE_INDEX:
       return { ...state, swipeIndex: action.index }
     case RESET_HOME:
@@ -60,12 +64,15 @@ export default function reducer(state = defaultStateUser, action) {
         isLoggedIn: true,
         authToken: action.payload.data.authToken,
         isCreate: false,
+        loading: false
       }
     case CREATE_USER_FAIL:
     case LOGIN_FAIL:
       return {
         ...state,
         isLoggedIn: false,
+        loading: false,
+        swipeIndex: 0,
         error: action.error.response.data
           ? action.error.response.data.errMessage
           : 'error',
