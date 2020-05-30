@@ -89,6 +89,7 @@ class AuthContainer extends React.Component {
           create={(userData, profilePic) => this.create(userData, profilePic)}
           error={this.props.error}
           setIsCreate={bool => this.props.setIsCreate(bool)}
+          loading={this.props.loading}
         />
       </Modal>
       <LoginScreen
@@ -96,6 +97,7 @@ class AuthContainer extends React.Component {
         error={this.props.error}
         setIsCreate={bool => this.props.setIsCreate(bool)}
         isCreate={this.props.isCreate}
+        loading={this.props.loading}
       />
     </View>
     )
@@ -107,6 +109,7 @@ const mapStateToProps = state => ({
   error: state.user.error,
   isCreate: state.user.isCreate,
   token: state.user.authToken,
+  loading: state.user.loading
 })
 
 const mapDispatchToProps = {
