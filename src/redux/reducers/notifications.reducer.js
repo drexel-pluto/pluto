@@ -60,9 +60,7 @@ export function pushNotificationListener(notification) {
         };
         break;
       case "confirmFriendReq":
-        if (notification.origin == "received") {
-          dispatch(getMe());
-        }
+        dispatch(getMe());
         onTap = (dismiss) => {
           RootNavigation.navigate('Profile', {
             userId: notification.data.fromId

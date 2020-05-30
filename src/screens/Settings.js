@@ -59,7 +59,7 @@ class Settings extends React.Component {
                 <View
                   style={{
                     paddingVertical: Layouts.PAD_VERT,
-                    paddingLeft: Mixins.scaleSize(45),
+                    paddingLeft: Mixins.scaleSize(25),
                     flex: 1,
                   }}
                 >
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   accountContainer: {
     // backgroundColor: 'red',
     paddingVertical: Layouts.PAD_VERT,
-    borderRadius: Mixins.scaleSize(25),
+    borderRadius: Mixins.scaleSize(20),
     borderWidth: 2,
     borderColor: Colors.VIOLET.dark,
   },
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   postDecay: {
     paddingVertical: Layouts.PAD_VERT,
-    borderRadius: Mixins.scaleSize(25),
+    borderRadius: Mixins.scaleSize(20),
     borderWidth: 2,
     borderColor: Colors.CARBONE.dark,
   },

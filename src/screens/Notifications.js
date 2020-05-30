@@ -31,7 +31,7 @@ const NotificationItem = (props) => {
     case "confirmFriendReq":
       onTap = () => {
         props.navigation.navigate('Profile', {
-          userId: props.data.fromId
+          userId: props.data.from._id
         });
       }
       break;
