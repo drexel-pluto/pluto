@@ -81,7 +81,7 @@ export default function reducer(state = defaultStateAddGroup, action) {
       return { ...state, canSubmit: false }
     case CREATE_GROUP_SUCCESS:
     case UPDATE_GROUP_SUCCESS:
-      return defaultStateAddGroup
+      return defaultStateAddGroup;
     case CREATE_GROUP_FAIL:
       return { ...state, canSubmit: true }
 

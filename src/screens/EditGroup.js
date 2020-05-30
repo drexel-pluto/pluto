@@ -44,15 +44,16 @@ class EditGroup extends React.Component {
             <Button
               type="text"
               text="cancel"
-              color="Colors.BLACK_ROCK"
+              color={Colors.VIOLET}
+              style={{marginTop: 4}}
               _onPress={() => this.props.cancelEdit()}
             />
           }
           rightItems={
             <Button
-              type="outline"
+              // type="outline"
               text={this.props.isNew ? 'create' : 'update'}
-              color="Colors.BLACK_ROCK"
+              color={Colors.VIOLET}
               _onPress={() => this.props.doneEdit()}
               disabled={!this.props.canSubmit}
             />
