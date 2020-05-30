@@ -42,6 +42,7 @@ class InputHeader extends React.Component {
               type={'small'}
               isBold={true}
               _onPress={this.props.onSubmit}
+              disabled={this.props.disabled}
             />
           ) : null}
         </View>

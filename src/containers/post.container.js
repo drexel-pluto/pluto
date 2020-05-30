@@ -25,6 +25,7 @@ class PostContainer extends React.Component {
         sendComment={this.props.sendComment}
         loading={this.props.loading}
         userId={this.props.userId}
+        sending={this.props.sending}
       />
     )
   }
@@ -35,6 +36,7 @@ const mapStateToProps = state => ({
   loading: state.post.loading,
   userId: state.user.userData.id,
   lastGroupId: state.group.id,
+  sending: state.post.sendingComment
 })
 
 const mapDispatchToProps = {

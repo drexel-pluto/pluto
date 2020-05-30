@@ -183,7 +183,7 @@ class Post extends React.Component {
             />
           </ScrollView>
           <View style={styles.fixedComment}>
-            <AddComment sendComment={this.props.sendComment} />
+            <AddComment sendComment={this.props.sendComment} sending={this.props.sending} />
           </View>
         </KeyboardAvoidingView>
         {this.state.commentForModal !== undefined && (

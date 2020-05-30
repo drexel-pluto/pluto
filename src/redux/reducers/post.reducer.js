@@ -49,6 +49,7 @@ let defaultStatePost = {
   id: '',
   tags: [],
   newUpdates: 0,
+  sendingComment: false
 }
 
 export default function reducer(state = defaultStatePost, action) {
@@ -59,7 +60,6 @@ export default function reducer(state = defaultStatePost, action) {
     case FETCH_POST_SUCCESS:
     case FETCH_POST_AND_POSTER_SUCCESS:
       let data = action.payload.data
-      console.log('data', data)
       return {
         ...state,
         loading: false,
@@ -74,18 +74,29 @@ export default function reducer(state = defaultStatePost, action) {
           poster: data.poster,
         }),
       }
+    case SEND_COMMENT:
+    case SEND_SUB_COMMENT:
+      return {...state, sendingComment: true}
     case SEND_COMMENT_SUCCESS:
       return {
         ...state,
         loading: false,
         comments: action.payload.data.comments,
         newUpdates: state.newUpdates + 1,
+        sendingComment: false
       }
     case SEND_SUB_COMMENT_SUCCESS:
       return {
         ...state,
         loading: false,
         comments: action.payload.data.comments,
+        sendingComment: false
+      }
+    case SEND_SUB_COMMENT_FAIL:
+    case SEND_COMMENT_FAIL:
+      return {
+        ...state,
+        sendingComment: false
       }
     case SET_POSTER:
       return { ...state, poster: action.poster }

@@ -42,8 +42,6 @@ class AddComment extends React.Component {
           }
         })
       }
-    } else {
-      alert('Please enter your comment first')
     }
 
     Keyboard.dismiss()
@@ -60,6 +58,7 @@ class AddComment extends React.Component {
           buttonText={'reply'}
           onSubmit={this.onSubmit}
           extraPadding={true}
+          disabled={this.props.sending}
         />
       </View>
     )
