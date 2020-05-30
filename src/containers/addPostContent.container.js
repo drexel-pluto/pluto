@@ -14,24 +14,6 @@ import { newToast } from '../redux/reducers/toast.reducer'
 
 class AddPostContentContainer extends React.Component {
   submitPost(text, tags) {
-    if (text.length < 1) {
-      this.props.newToast({content: "Text field cannot be empty"})
-      return Promise.reject();
-    }
-
-    let recipients = 0;
-    for (let key of Object.keys(this.props.recipients)) {
-      if (this.props.recipients[key] === true) {
-        recipients ++;
-      }
-    };
-
-    // must be greater than 1 because poster's id is always true
-    if (recipients <= 1) {
-      this.props.newToast({content: "Post missing recipients"})
-      return Promise.reject();
-    }
-    
     return this.props.submitPost(text, tags).then(action => {
       if (action.type.endsWith('SUCCESS')) {
         return this.props.navigation.dispatch(
@@ -39,11 +21,10 @@ class AddPostContentContainer extends React.Component {
             postId: action.payload.data._id
           })
         );
-        // TODO:: navigate to new post instead of home
       } else {
-        console.log(action.payload);
         // failure to post
-        // TODO:: error popup
+        let msg = action.error?.response?.data?.errMessage ?? "error sending post";
+        this.props.newToast({content: msg, isErr: true})
       }
     })
   }
@@ -75,6 +56,7 @@ const mapStateToProps = state => ({
   media: state.create.media,
   recipients: state.create.recipients,
   friends: state.user.friends,
+  myId: state.user.userData.id,
 })
 
 const mapDispatchToProps = {

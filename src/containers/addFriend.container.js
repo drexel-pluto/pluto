@@ -50,11 +50,8 @@ class AddFriendContainer extends React.Component {
           })
           this.props.getFriendRequests();
         } else {
-
-          this.props.newToast({
-            content: "Could not send friend request",
-            isErr: true
-          })
+          let msg = action.error?.response?.data?.errMessage ?? "Could not send friend request";
+          this.props.newToast({content: msg, isErr: true});
         }
       }
     )

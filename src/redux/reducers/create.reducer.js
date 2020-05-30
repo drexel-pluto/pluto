@@ -71,38 +71,6 @@ export function resetRecipient() {
   return { type: RESET_RECIPIENT }
 }
 
-export function sendPost(postParams, media) {
-  const json = JSON.stringify(postParams)
-  let form = new FormData()
-  form.append('postParams', json)
-
-  for (let i in media) {
-    form.append(
-      `media[]`,
-      {
-        uri: media[i].uri,
-        name: media[i].type == 'image' ? `img_${i}.jpg` : `img_${i}.mov`,
-        type: media[i].type == 'image' ? 'image/jpeg' : 'video/*',
-      },
-      media[i].type == 'image' ? `img_${i}.jpg` : `img_${i}.mov`
-    )
-  }
-
-  return {
-    type: SEND_POST,
-    payload: {
-      request: {
-        method: 'POST',
-        url: `/posts/create`,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        data: form,
-      },
-    },
-  }
-}
-
 export function submitPost(postText, postTags) {
   return function(dispatch, getState) {
     var audienceIds = []
@@ -115,7 +83,7 @@ export function submitPost(postText, postTags) {
       }
     }
 
-    var params = {
+    var params = { 
       text: postText,
       daysUntilArchive: 10,
       audienceIds,
@@ -124,7 +92,35 @@ export function submitPost(postText, postTags) {
 
     var media = getState().create.media
 
-    return dispatch(sendPost(params, media))
+    const json = JSON.stringify(params)
+    let form = new FormData()
+    form.append('postParams', json)
+
+    for (let i in media) {
+      form.append(
+        `media[]`,
+        {
+          uri: media[i].uri,
+          name: media[i].type == 'image' ? `img_${i}.jpg` : `img_${i}.mov`,
+          type: media[i].type == 'image' ? 'image/jpeg' : 'video/*',
+        },
+        media[i].type == 'image' ? `img_${i}.jpg` : `img_${i}.mov`
+      )
+    }
+
+    return dispatch({
+      type: SEND_POST,
+      payload: {
+        request: {
+          method: 'POST',
+          url: `/posts/create`,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          data: form,
+        },
+      },
+    });
   }
 }
 
