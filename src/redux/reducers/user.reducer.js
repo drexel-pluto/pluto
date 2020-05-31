@@ -46,7 +46,7 @@ let defaultStateUser = {
   isCreate: false,
   swipeIndex: 0,
   key: 0,
-  loading: true,
+  loading: false,
 }
 
 export default function reducer(state = defaultStateUser, action) {
