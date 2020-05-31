@@ -1,5 +1,5 @@
 ## 1.0.6
-- use more serverside error messgaes 
+- use more serverside error messages 
 - block sending comment if send already pending 
 - block account creation if already creating account
 - minor style updates
